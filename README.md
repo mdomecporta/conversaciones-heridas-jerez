@@ -1,5 +1,15 @@
 # Conversaciones con una herida
 
+## Evolución del piloto: explicación y conversación
+
+Las escenas 3, 4 y 5 desarrollan el nuevo sistema. Se abre directamente la primera de ellas: explicación clínica a la izquierda, conversación preparada con la herida a la derecha, fuentes junto al concepto y cinco preguntas en un índice persistente. El resto del guion se conserva como versión anterior de contenido; todavía no está extendido este sistema a las 24 escenas.
+
+Los botones revelan respuestas y recursos preparados: datos iniciales, registro de intervenciones, capas de valoración, voz recreada de la persona y comparación de dos historias. El historial es temporal y se reinicia al regresar a una escena. La entidad muestra movimiento basal continuo (24 fps como máximo), cambia de estado y de voz, y respeta la preferencia de movimiento reducido y el control Pausar. Los cambios visuales son conceptuales, no signos diagnósticos. No se ha añadido voz grabada, vídeo ni fotografías clínicas.
+
+En Preparar hay campos separados para explicación y conversación, y un acceso directo a Guion oral. Las tres escenas tienen un guion con qué decir, qué señalar, preguntas, transición y revisión pendiente. El HTML de revisión sigue excluyendo notas privadas.
+
+Para conservar borradores anteriores sin sobrescribirlos, el piloto usa un almacenamiento local nuevo. Si existe una copia anterior en el mismo navegador y origen, Compartir / copia permite descargarla como proyecto editable. No se elimina el almacenamiento anterior. La versión nueva no sincroniza cambios entre equipos.
+
 Primera versión de la presentación de María del Mar Candil Ramón para la mesa «¿Es posible cicatrizar todas las heridas?», IV Jornadas Comisión Heridas Jerez, 19 de noviembre de 2026.
 
 ## Abrir y trabajar
@@ -30,4 +40,4 @@ Pendiente: validación por María del Mar, coordinación de tiempos y alcance co
 
 Sin dependencias de ejecución. `npm run build` combina contenido, estilos, motor y recursos institucionales en el HTML autónomo. `npm test` comprueba referencias e identificadores, aislamiento de borrador/versión guardada, exclusión de notas en el HTML, ejecución de la copia exportada, operaciones de orden y recuperación, reinicio de interacciones e importación con medios. Las pruebas de estado usan un entorno DOM simulado; se complementan con inspección en navegador.
 
-No editar directamente `dist/index.html`: regenerarlo desde `content.js`, `app.js`, `styles.css` y `template.html`.
+No editar directamente `dist/index.html`: regenerarlo desde `content.js`, `pilot.js`, `app.js`, `styles.css` y `template.html`.
