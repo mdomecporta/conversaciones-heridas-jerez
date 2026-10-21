@@ -12,6 +12,17 @@ Para conservar borradores anteriores sin sobrescribirlos, el piloto usa un almac
 
 Primera versión de la presentación de María del Mar Candil Ramón para la mesa «¿Es posible cicatrizar todas las heridas?», IV Jornadas Comisión Heridas Jerez, 19 de noviembre de 2026.
 
+## Prototipo «Presencia» (rama `prototipo-presencia`)
+
+Dirección visual en prueba sobre tres escenas: apertura, «Una herida crónica necesita una explicación» y «Tres situaciones». El resto de escenas hereda paleta y tipografía, pero aún no tiene composición propia.
+
+- `presence.css`: capa visual cargada después de `styles.css`. Cada una de las cinco preguntas tiene un color; escena y fondo toman el de su pregunta.
+- `entity.js`: entidad en WebGL (degradado orgánico con respiración, escucha, pensamiento y habla; sigue el cursor). Si no hay WebGL, usa un degradado en canvas 2D. Los colores identifican la voz; no representan signos clínicos.
+- Conversación: la pregunta se envía, la herida «piensa» y responde palabra a palabra; después aparece la ficha. En Presentar, teclas 1–3 para preguntar y 0 para reiniciar.
+- Presentar ocupa toda la pantalla; los controles reaparecen al mover el ratón o con el foco del teclado.
+- Fuentes Fraunces y Figtree (SIL OFL, `assets/fonts`) incrustadas en el HTML: sigue funcionando sin conexión.
+- «Pausar movimiento» y la preferencia de movimiento reducido muestran todo directamente, sin animaciones.
+
 ## Abrir y trabajar
 
 La presentación está en `dist/index.html`. Es autónoma: no requiere instalación, fuentes externas ni conexión para reproducir el contenido. Abrir el archivo directamente es posible; para un origen local estable se recomienda `npm run dev` y acceder a http://127.0.0.1:4173 .
