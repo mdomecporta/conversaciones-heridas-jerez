@@ -1,0 +1,202 @@
+/* Guided thread: steps highlight points, open the avoid/propose pair and light the bridge. */
+.step-dots{display:flex;gap:.35cqw;margin:.2cqw 0 .6cqw}
+.step-dots i{width:.55cqw;height:.55cqw;border-radius:50%;background:var(--line);transition:background .4s,transform .4s var(--ease)}
+.step-dots i.done{background:color-mix(in srgb,var(--tone-ink) 55%,transparent)}
+.step-dots i.now{background:var(--tone-ink);transform:scale(1.35)}
+.clinical-concepts.guided>div{transition:opacity .5s var(--ease),transform .5s var(--ease),background .5s;border-radius:.5cqw}
+.clinical-concepts.guided>div.is-pending{opacity:.32}
+.clinical-concepts.guided>div.is-focus{opacity:1;background:color-mix(in srgb,var(--tone) 22%,transparent);box-shadow:inset .25cqw 0 0 var(--tone-ink);padding-left:.8cqw;padding-right:.6cqw}
+.practice-pair{display:grid;grid-template-columns:1fr 1fr;gap:.7cqw;margin-top:auto;flex-shrink:0;transition:opacity .6s var(--ease),transform .6s var(--ease),filter .6s}
+.practice-pair:not(.is-open){opacity:.18;filter:blur(2px);transform:translateY(.4cqw)}
+.practice-pair>div{border-radius:.9cqw;padding:.9cqw 1.1cqw}
+.practice-pair span{display:block;font-size:.66cqw;letter-spacing:.09em;text-transform:uppercase;font-weight:700;margin-bottom:.3cqw}
+.practice-pair p{margin:0;font-size:.98cqw;line-height:1.4}
+.practice-pair .avoid{background:#f6e6e1;color:#7a3a2e}
+.practice-pair .propose{background:linear-gradient(135deg,var(--tone-ink),color-mix(in srgb,var(--tone) 65%,var(--tone-ink)));color:#fff}
+.practice-pair.is-focus>div{animation:pair-in .8s var(--ease) both}
+.practice-pair.is-focus .propose{animation-delay:.25s}
+@keyframes pair-in{from{opacity:0;transform:translateY(.8cqw)}to{opacity:1;transform:none}}
+.clinical-bridge{transition:color .4s,background .4s,box-shadow .4s;border-radius:.6cqw}
+.clinical-bridge.is-on{color:var(--tone-ink);background:color-mix(in srgb,var(--tone) 18%,transparent);box-shadow:0 0 0 1px color-mix(in srgb,var(--tone-ink) 25%,transparent);padding-left:.7cqw;padding-right:.7cqw;font-weight:600}
+.clinical-bridge.is-on b{display:inline-block;animation:nudge 1.4s var(--ease) infinite}
+@keyframes nudge{50%{transform:translateX(.4cqw)}}
+.guide-bar{position:sticky;bottom:10px;z-index:25;flex-shrink:0;max-width:1100px;width:calc(100% - 60px);margin:-70px auto 0;padding:10px 16px;border-radius:12px;background:color-mix(in srgb,#fff8ef 94%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 10px 30px -12px rgba(80,40,20,.35);border:1px solid #efd9c2;display:grid;grid-template-columns:auto 1fr;column-gap:16px;align-items:baseline}
+.guide-bar .guide-count{grid-row:span 2;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#9a5b3c;white-space:nowrap}
+.guide-bar p{margin:0;font-size:15px;line-height:1.35;color:#3b2a22}
+.guide-bar small{color:#8b7468;font-size:12px;margin-top:2px}
+.script-list{display:grid;gap:14px;margin-top:12px}
+.script-list article{border-top:1px solid var(--line);padding-top:10px}
+.script-list button{all:unset;cursor:pointer;display:block;font-weight:650}
+.script-list button small{display:block;font-weight:500;color:var(--muted)}
+.script-list ol{margin:6px 0 4px;padding-left:20px;line-height:1.45}
+.script-bridge{margin:0;color:var(--muted);font-style:italic}
+.motion-off .practice-pair,.motion-off .clinical-concepts.guided>div{transition:none;animation:none}
+@media (prefers-reduced-motion:reduce){.practice-pair>div,.clinical-bridge.is-on b{animation:none}}
+@media (max-width:760px){.guide-bar{grid-template-columns:1fr;width:calc(100% - 32px)}.guide-bar .guide-count{grid-row:auto}.practice-pair{grid-template-columns:1fr}.practice-pair p{font-size:13px}.practice-pair span{font-size:10px}}
+/* The wound's voice keeps a real presence even when the scene has images. */
+.has-visual .entity-stage{height:7.2cqw;margin-bottom:.4cqw}
+.has-visual.has-response .entity-stage{height:5.6cqw}
+.has-visual .entity-stage .orb-zone{inset:-.6cqw 18% 0}
+.has-visual .scene-image{height:7.5cqw}
+.has-visual.has-response .scene-image{height:6cqw}
+@media (max-width:760px){.has-visual .entity-stage,.has-visual.has-response .entity-stage{height:90px}.has-visual .entity-stage .orb-zone{inset:-6px 18% 0}.scene-image,.has-visual.has-response .scene-image{height:160px}}
+.clinical-explanation{overflow-x:hidden}
+/* One idea at a time: outside Preparar the paragraph goes to the script, points appear as they are reached
+   (only the current one keeps its description) and the scope note moves to the speaker's window. */
+#app:not([data-mode="prepare"]) .clinical-paragraph,#app:not([data-mode="prepare"]) .clinical-limit{display:none}
+#app:not([data-mode="prepare"]) .clinical-concepts.guided>div.is-pending{display:none}
+#app:not([data-mode="prepare"]) .clinical-concepts.guided>div.is-seen p{display:none}
+#app:not([data-mode="prepare"]) .clinical-concepts.guided>div.is-seen{padding:.35cqw 0;opacity:.7}
+#app:not([data-mode="prepare"]) .clinical-concepts.guided>div.is-focus strong{font-size:1.5cqw}
+#app:not([data-mode="prepare"]) .clinical-concepts.guided>div.is-focus p{font-size:1.25cqw}
+#app:not([data-mode="prepare"]) .clinical-concepts.guided>div.is-focus{animation:point-in .6s var(--ease) both}
+@keyframes point-in{from{opacity:0;transform:translateY(.6cqw)}to{opacity:1;transform:none}}
+#app:not([data-mode="prepare"]) .clinical-foundation{padding-top:.6cqw;margin-top:auto}
+#app:not([data-mode="prepare"]) .clinical-foundation .inline-source{font-size:.78cqw}
+/* Lo habitual → la pregunta: the theme of the talk. The habit opens the scene; «practica» crosses it out. */
+.habit-card{display:grid;margin:1cqw 0 .4cqw;flex-shrink:0}
+.habit-card>div{grid-area:1/1;border-radius:1cqw;padding:1cqw 1.3cqw;transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.habit-card span{display:block;font-size:.7cqw;letter-spacing:.1em;text-transform:uppercase;font-weight:700;margin-bottom:.3cqw}
+.habit-card p{margin:0;font-family:var(--display);font-size:1.75cqw;line-height:1.25}
+.habit-was{background:#f6e6e1;color:#7a3a2e;box-shadow:inset .3cqw 0 0 #d06a52}
+.habit-was span::before{content:"↻ ";font-size:.9cqw}
+.habit-ask{background:linear-gradient(135deg,var(--tone-ink),color-mix(in srgb,var(--tone) 60%,var(--tone-ink)));color:#fff;opacity:0;transform:translateY(.6cqw);pointer-events:none}
+.habit-card.is-flipped .habit-was{transform:translateY(-.2cqw) scale(.97);opacity:.0}
+.habit-card.is-flipped .habit-ask{opacity:1;transform:none}
+.habit-card.is-flipped{grid-template-rows:auto auto}
+.habit-card.is-flipped .habit-was{grid-area:1/1;opacity:1;background:transparent;box-shadow:none;padding:.2cqw 1.3cqw .5cqw;transform:none}
+.habit-card.is-flipped .habit-was p{font-size:1.15cqw;color:#9b6a5e}
+.habit-card.is-flipped .habit-was span{font-size:.6cqw}
+.habit-card.is-flipped .habit-ask{grid-area:2/1}
+.habit-card .habit-was s{text-decoration:none;background:linear-gradient(#d06a52,#d06a52) no-repeat 0 58%/0 .16cqw;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.habit-card.is-flipped .habit-was s{background-size:100% .16cqw}
+.habit-card.is-focus .habit-was s{animation:draw-strike .7s var(--ease) both}
+@keyframes draw-strike{from{background-size:0 .16cqw}to{background-size:100% .16cqw}}
+.habit-was>span{display:flex!important;align-items:center;gap:.3cqw}
+.habit-tally{display:inline-flex;align-items:center;gap:.22cqw;margin-left:auto;letter-spacing:0;text-transform:none}
+.habit-tally i{flex:none;width:.5cqw;height:.5cqw;border-radius:50%;background:color-mix(in srgb,#d06a52 25%,transparent)}
+.habit-tally i.done{background:var(--tone-ink)}
+.habit-tally i.here{outline:1px solid #d06a52;outline-offset:1px}
+.habit-tally b{margin-left:.4cqw;font-weight:700;color:#9b6a5e}
+.habit-card.is-focus .habit-ask{animation:pair-in .8s var(--ease) .35s both}
+/* The closing wall: every habit of the route, then all crossed out together. */
+.habit-wall{display:grid;grid-template-columns:1fr 1fr;gap:.35cqw .6cqw;margin:.8cqw 0}
+.habit-wall span{font-size:.92cqw;line-height:1.3;padding:.35cqw .6cqw;border-radius:.5cqw;background:#f6e6e1;color:#7a3a2e;animation:pair-in .6s var(--ease) calc(var(--i)*60ms) both}
+.habit-wall small{font-weight:700;margin-right:.4cqw;opacity:.6}
+.habit-wall.is-crossed span{text-decoration:line-through;text-decoration-color:#d06a52;background:#f3ece9;color:#a0837b;animation:none;transition:all .5s var(--ease) calc(var(--i)*40ms)}
+/* Detour: after jumping elsewhere, the next step forward returns to the route. */
+.route-return{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:60;display:flex;gap:4px;padding:4px;border-radius:999px;background:#f0b44c;box-shadow:0 8px 24px -10px rgba(60,30,10,.5)}
+.route-return button{border:0;border-radius:999px;padding:6px 14px;background:transparent;color:#2a1a0e;font:600 14px var(--sans);cursor:pointer;white-space:nowrap}
+.route-return button+button{background:rgba(255,255,255,.45);font-weight:500}
+.route-return kbd{margin-left:6px;font:inherit;background:rgba(255,255,255,.5);border-radius:6px;padding:0 6px}
+/* The script on the slide in Presentar (G): dark, compact, at the bottom. */
+.guide-bar.prompter{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);margin:0;width:min(1000px,calc(100% - 40px));background:rgba(31,23,20,.92);border-color:#3e302a;box-shadow:0 14px 40px -14px rgba(0,0,0,.6);z-index:55}
+.guide-bar.prompter .guide-count{color:#f0b44c}
+.guide-bar.prompter p{color:#fff;font-size:19px}
+.guide-bar.prompter small{color:#cdb8a9;font-size:13px}
+.motion-off .habit-card>div,.motion-off .habit-wall span{transition:none;animation:none}
+@media (prefers-reduced-motion:reduce){.habit-card>div,.habit-card p,.habit-wall span,.clinical-concepts.guided>div{animation:none!important;transition:none!important}}
+@media (max-width:760px){.habit-card p{font-size:17px}.habit-card span{font-size:10px}.habit-card.is-flipped .habit-was p{font-size:13px}.habit-wall{grid-template-columns:1fr}.habit-wall span{font-size:12px}#app:not([data-mode="prepare"]) .clinical-concepts.guided>div.is-focus strong{font-size:16px}#app:not([data-mode="prepare"]) .clinical-concepts.guided>div.is-focus p{font-size:14px}}
+
+/* When a step asks nothing, the wound speaks: the struck habit and the question that replaces it. */
+.habit-line s{text-decoration-color:#d06a52;text-decoration-thickness:2px;color:#9b6a5e}
+.prepared-answer.is-question{color:var(--tone-ink)}
+/* The wound's details accumulate in the chat; the newest is highlighted and the rest wait as chips. */
+.resource-thread{list-style:none;margin:.5cqw 0 0;padding:0;display:grid;gap:.4cqw}
+.resource-thread li{padding:.55cqw .8cqw;border-radius:.2cqw .9cqw .9cqw .9cqw;background:color-mix(in srgb,var(--tone) 10%,#fff);opacity:.62;transition:opacity .4s,background .4s}
+.resource-thread li.now{opacity:1;background:color-mix(in srgb,var(--tone) 22%,#fff);box-shadow:inset .22cqw 0 0 var(--tone-ink);animation:bubble-in .55s var(--ease) both}
+.resource-thread li>span{display:block;font-size:.62cqw;letter-spacing:.08em;text-transform:uppercase;color:var(--tone-ink);font-weight:700}
+.resource-thread strong{font-size:.95cqw}
+.resource-thread p{margin:.1cqw 0 0;font-size:.92cqw;line-height:1.4}
+.thread-person li{background:#fbeee4}
+.thread-person li.now{background:#f8e0cf;box-shadow:inset .22cqw 0 0 #c9845a}
+.resource-more{display:flex;flex-wrap:wrap;gap:.3cqw;margin-top:.45cqw}
+.resource-more button{border:1px dashed var(--line);background:transparent;border-radius:999px;padding:.2cqw .7cqw;font:inherit;font-size:.78cqw;color:var(--muted);cursor:pointer}
+@keyframes bubble-in{from{opacity:0;transform:translateY(.5cqw)}to{opacity:1;transform:none}}
+#app:not([data-mode="prepare"]) .conversation-resource>small{display:none}
+/* Introduction: one more piece per step. */
+.slide.intro .slide-body{padding-top:.6cqw}
+.intro{height:100%;display:flex;flex-direction:column}
+.intro [class*="is-on"],.intro .intro-lead,.intro .intro-split,.intro .intro-note,.intro li,.intro-flow>div{transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.intro .intro-lead:not(.is-on),.intro .intro-split:not(.is-on),.intro .intro-note:not(.is-on),.intro-mapa li:not(.is-on),.intro-flow>div:not(.is-on),.intro-legend li:not(.is-on){opacity:0;transform:translateY(.8cqw)}
+.intro h1{font-family:var(--display);font-weight:500;font-size:4.2cqw;line-height:1.05;margin:.6cqw 0 1.4cqw;max-width:22ch}
+.intro h2{font-family:var(--display);font-weight:500;font-size:3cqw;margin:.4cqw 0 .3cqw}
+.intro-kicker,.intro-sub{font-size:1.05cqw;color:var(--muted);margin:0}
+.intro-kicker{letter-spacing:.1em;text-transform:uppercase;font-size:.8cqw;font-weight:700;color:var(--tone-ink)}
+.intro-lead{font-family:var(--display);font-size:2.3cqw;color:#7a3a2e;margin:0 0 1.6cqw}
+.intro-split{display:grid;grid-template-columns:1fr 1.3fr;gap:1.2cqw}
+.intro-split>div{border-radius:1cqw;padding:1.2cqw 1.4cqw;background:color-mix(in srgb,var(--tone) 10%,#fff)}
+.intro-split>div.is-ours{background:#f6e6e1;color:#7a3a2e;box-shadow:inset .3cqw 0 0 #d06a52}
+.intro-split small,.intro-flow small{display:block;font-size:.72cqw;letter-spacing:.09em;text-transform:uppercase;font-weight:700;margin-bottom:.3cqw}
+.intro-split strong{font-family:var(--display);font-weight:500;font-size:1.9cqw}
+.intro-split p{margin:.3cqw 0 0;font-size:1.1cqw}
+.intro-note{margin-top:auto;font-size:1.3cqw;color:var(--tone-ink);font-weight:600}
+.intro-mapa ol{list-style:none;margin:1.2cqw 0 0;padding:0;display:grid;gap:.6cqw}
+.intro-mapa li{display:grid;grid-template-columns:3cqw 1fr 1.1fr;align-items:center;gap:1cqw;padding:.7cqw 1cqw;border-radius:.9cqw;background:color-mix(in srgb,var(--c) 14%,#fff)}
+.intro-mapa li.is-now{background:color-mix(in srgb,var(--c) 30%,#fff)}
+.intro-mapa li>span{font-family:var(--display);font-size:1.8cqw;color:color-mix(in srgb,var(--c) 70%,#1d2a31)}
+.intro-mapa strong{display:block;font-size:1.35cqw}
+.intro-mapa small{font-size:.95cqw;color:var(--muted)}
+.intro-mapa em{font-style:normal;font-family:var(--display);font-size:1.15cqw;color:#7a3a2e;background:#f6e6e1;border-radius:.6cqw;padding:.4cqw .8cqw}
+.intro-flow{flex:1;display:grid;grid-template-columns:repeat(4,1fr);gap:1cqw;align-items:stretch;margin:1.6cqw 0 1cqw}
+.intro-flow>div{border-radius:1cqw;padding:1.2cqw;display:flex;flex-direction:column;position:relative}
+.intro-flow>div+div::before{content:"→";position:absolute;left:-1.05cqw;top:45%;font-size:1.2cqw;color:var(--muted)}
+.intro-flow p{margin:0;font-family:var(--display);font-size:1.5cqw;line-height:1.25}
+.flow-habit{background:#f6e6e1;color:#7a3a2e;box-shadow:inset .3cqw 0 0 #d06a52}
+.flow-habit p{background:linear-gradient(#d06a52,#d06a52) no-repeat 0 58%/0 .16cqw;transition:background-size .8s var(--ease)}
+.intro-flow.is-crossed .flow-habit p{background-size:100% .16cqw;color:#9b6a5e}
+.flow-wound{background:color-mix(in srgb,var(--tone) 12%,#fff)}
+.flow-wound p{font-style:italic;font-size:1.25cqw}
+.flow-evidence{background:#fff;border:1px solid var(--line)}
+.flow-evidence p{font-size:1.25cqw}.flow-evidence span{margin-top:auto;font-size:.8cqw;color:var(--muted)}
+.flow-ask{background:linear-gradient(135deg,var(--tone-ink),color-mix(in srgb,var(--tone) 60%,var(--tone-ink)));color:#fff}
+.intro-herida{display:grid;grid-template-columns:1fr 1fr;gap:2cqw}
+.intro-herida>.step-dots{grid-column:1/-1}
+.intro-legend{margin:1.4cqw 0 0;padding-left:1.4cqw;display:grid;gap:.9cqw;font-size:1.3cqw;line-height:1.4}
+.intro-chat-panel{display:flex;flex-direction:column;border-radius:1.2cqw;background:color-mix(in srgb,var(--tone) 9%,#fff);padding:1cqw}
+.intro-entity{position:relative;height:13cqw;flex-shrink:0}
+.intro-entity .orb-zone{position:absolute;inset:0}
+.intro-chat{display:grid;gap:.5cqw;align-content:start}
+.intro-chat p{margin:0;padding:.6cqw .9cqw;border-radius:.2cqw 1cqw 1cqw 1cqw;background:#fff;font-size:1.1cqw;opacity:.6}
+.intro-chat p.now{opacity:1;font-family:var(--display);font-size:1.45cqw;box-shadow:inset .22cqw 0 0 var(--tone-ink)}
+.intro-chat small{display:block;font-family:var(--sans);font-size:.62cqw;letter-spacing:.08em;text-transform:uppercase;color:var(--tone-ink);font-weight:700}
+.motion-off .intro *,.motion-off .resource-thread li{transition:none!important;animation:none!important}
+@media (prefers-reduced-motion:reduce){.intro *,.resource-thread li,.habit-card s{transition:none!important;animation:none!important}}
+@media (max-width:760px){.intro-split,.intro-flow,.intro-herida,.intro-mapa li{grid-template-columns:1fr}.intro h1{font-size:30px}.intro h2{font-size:24px}.intro-lead{font-size:20px}.intro-flow p,.intro-mapa em{font-size:15px}.resource-thread strong,.resource-thread p{font-size:13px}.intro-chat p,.intro-legend{font-size:14px}}
+.intro-tema,.intro-mapa,.intro-dinamica{justify-content:center}
+.intro-tema .intro-note{margin-top:1.8cqw}
+.intro-tema>.step-dots,.intro-mapa>.step-dots,.intro-dinamica>.step-dots{position:absolute;top:0}
+.intro{position:relative}
+.intro-mapa ol{gap:.9cqw;margin-top:1.8cqw}
+.intro-mapa li{padding:1cqw 1.2cqw}
+.intro-flow{flex:0 0 auto;min-height:17cqw}
+.flow-ask small{color:rgba(255,255,255,.8)}
+.intro-herida section{align-self:center}
+.habit-card .habit-tally{display:inline-flex;margin:0 0 0 auto;font-size:.66cqw}
+.habit-was .habit-tally::before{content:none}
+
+/* The main route holds one detail at a time. Exploration stays available. */
+#app:not([data-mode="prepare"]) .resource-thread>li:not(.now){display:none}
+#app:not([data-mode="prepare"]) .resource-more{gap:.35cqw}
+#app:not([data-mode="prepare"]) .resource-more button{font-size:.8cqw}
+#app:not([data-mode="prepare"]) .is-resolving:not(.is-synthesis) .clinical-concepts{display:none}
+#app:not([data-mode="prepare"]) .is-resolving .stage-core{flex:1;justify-content:center}
+#app:not([data-mode="prepare"]) .is-resolving .entity-stage{height:15cqw}
+/* The five final questions are the one deliberate cumulative view. */
+#app:not([data-mode="prepare"]) .is-synthesis .clinical-concepts.guided>div.is-seen p{display:block}
+#app:not([data-mode="prepare"]) .is-synthesis .clinical-concepts.guided>div{padding:.4cqw .6cqw}
+#app:not([data-mode="prepare"]) .is-synthesis .clinical-concepts p{font-size:1.12cqw;line-height:1.3}
+#app[data-mode="present"] .orbit-chip:not(.active){opacity:.28;animation:none}
+#app[data-mode="present"] .entity-stage:hover .orbit-chip,
+#app[data-mode="present"] .entity-stage:focus-within .orbit-chip{opacity:1}
+@media (max-width:760px){
+ #app:not([data-mode="prepare"]) .resource-more button{font-size:12px}
+ #app:not([data-mode="prepare"]) .is-synthesis .clinical-concepts p{font-size:14px}
+ #app:not([data-mode="prepare"]) .is-resolving .entity-stage{height:160px}
+}
+
+.resource-choices{margin-top:.5cqw;color:var(--tone-ink);font-size:.85cqw}
+.resource-choices summary{cursor:pointer;width:fit-content;padding:.3cqw 0}
+.resource-choices .resource-tabs{margin-top:.4cqw}
+#app:not([data-mode="prepare"]) .is-resolving .subtitle .habit-line{display:none}
+@media(max-width:760px){.resource-choices{font-size:13px}}

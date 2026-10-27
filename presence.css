@@ -220,3 +220,7 @@ dialog{border-radius:20px;border-color:var(--line)}
 .motion-off *,.motion-off *:before,.motion-off *:after{animation:none!important;transition:none!important}
 .motion-off .speech:after,.motion-off .prepared-answer:after{display:none}
 @media(prefers-reduced-motion:reduce){.speech:after,.prepared-answer:after{display:none}}
+
+/* A soft contact shadow separates the translucent sculpture from the page. */
+.orb-zone:before{content:"";position:absolute;pointer-events:none;left:28%;bottom:12%;width:44%;height:13%;background:radial-gradient(ellipse,rgba(129,77,66,.19),rgba(129,77,66,.06) 40%,transparent 72%);border-radius:50%}
+.orb-canvas{position:relative;z-index:1}

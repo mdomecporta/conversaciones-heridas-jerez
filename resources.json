@@ -1,0 +1,294 @@
+{
+  "version": 1,
+  "date": "2026-10-27",
+  "assets": {
+    "wound-zones": {
+      "file": "wound-zones.jpg",
+      "original": "wound-zones.png",
+      "title": "Lecho, borde y piel",
+      "kind": "illustration",
+      "label": "Modelo conceptual · generado con IA",
+      "alt": "Modelo didáctico de un bloque de piel con una depresión central que representa una herida, su borde y piel alrededor.",
+      "caption": "Modelo conceptual para ordenar la observación. No representa una herida real, una etiología ni un resultado clínico.",
+      "credit": "Creación para esta presentación · OpenAI ImageGen · 27/10/2026",
+      "rights": "authorized",
+      "modifications": "Conversión a JPEG para proyección; original PNG conservado.",
+      "walkthrough": {
+        "title": "Cuatro zonas que conviene recorrer",
+        "stepMs": 3500,
+        "steps": [
+          {
+            "title": "Lecho",
+            "text": "Observar tejido, restos y exudado dentro de la valoración completa.",
+            "x": 49,
+            "y": 43
+          },
+          {
+            "title": "Borde",
+            "text": "Describir el borde y relacionarlo con la evolución.",
+            "x": 65,
+            "y": 48
+          },
+          {
+            "title": "Piel perilesional",
+            "text": "Valorar humedad e integridad de la piel inmediatamente próxima.",
+            "x": 74,
+            "y": 51
+          },
+          {
+            "title": "Piel circundante",
+            "text": "Ampliar la mirada al entorno. La limpieza se adapta a la valoración y al objetivo.",
+            "x": 84,
+            "y": 60
+          }
+        ]
+      }
+    },
+    "biofilm": {
+      "file": "biofilm-concept.jpg",
+      "original": "biofilm-concept.png",
+      "title": "Biofilm: una representación conceptual",
+      "kind": "illustration",
+      "label": "Ilustración 3D · generada con IA",
+      "alt": "Ilustración aumentada de microorganismos esféricos y alargados dentro de una matriz translúcida sobre tejido coral.",
+      "caption": "Escalas, formas y colores ilustrativos. No es microscopía ni permite identificar biofilm en una fotografía de herida.",
+      "credit": "Creación para esta presentación · OpenAI ImageGen · 27/10/2026",
+      "rights": "authorized",
+      "modifications": "Conversión a JPEG; anotaciones superpuestas, sin modificar el original.",
+      "walkthrough": {
+        "title": "Explorar el modelo de biofilm",
+        "stepMs": 4000,
+        "steps": [
+          {
+            "title": "Superficie del tejido",
+            "text": "El tejido se representa de forma esquemática; la escala no es anatómica.",
+            "x": 44,
+            "y": 75
+          },
+          {
+            "title": "Matriz",
+            "text": "La capa translúcida representa la matriz extracelular del modelo.",
+            "x": 50,
+            "y": 36
+          },
+          {
+            "title": "Microorganismos",
+            "text": "Las formas simplificadas no identifican especies. El modelo explica un concepto, no confirma un diagnóstico.",
+            "x": 68,
+            "y": 36
+          }
+        ]
+      }
+    },
+    "heel": {
+      "file": "heel-concept.jpg",
+      "original": "heel-concept.png",
+      "title": "Talón con escara: datos antes de actuar",
+      "kind": "illustration",
+      "label": "Modelo conceptual · generado con IA",
+      "alt": "Representación sintética de un talón con una pequeña zona oscura que ilustra una escara seca.",
+      "caption": "Ilustración docente. El aspecto no establece perfusión, estabilidad ni seguridad de desbridamiento.",
+      "credit": "Creación para esta presentación · OpenAI ImageGen · 27/10/2026",
+      "rights": "authorized",
+      "modifications": "Conversión a JPEG; sin transformación clínica.",
+      "walkthrough": {
+        "title": "Antes de decidir sobre la escara",
+        "stepMs": 4000,
+        "steps": [
+          {
+            "title": "Perfusión",
+            "text": "La ilustración no aporta una valoración vascular. ¿Qué datos faltan?"
+          },
+          {
+            "title": "Estabilidad y complicaciones",
+            "text": "Completar información sobre drenaje, fluctuación y sospecha de infección; no asumirla por el dibujo."
+          },
+          {
+            "title": "Persona y objetivos",
+            "text": "Relacionar dolor, contexto y beneficio esperado antes de justificar la intervención."
+          }
+        ]
+      }
+    },
+    "shared-care": {
+      "file": "shared-care.jpg",
+      "original": "shared-care.png",
+      "title": "Escuchar y acordar el cuidado",
+      "kind": "recreation",
+      "label": "Escena recreada con IA",
+      "alt": "Una enfermera conversa a la misma altura con una mujer mayor sentada en su casa.",
+      "caption": "Recreación de una conversación de cuidados. No corresponde a una paciente ni a un testimonio real.",
+      "credit": "Creación para esta presentación · OpenAI ImageGen · 27/10/2026",
+      "rights": "authorized",
+      "modifications": "Conversión a JPEG; original PNG conservado."
+    },
+    "daily-life": {
+      "file": "daily-life.jpg",
+      "original": "daily-life.png",
+      "title": "Descanso y vida cotidiana",
+      "kind": "recreation",
+      "label": "Escena recreada con IA",
+      "alt": "Una mujer mayor con un vendaje en una pierna está sentada al borde de la cama junto a una ventana al amanecer.",
+      "caption": "Imagen recreada para conversar sobre descanso, movilidad y carga de cuidados. No demuestra dolor, insomnio ni evolución clínica.",
+      "credit": "Creación para esta presentación · OpenAI ImageGen · 27/10/2026",
+      "rights": "authorized",
+      "modifications": "Conversión a JPEG; original PNG conservado."
+    },
+    "care-materials": {
+      "file": "care-materials.jpg",
+      "original": "care-materials.png",
+      "title": "Material de cura: elegir con un objetivo",
+      "kind": "recreation",
+      "label": "Material genérico · recreación con IA",
+      "alt": "Composición de apósito, gasas, venda, recipiente y torunda genéricos sobre una superficie clara.",
+      "caption": "Recreación de material genérico. No identifica formulaciones, esterilidad, actividad antimicrobiana ni un procedimiento validado. La regla ilustrada no sirve para medir.",
+      "credit": "Creación para esta presentación · OpenAI ImageGen · 27/10/2026",
+      "rights": "authorized",
+      "modifications": "Conversión a JPEG; original PNG conservado."
+    },
+    "venous": {
+      "file": "venous-ulcer.jpg",
+      "title": "Ejemplo publicado: úlcera venosa",
+      "kind": "clinical",
+      "label": "Fotografía clínica · ejemplo externo",
+      "alt": "Fotografía publicada de una lesión en la pierna descrita por la fuente como úlcera venosa.",
+      "caption": "La fuente describe una úlcera venosa de pierna. Ejemplo externo independiente del caso sintético; la etiología procede de la publicación, no se deduce solo de la imagen.",
+      "credit": "Jonathan Moore · The Foot and Ankle Online Journal (2008) · Wikimedia Commons · CC BY 3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Venous_ulcer_dorsal_leg.jpg",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+      "rights": "authorized",
+      "modifications": "Archivo original; presentación ajustada al espacio, sin recorte ni cambios de color."
+    },
+    "arterial": {
+      "file": "arterial-ulcer.jpg",
+      "title": "Ejemplo publicado: lesión con enfermedad arterial",
+      "kind": "clinical",
+      "label": "Fotografía clínica · ejemplo externo",
+      "alt": "Fotografía publicada de una úlcera en el dorso del pie de una persona con enfermedad arterial periférica según la fuente.",
+      "caption": "La fuente documenta enfermedad arterial periférica grave y úlcera dorsal del pie. Es otro caso y otra localización; no es una segunda fotografía de la lesión venosa.",
+      "credit": "Jonathan Moore · The Foot and Ankle Online Journal (2008) · Wikimedia Commons · CC BY 3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Arterial_ulcer_peripheral_vascular_disease.jpg",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+      "rights": "authorized",
+      "modifications": "Archivo original; presentación completa sin recorte ni cambios de color."
+    },
+    "atypical": {
+      "file": "atypical-ulcer.jpg",
+      "title": "Ejemplo publicado: pioderma gangrenoso",
+      "kind": "clinical",
+      "label": "Fotografía clínica · ejemplo externo",
+      "alt": "Fotografía de varias lesiones ulceradas en espalda y brazo, identificadas como pioderma gangrenoso por la fuente.",
+      "caption": "La fuente identifica pioderma gangrenoso. Sirve para describir y abrir preguntas; una imagen aislada no establece el diagnóstico ni una contraindicación universal.",
+      "credit": "Monopol · Wikimedia Commons · CC BY-SA 3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Pyoderma_gangrenosum_01.jpg",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "rights": "authorized",
+      "modifications": "Original sin alterar; conservar atribución y licencia al reutilizar esta imagen."
+    },
+    "swab": {
+      "file": "transport-swab-display.jpg",
+      "original": "transport-swab.jpg",
+      "title": "Torunda y medio de transporte",
+      "kind": "equipment",
+      "label": "Fotografía de material",
+      "alt": "Torunda estéril y tubo de transporte con medio de carbón, sin datos de paciente cumplimentados.",
+      "caption": "Ejemplo de material, no demostración de técnica ni recomendación de un medio para cualquier muestra. Selección según pregunta clínica y laboratorio.",
+      "credit": "Whispyhistory · Wikimedia Commons · CC BY-SA 4.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sterile_charcoal_transport_swab.jpg",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "rights": "authorized",
+      "modifications": "Reducción a 1400 px y compresión JPEG; sin recorte ni cambios deliberados de color. Original conservado."
+    },
+    "compression": {
+      "file": "compression-system-display.jpg",
+      "original": "compression-system.jpg",
+      "title": "Ejemplo de abordaje causal: compresión",
+      "kind": "equipment",
+      "label": "Fotografía de dispositivo aplicado",
+      "alt": "Pierna y pie cubiertos por un sistema de vendaje de compresión.",
+      "caption": "Ejemplo visual de un sistema de compresión. No enseña técnica, presión, indicación individual ni preferencia de marca.",
+      "credit": "Enter · Wikimedia Commons · CC BY-SA 3.0",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mehrkomponentensystem.jpg",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "rights": "authorized",
+      "modifications": "Reducción a 1400 px y compresión JPEG; sin recorte ni cambios deliberados de color. Original conservado."
+    }
+  },
+  "scenes": {
+    "registro": [
+      "care-materials"
+    ],
+    "historia": [
+      "shared-care"
+    ],
+    "zonas": [
+      "wound-zones"
+    ],
+    "parecidas": [
+      "venous",
+      "arterial"
+    ],
+    "causa": [
+      "compression",
+      "care-materials"
+    ],
+    "persona": [
+      "shared-care",
+      "daily-life"
+    ],
+    "medicion": [
+      "wound-zones"
+    ],
+    "reevaluacion": [
+      "wound-zones"
+    ],
+    "infeccion": [
+      "swab"
+    ],
+    "cultivo": [
+      "swab"
+    ],
+    "biofilm": [
+      "biofilm"
+    ],
+    "antimicrobianos": [
+      "care-materials"
+    ],
+    "revision-antimicrobiano": [
+      "care-materials"
+    ],
+    "limpieza": [
+      "wound-zones",
+      "care-materials"
+    ],
+    "dolor": [
+      "daily-life",
+      "shared-care"
+    ],
+    "escaras": [
+      "heel"
+    ],
+    "atipica": [
+      "atypical"
+    ],
+    "capacidad": [
+      "daily-life",
+      "shared-care"
+    ],
+    "otros-resultados": [
+      "daily-life",
+      "care-materials"
+    ],
+    "continuidad": [
+      "shared-care"
+    ],
+    "regreso": [
+      "care-materials"
+    ]
+  }
+}
