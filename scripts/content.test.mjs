@@ -19,14 +19,15 @@ function setup(data=seed,globals={}){
  const dialogClick=dataset=>handlers['dialog:click']({target:{closest:()=>({dataset})}});
  return {ctx,store,blobs,elements,handlers,click,dialogClick,input,view:()=>element('stage').innerHTML||element('app').innerHTML,app:()=>element('app').innerHTML};
 }
-test('28 pantallas (dos institucionales, dos de introducción y 24 escenas), identificadores únicos, fuentes y preguntas válidas',()=>{const c=vm.createContext({});vm.runInContext(seed+';globalThis.deck=INITIAL_DECK;globalThis.refs=REFERENCES;',c);assert.equal(c.deck.slides.length,28);assert.equal(new Set(c.deck.slides.map(s=>s.id)).size,28);assert.equal(c.deck.slides.slice(1,3).map(s=>s.intro.kind).join(),'tema,herida');for(const s of c.deck.slides){assert.ok(s.refs.every(r=>c.refs[r]));assert.ok(s.q===null||s.q>=0&&s.q<5);}assert.ok(c.deck.slides.filter(s=>s.study).every(s=>s.study.steps?.length>=4&&s.study.avoid&&s.study.propose&&s.study.bridge));});
+test('28 pantallas (dos institucionales, dos de introducción y 24 escenas), identificadores únicos, fuentes y preguntas válidas',()=>{const c=vm.createContext({});vm.runInContext(seed+';globalThis.deck=INITIAL_DECK;globalThis.refs=REFERENCES;',c);assert.equal(c.deck.slides.length,28);assert.equal(new Set(c.deck.slides.map(s=>s.id)).size,28);assert.equal(c.deck.slides.slice(1,3).map(s=>s.intro.kind).join(),'tema,herida');for(const s of c.deck.slides){assert.ok(s.refs.every(r=>c.refs[r]));assert.ok(s.q===null||s.q>=0&&s.q<5);}assert.ok(c.deck.slides.filter(s=>s.study).every(s=>s.study.steps?.length>=3&&s.study.avoid&&s.study.propose&&s.study.bridge));});
 test('el borrador no cambia Presentar hasta guardar y las notas no se muestran',()=>{const h=setup();h.input({field:'title'},'Título modificado');assert.match(h.view(),/Título modificado/);h.click({mode:'present'});assert.doesNotMatch(h.app(),/Título modificado/);h.click({mode:'prepare'});assert.match(h.app(),/Título modificado/);h.input({},'NOTA_PRIVADA_UNICA','data-notes');h.click({action:'save'});h.click({mode:'present'});assert.match(h.app(),/Título modificado/);assert.doesNotMatch(h.app(),/NOTA_PRIVADA_UNICA/);});
 test('HTML autónomo excluye notas privadas y puede ejecutarse como copia de revisión',async()=>{const h=setup();h.input({},'SECRETO_DE_LA_PONENTE','data-notes');h.click({action:'save'});h.click({action:'export-html'});const output=await h.blobs[0].text();assert.doesNotMatch(output,/SECRETO_DE_LA_PONENTE/);assert.equal((output.match(/<\/script>/g)||[]).length,2);const exportedSeed=output.match(/<script id="seed">([\s\S]*?)<\/script>/)[1];const reader=setup(exportedSeed);assert.equal(reader.ctx.window.JerezPresentation.mode,'review');assert.doesNotMatch(reader.app(),/Guardar para presentar/);assert.doesNotMatch(reader.app(),/Preparar la escena/);});
 test('duplicar, reordenar y eliminar conservan identidad y se pueden deshacer',()=>{const h=setup();const initial=h.ctx.window.JerezPresentation.sceneCount;h.click({action:'duplicate'});const duplicate=h.ctx.window.JerezPresentation.slideId;assert.equal(h.ctx.window.JerezPresentation.sceneCount,initial+1);h.click({action:'move-down'});assert.equal(h.ctx.window.JerezPresentation.slideId,duplicate);h.click({action:'delete'});assert.equal(h.ctx.window.JerezPresentation.sceneCount,initial);h.click({action:'undo'});assert.equal(h.ctx.window.JerezPresentation.slideId,duplicate);assert.equal(h.ctx.window.JerezPresentation.sceneCount,initial+1);});
-test('las decisiones conservan la exploración y solo reinician con una acción explícita',()=>{const h=setup();h.click({slide:'infeccion'});h.click({turnEvent:'2'});assert.doesNotMatch(h.view(),/class="resource-detail reasoning"/);h.click({resourceIndex:'1'});h.click({action:'resource-reveal'});assert.match(h.view(),/Razonamiento clínico · Completar la valoración/);h.click({action:'next'});h.click({action:'previous'});assert.match(h.app(),/Razonamiento clínico · Completar la valoración/);h.click({action:'reset-conversation'});assert.doesNotMatch(h.view(),/resource-detail reasoning/);assert.match(h.view(),/Abre mi historia/);});
-test('la historia se conserva sin sustituir la explicación y se puede reiniciar',()=>{const h=setup();assert.equal(h.ctx.window.JerezPresentation.slideId,'intro-tema');h.click({slide:'registro'});h.click({turnEvent:'0'});assert.match(h.view(),/Registro de intervenciones/);assert.match(h.view(),/Un registro de curas cuenta/);assert.match(h.view(),/data-state="remembering"/);h.click({action:'next'});assert.equal(h.ctx.window.JerezPresentation.slideId,'historia');h.click({action:'previous'});assert.match(h.app(),/Registro de intervenciones/);h.click({action:'reset-conversation'});assert.doesNotMatch(h.view(),/class="prepared-answer"/);assert.match(h.view(),/Abre mi historia/);});
+test('las decisiones conservan la exploración y solo reinician con una acción explícita',()=>{const h=setup();h.click({slide:'infeccion'});h.click({turnEvent:'2'});assert.doesNotMatch(h.view(),/class="resource-detail reasoning"/);h.click({resourceIndex:'1'});h.click({action:'resource-reveal'});assert.match(h.view(),/Razonamiento clínico · Completar la valoración/);h.click({action:'next'});h.click({action:'previous'});assert.match(h.app(),/Razonamiento clínico · Completar la valoración/);h.click({action:'reset-conversation'});assert.doesNotMatch(h.view(),/resource-detail reasoning/);assert.match(h.view(),/Avanza para seguir la conversación/);});
+test('la historia se conserva sin sustituir la explicación y se puede reiniciar',()=>{const h=setup();assert.equal(h.ctx.window.JerezPresentation.slideId,'intro-tema');h.click({slide:'registro'});h.click({turnEvent:'0'});assert.match(h.view(),/Registro de intervenciones/);assert.match(h.view(),/Un registro de curas cuenta/);assert.match(h.view(),/data-state="remembering"/);h.click({action:'next'});assert.equal(h.ctx.window.JerezPresentation.slideId,'historia');h.click({action:'previous'});assert.match(h.app(),/Registro de intervenciones/);h.click({action:'reset-conversation'});assert.doesNotMatch(h.view(),/class="prepared-answer"/);assert.match(h.view(),/Avanza para seguir la conversación/);});
 test('texto clínico, respuesta y guion privado conservan funciones independientes en la exportación',async()=>{const h=setup();h.click({slide:'apertura'});h.input({study:'explanation'},'EXPLICACIÓN_CLÍNICA_EDITADA');h.input({turn:'0',turnField:'reply'},'RESPUESTA_PREPARADA_EDITADA');h.input({},'GUIÓN_ORAL_PRIVADO','data-notes');h.click({action:'save'});h.click({action:'export-html'});const output=await h.blobs[0].text();assert.match(output,/EXPLICACIÓN_CLÍNICA_EDITADA/);assert.match(output,/RESPUESTA_PREPARADA_EDITADA/);assert.doesNotMatch(output,/GUIÓN_ORAL_PRIVADO/);const reader=setup(output.match(/<script id="seed">([\s\S]*?)<\/script>/)[1]);reader.click({slide:'apertura'});reader.click({turnEvent:'0'});assert.match(reader.view(),/RESPUESTA_PREPARADA_EDITADA/);assert.match(reader.view(),/EXPLICACIÓN_CLÍNICA_EDITADA/);});
-test('el índice de preguntas navega a contenido asociado en cualquier modo',()=>{const h=setup();h.click({mode:'present'});h.click({question:'1'});assert.equal(h.ctx.window.JerezPresentation.slideId,'medicion');h.click({question:'3'});assert.equal(h.ctx.window.JerezPresentation.slideId,'atipica');assert.match(h.app(),/Los cinco movimientos del recorrido/);});
+test('los cuatro momentos navegan a contenido asociado',()=>{const h=setup();h.click({mode:'present'});h.click({question:'1'});assert.equal(h.ctx.window.JerezPresentation.slideId,'medicion');h.click({question:'3'});assert.equal(h.ctx.window.JerezPresentation.slideId,'continuidad');assert.match(h.app(),/Los cuatro momentos del recorrido/);});
+
 test('importación inválida no sobrescribe y paquete válido recupera medios y notas',async()=>{const h=setup();h.click({slide:'apertura'});h.input({},'Nota conservada','data-notes');h.click({action:'export-project'});const raw=await h.blobs[0].text();const pack=JSON.parse(raw);pack.draft.slides[1].media={src:'data:image/png;base64,aGVsbG8=',rights:'pending',alt:'Ejemplo',caption:'Recurso de prueba',credit:'Prueba'};const fresh=setup();await fresh.handlers['import-file:change']({target:{files:[{size:raw.length,text:async()=>JSON.stringify(pack)}],value:'test'}});assert.equal(fresh.ctx.window.JerezPresentation.sceneCount,28);fresh.click({action:'export-project'});const recovered=JSON.parse(await fresh.blobs[0].text());assert.equal(recovered.notes['apertura'],'Nota conservada');assert.equal(recovered.draft.slides[1].media.caption,'Recurso de prueba');const before=fresh.ctx.window.JerezPresentation.sceneCount;await fresh.handlers['import-file:change']({target:{files:[{size:3,text:async()=>'{}'}],value:'bad'}});assert.equal(fresh.ctx.window.JerezPresentation.sceneCount,before);});
 
 test('las 24 escenas contienen concepto, evidencia, límites y tres intercambios completos',()=>{
@@ -36,7 +37,7 @@ test('las 24 escenas contienen concepto, evidencia, límites y tres intercambios
  const h=setup();for(const s of scenes){h.click({slide:s.id});for(let i=0;i<s.study.turns.length;i++){h.click({turnEvent:String(i)});assert.ok(h.view().includes(s.study.explanation),s.id);assert.ok(h.view().includes(s.study.turns[i].resourceTitle),s.id);assert.match(h.view(),/La herida|La persona|Las dos heridas|Otra herida/);}}
 });
 test('los recursos permiten explorar datos y conservan la selección por escena y turno',()=>{
- const h=setup();h.click({slide:'registro'});h.click({turnEvent:'0'});h.click({resourceIndex:'2'});assert.match(h.view(),/<li class=""><span>Momento 1 \/ 4<\/span>/);assert.match(h.view(),/<li class="now"><span>Momento 3 \/ 4<\/span>/);assert.match(h.view(),/data-resource-index="1">\+ Visita 2/);h.click({turnEvent:'2'});h.click({resourceIndex:'1'});h.click({turnEvent:'0'});assert.match(h.view(),/Momento 3/);h.click({action:'journey'});assert.match(h.elements.dialog.innerHTML,/Enséñanos tu registro/);h.click({action:'reset-journey'});assert.match(h.app(),/Abre mi historia/);
+ const h=setup();h.click({slide:'registro'});h.click({turnEvent:'0'});h.click({resourceIndex:'2'});assert.match(h.view(),/<li class=""><span>Momento 1 \/ 4<\/span>/);assert.match(h.view(),/<li class="now"><span>Momento 3 \/ 4<\/span>/);assert.match(h.view(),/data-resource-index="1">\+ Visita 2/);h.click({turnEvent:'2'});h.click({resourceIndex:'1'});h.click({turnEvent:'0'});assert.match(h.view(),/Momento 3/);h.click({action:'journey'});assert.match(h.elements.dialog.innerHTML,/Enséñame las notas/);h.click({action:'reset-journey'});assert.match(h.app(),/Avanza para seguir la conversación/);
 });
 test('la fotografía autorizada convive con el recurso y la pendiente no se expone',async()=>{
  const h=setup();h.click({action:'export-project'});const pack=JSON.parse(await h.blobs[0].text());const target=pack.draft.slides.find(s=>s.id==='zonas');target.media={src:'data:image/png;base64,aGVsbG8=',alt:'Imagen de prueba',caption:'Recurso autorizado',credit:'Prueba',rights:'pending'};
@@ -45,10 +46,12 @@ test('la fotografía autorizada convive con el recurso y la pendiente no se expo
  target.media.rights='authorized';await importPack();reader.click({slide:'zonas'});reader.click({turnEvent:'0'});assert.match(reader.view(),/data-action="photo-open"/);assert.match(reader.view(),/Lecho/);reader.click({action:'photo-open'});assert.match(reader.elements.dialog.innerHTML,/Recurso autorizado/);
  reader.click({action:'save'});reader.click({action:'export-html'});const out=await reader.blobs[0].text();const exported=setup(out.match(/<script id="seed">([\s\S]*?)<\/script>/)[1]);exported.click({slide:'zonas'});exported.click({turnEvent:'0'});assert.match(exported.view(),/data-action="photo-open"/);assert.match(exported.view(),/Mirar y preguntar/);
 });
-test('los cambios de voz se identifican y las interacciones no ensucian la versión editorial',()=>{
- const h=setup();h.click({slide:'persona'});h.click({turnEvent:'0'});assert.match(h.view(),/La persona · voz recreada/);assert.match(h.view(),/persona-aura role-front/);assert.match(h.view(),/cast-slot role-recede/);assert.match(h.view(),/Una voz recreada/);assert.match(h.elements['saved-status'].textContent,/Versión guardada/);
- h.click({mode:'present'});assert.match(h.app(),/Abre mi historia/);assert.doesNotMatch(h.app(),/class="prepared-answer"/);
+test('la herida es la única interlocutora y las interacciones no ensucian la edición',()=>{
+ const c=vm.createContext({});vm.runInContext(seed+';globalThis.deck=INITIAL_DECK;',c);
+ for(const s of c.deck.slides.filter(s=>s.study)){assert.equal(s.voice,'principal');for(const t of s.study.turns){assert.equal(t.voice,'principal');assert.notEqual(t.kind,'person');}}
+ const h=setup();h.click({slide:'persona'});h.click({turnEvent:'0'});assert.match(h.view(),/<strong>La herida<\/strong>/);assert.doesNotMatch(h.view(),/persona-aura|voz recreada|cast-slot role-front-b/);assert.match(h.elements['saved-status'].textContent,/Versión guardada/);
 });
+
 test('la copia lista para revisión excluye notas y funciona sin el editor',async()=>{
  const html=await readFile(new URL('../dist/revision.html',import.meta.url),'utf8');const readSeed=html.match(/<script id="seed">([\s\S]*?)<\/script>/)[1];const parsed=vm.createContext({});vm.runInContext(readSeed+';globalThis.deck=INITIAL_DECK;',parsed);assert.ok(parsed.deck.slides.every(s=>!Object.hasOwn(s,'notes')));
  const h=setup(readSeed);assert.equal(h.ctx.window.JerezPresentation.mode,'review');assert.doesNotMatch(h.app(),/Preparar la escena/);h.click({mode:'prepare'});assert.equal(h.ctx.window.JerezPresentation.mode,'review');h.click({mode:'present'});assert.equal(h.ctx.window.JerezPresentation.mode,'present');h.click({slide:'limpieza'});h.click({turnEvent:'0'});h.click({resourceIndex:'3'});assert.match(h.view(),/Piel circundante/);assert.match(h.view(),/class="zone-surround zone-selected"/);
@@ -79,8 +82,8 @@ test('HTML exportado conserva imágenes y recorridos, excluye recursos con permi
  const exported=setup(data);exported.click({slide:'limpieza'});exported.click({action:'scene-resources'});exported.dialogClick({assetStep:'3'});assert.match(exported.elements['walkthrough-body'].innerHTML,/Piel circundante/);
 });
 test('guardado local referencia los originales sin duplicar bitmaps; recarga restaura imágenes',()=>{
- const h=setup();h.click({action:'save'});const raw=h.store.get('jerez-conversations-v5');assert.ok(raw.length<2000000);const p=JSON.parse(raw);assert.equal(p.saved.resourceCatalog.biofilm.src,undefined);
- const packed=seed+`;localStorage.setItem('jerez-conversations-v5',${JSON.stringify(raw)});`;
+ const h=setup();h.click({action:'save'});const raw=h.store.get('jerez-conversations-v6');assert.ok(raw.length<2000000);const p=JSON.parse(raw);assert.equal(p.saved.resourceCatalog.biofilm.src,undefined);
+ const packed=seed+`;localStorage.setItem('jerez-conversations-v6',${JSON.stringify(raw)});`;
  const reloaded=setup(packed);reloaded.click({slide:'biofilm'});assert.match(reloaded.app(),/src="data:image\/jpeg;base64,/);
 });
 test('una biblioteca importada con origen remoto o recorridos inválidos se rechaza',async()=>{
@@ -90,17 +93,14 @@ test('una biblioteca importada con origen remoto o recorridos inválidos se rech
  assert.throws(()=>h.ctx.window.JerezPresentation.validateDeck(pack.draft),/Recorrido visual inválido/);
 });
 
-test('el hilo avanza paso a paso, activa la herida, retrocede y cruza escenas',()=>{
- const h=setup();h.click({mode:'present'});h.click({slide:'causa'});h.click({action:'route-here'});const P=h.ctx.window.JerezPresentation;const key=k=>h.handlers['document:keydown']({key:k,code:k===' '?'Space':k,target:{matches:()=>false,closest:()=>null},preventDefault(){}});
- assert.equal(P.step,0);assert.match(h.view(),/class="opening-message"/);assert.match(h.view(),/apósito/);assert.match(h.view(),/class="is-pending"/);
- key('ArrowRight');assert.equal(P.step,1);assert.match(h.view(),/Intervención local y causa/);assert.match(h.view(),/class="is-focus"/);
- key(' ');key('PageDown');key('ArrowRight');key('ArrowRight');assert.match(h.view(),/Razonamiento clínico · Otro producto/);
- key('ArrowLeft');assert.doesNotMatch(h.view(),/Razonamiento clínico/);
- for(let i=0;i<4;i++)key('ArrowRight');assert.match(h.view(),/habit-card is-flipped/);assert.match(h.view(),/clinical-bridge is-on/);
- key('ArrowRight');assert.equal(P.slideId,'persona');assert.equal(P.step,0);
- key('ArrowLeft');assert.equal(P.slideId,'causa');assert.equal(P.step,8);assert.match(h.view(),/clinical-bridge is-on/);
- key('ArrowDown');assert.equal(P.slideId,'persona');
+test('el hilo avanza, muestra imágenes y cruza al siguiente intercambio',()=>{
+ const h=setup();h.click({mode:'present'});h.click({slide:'registro'});h.click({action:'route-here'});const P=h.ctx.window.JerezPresentation;const key=k=>h.handlers['document:keydown']({key:k,code:k,target:{matches:()=>false,closest:()=>null},preventDefault(){}});
+ key('ArrowRight');assert.equal(P.step,1);assert.match(h.view(),/Registro de intervenciones/);assert.match(h.view(),/has-media/);
+ key('ArrowRight');assert.equal(P.step,2);assert.doesNotMatch(h.view(),/has-media/);assert.match(h.view().replace(/<[^>]*>/g,' ').replace(/\s+/g,' '),/Estas notas no permiten comparar/);
+ key('ArrowRight');assert.equal(P.step,3);assert.match(h.view(),/Para seguir/);assert.match(h.view(),/<small>María del Mar<\/small>/);
+ key('ArrowLeft');assert.equal(P.step,2);key('ArrowRight');key('ArrowRight');assert.equal(P.slideId,'historia');assert.equal(P.step,0);
 });
+
 test('cada paso usa acciones válidas sobre preguntas, recursos y puntos existentes',()=>{
  const c=vm.createContext({});vm.runInContext(seed+';globalThis.deck=INITIAL_DECK;',c);
  for(const s of c.deck.slides.filter(s=>s.study)){let active=null,media=null;for(const [a,cue] of s.study.steps){assert.ok(cue.length>3,s.id);for(const t of a.split(/\s+/)){const n=Number(t.slice(1));
@@ -116,40 +116,23 @@ test('cada paso usa acciones válidas sobre preguntas, recursos y puntos existen
  const withImages=c.deck.slides.filter(s=>s.resourceIds?.length);
  assert.ok(withImages.every(s=>s.study.steps.some(p=>/(^|\s)m\d+/.test(p[0]))),'toda escena con imágenes las abre desde el hilo');
 });
-test('un desvío a otra escena vuelve al recorrido en el mismo punto',()=>{
- const h=setup();h.click({mode:'present'});h.click({slide:'apertura'});h.click({action:'route-here'});const P=h.ctx.window.JerezPresentation;const key=k=>h.handlers['document:keydown']({key:k,code:k,target:{matches:()=>false,closest:()=>null},preventDefault(){}});
- for(let i=0;i<8;i++)key('ArrowRight');assert.equal(P.slideId,'registro');assert.equal(P.step,2);
- h.click({turnEvent:'2'});assert.match(h.view(),/Repetir o revisar/);
- key('ArrowRight');assert.equal(P.step,3);assert.doesNotMatch(h.view(),/Repetir o revisar/);
- h.click({slide:'zonas'});assert.equal(P.slideId,'zonas');assert.deepEqual({...P.thread},{id:'registro',k:3});assert.match(h.app(),/Volver al recorrido · escena 02, paso 3/);
- key('ArrowRight');assert.equal(P.slideId,'registro');assert.equal(P.step,3);assert.doesNotMatch(h.app(),/Volver al recorrido/);
- key('ArrowRight');assert.equal(P.step,4);
+test('un desvío vuelve al recorrido en el mismo punto',()=>{
+ const h=setup();h.click({mode:'present'});h.click({slide:'registro'});h.click({action:'route-here'});const P=h.ctx.window.JerezPresentation;const key=k=>h.handlers['document:keydown']({key:k,code:k,target:{matches:()=>false,closest:()=>null},preventDefault(){}});
+ key('ArrowRight');h.click({slide:'zonas'});assert.equal(P.slideId,'zonas');assert.deepEqual({...P.thread},{id:'registro',k:1});key('ArrowRight');assert.equal(P.slideId,'registro');assert.equal(P.step,1);key('ArrowRight');assert.equal(P.step,2);
 });
-test('el guion se activa y desactiva en Presentar y dice qué hace la pantalla',()=>{
- const h=setup();h.click({mode:'present'});assert.doesNotMatch(h.app(),/id="guide"/);
- h.click({action:'prompter'});assert.match(h.app(),/guide-bar prompter/);assert.match(h.app(),/Bienvenida/);
- h.click({action:'prompter'});assert.doesNotMatch(h.app(),/id="guide"/);
+
+test('el guion se activa y las transiciones pertenecen a María del Mar',()=>{
+ const h=setup();h.click({mode:'present'});assert.doesNotMatch(h.app(),/id="guide"/);h.click({action:'prompter'});assert.match(h.app(),/guide-bar prompter/);h.click({action:'prompter'});assert.doesNotMatch(h.app(),/id="guide"/);
  h.click({slide:'cierre'});h.click({action:'route-here'});const key=k=>h.handlers['document:keydown']({key:k,code:k,target:{matches:()=>false,closest:()=>null},preventDefault(){}});
- key('ArrowRight');assert.doesNotMatch(h.view(),/habit-wall /);key('ArrowRight');assert.match(h.view(),/habit-card is-flipped/);assert.match(h.view(),/En la próxima cura, ¿qué revisarías antes de repetir\?/);assert.doesNotMatch(h.view(),/class="portal-scroll"/);
+ for(let i=0;i<3;i++)key('ArrowRight');assert.match(h.view(),/Para seguir/);assert.match(h.view(),/<small>María del Mar<\/small>/);assert.doesNotMatch(h.view(),/habit-tally|<s>/);
 });
 
-test('la invitada brota de verdad de la misma membrana y quien habla crece',()=>{
- const h=setup();h.click({slide:'parecidas'});
- assert.match(h.view(),/cast is-budded/);assert.match(h.view(),/cast-slot role-solo/);assert.match(h.view(),/data-guest="isquemica" data-scene="parecidas" data-bud="0" data-focus="0"/);
- h.click({turnEvent:'1'});assert.match(h.view(),/role-pair/);assert.match(h.view(),/data-bud="1" data-focus="1" data-state="vascular"/);assert.match(h.view(),/name-b/);
- h.click({turnEvent:'0'});assert.match(h.view(),/data-bud="1" data-focus="-1"/);
- h.click({turnEvent:'2'});assert.match(h.view(),/cast is-budded is-compare/);assert.match(h.view(),/data-focus="-1"/);
- h.click({resourceIndex:'1'});assert.match(h.view(),/data-focus="1"/);
- assert.equal((h.view().match(/class="orb-zone"/g)||[]).length,1);
+test('los contrastes conservan una sola herida sin brotes ni personaje invitado',()=>{
+ const h=setup();h.click({slide:'parecidas'});for(let i=0;i<3;i++){h.click({turnEvent:String(i)});assert.doesNotMatch(h.view(),/is-budded|role-front-b|persona-aura/);assert.equal((h.view().match(/class="orb-zone"/g)||[]).length,1);}
 });
 
-test('con la ilustración, la invitada brota de la protagonista, quien habla pasa al frente y la comparación las alinea',()=>{
- const h=setup(seed,{ENTITY_RENDERER:'art'});h.click({slide:'parecidas'});
- assert.match(h.view(),/cast-slot role-solo/);assert.match(h.view(),/cast-slot role-hidden/);
- h.click({turnEvent:'1'});assert.match(h.view(),/cast-slot role-front-b/);assert.match(h.view(),/role-back-a/);assert.match(h.view(),/data-voice="isquemica" data-state="vascular"/);
- h.click({turnEvent:'0'});assert.match(h.view(),/role-front-a/);assert.match(h.view(),/role-back-b/);
- h.click({turnEvent:'2'});assert.match(h.view(),/cast is-compare/);assert.match(h.view(),/role-compare-a/);assert.match(h.view(),/focus-a/);
- h.click({resourceIndex:'1'});assert.match(h.view(),/focus-b/);
+test('la ilustración también conserva una interlocutora en los contrastes',()=>{
+ const h=setup(seed,{ENTITY_RENDERER:'art'});h.click({slide:'parecidas'});h.click({turnEvent:'1'});assert.match(h.view(),/data-voice="principal"/);assert.doesNotMatch(h.view(),/role-front-b|data-voice="isquemica"/);
 });
 
 test('la imagen sube al escenario desde el hilo, recorre sus puntos y la herida mira desde la esquina',()=>{
@@ -171,7 +154,7 @@ test('un recurso de vídeo se presenta en el escenario con su portada y rechaza 
 test('la introducción breve presenta tema y herida antes de la primera decisión',()=>{
  const h=setup();h.click({mode:'present'});const P=h.ctx.window.JerezPresentation;const key=k=>h.handlers['document:keydown']({key:k,code:k,target:{matches:()=>false,closest:()=>null},preventDefault(){}});
  assert.equal(P.slideId,'intro-tema');assert.match(h.view(),/intro-lead "/);key('ArrowRight');assert.match(h.view(),/intro-lead is-on/);key('ArrowRight');assert.match(h.view(),/intro-note is-on/);
- key('ArrowRight');assert.equal(P.slideId,'intro-herida');assert.doesNotMatch(h.view(),/<small>La herida<\/small>/);key('ArrowRight');assert.match(h.view(),/class="intro-chat"[^]*<small>La herida<\/small>[^]*pierna/);
+ key('ArrowRight');assert.equal(P.slideId,'intro-herida');assert.doesNotMatch(h.view(),/<small>La herida<\/small>/);key('ArrowRight');assert.match(h.view().replace(/<[^>]*>/g,' ').replace(/\s+/g,' '),/María del Mar y yo nos conocemos/);
  for(let i=0;i<3;i++)key('ArrowRight');assert.equal(P.slideId,'apertura');
 });
 test('cada paso mueve la conversación con la herida: detalle, imagen o su propia voz',()=>{
@@ -180,18 +163,12 @@ test('cada paso mueve la conversación con la herida: detalle, imagen o su propi
  const c=vm.createContext({});vm.runInContext(seed+';globalThis.deck=INITIAL_DECK;',c);
  for(const s of c.deck.slides.filter(s=>s.study)){h.click({slide:s.id});h.click({action:'route-here'});let before=right();
   for(let k=1;k<=s.study.steps.length;k++){key('ArrowRight');assert.equal(P.step,k);const now=right();assert.notEqual(now,before,s.id+' paso '+k+' no cambia la conversación');before=now;}}
- const g=setup();g.click({mode:'present'});g.click({slide:'registro'});g.click({action:'route-here'});const gkey=k=>g.handlers['document:keydown']({key:k,code:k,target:{matches:()=>false,closest:()=>null},preventDefault(){}});const gright=()=>{const v=g.view();return v.slice(v.indexOf('<aside class="conversation-panel'));};for(let i=0;i<4;i++)gkey('ArrowRight');assert.match(gright(),/is-question/);assert.match(gright(),/<s>Repetir la cura sin comprobar la respuesta.<\/s>/);gkey('ArrowRight');assert.match(gright(),/Seguimos conversando/);
+
 });
 
-test('una pregunta manual al terminar la escena se abre y el siguiente paso recupera el hilo',()=>{
- const h=setup();h.click({mode:'present'});h.click({slide:'registro'});h.click({action:'route-here'});
- const key=k=>h.handlers['document:keydown']({key:k,code:k,target:{matches:()=>false,closest:()=>null},preventDefault(){}});
- for(let i=0;i<4;i++)key('ArrowRight');
- assert.match(h.view(),/is-resolving/);assert.doesNotMatch(h.view(),/class="portal-scroll"/);
- h.click({turnEvent:'2'});assert.match(h.view(),/Repetir o revisar/);assert.match(h.view(),/class="portal-scroll"/);
- assert.doesNotMatch(h.view(),/prepared-answer is-question/);
- key('ArrowRight');assert.match(h.view(),/Seguimos conversando/);assert.doesNotMatch(h.view(),/class="portal-scroll"/);
- key('ArrowLeft');assert.match(h.view(),/prepared-answer is-question/);
+test('Ampliar abre preguntas y el avance recupera el hilo',()=>{
+ const h=setup();h.click({mode:'present'});h.click({slide:'registro'});h.click({action:'route-here'});const key=k=>h.handlers['document:keydown']({key:k,code:k,target:{matches:()=>false,closest:()=>null},preventDefault(){}});
+ key('ArrowRight');h.click({action:'expand'});assert.match(h.elements.dialog.innerHTML,/¿repetimos o revisamos/);h.dialogClick({turnEvent:'2'});assert.equal(h.elements.dialog.open,false);assert.match(h.view(),/Repetir o revisar/);key('ArrowRight');assert.doesNotMatch(h.view(),/Repetir o revisar/);assert.equal(h.ctx.window.JerezPresentation.step,2);
 });
 
 test('en presentación se pueden recuperar también los detalles ya explorados',()=>{
@@ -236,4 +213,86 @@ test('el borrador anterior sigue recuperable y no sustituye la revisión editori
  assert.equal(recovered.notes.registro,'NOTA ANTERIOR CONSERVADA');
  assert.equal(recovered.draft.slides.find(s=>s.id==='registro').title,'TÍTULO ANTERIOR PERSONALIZADO');
  assert.equal(r.store.get('jerez-conversations-v4'),JSON.stringify(old));
+});
+
+
+test('el estudio líquido es autónomo y la copia conserva una sola interlocutora',async()=>{
+ const study=await readFile(new URL('../dist/entidad-motion.html',import.meta.url),'utf8');const alternate=await readFile(new URL('../dist/revision-liquid.html',import.meta.url),'utf8');assert.doesNotMatch(study,/\/\* ENTITY \*\/|__FIGTREE__|__FRAUNCES__/);assert.match(alternate,/globalThis.ENTITY_RENDERER="liquid"/);
+ const h=setup(seed,{ENTITY_RENDERER:'liquid'});h.click({slide:'parecidas'});h.click({turnEvent:'1'});assert.match(h.view(),/data-voice="principal"/);assert.doesNotMatch(h.view(),/role-front-b/);
+});
+
+test('la escena de prueba conserva las preguntas y recursos reales sin modificar la edición guardada',async()=>{
+ const page=await readFile(new URL('../dist/escena-entidad.html',import.meta.url),'utf8');
+ const sceneSeed=page.match(/<script id="seed">([\s\S]*?)<\/script>/)[1];
+ const c=vm.createContext({});vm.runInContext(sceneSeed+';globalThis.deck=INITIAL_DECK;',c);
+ assert.equal(c.deck.slides.length,1);assert.equal(c.deck.slides[0].id,'limpieza');
+ assert.ok(!('notes' in c.deck.slides[0]));
+ const calls=[];const h=setup(sceneSeed,{EntitySceneLab:{prepare(){calls.push('prepare');},bind(){calls.push('bind');}}});
+ assert.equal(h.ctx.window.JerezPresentation.slideId,'limpieza');
+ assert.deepEqual(calls.slice(-2),['prepare','bind']);
+ h.click({turnEvent:'0'});assert.ok(h.view().replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').includes('El lecho, el borde y la piel de alrededor.'));
+ h.click({action:'stage-media'});assert.match(h.view(),/data-hot="2"/);
+ h.click({hot:'2'});assert.match(h.view(),/Piel perilesional/);
+ h.click({action:'media-close'});assert.match(h.view(),/data-action="expand"/);
+ assert.equal(h.store.size,0);assert.doesNotMatch(h.app(),/Guardar para presentar/);
+});
+
+test('la exposición ofrece una entrada principal y reserva las ramas para Ampliar',()=>{
+ const h=setup();h.click({mode:'present'});h.click({slide:'apertura'});h.click({action:'route-here'});assert.match(h.view(),/data-action="step-forward"/);assert.doesNotMatch(h.view(),/class="orbit-chips"|data-turn-event/);h.click({action:'step-forward'});assert.equal(h.ctx.window.JerezPresentation.step,1);assert.doesNotMatch(h.view(),/class="resource-choices"/);h.click({action:'expand'});for(let i=0;i<3;i++)assert.ok(h.elements.dialog.innerHTML.includes('data-turn-event="'+i+'"'));
+});
+test('la nueva edición deja intacto el borrador v5 para recuperarlo',async()=>{
+ const h=setup();h.click({action:'export-project'});const pack=JSON.parse(await h.blobs[0].text());pack.notes.registro='NOTA V5';const raw=JSON.stringify(pack);const r=setup(seed+`;localStorage.setItem('jerez-conversations-v5',${JSON.stringify(raw)});`);r.click({action:'legacy'});assert.equal(r.store.get('jerez-conversations-v5'),raw);assert.equal(JSON.parse(await r.blobs[0].text()).notes.registro,'NOTA V5');
+});
+
+test('el personaje es abstracto y presenta historias sin localización ni paciente fijas',()=>{
+ const c=vm.createContext({});vm.runInContext(seed+';globalThis.deck=INITIAL_DECK;',c);
+ for(const s of c.deck.slides.filter(s=>s.study)){assert.equal(s.study.caseLabel,'Personaje abstracto · historias docentes');assert.equal(s.voice,'principal');assert.ok(s.study.turns.every(t=>t.voice==='principal'));}
+ assert.ok(c.deck.slides.find(s=>s.id==='intro-herida').intro.lines.every(l=>!l.includes('Soy una herida de pierna')));
+});
+
+test('la presentación activa usa Campo vivo y Sangre y piel en sus 24 escenas y al exportar',async()=>{
+ const h=setup();
+ assert.equal(h.ctx.ENTITY_RENDERER,'liquid');assert.equal(h.ctx.ENTITY_VARIANT,3);assert.equal(h.ctx.ENTITY_INK,1);
+ assert.doesNotMatch(engine,/globalThis\.ENTITY_ART\s*=/);
+ const c=vm.createContext({});vm.runInContext(seed+';globalThis.scenes=INITIAL_DECK.slides.filter(s=>s.study);',c);
+ assert.equal(c.scenes.length,24);
+ for(const s of c.scenes){
+  h.click({slide:s.id});assert.equal((h.view().match(/class="orb-zone"/g)||[]).length,1,s.id);
+  h.click({turnEvent:'0'});assert.match(h.view(),/data-voice="principal"/,s.id);
+ }
+ h.click({action:'export-html'});const output=await h.blobs.at(-1).text();
+ const exported=output.match(/<script id="seed">([\s\S]*?)<\/script>/)[1];
+ const r=setup(exported);assert.equal(r.ctx.ENTITY_RENDERER,'liquid');assert.equal(r.ctx.ENTITY_INK,1);
+ const explicit=setup(seed,{ENTITY_RENDERER:'liquid',ENTITY_VARIANT:3,ENTITY_INK:2});assert.equal(explicit.ctx.ENTITY_INK,2);
+});
+
+test('las 24 escenas componen el escenario por contenido, conservan anclas y recuperan el encuadre al retroceder',()=>{
+ const c=vm.createContext({});vm.runInContext(seed+';globalThis.deck=INITIAL_DECK;',c);
+ const h=setup();h.click({mode:'present'});const views=new Set();
+ const view=()=>h.view().match(/data-composition="([^"]+)"/)[1];
+ for(const s of c.deck.slides.filter(s=>s.study)){
+  h.click({slide:s.id});h.click({action:'route-here'});assert.equal(view(),'dialogue',s.id);
+  const states=[view()];
+  for(let k=0;k<s.study.steps.length;k++){
+   h.click({action:'step-forward'});states.push(view());views.add(view());
+   assert.match(h.view(),new RegExp('aria-label="Etapa '+(s.mov+1)+' de 4:'),s.id);
+   assert.ok(h.view().includes(s.study.habit.replace(/&/g,'&amp;').replace(/</g,'&lt;')),s.id+' actuación conservada');
+   assert.match(h.view(),/La pregunta que debemos hacernos/);
+   assert.equal((h.view().match(/class="orb-zone"/g)||[]).length,1,s.id);
+  }
+  assert.equal(view(),'closing',s.id);assert.match(h.view(),/class="scene-learning"/);
+  for(let k=states.length-2;k>=0;k--){h.click({action:'step-back'});assert.equal(view(),states[k],s.id+' retroceso '+k);}
+ }
+ for(const name of ['concept','closing','media','resource','decision'])assert.ok(views.has(name),name);
+});
+
+test('el HTML exportado conserva composiciones, paleta y marcadores dentro del plano de imagen',async()=>{
+ const h=setup();h.click({action:'export-html'});const output=await h.blobs.at(-1).text();
+ assert.match(html,/--paper:#f5f1eb/);assert.match(html,/\.move-veil\[data-movement="3"\]/);
+ const reader=setup(output.match(/<script id="seed">([\s\S]*?)<\/script>/)[1]);
+ reader.click({mode:'present'});reader.click({slide:'zonas'});reader.click({action:'route-here'});reader.click({action:'step-forward'});
+ assert.match(reader.view(),/data-composition="media"/);
+ assert.match(reader.view(),/class="media-picture">[\s\S]+class="media-hot on"[\s\S]+<\/div><div class="media-note"/);
+ reader.click({action:'media-close'});assert.doesNotMatch(reader.view(),/data-composition="media"/);
+ h.click({mode:'prepare'});h.click({slide:'zonas'});assert.match(h.view(),/data-composition="prepare"/);
 });

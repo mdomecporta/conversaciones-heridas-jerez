@@ -1,0 +1,310 @@
+/* Shared stage direction. Loaded last; the preparation tools keep their full content. */
+#app,[data-q]{--tone:#ac6c6f;--tone-soft:#eee0dd;--tone-ink:#78434c}
+#app{background:radial-gradient(ellipse at 80% 15%,#e7d8cf80,transparent 60%),var(--shell)}
+.slide{background:radial-gradient(ellipse at 95% 0%,#e9d9ce66,transparent 65%),var(--paper)}
+.slide.institutional-slide{background:#fff}
+.stage-shell{box-shadow:0 1px 0 #fff9 inset,0 30px 70px -45px #72544870,0 0 0 1px var(--line);border-radius:1.2cqw}
+.topbar,.question-context{background:#f5f1ebd9}
+.brandmark{background:radial-gradient(circle at 35% 30%,#f8dfc5,#cb8c7e 35%,#a54550 68%,#743536);box-shadow:0 0 0 4px #ac6c6f14,0 6px 16px -6px var(--accent);animation:none}
+.question-rail{grid-template-columns:repeat(4,1fr)}
+.question-step.active{background:var(--surface-sunk);border-bottom-color:var(--accent);color:var(--accent)}
+.question-step.active .step-number{background:var(--accent);border-color:var(--accent);color:var(--paper)}
+.question-step:hover{background:var(--surface-sunk)}
+.question-context,.review-banner{color:var(--muted);border-color:var(--line)}
+.lesson{padding:1.8cqw 2.6cqw 2cqw}
+.lesson .clinical-layout{position:relative;display:grid;grid-template-rows:2.8cqw minmax(0,1fr);grid-template-columns:var(--lead-col) minmax(0,1fr);gap:1.5cqw var(--col-gap);height:100%;min-height:0}
+.scene-chapter{grid-column:1/-1;display:flex;align-items:center;gap:1.2cqw;border-bottom:1px solid var(--line);padding-bottom:.9cqw;font:500 var(--t-meta) var(--sans);color:var(--muted)}
+.scene-chapter>span{color:var(--tone-ink);display:flex;gap:.8cqw;align-items:center}
+.scene-chapter b{font-weight:650}
+.scene-chapter>div{display:flex;gap:.3cqw;margin-left:auto}
+.scene-chapter i{width:2.8cqw;height:2px;background:var(--line)}
+.scene-chapter i.done{background:var(--line-strong)}
+.scene-chapter i.current{background:var(--tone-ink)}
+.scene-chapter small{font-size:var(--t-meta)}
+.lesson .clinical-explanation{min-width:0;padding:1cqw 0 0;overflow:auto}
+.lesson .lesson-label{margin:0 0 1.25cqw;color:var(--muted);font-size:var(--t-meta)}
+.lesson .lesson-label>span:first-child{border:0;background:none;color:var(--tone-ink);padding:0;border-radius:0;font-weight:650}
+.lesson .lesson-label>span:nth-child(2),.lesson .lesson-label .route,.lesson .step-dots{display:none}
+.lesson h2{font-family:var(--display);font-weight:500;font-size:var(--t-title);line-height:1.06;letter-spacing:-.045em;max-width:23ch;margin-bottom:1.2cqw;text-wrap:balance}
+.lesson .edition-author{color:var(--muted);font-size:var(--t-meta)}
+.lesson .edition-author span{font-size:var(--t-meta)}
+#app[data-mode="present"] .lesson .clinical-explanation .edition-author{display:none}
+.lesson .habit-card.conversation-focus{gap:.8cqw;margin:.4cqw 0 .6cqw}
+.lesson .habit-card.conversation-focus .habit-was{padding:0;background:none;border:0;box-shadow:none}
+.lesson .habit-card span{font-size:var(--t-meta);letter-spacing:.06em;color:var(--muted)}
+.lesson .habit-was span::before{content:none}
+.lesson .habit-card.conversation-focus .habit-was p{font:500 var(--t-lead)/1.3 var(--sans);color:var(--ink-soft)}
+.lesson .habit-card.conversation-focus .habit-ask{padding:1cqw 0 0;border-top:1px solid var(--line-strong);background:none;border-radius:0;color:var(--tone-ink);box-shadow:none}
+.lesson .habit-card.conversation-focus .habit-ask p{font:500 var(--t-ask)/1.2 var(--display);color:var(--tone-ink);text-wrap:pretty}
+.lesson .habit-ask span{color:var(--tone-ink);margin-bottom:.5cqw}
+.lesson .clinical-foundation{border-top:1px solid var(--line);padding-top:.6cqw;margin-top:auto}
+.lesson .evidence-kind{font-size:var(--t-meta);color:var(--muted)}
+.lesson .inline-source{color:var(--tone-ink);padding-top:.15cqw;font-size:var(--t-meta)}
+#app:not([data-mode="prepare"]) .clinical-bridge:not(.is-on){display:none}
+.lesson .clinical-bridge{color:var(--tone-ink);font-size:var(--t-body)}
+.lesson .clinical-bridge>span{color:var(--muted);font-size:var(--t-meta)}
+.lesson .conversation-panel{min-width:0;border:0;border-radius:0;box-shadow:none;background:none;padding:.8cqw 0 0;overflow:hidden}
+.lesson .conversation-header{border:0;min-height:2cqw;align-items:center}
+.lesson .conversation-header strong{font-size:var(--t-meta);color:var(--ink)}
+.lesson .conversation-header small{display:none}
+.lesson .presence-dot{background:var(--q0)}
+.lesson .presence-status{font-size:var(--t-meta);color:var(--muted)}
+#app[data-mode="present"] .lesson .presence-status{display:none}
+.lesson .restart-conversation{font-size:1.2cqw;color:var(--muted)}
+.lesson .scene-chip{font-size:var(--t-meta);border-color:var(--line);background:var(--surface);color:var(--tone-ink)}
+.lesson .conversation-foot{border:0;padding-top:.5cqw;color:var(--muted);font-size:var(--t-meta);margin-top:auto}
+.lesson .conversation-foot button{color:var(--tone-ink);font-size:var(--t-meta)}
+.lesson .stage-core{min-height:0;flex:1;justify-content:center}
+#app .lesson .stage-v2 .entity-stage{height:19cqw;flex:none;margin:0}
+#app .lesson .stage-v2 .entity-stage .orb-zone{inset:0 18%}
+.lesson .cast-name,.lesson .entity-caption{display:none}
+.lesson .subtitle{padding:0 1.5cqw .5cqw;max-width:100%;min-width:0}
+#app .lesson .opening-message,#app .lesson .prepared-answer{font:450 var(--t-ask)/1.3 var(--display);color:var(--ink);padding:.8cqw 0;background:none;box-shadow:none;border:0;text-align:left;max-width:100%;margin:0}
+#app .lesson .subtitle small{font:650 var(--t-meta) var(--sans);color:var(--tone-ink);letter-spacing:.04em;margin-bottom:.4cqw}
+#app .lesson .asked-question{font:500 var(--t-body)/1.4 var(--sans);color:var(--muted);background:none;text-align:left;padding:0;margin:0;max-width:100%;box-shadow:none}
+#app .lesson .asked-question small{color:var(--muted);font-size:var(--t-meta)}
+.lesson .main-question{bottom:1cqw}
+#app .lesson .main-question button{background:var(--surface);border-color:var(--line-strong);color:var(--tone-ink);font-size:var(--t-meta);padding:.6cqw 1cqw;box-shadow:none}
+.lesson .stage-hint{font-size:var(--t-meta);color:var(--muted);text-align:left;margin:.3cqw 0}
+.lesson .conversation-resource{background:var(--surface-sunk);border:0;border-radius:.6cqw;padding:1.2cqw 1.4cqw;margin:.6cqw 0}
+.lesson .resource-heading>span{font-size:var(--t-meta);color:var(--tone-ink)}
+.lesson .resource-heading>strong{font:500 var(--t-lead)/1.2 var(--display);color:var(--ink)}
+.lesson .resource-thread{margin-top:1cqw}
+.lesson .resource-thread li.now{background:none;box-shadow:none;padding:.3cqw 0}
+.lesson .resource-thread strong,.lesson .resource-detail strong{font:650 var(--t-body)/1.3 var(--sans);color:var(--ink)}
+.lesson .resource-thread p,.lesson .resource-detail p{font-size:var(--t-body);line-height:1.45;color:var(--ink-soft)}
+.lesson .resource-tabs button{background:var(--paper);border-color:var(--line);color:var(--muted)}
+.lesson .resource-tabs button.selected{background:var(--line);border-color:var(--q4);color:var(--accent)}
+.lesson .resource-prompt{font:500 var(--t-lead)/1.3 var(--display);color:var(--tone-ink)}
+.lesson .resource-detail{border-color:var(--q0)}
+.lesson .comparison-resource>div{background:var(--paper);border-color:var(--line);color:var(--ink)}
+.lesson .comparison-resource>div:nth-child(2){background:var(--surface-sunk)}
+.lesson .clinical-concepts{margin:.6cqw 0;gap:.2cqw}
+.lesson .comparison-resource small,.lesson .resource-thread li>span{font-size:var(--t-meta)}
+.lesson .comparison-resource strong,.lesson .comparison-resource p{font-size:var(--t-body)}
+.lesson .clinical-concepts p{color:var(--ink-soft)}
+#app:not([data-mode="prepare"]) .lesson .clinical-concepts>div>span{font-size:var(--t-meta)}
+#app:not([data-mode="prepare"]) .lesson .clinical-concepts strong{font-size:var(--t-body)}
+#app:not([data-mode="prepare"]) .lesson .clinical-concepts p{font-size:var(--t-body);line-height:1.35}
+#app:not([data-mode="prepare"]) .lesson .clinical-concepts.guided>div{padding-top:.35cqw;padding-bottom:.35cqw}
+/* The synthesis keeps all five questions legible at once: their explanations drop to the meta size. */
+#app:not([data-mode="prepare"]) .lesson .is-synthesis .clinical-concepts p{font-size:var(--t-meta);line-height:1.25}
+#app:not([data-mode="prepare"]) .lesson .is-synthesis .clinical-concepts.guided>div{padding-top:.25cqw;padding-bottom:.25cqw}
+#app:not([data-mode="prepare"]) .lesson .is-synthesis .habit-was{display:none}
+#app:not([data-mode="prepare"]) .lesson .is-synthesis .habit-ask>span{display:none}
+#app:not([data-mode="prepare"]) .lesson .is-synthesis .clinical-concepts.guided>div.is-focus strong{font-size:var(--t-body)}
+/* The current point leads by type and a hairline, not a filled block; the question above stays dominant. */
+#app:not([data-mode="prepare"]) .lesson .clinical-concepts.guided>div.is-focus{background:none;box-shadow:inset 2px 0 0 var(--tone-ink);border-radius:0;padding-left:1.2cqw}
+/* The resource is given the wide part of the stage; the wound and reply form a small masthead. */
+.lesson :is([data-composition="resource"],[data-composition="decision"]) .stage-core{display:grid;grid-template-columns:10cqw minmax(0,1fr);align-items:center;flex:0 0 auto;margin-top:.4cqw}
+#app .lesson :is([data-composition="resource"],[data-composition="decision"]) .entity-stage{height:9cqw;width:10cqw}
+#app .lesson :is([data-composition="resource"],[data-composition="decision"]) .entity-stage .orb-zone{inset:0 -12%}
+#app .lesson :is([data-composition="resource"],[data-composition="decision"]) .prepared-answer{font-size:var(--t-lead)}
+.lesson :is([data-composition="resource"],[data-composition="decision"]) .subtitle{padding:.6cqw 0 .6cqw 1cqw}
+.lesson :is([data-composition="resource"],[data-composition="decision"]) .portal-scroll{flex:1;overflow:auto}
+/* Concepts receive the larger column. The conversation moves to a quiet, narrower margin. */
+.lesson [data-composition="concept"] .conversation-panel{border-left:1px solid var(--line);padding-left:1.8cqw}
+#app .lesson [data-composition="concept"] .entity-stage{height:13cqw}
+#app .lesson [data-composition="concept"] .entity-stage .orb-zone{inset:0 -12%}
+#app .lesson [data-composition="concept"] .prepared-answer{font-size:var(--t-lead)}
+.lesson [data-composition="concept"] .subtitle{padding:0}
+.lesson [data-composition="concept"] .portal-scroll{display:none}
+#app .lesson [data-composition="concept"] .clinical-concepts.guided>div.is-focus strong{font-size:var(--t-lead)}
+#app .lesson [data-composition="concept"] .clinical-concepts.guided>div.is-focus p{font-size:var(--t-body)}
+.lesson .clinical-concepts.compact>div>div{display:block}
+/* Question and closing: full-width editorial statement and the companion along the lower edge. */
+.lesson :is([data-composition="question"],[data-composition="closing"]){grid-template-columns:minmax(0,1fr);grid-template-rows:2.8cqw minmax(0,1fr) auto;row-gap:1cqw}
+.lesson :is([data-composition="question"],[data-composition="closing"]) .clinical-explanation{position:relative;display:grid;grid-template-columns:var(--lead-col) minmax(0,1fr);column-gap:var(--col-gap);align-content:start;overflow:auto}
+.lesson :is([data-composition="question"],[data-composition="closing"]) .lesson-label{grid-column:1/-1;margin-bottom:.5cqw}
+.lesson :is([data-composition="question"],[data-composition="closing"]) h2{grid-column:1;grid-row:2}
+.lesson :is([data-composition="question"],[data-composition="closing"]) .habit-card{grid-column:2;grid-row:2 / span 2;margin:0}
+.lesson :is([data-composition="question"],[data-composition="closing"]) .habit-card .habit-ask p{font-size:var(--t-statement);max-width:32ch}
+.lesson :is([data-composition="question"],[data-composition="closing"]) .clinical-foundation{grid-column:1;margin-top:1cqw;align-self:end;border:0}
+.lesson :is([data-composition="question"],[data-composition="closing"]) .edition-author{display:none}
+.lesson :is([data-composition="question"],[data-composition="closing"]) .clinical-concepts{display:none}
+.lesson :is([data-composition="question"],[data-composition="closing"]) .conversation-panel{border-top:1px solid var(--line);display:grid;grid-template-columns:var(--lead-col) minmax(0,1fr);gap:0 var(--col-gap);padding-top:.3cqw}
+.lesson :is([data-composition="question"],[data-composition="closing"]) .conversation-header{grid-column:1;grid-row:1;align-self:end;justify-content:center}
+.lesson :is([data-composition="question"],[data-composition="closing"]) .conversation-header>div{padding:0}
+.lesson :is([data-composition="question"],[data-composition="closing"]) .conversation-header :is(.presence-dot,.presence-status,.scene-chip,.restart-conversation){display:none}
+.lesson :is([data-composition="question"],[data-composition="closing"]) .stage-core{display:contents}
+#app .lesson :is([data-composition="question"],[data-composition="closing"]) .entity-stage{grid-column:1;grid-row:2;height:8cqw;width:11cqw}
+#app .lesson :is([data-composition="question"],[data-composition="closing"]) .entity-stage .orb-zone{inset:-1cqw -1cqw 0}
+.lesson :is([data-composition="question"],[data-composition="closing"]) .subtitle{grid-column:2;grid-row:1 / span 2;align-self:center;padding:1cqw 0}
+#app .lesson :is([data-composition="question"],[data-composition="closing"]) .prepared-answer{font-size:var(--t-ask)}
+.lesson :is([data-composition="question"],[data-composition="closing"]) .conversation-foot{grid-column:1/-1;padding-top:0}
+.lesson [data-composition="closing"] .habit-card{display:none}
+.scene-learning{grid-column:2;grid-row:2 / span 2;align-self:start}
+.scene-learning>span{font-size:var(--t-meta);letter-spacing:.08em;text-transform:uppercase;color:var(--tone-ink);font-weight:650}
+.scene-learning p{font:500 var(--t-statement)/1.16 var(--display);letter-spacing:-.025em;margin:.7cqw 0 0;max-width:32ch;text-wrap:pretty}
+.lesson [data-composition="closing"] .clinical-bridge.is-on{display:none}
+/* Image and its markers share a fitted frame so annotations stay attached to the image. */
+#app .lesson [data-composition="media"] .stage-core{display:contents}
+#app .lesson [data-composition="media"] .entity-stage{top:3cqw;right:.3cqw;width:8cqw;height:8cqw}
+#app .lesson [data-composition="media"] .entity-stage .orb-zone{inset:0 -10%}
+.lesson [data-composition="media"] .stage-media{margin-top:.6cqw;padding-right:8cqw;min-height:0}
+.lesson [data-composition="media"] .media-frame{flex:0 1 auto;min-height:0;max-width:100%}
+.lesson [data-composition="media"] .media-frame>img,.lesson [data-composition="media"] .media-frame>video{max-height:27cqw;max-width:100%;object-fit:contain;border-radius:.6cqw}
+.lesson [data-composition="media"] .subtitle{padding:.6cqw 8cqw .2cqw 0}
+#app .lesson [data-composition="media"] .prepared-answer,#app .lesson [data-composition="media"] .opening-message{font-size:var(--t-lead);padding:.2cqw 0}
+.lesson [data-composition="media"] .media-note{position:static;margin:.6cqw 0 0;background:var(--surface-sunk);box-shadow:none;backdrop-filter:none;grid-column:1;grid-row:2}
+.lesson [data-composition="media"] .media-frame:has(.media-note){grid-template-columns:minmax(0,1fr);max-height:none}
+.lesson [data-composition="media"] .media-frame:has(.media-note)>:is(img,video){max-height:21cqw}
+.lesson .media-note strong{font-size:var(--t-body)}
+.lesson .media-note p{font-size:var(--t-meta)}
+.lesson .media-title strong{font-size:var(--t-body)}
+.lesson .media-title small{font-size:var(--t-meta)}
+.lesson .media-meta>button{font-size:var(--t-meta)}
+.lesson .media-meta .media-close{width:2.4cqw;height:2.4cqw;font-size:var(--t-body)}
+.lesson .media-hot{width:2.2cqw;height:2.2cqw;font-size:var(--t-meta)}
+.lesson .media-note span{font-size:var(--t-meta)}
+.lesson .resource-tabs button{font-size:var(--t-meta)}
+.lesson .resource-tabs button span{font-size:var(--t-meta)}
+.lesson .media-meta>button{background:var(--surface);border-color:var(--line);color:var(--tone-ink)}
+/* Stage changes are short, warm chapter dividers. The persistent chapter line also works without motion. */
+.move-veil{background:radial-gradient(ellipse at var(--cx) var(--cy),#edd3bd 0,#c68c7b 42%,var(--accent) 100%);color:#fff7ee;animation-duration:1.9s}
+.move-veil[data-movement="1"]{background:radial-gradient(ellipse at var(--cx) var(--cy),#ead0ad,#ad775e 48%,#74483f)}
+.move-veil[data-movement="2"]{background:radial-gradient(ellipse at var(--cx) var(--cy),#d7b8a5,#996960 48%,#633c40)}
+.move-veil[data-movement="3"]{background:radial-gradient(ellipse at var(--cx) var(--cy),#dfd6bb,#949980 48%,var(--q3-ink))}
+.move-veil div{animation-duration:1.9s}
+.move-veil span{font-size:clamp(12px,1vw,18px);letter-spacing:.15em}
+.move-veil strong{font-size:clamp(32px,4.2vw,80px);letter-spacing:-.04em}
+.move-veil small{font-size:clamp(14px,1.15vw,22px)}
+.lesson .stage-v2.fresh .conversation-resource,.lesson .stage-media.is-born .media-frame{animation:scene-content-in .65s var(--ease) both}
+.lesson .stage-v2.fresh .conversation-resource::before{display:none}
+@keyframes scene-content-in{from{opacity:0;transform:translateY(.8cqw)}to{opacity:1;transform:none}}
+/* Reading on a narrow screen: preserve sequence and comfortable type, rather than shrink the slide. */
+@media(max-width:760px){
+ #app:not([data-mode="present"]) .lesson .clinical-layout{display:flex;flex-direction:column;gap:20px;height:auto}
+ #app:not([data-mode="present"]) .scene-chapter{font-size:11px;gap:8px;padding-bottom:12px;flex-wrap:wrap}
+ #app:not([data-mode="present"]) .scene-chapter small{font-size:11px;width:100%}
+ #app:not([data-mode="present"]) .scene-chapter i{width:20px}
+ #app:not([data-mode="present"]) .lesson .clinical-explanation{display:flex;flex-direction:column;overflow:visible}
+ #app:not([data-mode="present"]) .lesson h2{font-size:30px;max-width:none}
+ #app:not([data-mode="present"]) .lesson .lesson-label{font-size:11px}
+ #app:not([data-mode="present"]) .lesson .habit-card span,#app:not([data-mode="present"]) .scene-learning>span{font-size:10px}
+ #app:not([data-mode="present"]) .lesson .habit-card{gap:12px;margin:8px 0 16px}
+ #app:not([data-mode="present"]) .lesson .habit-was p{font-size:15px}
+ #app:not([data-mode="present"]) .lesson .habit-ask{padding-top:12px}
+ #app:not([data-mode="present"]) .lesson .habit-ask p{font-size:24px}
+ #app:not([data-mode="present"]) .scene-learning p{font-size:28px;margin:12px 0}
+ #app:not([data-mode="present"]) .lesson .conversation-panel{display:flex;min-height:0;max-height:none;padding:16px 0 0;border-left:0;border-top:1px solid var(--line);container-type:normal;overflow:visible}
+ #app:not([data-mode="present"]) .lesson .stage-core{display:flex;flex-direction:column}
+ #app:not([data-mode="present"]) .lesson .conversation-header{justify-content:space-between;min-height:30px}
+ #app:not([data-mode="present"]) .lesson .conversation-header strong{font-size:14px}
+ #app:not([data-mode="present"]) .lesson .presence-status{font-size:11px}
+ #app:not([data-mode="present"]) .lesson .restart-conversation{font-size:20px}
+ #app:not([data-mode="present"]) .lesson .entity-stage{position:relative;inset:auto;height:190px;width:100%}
+ #app:not([data-mode="present"]) .lesson .entity-stage .orb-zone{inset:0 15%}
+ #app:not([data-mode="present"]) .lesson .subtitle{padding:8px 0}
+ #app:not([data-mode="present"]) .lesson .opening-message,#app:not([data-mode="present"]) .lesson .prepared-answer{font-size:23px;padding:10px 0}
+ #app:not([data-mode="present"]) .lesson .asked-question{font-size:14px}
+ #app:not([data-mode="present"]) .lesson .subtitle small{font-size:10px}
+ #app:not([data-mode="present"]) .lesson .stage-hint,#app:not([data-mode="present"]) .lesson .conversation-foot{font-size:11px}
+ #app:not([data-mode="present"]) .lesson .main-question button{font-size:13px;padding:9px 12px}
+ #app:not([data-mode="present"]) .lesson .conversation-resource{padding:16px;margin:10px 0}
+ #app:not([data-mode="present"]) .lesson .resource-heading>span{font-size:10px}
+ #app:not([data-mode="present"]) .lesson .resource-heading>strong{font-size:23px}
+ #app:not([data-mode="present"]) .lesson .resource-thread strong,#app:not([data-mode="present"]) .lesson .resource-detail strong{font-size:16px}
+ #app:not([data-mode="present"]) .lesson .resource-thread p,#app:not([data-mode="present"]) .lesson .resource-detail p{font-size:16px}
+ #app:not([data-mode="present"]) .lesson .resource-prompt{font-size:20px}
+ #app:not([data-mode="present"]) .lesson .clinical-concepts.guided>div.is-focus strong{font-size:23px}
+ #app:not([data-mode="present"]) .lesson .clinical-concepts.guided>div.is-focus p{font-size:18px}
+ #app:not([data-mode="present"]) .lesson .stage-media{padding:0;margin:8px 0}
+ #app:not([data-mode="present"]) .lesson .media-frame{max-height:none;width:100%}
+ #app:not([data-mode="present"]) .lesson .media-frame>img{max-height:340px}
+ #app:not([data-mode="present"]) .lesson .media-note strong{font-size:15px}
+ #app:not([data-mode="present"]) .lesson .media-note p{font-size:14px}
+ #app:not([data-mode="present"]) .lesson .clinical-foundation{margin-top:16px;padding-top:10px}
+ #app:not([data-mode="present"]) .lesson .inline-source,#app:not([data-mode="present"]) .lesson .evidence-kind{font-size:12px}
+}
+@media(prefers-reduced-motion:reduce){
+ .move-veil{display:none}
+ .lesson *{animation:none!important;transition:none!important}
+}
+@media print{
+ .lesson .clinical-layout{height:auto;min-height:48cqw}
+ .scene-chapter{color:var(--ink)}
+ .lesson .clinical-bridge:not(.is-on){display:block}
+}
+/* The picture itself, not its caption, is the coordinate plane for guide markers. */
+.media-picture{position:relative;display:flex;justify-content:center;align-items:center;max-width:100%;width:fit-content;min-height:0}
+.media-picture>img,.media-picture>video{display:block;max-width:100%;max-height:22cqw;width:auto;height:auto;border-radius:.6cqw;object-fit:contain}
+.lesson [data-composition="media"] .media-frame{display:flex;flex-direction:column;max-height:none;align-items:center;justify-content:flex-start}
+.lesson [data-composition="media"] .media-frame:has(.media-note){display:flex}
+.lesson [data-composition="media"] .media-picture>img,.lesson [data-composition="media"] .media-picture>video{max-height:27cqw}
+.lesson [data-composition="media"] .media-frame:has(.media-note) .media-picture>img,.lesson [data-composition="media"] .media-frame:has(.media-note) .media-picture>video{max-height:21cqw}
+.lesson [data-composition="media"] .media-note{width:100%;box-sizing:border-box;flex:none}
+@media(max-width:760px){
+ #app:not([data-mode="present"]) .lesson [data-composition="media"] .media-picture>img,#app:not([data-mode="present"]) .lesson [data-composition="media"] .media-picture>video{max-height:340px}
+}
+.lesson .subtitle{align-items:stretch}
+.lesson [data-composition="media"] .stage-media{flex:0 1 auto}
+.lesson [data-composition="media"] .subtitle{flex:none;margin-top:.8cqw}
+.move-veil small{color:inherit}
+@media(max-width:760px){
+ #app:not([data-mode="present"]) .top-actions{flex-wrap:wrap;max-width:100%}
+}
+/* Introduction shares the scene frame: same margins, a chapter line in place of the uppercase header, and the reading column. */
+#app:not([data-mode="prepare"]) .slide.intro{padding:1.8cqw 2.6cqw 2cqw}
+#app:not([data-mode="prepare"]) .slide.intro .slide-head{min-height:2.8cqw;margin-bottom:1.5cqw;padding-bottom:.9cqw;border-bottom:1px solid var(--line);font:500 var(--t-meta) var(--sans);letter-spacing:0;text-transform:none;color:var(--tone-ink)}
+#app:not([data-mode="prepare"]) .slide.intro .slide-head .deck-label{color:var(--muted)}
+#app:not([data-mode="prepare"]) .slide.intro .slide-body{padding-top:0}
+#app:not([data-mode="prepare"]) .slide.intro .slide-footer,#app:not([data-mode="prepare"]) .intro>.step-dots{display:none}
+/* Cover: one large statement that holds the width, and the promise of the talk set out on the reading column. */
+#app:not([data-mode="prepare"]) .intro-tema{display:grid;grid-template-columns:var(--lead-col) minmax(0,1fr);column-gap:var(--col-gap);align-content:end;padding-bottom:2cqw}
+#app:not([data-mode="prepare"]) .intro-tema>:is(.intro-kicker,h1){grid-column:1/-1}
+#app:not([data-mode="prepare"]) .intro-tema .intro-kicker{font-size:var(--t-meta);letter-spacing:.08em}
+#app:not([data-mode="prepare"]) .intro-tema h1{font-size:7.4cqw;line-height:.98;letter-spacing:-.04em;max-width:16ch;margin:1.2cqw 0 3cqw;text-wrap:balance}
+#app:not([data-mode="prepare"]) .intro-tema :is(.intro-lead,.intro-note){margin:0;padding-top:1.2cqw;border-top:1px solid var(--line-strong)}
+#app:not([data-mode="prepare"]) .intro-tema .intro-lead{font:500 var(--t-ask)/1.2 var(--display);color:var(--tone-ink)}
+#app:not([data-mode="prepare"]) .intro-tema .intro-note{font:500 var(--t-lead)/1.3 var(--sans);color:var(--ink-soft)}
+/* The wound is introduced as in a scene opening: no card around it, the conversation under it. */
+#app:not([data-mode="prepare"]) .intro-herida{grid-template-columns:var(--lead-col) minmax(0,1fr);gap:0 var(--col-gap)}
+#app:not([data-mode="prepare"]) .intro-herida section{align-self:start;padding-top:1cqw}
+#app:not([data-mode="prepare"]) .intro-herida h2{font-size:var(--t-title);line-height:1.06;letter-spacing:-.045em;margin:0 0 1cqw}
+#app:not([data-mode="prepare"]) .intro-herida .intro-sub{font:500 var(--t-lead)/1.3 var(--sans);color:var(--ink-soft)}
+#app:not([data-mode="prepare"]) .intro-legend{list-style:none;counter-reset:legend;padding:0;margin:1.6cqw 0 0;gap:0;font-size:var(--t-body);line-height:1.35}
+#app:not([data-mode="prepare"]) .intro-legend li{counter-increment:legend;display:grid;grid-template-columns:2.2cqw 1fr;padding:.7cqw 0;border-top:1px solid var(--line)}
+#app:not([data-mode="prepare"]) .intro-legend li::before{content:"0" counter(legend);font-size:var(--t-meta);font-weight:650;color:var(--tone-ink);padding-top:.25cqw}
+#app:not([data-mode="prepare"]) .intro-chat-panel{background:none;border-radius:0;padding:0 0 0 1.8cqw;border-left:1px solid var(--line);justify-content:center}
+#app:not([data-mode="prepare"]) .intro-entity{height:19cqw}
+#app:not([data-mode="prepare"]) .intro-chat{gap:.9cqw}
+#app:not([data-mode="prepare"]) .intro-chat p{background:none;padding:0;border-radius:0;box-shadow:none;font:500 var(--t-body)/1.4 var(--sans);color:var(--muted);opacity:1}
+#app:not([data-mode="prepare"]) .intro-chat p.now{font:450 var(--t-ask)/1.3 var(--display);color:var(--ink);box-shadow:none}
+#app:not([data-mode="prepare"]) .intro-chat small{font-size:var(--t-meta);letter-spacing:.04em;margin-bottom:.3cqw}
+#app:not([data-mode="prepare"]) .intro-chat p:not(.now) small{display:none}
+/* Closing band: the companion sits at the head of the reading column; the bridge reads left-aligned under one label. */
+.lesson [data-composition="closing"] .conversation-panel{padding-top:1.2cqw}
+.lesson [data-composition="closing"] .conversation-header{display:none}
+#app .lesson [data-composition="closing"] .entity-stage{grid-row:1 / span 2;height:9cqw;width:9cqw;align-self:center}
+#app .lesson [data-composition="closing"] .entity-stage .orb-zone{inset:0}
+.lesson [data-composition="closing"] .subtitle{align-self:center}
+#app .lesson [data-composition="closing"] .asked-question{text-align:left;align-self:start;color:var(--tone-ink)}
+#app .lesson [data-composition="closing"] .asked-question small{font:650 var(--t-meta) var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--tone-ink)}
+.lesson [data-composition="closing"] .scene-learning p{font-size:3.1cqw;max-width:28ch}
+#app .lesson [data-composition="closing"] .prepared-answer{align-self:start}
+/* At the bridge the previous resource retires, as the script states; an open picture must not take the band. */
+.lesson [data-composition="closing"] :is(.stage-media,.portal-scroll){display:none}
+/* Review on a laptop: one compact header, a single-line stage rail, and the slide fitted to the remaining height with the script below it, never over it. */
+@media(min-width:761px){
+ #app[data-mode="review"] .topbar{height:56px}
+ #app[data-mode="review"] .review.workspace{height:calc(100dvh - 56px)}
+ #app[data-mode="review"] .top-actions{gap:6px}
+ #app[data-mode="review"] :is(.top-actions button,.mode-switch button){font-size:13px;line-height:1;padding:9px 14px;min-height:0}
+ #app[data-mode="review"] .mode-switch button{padding:8px 14px}
+ #app[data-mode="review"] .question-rail{min-height:0;padding:0 26px}
+ #app[data-mode="review"] .question-step{padding:8px 10px;font-size:13px}
+ #app[data-mode="review"] .question-step small{display:none}
+ #app[data-mode="review"] .question-context{display:none}
+ #app[data-mode="review"] .review-banner{padding:5px 26px;font-size:12px}
+ #app[data-mode="review"] .review .workarea{overflow:hidden}
+ #app[data-mode="review"] .review .stage-holder{flex:1 1 0;min-height:0;padding:12px 26px 8px;container-type:size}
+ #app[data-mode="review"] .review .stage-shell{width:min(100cqw,100cqh*16/9);max-width:none;flex:none}
+ #app[data-mode="review"] .guide-bar{position:static;margin:0 auto 4px;width:calc(100% - 52px);max-width:1100px;padding:7px 14px}
+ #app[data-mode="review"] .guide-bar p{font-size:14px}
+ #app[data-mode="review"] .review .bottom-nav{padding:4px 26px 8px}
+}
+/* Narrow reading flow: the same scale in fixed pixels, since the slide no longer sets the width. */
+@media(max-width:760px){
+ #app:not([data-mode="present"]){--t-meta:12px;--t-body:15px;--t-lead:18px;--t-ask:22px;--t-title:30px;--t-statement:26px}
+}

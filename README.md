@@ -1,5 +1,9 @@
 # Conversaciones con una Herida
 
+> **Interfaz vigente · 29 de octubre de 2026.** El recorrido completo usa composiciones adaptadas al contenido: conversación, concepto, recurso, decisión, imagen y cierre. Una franja identifica siempre la etapa. La actuación y la pregunta orientan el desarrollo; el cierre destaca el aprendizaje y el enlace oral. La base marfil, piedra y granate acompaña a Sangre y piel. `scenes.css` sustituye la división fija y las paletas anteriores descritas más abajo. [Criterio y comportamiento del escenario](../design/escenario-adaptable.md).
+
+> **Edición vigente · 29 de octubre de 2026.** La herida es un personaje abstracto y compañero de María del Mar, sin paciente ni localización fijas. Solo ellas conversan; la evidencia sostiene el lado científico. Las historias y los contrastes no son personajes nuevos ni la evolución de una misma lesión. El recorrido tiene cuatro momentos y 106 pasos; las ramas se reúnen en Ampliar y se retiran el tachado y el contador. El guardado v6 conserva el v5 anterior sin sobrescribirlo. [Voces, criterio editorial y guion completo](../bibliography/VOCES_Y_GUION_29_OCTUBRE.md). Los apartados siguientes documentan también etapas anteriores; sus descripciones del reparto, controles y 153 pasos quedan sustituidas por esta revisión.
+
 Edición de revisión para María del Mar Candil Ramón. Mesa «¿Es posible cicatrizar todas las heridas?», IV Jornadas Comisión Heridas Jerez, 19 de noviembre de 2026.
 
 ## La experiencia completa
@@ -37,7 +41,7 @@ Estados: en reposo respira y el lecho fluye por dentro; escuchando se abre, crec
 
 ### Entidad generada por código
 
-La voz de la herida es una entidad generada por código, sin imagen (renderizador `membrane` en `entity.js`): cuatro membranas apiladas con volumen, borde nacarado y sombra entre capas; un lecho líquido coral que fluye siempre; luz de borde blanca y dorada; los ocho estados y el tono de cada voz. Cuando la escena tiene invitada, las dos heridas son un solo cuerpo: la primera vez que habla la invitada brota de la protagonista, se estrangula y se separa (`data-bud`), y quien habla crece un poco (`data-focus`); cada figura conserva su tono y su nombre. En la comparación crece la historia que se está mirando. Al cambiar de escena el brote no se repite. `dist/entidad.html` muestra estados, voces y la secuencia del brote; `dist/entidad-actual.html`, la ilustración anterior, que se recupera con `globalThis.ENTITY_RENDERER='art'` (entonces la invitada vuelve a ser una segunda figura).
+La entidad vigente de la presentación es **Campo vivo**, generada en código con membranas translúcidas, núcleo cálido, movimiento interno y reacción a los estados de la conversación. Las 24 escenas clínicas y la introducción de la herida usan el acabado líquido (`variant=3`) y la familia **Sangre y piel** (`ink=1`) como base. Las cuatro familias artísticas siguen disponibles en el estudio de color. Los HTML principales ya no incrustan la ilustración antigua; las páginas históricas de comparación se conservan como referencias.
 
 ## Abrir para revisar
 
@@ -111,7 +115,7 @@ La edición está montada para revisión, **no certificada clínicamente**. Mar�
 
 Sin dependencias de ejecución. `npm run build` genera la edición y la copia de revisión con fuentes e imágenes incrustadas. `npm test` ejecuta 35 comprobaciones de estructura, cobertura de las 24 escenas, continuidad, recursos, fotografías y permisos, importación, guardado, separación de notas, biblioteca, recorridos y ejecución de las copias exportadas.
 
-Contenido base en `content.js`, piloto histórico en `pilot.js` y desarrollo completo en `edition.js`; este último fija la secuencia y los dos lados de cada escena. `app.js` proporciona el editor y las interacciones; `entity.js`, la entidad; `portal.css`, la composición y los recursos de esta edición, sobre los estilos previos. No editar directamente los HTML de `dist/`.
+Contenido base en `content.js`, piloto histórico en `pilot.js` y desarrollo completo en `edition.js`; este último fija la secuencia y los dos lados de cada escena. `app.js` proporciona el editor y las interacciones; `entity.js`, la entidad. Los estilos se cargan en este orden: `tokens.css` (paleta, escala de proyección, columna de lectura y movimiento), `app.css` (aplicación, editor, portal y recursos), `stage.css` (pasos guiados y escenario de la conversación) y `scenes.css` (composiciones de escena, introducción y Revisar). Los colores y tamaños nuevos se toman de los tokens. `entity-scene.css` solo se usa en `dist/escena-entidad.html`. No editar directamente los HTML de `dist/`.
 
 La copia de revisión generada al construir usa los archivos fuente. Para compartir cambios hechos en el editor, guardar y exportar desde Compartir; los cambios del navegador no modifican los archivos fuente.
 
@@ -124,3 +128,17 @@ Las 24 escenas y sus 72 respuestas se han revisado para separar una explicación
 Se conservan los identificadores de las 24 escenas, las tres preguntas explorables de cada una, las imágenes y los tres recorridos visuales. El recorrido principal incluye dos pausas con la sala y una breve vuelta a las preguntas iniciales. Los detalles siguen disponibles para ampliar, sin requerir recorrerlos todos.
 
 [Guía de las 24 escenas y sus fuentes](../bibliography/REVISION_NARRATIVA_24_ESCENAS.md). Las 35 pruebas incluyen el recorrido completo en ambos sentidos, la recuperación del hilo después de explorar, las fuentes y la conservación del borrador anterior. La duración final requiere ensayo con María del Mar.
+
+## Estudio de movimiento de la entidad · 28 octubre 2026
+
+`dist/entidad-motion.html` permite comparar las cuatro familias artísticas de color, los estados, los tamaños y las interacciones directas. `dist/revision.html` e `index.html` usan ya la entidad nueva; `dist/revision-liquid.html` permite probar parámetros de color por URL. Las referencias y decisiones están en `../design/entity-motion.md`.
+
+El estudio abre ahora en **Campo vivo**, inspirado en Alien Sphere: membranas de color difuso y tres paletas armonizadas (coral/malva, rosa empolvado y melocotón). Las direcciones previas quedan en «Comparar con el estudio anterior». El enlace a la copia de presentación conserva acabado y paleta.
+
+Campo vivo incorpora ahora inercia entre membranas, atención direccional y matices cromáticos por interacción con intensidad regulable. «Ver una interacción» permite ensayar el recorrido completo. Las comprobaciones de movimiento están en `scripts/entity-motion.test.mjs`; `npm test` ejecuta también las pruebas editoriales existentes.
+
+La expresión cromática de Campo vivo está ahora en 85 % por defecto: mezcla progresivamente las paletas por estado y también al cambiar la base manualmente. El centro permanece coral mientras las corrientes de pigmento circulan por las membranas.
+
+La primera integración del asistente líquido en una escena real se puede revisar en `dist/escena-entidad.html`. Es una copia aislada de Limpieza, con preguntas e imágenes reales de la presentación, entidad de 128 px y estilos propios. Se genera con la construcción normal. No modifica la edición guardada. Los detalles del prototipo están en `../design/entity-motion.md`.
+
+Desde esta integración, `app.js` establece los valores predeterminados del renderer líquido, Campo vivo y Sangre y piel. Cada escena admite un perfil opcional `entity: {ink: 1..4, variant: 3}`; sin perfil usa la base común. Esto permite preparar después la progresión de color por momentos sin tocar las respuestas ni los recursos. Las copias exportadas conservan la entidad nueva.

@@ -3,16 +3,16 @@ import {existsSync} from 'node:fs';
 import vm from 'node:vm';
 const root = new URL('../',import.meta.url);
 const read = name => readFile(new URL(name,root),'utf8');
-const [template,baseCss,presenceCss,portalCss,resourceCss,stepsCss,stageCss,data,pilot,edition,entity,resourceViewer,engine] = await Promise.all(['template.html','styles.css','presence.css','portal.css','resources.css','steps.css','stage.css','content.js','pilot.js','edition.js','entity.js','resource-viewer.js','app.js'].map(read));
+const [template,tokensCss,appCss,stageCss,scenesCss,data,pilot,edition,entity,liquid,resourceViewer,engine] = await Promise.all(['template.html','tokens.css','app.css','stage.css','scenes.css','content.js','pilot.js','edition.js','entity.js','entity-liquid.js','resource-viewer.js','app.js'].map(read));
 // Fonts are embedded so the presentation stays self-contained (SIL OFL, see assets/fonts).
 const font = async name => 'data:font/woff2;base64,'+(await readFile(new URL('assets/fonts/'+name+'.woff2',root))).toString('base64');
 const fonts = {FRAUNCES:await font('fraunces-latin-wght-normal'),FRAUNCES_ITALIC:await font('fraunces-latin-wght-italic'),FIGTREE:await font('figtree-latin-wght-normal')};
-const css = baseCss+'\n'+presenceCss.replace(/__FONT_(\w+)__/g,(_,k)=>fonts[k])+'\n'+portalCss+'\n'+resourceCss+'\n'+stepsCss+'\n'+stageCss;
+const css = tokensCss+'\n'+appCss.replace(/__FONT_(\w+)__/g,(_,k)=>fonts[k])+'\n'+stageCss+'\n'+scenesCss;
 // Optional concept illustration for the entity (see README). Without it, the procedural 3D entity is used.
 const artFile=['entity-cutout.png','entity-concept.png','entity-concept.jpg','entity-concept.webp'].find(f=>existsSync(new URL('assets/'+f,root)));
 const artConfig=artFile?JSON.parse(await read('assets/entity-concept.json').catch(()=>'{}')):null;
 const artSeed=artFile?`globalThis.ENTITY_ART=${JSON.stringify({crop:[0,0,1,1],core:[.5,.45],...artConfig,src:'data:image/'+(artFile.endsWith('jpg')?'jpeg':artFile.split('.').pop())+';base64,'+(await readFile(new URL('assets/'+artFile,root))).toString('base64')})};\n`:'';
-const app = artSeed+entity+'\n'+resourceViewer+'\n'+engine;
+const app = liquid+'\n'+entity+'\n'+resourceViewer+'\n'+engine;
 const manifest=JSON.parse(await read('resources.json'));
 const resourceCatalog=Object.fromEntries(await Promise.all(Object.entries(manifest.assets).map(async ([id,asset])=>{
  const bytes=await readFile(new URL('assets/resources/'+asset.file,root));
@@ -30,7 +30,7 @@ for(const asset of Object.values(manifest.assets).filter(a=>a.video)){
  await writeFile(target,await readFile(new URL('assets/resources/'+asset.video,root)));
 }
 const fullSeed=data+'\n'+pilot+'\n'+edition+resourceSeed+frames;
-const page=seed=>template.replace('/* STYLES */',()=>css).replace('/* CONTENT */',()=>seed).replace('/* APP */',()=>app);
+const page=(seed,runtime=app)=>template.replace('/* STYLES */',()=>css).replace('/* CONTENT */',()=>seed).replace('/* APP */',()=>runtime);
 await writeFile(new URL('dist/index.html',root),page(fullSeed));
 // A ready-to-open review copy with no private notes or authoring controls.
 const context=vm.createContext({});
@@ -51,3 +51,14 @@ const entityPage=(body)=>`<!doctype html><html lang="es"><head><meta charset="ut
 await writeFile(new URL('dist/entidad.html',root),entityPage(block('membrane','Nueva entidad · prototipo generado por código','Forma viva, lecho líquido que fluye siempre, membranas en capas, luz de borde blanca y dorada, brote real de la invitada. Paleta de tu lámina. <a href="entidad-actual.html">Ver la entidad actual →</a>')));
 await writeFile(new URL('dist/entidad-actual.html',root),entityPage(block('art','Entidad actual · ilustración animada','Tu lámina recortada y deformada por el sombreador. <a href="entidad.html">← Ver la nueva entidad</a>')));
 console.log('Edición y copia de revisión generadas en dist/index.html y dist/revision.html');
+
+// A self-contained motion study, alongside an alternate review edition.
+const motionStudy=await read('entity-motion.html');
+await writeFile(new URL('dist/entidad-motion.html',root),motionStudy.replace('__FIGTREE__',()=>fonts.FIGTREE).replace('__FRAUNCES__',()=>fonts.FRAUNCES).replace('__STUDY_PHOTO__',()=>resourceCatalog['care-materials'].src).replace('/* ENTITY */',()=>liquid+'\n'+entity));
+await writeFile(new URL('dist/revision-liquid.html',root),page(reviewSeed).replace('<script id="engine">','<script id="engine">globalThis.ENTITY_RENDERER="liquid";try{const p=new URLSearchParams(location.search);globalThis.ENTITY_VARIANT=Math.max(0,Math.min(3,Number(p.get("variant")??3)));globalThis.ENTITY_EYES=p.get("eyes")=="true";globalThis.ENTITY_PALETTE=Math.max(0,Math.min(2,Number(p.get("palette")||0)));globalThis.ENTITY_INK=Math.max(0,Math.min(4,Number(p.get("ink")??1)));globalThis.ENTITY_CHROMATIC=Math.max(0,Math.min(1,Number(p.get("chromatic")??.85)));}catch{}\n'));
+// An isolated real scene for designing the floating entity's relationship to the UI.
+const sceneDeck={...reviewDeck,slides:reviewDeck.slides.filter(s=>s.id==='limpieza')};
+const sceneCss=await read('entity-scene.css');
+const sceneSeed=`const REFERENCES=${safe(context.reviewRefs)};const QUESTIONS=${safe(context.reviewQuestions)};const INITIAL_DECK=${safe(sceneDeck)};const BOOT={mode:'review',readOnly:true,deck:INITIAL_DECK};`;
+const sceneRuntime='globalThis.ENTITY_INK=Math.max(0,Math.min(4,Number(new URLSearchParams(location.search).get("ink")??1)));globalThis.ENTITY_RENDERER="liquid";globalThis.ENTITY_VARIANT=3;\n'+artSeed+liquid+'\n'+entity+'\n'+resourceViewer+'\n'+await read('entity-scene.js')+'\n'+engine;
+await writeFile(new URL('dist/escena-entidad.html',root),page(sceneSeed,sceneRuntime).replace('</style>',()=> '\n'+sceneCss+'</style>'));

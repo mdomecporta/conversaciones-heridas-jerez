@@ -3,17 +3,14 @@
 // Each step is "action | cue". Actions (space separated): tN ask turn N, iN select item N,
 // pN highlight point N (p alone: all), razon reveal reasoning, practica avoid/propose, enlace bridge.
 (() => {
- const turn=(label,reply,kind,resourceTitle,items,voice='principal',state='exploring')=>({label,reply,kind,resourceTitle,items,voice,state});
- const person=(label,reply,items)=>turn(label,reply,'person','Una voz recreada',items,'persona','listening');
  // Only documents attached to the project support the scientific side in this edition.
  delete REFERENCES.W21;
  delete REFERENCES.P25;
  const MOVES=[
-  {short:'Conocer la historia',sub:'Registro, causa, entorno y persona'},
-  {short:'Comprobar qué pasa',sub:'Medir, reevaluar, interpretar'},
-  {short:'Justificar lo que hacemos',sub:'Antimicrobianos, limpieza, dolor, escara'},
-  {short:'Cambiar de camino',sub:'Diagnóstico y objetivos'},
-  {short:'Preparar la próxima visita',sub:'Continuidad y cinco preguntas'}
+  {short:'Antes de empezar',sub:'Historia, causa y valoración'},
+  {short:'Durante la cura',sub:'Respuesta, indicación y tolerancia'},
+  {short:'Cuando algo no encaja',sub:'Seguridad, diagnóstico y objetivos'},
+  {short:'Antes de irnos',sub:'Acuerdos, revisión y continuidad'}
  ];
  // The five closing questions (scene 23) are the learning thread of every scene.
  [["Comprender", "¿Qué explica esta herida y qué la mantiene abierta?"], ["Acordar", "¿Qué queremos conseguir con la persona y qué es posible hoy?"], ["Decidir", "¿Por qué hacemos esta intervención?"], ["Comprobar", "¿Qué ha cambiado y con qué lo comparamos?"], ["Reevaluar", "¿Cuándo revisamos el plan o pedimos ayuda antes?"]].forEach(([short,text],i)=>Object.assign(QUESTIONS[i],{short,text}));
@@ -24,7 +21,7 @@
     "q": null,
     "title": "Valorar antes de elegir.",
     "label": "Valorar antes de elegir",
-    "exp": "Antes de elegir el tratamiento tópico, diagnosticar y valorar. Hoy lo recorremos con una herida que nos enseña sus curas y con las preguntas que pueden cambiarlas.",
+    "exp": "Antes de elegir el tratamiento tópico, diagnosticar y valorar. Hoy lo recorremos conversando con un personaje que reúne historias de heridas y nos ayuda a revisar las decisiones de cuidado.",
     "points": [
       [
         "Diagnosticar",
@@ -46,12 +43,12 @@
     ],
     "src": "GNEAUPP · DT XIV (2020), p. 15: diagnóstico y valoración antes del tratamiento tópico. Apertura y participación: recursos docentes.",
     "type": "Recomendación de práctica · GNEAUPP",
-    "limit": "Caso docente sintético. No representa a una persona real.",
-    "open": "Hola. Veo que ya está todo preparado. ¿Por dónde empezamos?",
+    "limit": "Personaje abstracto e historias sintéticas con fines docentes. No es una lesión ni una paciente concreta.",
+    "open": "María del Mar, tú y yo nos conocemos. ¿Empiezo por la historia o ya has elegido apósito?",
     "turns": [
       {
-        "label": "¿Qué necesitaríais saber?",
-        "reply": "Antes del apósito, ¿qué os gustaría saber de mí?",
+        "label": "Hoy te voy a pedir que nos enseñes unas cuantas cosas.",
+        "reply": "Eso se me da bien. Traigo historias, alguna foto y unas cuantas preguntas para ti.",
         "kind": "layers",
         "resourceTitle": "Antes de empezar",
         "items": [
@@ -72,8 +69,8 @@
         "state": "listening"
       },
       {
-        "label": "¿Qué llevas vivido?",
-        "reply": "Llevo tiempo aquí. Podemos mirar qué me han hecho y cómo me ha ido.",
+        "label": "Vamos a empezar por una historia.",
+        "reply": "Te he guardado unas notas de curas. Mira cuánto se puede escribir sin contar cómo va la cosa.",
         "kind": "path",
         "resourceTitle": "Lo que vamos a conocer",
         "items": [
@@ -94,8 +91,8 @@
         "state": "exploring"
       },
       {
-        "label": "Mirar el material",
-        "reply": "Hay de todo en ese carro. Solo falta saber qué necesito yo.",
+        "label": "No me mires así. Todavía no hemos empezado.",
+        "reply": "Yo no he dicho nada. Pero el carro ya estaba listo.",
         "kind": "facts",
         "resourceTitle": "La cura preparada",
         "items": [
@@ -116,30 +113,23 @@
         "state": "exploring"
       }
     ],
-    "bridge": "Os enseño mis últimas curas. A ver qué nos cuentan.",
-    "md": "Recoge dos preguntas, sin resolverlas todas. El caso es sintético: aprenderemos a formular mejores decisiones, sin inventar datos ni un desenlace.",
+    "bridge": "Enséñame esas notas. Vamos a ver qué cuentan.",
+    "md": "«Hoy viene conmigo alguien a quien conocéis, aunque no la hayáis oído hablar así. La herida y yo tenemos unas cuantas conversaciones pendientes». Deja entrar su réplica sin leerla encima. A la sala: «Antes de empezar, ¿qué dos cosas querríais saber?». No prometas datos reales ni un desenlace.",
     "steps": [
       [
-        "t3",
-        "Deja que la herida mire el carro. No expliques todavía todo el recorrido."
-      ],
-      [
         "t1 p1",
-        "Primera pausa con la sala: recoge dos preguntas antes de elegir el producto."
+        "«Antes de tocar el carro, ¿qué necesitaríais saber?». Recoge dos preguntas de la sala."
       ],
       [
-        "i3 p2",
-        "Incluye a la persona. G14, p. 15: diagnóstico y valoración; lo urgente no espera."
-      ],
-      [
-        "practica",
-        "Tacha elegir antes de valorar. Deja leer la pregunta, sin repetirla entera."
+        "t2 p2 p3",
+        "«Vamos a mirar lo que se ha hecho y lo que falta». La valoración no demora lo urgente."
       ],
       [
         "enlace",
-        "Guarda las preguntas de la sala para recuperarlas en la escena 22."
+        "Enséñame esas notas. Vamos a ver qué cuentan."
       ]
-    ]
+    ],
+    "voice": "principal"
   },
   {
     "id": "registro",
@@ -170,11 +160,11 @@
     "src": "GNEAUPP · DT XIV (2020), p. 15: seguimiento, reevaluación y ajuste del plan. Registro mostrado: recurso docente.",
     "type": "Recomendación de práctica · GNEAUPP",
     "limit": "Registro conceptual: sin fechas, medidas ni resultados reales.",
-    "open": "Mis curas están apuntadas. ¿Les echamos un vistazo?",
+    "open": "Aquí tienes: limpieza, apósito, próxima cita. Y vuelta a empezar.",
     "turns": [
       {
-        "label": "Enséñanos tu registro",
-        "reply": "Limpieza, apósito, próxima cita… Mi agenda está completísima. ¿Pero voy mejor?",
+        "label": "Enséñame las notas.",
+        "reply": "Mira: en cada visita hay una cura anotada. La evolución tiene bastante menos sitio.",
         "kind": "memory",
         "resourceTitle": "Registro de intervenciones",
         "items": [
@@ -199,8 +189,8 @@
         "state": "remembering"
       },
       {
-        "label": "¿Qué echas en falta?",
-        "reply": "Me falta saber cómo estaba en cada visita. Así podríamos comparar.",
+        "label": "Hay trabajo hecho. Lo que busco es la respuesta.",
+        "reply": "En eso estamos de acuerdo. Estas notas no permiten comparar cómo iba la herida.",
         "kind": "layers",
         "resourceTitle": "Lo que el registro no cuenta",
         "items": [
@@ -221,8 +211,8 @@
         "state": "exploring"
       },
       {
-        "label": "¿Seguimos igual?",
-        "reply": "Antes de repetir, ¿sabemos si la última cura me ayudó?",
+        "label": "Entonces, ¿repetimos o revisamos?",
+        "reply": "Repetir es fácil. El motivo, con este registro, te lo debo.",
         "kind": "decision",
         "resourceTitle": "Repetir o revisar",
         "items": [
@@ -243,30 +233,23 @@
         "state": "exploring"
       }
     ],
-    "bridge": "Vemos las curas. Nos falta saber qué estamos tratando.",
-    "md": "Señala que un registro puede contener muchas actuaciones y seguir dejando preguntas importantes sin responder.",
+    "bridge": "Antes de juzgar esa pauta, aclaremos qué estaban tratando.",
+    "md": "«Aquí hay cuidados registrados. No estamos poniendo eso en duda. Buscamos qué respuesta tuvieron». La herida pone la ironía; tú reconoces el trabajo y señalas la información ausente. «Enséñame ahora qué sabemos de la causa». Registro conceptual, no historia de una paciente real.",
     "steps": [
       [
         "t1 m1 p1",
-        "Muestra el registro y el material. Muchas actuaciones no explican por sí solas la evolución."
+        "«Enséñame las notas». Muestra el registro conceptual; no lo atribuyas al personaje."
       ],
       [
-        "cerrar i4 p2",
-        "Señala el dato ausente: cómo ha respondido."
-      ],
-      [
-        "t2 p3",
-        "G14, p. 15: reevaluar permite ajustar el plan y detectar complicaciones."
-      ],
-      [
-        "practica",
-        "La pregunta sustituye a repetir sin comprobar."
+        "cerrar t2 i3 p2 p3",
+        "«Hay trabajo hecho. Lo que busco es la respuesta». Señala la ausencia de datos comparables, sin reproche."
       ],
       [
         "enlace",
-        "Pasamos de lo que hicimos a lo que estamos tratando."
+        "Antes de juzgar esa pauta, aclaremos qué estaban tratando."
       ]
-    ]
+    ],
+    "voice": "principal"
   },
   {
     "id": "historia",
@@ -297,11 +280,11 @@
     "src": "GNEAUPP · DT XIV (2020), p. 15: causa, enfermedades concomitantes y complicaciones.",
     "type": "Recomendación de práctica · GNEAUPP",
     "limit": "La valoración no debe demorar medidas urgentes ni cuidados necesarios.",
-    "open": "En la historia pone «crónica». ¿Y por qué salí?",
+    "open": "A veces nos ponen «crónica» y parece que ya nos han presentado.",
     "turns": [
       {
-        "label": "Cuéntanos cómo empezó",
-        "reply": "Aquí pone desde cuándo estoy. El porqué sigue pendiente.",
+        "label": "No me lo vas a poner tan fácil. ¿Qué cuenta esta historia?",
+        "reply": "Cuenta desde cuándo está abierta. El porqué sigue pendiente.",
         "kind": "memory",
         "resourceTitle": "Mi historia",
         "items": [
@@ -326,8 +309,8 @@
         "state": "remembering"
       },
       {
-        "label": "¿Qué nos falta saber?",
-        "reply": "Hay huecos en mi historia. Mejor señalarlos que rellenarlos a ojo.",
+        "label": "¿Qué sabemos y qué estamos suponiendo?",
+        "reply": "Sabemos que lleva tiempo y que se han hecho curas. Los huecos siguen siendo huecos.",
         "kind": "layers",
         "resourceTitle": "Lo que sabemos y lo que falta",
         "items": [
@@ -348,10 +331,10 @@
         "state": "exploring"
       },
       {
-        "label": "Escuchar a la persona",
-        "reply": "«Sé que tarda en cerrar. Lo que no entiendo es por qué me salió.»",
-        "kind": "person",
-        "resourceTitle": "Una voz recreada",
+        "label": "Pues esos huecos los dejamos a la vista.",
+        "reply": "Mejor. Lo de rellenarlos a ojo no suele mejorar la historia.",
+        "kind": "facts",
+        "resourceTitle": "Lo que falta preguntar",
         "items": [
           [
             "Preguntar",
@@ -366,38 +349,27 @@
             "Dudas y datos que aporta."
           ]
         ],
-        "voice": "persona",
+        "voice": "principal",
         "state": "listening"
       }
     ],
-    "bridge": "Con la historia en mente, miradme también por fuera. Y alrededor.",
-    "md": "Distingue lo documentado, lo que sospechamos y lo que necesitamos comprobar.",
+    "bridge": "Ahora enséñame la imagen. Pero vamos a mirar también alrededor.",
+    "md": "«Crónica nos dice algo del tiempo. La causa es otra pregunta». Recoge su réplica sin competir por el remate. Distingue lo documentado, la hipótesis y lo pendiente. No atribuyas una etiología a esta historia incompleta.",
     "steps": [
       [
         "t1 p1",
-        "Causa: distinguir lo que consta de lo que falta. G14, p. 15."
+        "«No me lo vas a poner tan fácil. ¿Qué cuenta esta historia?». Distingue tiempo y causa."
       ],
       [
-        "i4",
-        "La causa pendiente se deja visible. No se inventa."
+        "t2 m1 p2 p3",
+        "«Distingamos lo que consta de lo que falta comprobar». La imagen ilustra valoración, no confirma un diagnóstico."
       ],
       [
-        "t2 p2",
-        "Revisar enfermedades concomitantes y datos que necesitamos comprobar."
-      ],
-      [
-        "t3 m1 p3",
-        "Escucha la duda de la persona y relaciona historia, comorbilidad y complicaciones."
-      ],
-      [
-        "cerrar practica",
-        "Tacha usar «crónica» como explicación suficiente."
-      ],
-      [
-        "enlace",
-        "La historia orienta la observación."
+        "cerrar enlace",
+        "Ahora enséñame la imagen. Pero vamos a mirar también alrededor."
       ]
-    ]
+    ],
+    "voice": "principal"
   },
   {
     "id": "zonas",
@@ -433,11 +405,11 @@
     "src": "GNEAUPP · DT XIV (2020), p. 15 · IWII 2025, recomendación 3: herida, borde y piel.",
     "type": "Recomendación y consenso internacional",
     "limit": "Esquema e imagen conceptuales: no permiten diagnosticar por color o aspecto.",
-    "open": "El centro sale en todas las fotos. Los bordes también tienen cosas que contar.",
+    "open": "Te he traído una imagen. Esta vez no me recortes los bordes.",
     "turns": [
       {
-        "label": "Recorrer las zonas",
-        "reply": "Mirad el centro, sí. Y luego seguimos hacia fuera.",
+        "label": "A ver, enséñamela entera.",
+        "reply": "El centro se lleva todas las miradas. Hoy también salen el borde y la piel de alrededor.",
         "kind": "photo",
         "resourceTitle": "Mirar y preguntar",
         "items": [
@@ -462,8 +434,8 @@
         "state": "showing"
       },
       {
-        "label": "¿Qué ves y qué interpretas?",
-        "reply": "Podemos contar lo que vemos y después pensar qué significa.",
+        "label": "La imagen ayuda. Pero no me lo cuenta todo.",
+        "reply": "Ya sabía yo que ibas a pedir la historia. Una foto sola me sale más rápida.",
         "kind": "compare",
         "resourceTitle": "Describir e interpretar",
         "items": [
@@ -484,8 +456,8 @@
         "state": "exploring"
       },
       {
-        "label": "¿Basta una foto?",
-        "reply": "En la foto salgo bastante bien. Mi historia, en cambio, no cabe ahí.",
+        "label": "¿Ves? Para esto nos conocemos.",
+        "reply": "Sí. Yo pongo la imagen y tú preguntas por lo que queda fuera.",
         "kind": "facts",
         "resourceTitle": "Lo que aporta una imagen",
         "items": [
@@ -506,8 +478,8 @@
         "state": "exploring"
       }
     ],
-    "bridge": "Y si otra herida se me parece, ¿necesitará lo mismo?",
-    "md": "Separa descripción e interpretación: «Una cosa es lo que vemos y otra la explicación que le damos».",
+    "bridge": "Guarda esa idea. Vamos a comparar dos historias que se parecen.",
+    "md": "«Primero describimos lo que vemos. Luego lo relacionamos con la historia». La réplica sobre la foto expresa complicidad; no sustituye la explicación. Recorre la imagen conceptual sin pedir un diagnóstico por reconocimiento.",
     "steps": [
       [
         "t1 m1 h1 p1",
@@ -530,20 +502,17 @@
         "Distingue observación e interpretación con una frase."
       ],
       [
-        "practica",
-        "La pregunta amplía la mirada."
-      ],
-      [
         "enlace",
-        "Un aspecto parecido puede ocultar historias distintas."
+        "Guarda esa idea. Vamos a comparar dos historias que se parecen."
       ]
-    ]
+    ],
+    "voice": "principal"
   },
   {
     "id": "parecidas",
     "mov": 0,
     "q": 0,
-    "voice": "dual",
+    "voice": "principal",
     "title": "La causa y la perfusión cambian el plan.",
     "label": "Etiología y situación vascular",
     "exp": "Dos lesiones de pierna pueden parecerse y necesitar planes distintos. La etiología y la situación vascular condicionan las prioridades y la seguridad del tratamiento. No se trata de diagnosticar por la fotografía.",
@@ -570,11 +539,11 @@
     "src": "GNEAUPP · DT XIV (2020), pp. 20–21 · EWMA (2026), fichas de úlcera venosa e isquemia amenazante.",
     "type": "Recomendaciones y fichas clínicas",
     "limit": "Ejemplos con etiología ya establecida. No toda lesión isquémica es irreversible.",
-    "open": "He venido con otra herida. Tenemos un aire, pero no la misma historia.",
+    "open": "Estas dos se parecen. No te he traído las historias iguales, que te conozco.",
     "turns": [
       {
-        "label": "Escuchar la historia A",
-        "reply": "En mi caso sabemos que el problema es venoso. Cambiar lo que me cubre no lo resuelve todo.",
+        "label": "Empieza por la primera. ¿Qué sabemos?",
+        "reply": "En el primer ejemplo la causa venosa ya está establecida. Esa información viene con la historia.",
         "kind": "facts",
         "resourceTitle": "Historia A · etiología venosa",
         "items": [
@@ -595,8 +564,8 @@
         "state": "exploring"
       },
       {
-        "label": "Escuchar la historia B",
-        "reply": "A mí me llega poca sangre. Antes de hacerme nada, hay que tener eso en cuenta.",
+        "label": "¿Y qué cambia en la segunda?",
+        "reply": "Aquí hay un problema de llegada de sangre. El parecido de la foto se queda corto.",
         "kind": "facts",
         "resourceTitle": "Historia B · perfusión comprometida",
         "items": [
@@ -613,12 +582,12 @@
             "Esto no decide por sí solo si podré cerrar."
           ]
         ],
-        "voice": "isquemica",
-        "state": "vascular"
+        "voice": "principal",
+        "state": "exploring"
       },
       {
-        "label": "Comparar las historias",
-        "reply": "Parecidas, sí. Para copiar la pauta de una a otra, mejor saber un poco más.",
+        "label": "O sea, que no puedo copiarte la pauta.",
+        "reply": "Puedes abrir las dos historias. Copiar es otra conversación.",
         "kind": "compare",
         "resourceTitle": "Dos historias, distintas prioridades",
         "items": [
@@ -635,20 +604,16 @@
             "¿Qué necesita cada persona?"
           ]
         ],
-        "voice": "dual",
+        "voice": "principal",
         "state": "comparing"
       }
     ],
-    "bridge": "Volvamos a mí: además de cubrirme, ¿qué está cambiando?",
-    "md": "Compara una diferencia decisiva, sin abrir dos clases completas de tratamiento vascular. No pedir que diagnostiquen por la fotografía.",
+    "bridge": "Volvamos al cambio de apósito. ¿Qué esperamos conseguir con él?",
+    "md": "«La etiología y la perfusión cambian las prioridades y la seguridad». Se trata de dos ejemplos docentes con datos establecidos. Tú explicas la implicación clínica. La herida presenta y compara; no diagnostica ni interpreta una fotografía como prueba.",
     "steps": [
       [
-        "t1 m1 p1",
-        "Ejemplo A con causa venosa establecida. No pedir diagnóstico por imagen."
-      ],
-      [
-        "i2",
-        "Relaciona el tratamiento local con el abordaje causal."
+        "t1 m1 p1 i2",
+        "Ejemplo A con causa venosa establecida. No pedir diagnóstico por imagen. Relaciona el tratamiento local con el abordaje causal."
       ],
       [
         "t2 m2 p2",
@@ -659,12 +624,8 @@
         "Contrasta solo la diferencia que cambia el plan."
       ],
       [
-        "practica",
-        "Tacha copiar una pauta por parecido."
-      ],
-      [
         "enlace",
-        "Regresa al caso principal."
+        "Volvamos al cambio de apósito. ¿Qué esperamos conseguir con él?"
       ]
     ]
   },
@@ -698,11 +659,11 @@
     "src": "GNEAUPP · DT XIV (2020), pp. 20–22: etiología venosa, situación arterial y descarga en pie diabético · EWMA 2022, §6.2.",
     "type": "Recomendaciones y revisión",
     "limit": "Compresión y descarga requieren indicación específica. No se proponen técnicas universales.",
-    "open": "Hoy estreno apósito. ¿Qué esperamos que cambie?",
+    "open": "Tengo una colección de nombres de apósitos. Para una charla entera.",
     "turns": [
       {
-        "label": "Conectar las dos columnas",
-        "reply": "Aquí está lo que me ponéis. Y aquí, lo que me mantiene abierta. ¿Lo estamos atendiendo también?",
+        "label": "Hoy te voy a ahorrar el catálogo. Enséñame el plan.",
+        "reply": "Aquí están las coberturas. Al lado he dejado lo que puede mantener una herida abierta.",
         "kind": "compare",
         "resourceTitle": "Intervención local y causa",
         "items": [
@@ -723,8 +684,8 @@
         "state": "exploring"
       },
       {
-        "label": "¿Qué sigue actuando?",
-        "reply": "He probado varios apósitos. Me gustaría saber qué queremos conseguir con el siguiente.",
+        "label": "Cambiar de producto puede tener sentido.",
+        "reply": "Claro. Lo que quiero saber es qué esperamos de ese cambio.",
         "kind": "layers",
         "resourceTitle": "La pregunta causal",
         "items": [
@@ -745,8 +706,8 @@
         "state": "exploring"
       },
       {
-        "label": "Antes de otra cobertura",
-        "reply": "Si cambiamos de cobertura, ¿qué esperamos que pase esta vez?",
+        "label": "Entonces no discutimos por el apósito.",
+        "reply": "No. Discutimos un poco por empezar siempre por él.",
         "kind": "decision",
         "resourceTitle": "Conversar antes de elegir",
         "items": [
@@ -767,8 +728,8 @@
         "state": "exploring"
       }
     ],
-    "bridge": "El plan tiene buena pinta. Vamos a ver cómo encaja en su día a día.",
-    "md": "Introduce la primera búsqueda de otro camino: quizá la siguiente decisión necesaria esté fuera del apósito.",
+    "bridge": "Y el plan que proponemos, ¿se puede llevar a cabo fuera de la consulta?",
+    "md": "«Un cambio de cobertura puede tener sentido. Hay que explicar para qué y cómo encaja en el abordaje de la causa». Acepta su contrapunto: no se trata de desacreditar productos. «Ahora enséñame qué hemos preguntado sobre el día a día». No representes la respuesta de la paciente.",
     "steps": [
       [
         "t1 p1",
@@ -787,22 +748,15 @@
         "Pregunta para pensar: ¿qué cambio esperamos de otra cobertura?"
       ],
       [
-        "cerrar razon",
-        "El producto puede ser pertinente, pero no sustituye a la valoración causal."
-      ],
-      [
-        "i2 p3",
-        "Conecta la decisión local con los factores mantenedores."
-      ],
-      [
-        "practica",
-        "Deja la pregunta como criterio para el próximo cambio."
+        "cerrar razon i2 p3",
+        "El producto puede ser pertinente, pero no sustituye a la valoración causal. Conecta la decisión local con los factores mantenedores."
       ],
       [
         "enlace",
-        "El siguiente paso incluye a quien vive con la herida."
+        "Y el plan que proponemos, ¿se puede llevar a cabo fuera de la consulta?"
       ]
-    ]
+    ],
+    "voice": "principal"
   },
   {
     "id": "persona",
@@ -833,14 +787,14 @@
     ],
     "src": "EWMA 2022, §4, pp. S15–S16: perspectiva y participación de la persona · IWII 2025, rec. 11: factores individuales.",
     "type": "Revisión y consenso",
-    "limit": "Voz recreada con fines docentes; no atribuye preferencias a todas las personas.",
-    "open": "Yo estoy en su pierna. El plan también tiene que caber en su vida.",
+    "limit": "Las preguntas sobre vida cotidiana son propuestas docentes. El personaje no expresa las preferencias de ninguna paciente.",
+    "open": "Tú ves la consulta. Yo también conozco lo que pasa entre una visita y otra.",
     "turns": [
       {
-        "label": "Escuchar a la persona",
-        "reply": "«En la consulta lo entendí. En casa me surgieron unas cuantas dudas.»",
-        "kind": "person",
-        "resourceTitle": "Una voz recreada",
+        "label": "Pues ayúdame a mirar esa parte.",
+        "reply": "En estas notas solo aparece lo que hicimos durante la cura. Fuera de ahí hay bastante por preguntar.",
+        "kind": "facts",
+        "resourceTitle": "Lo que falta preguntar",
         "items": [
           [
             "Comprender",
@@ -855,14 +809,14 @@
             "¿Qué le inquieta más?"
           ]
         ],
-        "voice": "persona",
+        "voice": "principal",
         "state": "listening"
       },
       {
-        "label": "¿Qué le cuesta más?",
-        "reply": "«Por la noche me cuesta dormir. Y para las curas necesito que venga alguien.»",
-        "kind": "person",
-        "resourceTitle": "Una voz recreada",
+        "label": "¿Sabemos cómo se organiza el cuidado en casa?",
+        "reply": "Todavía no. El plan está escrito; esa conversación no.",
+        "kind": "facts",
+        "resourceTitle": "Lo que falta preguntar",
         "items": [
           [
             "Dolor",
@@ -877,12 +831,12 @@
             "Qué cambia en su día."
           ]
         ],
-        "voice": "persona",
+        "voice": "principal",
         "state": "listening"
       },
       {
-        "label": "¿Cómo lo acordamos?",
-        "reply": "Antes de darlo por hecho, preguntémosle cómo se va a organizar.",
+        "label": "Eso tenemos que preguntárselo a la persona.",
+        "reply": "Ahí no te llevo la contraria. Yo puedo recordártelo, no contestar por ella.",
         "kind": "path",
         "resourceTitle": "Del plan al acuerdo",
         "items": [
@@ -903,30 +857,23 @@
         "state": "exploring"
       }
     ],
-    "bridge": "Ya sabemos qué le preocupa. ¿Cómo veremos si el plan ayuda?",
-    "md": "Escucha antes de explicar soluciones; no atribuye preferencias concretas a todas las personas.",
+    "bridge": "Dejemos también previsto cómo comprobar si el plan está ayudando.",
+    "md": "«¿Qué entiende la persona, qué le cuesta y con qué apoyo cuenta?». Tú desarrollas las preguntas sobre dolor, ayuda, comprensión y vida cotidiana. La herida recuerda esa dimensión sin apropiarse de preferencias ni representar a una paciente.",
     "steps": [
       [
         "t1 m1 p1",
-        "Escucha la voz recreada. Comprueba comprensión sin examinar a la persona."
+        "«Pues ayúdame a mirar esa parte». Pregunta por el cuidado fuera de la consulta sin representar una respuesta de paciente."
       ],
       [
-        "t2 m2 p2",
-        "Dolor, apoyos y organización: EWMA 2022, §4."
+        "t2 m2 p2 p3",
+        "«Hay que preguntar por comprensión, ayuda, dificultades y dolor». EWMA 2022, §4."
       ],
       [
-        "t3 p3",
-        "Acordar una propuesta viable con ella."
-      ],
-      [
-        "practica",
-        "La pregunta abre espacio para dudas y dificultades."
-      ],
-      [
-        "enlace",
-        "Del acuerdo pasamos a cómo comprobarlo."
+        "cerrar enlace",
+        "Dejemos también previsto cómo comprobar si el plan está ayudando."
       ]
-    ]
+    ],
+    "voice": "principal"
   },
   {
     "id": "medicion",
@@ -957,11 +904,11 @@
     "src": "GNEAUPP · DT XIV (2020), p. 15: instrumentos válidos, fiables y adecuados al contexto. Ficha de seguimiento: propuesta docente.",
     "type": "Recomendación sobre valoración y medición",
     "limit": "No se presentan medidas ni mejorías ficticias.",
-    "open": "La próxima vez, ¿cómo sabremos si voy mejor?",
+    "open": "«Parece que va mejor». Esa frase la tengo muy oída.",
     "turns": [
       {
-        "label": "Abrir la ficha de seguimiento",
-        "reply": "La ficha está vacía. ¿Qué apuntamos hoy para poder comparar después?",
+        "label": "¿Me vas a pedir una referencia?",
+        "reply": "Sí. Ya ves, a veces la que pregunta soy yo. La ficha de partida sigue vacía.",
         "kind": "facts",
         "resourceTitle": "Ficha de seguimiento",
         "items": [
@@ -986,8 +933,8 @@
         "state": "exploring"
       },
       {
-        "label": "Dos formas de registrar",
-        "reply": "«Parece mejor» suena estupendo. ¿Mejor que cuándo?",
+        "label": "Podemos tener una impresión y luego comprobarla.",
+        "reply": "Eso me vale. Porque «mejor» puede estar hablando del tamaño, del dolor o de otra cosa.",
         "kind": "compare",
         "resourceTitle": "De la impresión al registro",
         "items": [
@@ -1004,8 +951,8 @@
         "state": "exploring"
       },
       {
-        "label": "¿Sirve esta herramienta?",
-        "reply": "¿Esa herramienta sirve para una herida como yo?",
+        "label": "Te enseño cómo dejarlo registrado.",
+        "reply": "Y la próxima vez sabremos qué estábamos comparando. Ya es un avance en la conversación.",
         "kind": "facts",
         "resourceTitle": "Cómo vamos a medir",
         "items": [
@@ -1026,8 +973,8 @@
         "state": "exploring"
       }
     ],
-    "bridge": "Guardamos esa referencia. Si al volver sigo igual, ¿qué revisamos?",
-    "md": "Pregunta: «Cuando volvamos, ¿qué datos necesitaremos para sostener que está mejor, igual o peor?».",
+    "bridge": "Probemos ahora una situación: ¿y si no vemos el cambio esperado?",
+    "md": "«La impresión tiene que poder contrastarse». Explica qué registrar y con qué herramienta apropiada. No inventes medidas ni resultados. Presenta la escena siguiente como supuesto, no como seguimiento real de una paciente.",
     "steps": [
       [
         "t1 m1 p1",
@@ -1038,22 +985,15 @@
         "La impresión necesita una comparación."
       ],
       [
-        "t3 p2",
-        "G14, p. 15: instrumentos válidos, fiables y adecuados al contexto."
-      ],
-      [
-        "i3 p3",
-        "Mantener un método comparable en las revisiones."
-      ],
-      [
-        "practica",
-        "No inventes medidas ni una mejoría para el caso."
+        "t3 p2 i3 p3",
+        "G14, p. 15: instrumentos válidos, fiables y adecuados al contexto. Mantener un método comparable en las revisiones."
       ],
       [
         "enlace",
-        "La comparación nos lleva a la siguiente revisión."
+        "Probemos ahora una situación: ¿y si no vemos el cambio esperado?"
       ]
-    ]
+    ],
+    "voice": "principal"
   },
   {
     "id": "reevaluacion",
@@ -1085,11 +1025,11 @@
     "src": "GNEAUPP · DT XIV (2020), p. 15: reevaluación y ajuste del plan · EWMA 2022, §§3 y 6.",
     "type": "Recomendación de reevaluación",
     "limit": "Situación hipotética de progreso insuficiente; no se atribuye una causa única al estancamiento.",
-    "open": "Otra visita. No vemos el avance que esperábamos. ¿Qué revisamos?",
+    "open": "Te propongo una de las difíciles: seguimos curando y no vemos el avance esperado.",
     "turns": [
       {
-        "label": "¿Qué revisarías primero?",
-        "reply": "Antes de probar algo nuevo, ¿por dónde empezaríais a mirar?",
+        "label": "¿Qué información me has traído esta vez?",
+        "reply": "La referencia anterior y lo que queríamos comprobar. Esta vez no empezamos de cero.",
         "kind": "decision",
         "resourceTitle": "Antes de añadir tratamiento",
         "items": [
@@ -1114,8 +1054,8 @@
         "state": "exploring"
       },
       {
-        "label": "¿Qué podría estar pasando?",
-        "reply": "Tenemos varias pistas. Ahora toca ver cuáles encajan.",
+        "label": "Todavía puede haber varias explicaciones.",
+        "reply": "Sí. He traído posibilidades, no una culpable elegida de antemano.",
         "kind": "layers",
         "resourceTitle": "Las pistas que vamos a comprobar",
         "items": [
@@ -1136,8 +1076,8 @@
         "state": "exploring"
       },
       {
-        "label": "Comparar con la ficha",
-        "reply": "Saquemos la ficha de la última vez. A ver qué ha cambiado de verdad.",
+        "label": "También revisaré si el plan se pudo hacer.",
+        "reply": "Y cómo se toleró. Eso también pertenece a la historia.",
         "kind": "memory",
         "resourceTitle": "Una revisión con referencia",
         "items": [
@@ -1158,174 +1098,31 @@
         "state": "remembering"
       }
     ],
-    "bridge": "Una posibilidad es la infección. Veamos qué datos tenemos.",
-    "md": "Ordena las propuestas como hipótesis que requieren comprobación. No ofrece una única causa para cualquier estancamiento.",
+    "bridge": "Ha salido la infección. Antes de pedir una muestra, aclaremos para qué.",
+    "md": "A la sala: «¿Qué dos posibilidades revisaríais antes de añadir tratamiento?». Ordena las respuestas como hipótesis. La herida puede pinchar la inercia, no atribuir por sí sola una causa al estancamiento. Es la segunda pausa de participación.",
     "steps": [
       [
         "t1",
         "Segunda pausa con la sala: pide dos posibilidades ante la falta de progreso."
       ],
       [
-        "razon p1",
-        "Reabrir el diagnóstico, sin dar una causa por confirmada."
-      ],
-      [
-        "i2 p2",
-        "Comprobar complicaciones y situación vascular."
-      ],
-      [
-        "i3 p3",
-        "Revisar aplicación y tolerancia del plan. G14, p. 15."
+        "razon p1 i2 p2 i3 p3",
+        "Reabrir el diagnóstico, sin dar una causa por confirmada. Comprobar complicaciones y situación vascular. Revisar aplicación y tolerancia del plan. G14, p. 15."
       ],
       [
         "t3 m1",
         "Vuelve a la referencia registrada. Ordena las aportaciones como hipótesis."
       ],
       [
-        "cerrar practica",
-        "Tacha intensificar automáticamente."
+        "cerrar",
+        "Revisa intensificar automáticamente."
       ],
       [
         "enlace",
-        "La infección es una posibilidad que necesita contexto."
-      ]
-    ]
-  },
-  {
-    "id": "infeccion",
-    "mov": 1,
-    "q": 0,
-    "title": "El cultivo se interpreta con la clínica.",
-    "label": "Colonización e infección",
-    "exp": "La presencia de microorganismos o un cultivo positivo no establecen por sí solos infección clínica. El resultado se interpreta junto con los signos, la evolución y la situación de la persona, teniendo en cuenta que en algunos contextos los signos pueden estar atenuados.",
-    "points": [
-      [
-        "Microbiología",
-        "Un dato que necesita interpretación."
-      ],
-      [
-        "Clínica",
-        "Signos locales, evolución y estado general."
-      ],
-      [
-        "Contexto",
-        "Situaciones con signos atenuados."
+        "Ha salido la infección. Antes de pedir una muestra, aclaremos para qué."
       ]
     ],
-    "avoid": "Convertir un resultado aislado en diagnóstico y tratamiento automático.",
-    "propose": "Completar la valoración clínica antes de decidir.",
-    "refs": [
-      "G8",
-      "E22"
-    ],
-    "src": "GNEAUPP · DT VIII (2021), pp. 17 y 23–24: diagnóstico clínico y muestras · EWMA 2022, §3.",
-    "type": "Revisión y recomendaciones sobre infección",
-    "limit": "Supuesto docente: sin microorganismos ni antibiograma inventados.",
-    "open": "El papel dice que tengo bacterias. Vale. ¿Qué más sabemos?",
-    "turns": [
-      {
-        "label": "Abrir el resultado",
-        "reply": "«Cultivo positivo». Hasta ahí llega el papel. ¿Cómo estoy yo?",
-        "kind": "facts",
-        "resourceTitle": "Un resultado",
-        "items": [
-          [
-            "Resultado",
-            "El cultivo es positivo."
-          ],
-          [
-            "Qué sabemos",
-            "Hay microorganismos en la muestra."
-          ],
-          [
-            "Qué falta",
-            "Saber si hay infección y su gravedad."
-          ]
-        ],
-        "voice": "principal",
-        "state": "exploring"
-      },
-      {
-        "label": "¿Qué falta para interpretarlo?",
-        "reply": "Miremos qué ha cambiado. Y cómo se encuentra la persona.",
-        "kind": "layers",
-        "resourceTitle": "Completar el contexto",
-        "items": [
-          [
-            "En la herida",
-            "Dolor nuevo, cambios, exudado o extensión."
-          ],
-          [
-            "Desde la última visita",
-            "Qué ha cambiado."
-          ],
-          [
-            "En la persona",
-            "Cómo se encuentra."
-          ],
-          [
-            "A veces",
-            "Los signos se notan menos."
-          ]
-        ],
-        "voice": "principal",
-        "state": "exploring"
-      },
-      {
-        "label": "¿Qué harías con ese dato?",
-        "reply": "Con este resultado solo, ¿ya tenemos bastante para decidir?",
-        "kind": "decision",
-        "resourceTitle": "Un resultado que necesita contexto",
-        "items": [
-          [
-            "Tratar por el resultado",
-            "El resultado aislado no establece infección ni gravedad."
-          ],
-          [
-            "Completar la valoración",
-            "Permite interpretar el hallazgo y justificar la actuación."
-          ],
-          [
-            "Valorar la gravedad",
-            "Si hay signos de gravedad, la atención no espera."
-          ]
-        ],
-        "voice": "principal",
-        "state": "exploring"
-      }
-    ],
-    "bridge": "Retrocedamos un momento: ¿para qué pedimos esa muestra?",
-    "md": "Hace visible la información que falta para interpretar el resultado.",
-    "steps": [
-      [
-        "t1 m1 p1",
-        "Separa el resultado microbiológico del diagnóstico clínico. G8, p. 17."
-      ],
-      [
-        "t2 p2",
-        "Relaciona signos, evolución y situación de la persona."
-      ],
-      [
-        "i4 p3",
-        "Recuerda que en algunos contextos los signos pueden estar atenuados."
-      ],
-      [
-        "t3 razon",
-        "Una decisión breve para pensar, sin abrir otro debate completo."
-      ],
-      [
-        "i3",
-        "Si hay gravedad, la atención no espera."
-      ],
-      [
-        "practica",
-        "El tachado afecta a la conclusión automática."
-      ],
-      [
-        "enlace",
-        "Haz explícito el retroceso al momento de pedir la muestra."
-      ]
-    ]
+    "voice": "principal"
   },
   {
     "id": "cultivo",
@@ -1357,11 +1154,11 @@
     "src": "GNEAUPP · DT VIII, pp. 23–24 · EWMA (2026), ficha de úlcera venosa, muestras.",
     "type": "Recomendaciones sobre toma de muestras",
     "limit": "Una evolución desfavorable exige valoración; no impone por sí sola el cultivo. No se detallan técnicas.",
-    "open": "Volvamos al día de la torunda. ¿Qué queríamos averiguar?",
+    "open": "He traído una torunda. Para que no digas que vengo sin recursos.",
     "turns": [
       {
-        "label": "Tres preguntas antes de la torunda",
-        "reply": "¿Qué sospechamos? ¿Y qué haríamos distinto según lo que salga?",
+        "label": "Muy bien. Ahora dime para qué la vamos a usar.",
+        "reply": "Ahí quería llegar. El material ya lo tenemos; falta concretar la duda.",
         "kind": "path",
         "resourceTitle": "La pregunta de la muestra",
         "items": [
@@ -1382,8 +1179,8 @@
         "state": "exploring"
       },
       {
-        "label": "¿Importa cómo se tomó?",
-        "reply": "Cómo y de dónde se toma también importa. El bote no lo arregla después.",
+        "label": "Y también importa cómo tomamos la muestra.",
+        "reply": "Sí. El bote tiene sus límites: no arregla lo que haya pasado antes.",
         "kind": "layers",
         "resourceTitle": "Calidad de la información",
         "items": [
@@ -1404,8 +1201,8 @@
         "state": "exploring"
       },
       {
-        "label": "Revisar la petición",
-        "reply": "¿Había una duda que resolver o era la torunda de siempre?",
+        "label": "El resultado tiene que ayudarnos a decidir algo.",
+        "reply": "Pues dejemos dicho qué decisión podría cambiar. Así lo retomamos cuando llegue.",
         "kind": "decision",
         "resourceTitle": "Revisar el motivo",
         "items": [
@@ -1426,38 +1223,152 @@
         "state": "exploring"
       }
     ],
-    "bridge": "Cuando no avanzo, también suele aparecer otra palabra: biofilm.",
-    "md": "Aclara que una evolución desfavorable exige valoración; no convierte por sí sola el cultivo en obligatorio.",
+    "bridge": "Vamos a imaginar que llega el informe: cultivo positivo.",
+    "md": "«¿Qué sospechamos y qué haríamos distinto con el resultado?». Explica la indicación y la calidad de la muestra. Mala evolución exige valoración, no cultivo automático. El informe siguiente es un supuesto docente.",
     "steps": [
       [
-        "t1 m1 p1",
-        "Plantea el motivo antes de la muestra. G8, pp. 23–24."
-      ],
-      [
-        "i3 p3",
-        "Conecta el resultado esperado con una decisión que podría cambiar."
+        "t1 m1 p1 i3 p3",
+        "Plantea el motivo antes de la muestra. G8, pp. 23–24. Conecta el resultado esperado con una decisión que podría cambiar."
       ],
       [
         "t2 p2",
         "La preparación y la técnica condicionan la calidad."
       ],
       [
-        "t3 razon",
-        "Revisa el motivo: la costumbre no es indicación."
-      ],
-      [
-        "i3",
-        "La mala evolución exige valorar; no impone automáticamente cultivar."
-      ],
-      [
-        "practica",
-        "Deja visible una sola pregunta de utilidad clínica."
+        "t3 razon i3",
+        "Revisa el motivo: la costumbre no es indicación. La mala evolución exige valorar; no impone automáticamente cultivar."
       ],
       [
         "enlace",
-        "Pasamos a otra explicación que conviene examinar."
+        "Vamos a imaginar que llega el informe: cultivo positivo."
       ]
-    ]
+    ],
+    "voice": "principal"
+  },
+  {
+    "id": "infeccion",
+    "mov": 1,
+    "q": 0,
+    "title": "El cultivo se interpreta con la clínica.",
+    "label": "Colonización e infección",
+    "exp": "La presencia de microorganismos o un cultivo positivo no establecen por sí solos infección clínica. El resultado se interpreta junto con los signos, la evolución y la situación de la persona, teniendo en cuenta que en algunos contextos los signos pueden estar atenuados.",
+    "points": [
+      [
+        "Microbiología",
+        "Un dato que necesita interpretación."
+      ],
+      [
+        "Clínica",
+        "Signos locales, evolución y estado general."
+      ],
+      [
+        "Contexto",
+        "Situaciones con signos atenuados."
+      ]
+    ],
+    "avoid": "Convertir un resultado aislado en diagnóstico y tratamiento automático.",
+    "propose": "Completar la valoración clínica antes de decidir.",
+    "refs": [
+      "G8",
+      "E22"
+    ],
+    "src": "GNEAUPP · DT VIII (2021), pp. 17 y 23–24: diagnóstico clínico y muestras · EWMA 2022, §3.",
+    "type": "Revisión y recomendaciones sobre infección",
+    "limit": "Supuesto docente: sin microorganismos ni antibiograma inventados.",
+    "open": "Aquí está el supuesto informe: «cultivo positivo». Sé lo que me vas a preguntar.",
+    "turns": [
+      {
+        "label": "¿Cómo está la herida y cómo está la persona?",
+        "reply": "Lo sabía. Han crecido microorganismos en la muestra; esa línea no cuenta lo demás.",
+        "kind": "facts",
+        "resourceTitle": "Un resultado",
+        "items": [
+          [
+            "Resultado",
+            "El cultivo es positivo."
+          ],
+          [
+            "Qué sabemos",
+            "Hay microorganismos en la muestra."
+          ],
+          [
+            "Qué falta",
+            "Saber si hay infección y su gravedad."
+          ]
+        ],
+        "voice": "principal",
+        "state": "exploring"
+      },
+      {
+        "label": "Necesito signos, evolución y contexto.",
+        "reply": "Te pongo el informe al lado de la historia. Separados daban una conversación demasiado corta.",
+        "kind": "layers",
+        "resourceTitle": "Completar el contexto",
+        "items": [
+          [
+            "En la herida",
+            "Dolor nuevo, cambios, exudado o extensión."
+          ],
+          [
+            "Desde la última visita",
+            "Qué ha cambiado."
+          ],
+          [
+            "En la persona",
+            "Cómo se encuentra."
+          ],
+          [
+            "A veces",
+            "Los signos se notan menos."
+          ]
+        ],
+        "voice": "principal",
+        "state": "exploring"
+      },
+      {
+        "label": "¿Ves por qué no quiero decidir solo con el papel?",
+        "reply": "Lo veo. El resultado aporta un dato, no termina la visita.",
+        "kind": "decision",
+        "resourceTitle": "Un resultado que necesita contexto",
+        "items": [
+          [
+            "Tratar por el resultado",
+            "El resultado aislado no establece infección ni gravedad."
+          ],
+          [
+            "Completar la valoración",
+            "Permite interpretar el hallazgo y justificar la actuación."
+          ],
+          [
+            "Valorar la gravedad",
+            "Si hay signos de gravedad, la atención no espera."
+          ]
+        ],
+        "voice": "principal",
+        "state": "exploring"
+      }
+    ],
+    "bridge": "Y cuando no avanza, a veces aparece otra palabra: biofilm.",
+    "md": "«El diagnóstico necesita interpretar el resultado con la clínica». Explica signos, evolución y sus límites. La complicidad se construye al anticipar la pregunta, no bromeando con la infección. Si hay gravedad, la atención no espera.",
+    "steps": [
+      [
+        "t1 m1 p1",
+        "Separa el resultado microbiológico del diagnóstico clínico. G8, p. 17."
+      ],
+      [
+        "t2 p2 i4 p3",
+        "Relaciona signos, evolución y situación de la persona. Recuerda que en algunos contextos los signos pueden estar atenuados."
+      ],
+      [
+        "t3 razon i3",
+        "Una decisión breve para pensar, sin abrir otro debate completo. Si hay gravedad, la atención no espera."
+      ],
+      [
+        "enlace",
+        "Y cuando no avanza, a veces aparece otra palabra: biofilm."
+      ]
+    ],
+    "voice": "principal"
   },
   {
     "id": "biofilm",
@@ -1489,11 +1400,11 @@
     "src": "EWMA 2022, §§2–3: biofilm, biocarga y límites de evaluación. Comparación de hipótesis: síntesis docente.",
     "type": "Revisión y fichas de práctica",
     "limit": "El modelo ilustra el concepto; no representa biofilm observado en el caso.",
-    "open": "«Será biofilm». Lo he oído más de una vez. ¿Qué significa?",
+    "open": "«Será biofilm». También me han presentado así. Sin apellido ni más preguntas.",
     "turns": [
       {
-        "label": "¿Qué es el biofilm?",
-        "reply": "Antes de ponerme otro nombre, contadme qué es.",
+        "label": "Enséñame el modelo antes de seguir.",
+        "reply": "Aquí lo tienes. Es una ilustración del concepto, no biofilm que hayamos visto en esta historia.",
         "kind": "facts",
         "resourceTitle": "El concepto",
         "items": [
@@ -1514,8 +1425,8 @@
         "state": "exploring"
       },
       {
-        "label": "¿Qué más puede influir?",
-        "reply": "Puede ser una pista. ¿Y las otras cosas que estábamos mirando?",
+        "label": "No me cierres las otras posibilidades.",
+        "reply": "No las he quitado de la mesa. Las dejé donde estábamos mirando antes.",
         "kind": "layers",
         "resourceTitle": "Otras cosas que mirar",
         "items": [
@@ -1540,8 +1451,8 @@
         "state": "exploring"
       },
       {
-        "label": "¿Qué nos aclara?",
-        "reply": "¿Qué nos ayuda a entender y qué sigue sin respuesta?",
+        "label": "Entonces, ¿qué nos aporta llamarlo así?",
+        "reply": "Una posibilidad que estudiar. Si quieres una respuesta cerrada, hoy te voy a decepcionar.",
         "kind": "compare",
         "resourceTitle": "Lo que sabemos y lo que falta",
         "items": [
@@ -1562,8 +1473,8 @@
         "state": "exploring"
       }
     ],
-    "bridge": "Si pensamos en un antimicrobiano, aclaremos qué queremos tratar.",
-    "md": "Pregunta: «¿Qué nos ayuda a explicar esta hipótesis y qué sigue pendiente?».",
+    "bridge": "Pasemos del nombre del problema al motivo del tratamiento.",
+    "md": "«El concepto puede ayudarnos a entender una posibilidad; no demuestra que explique esta herida». Define desde EWMA y vuelve al razonamiento. La herida no adquiere autoridad científica por acumular experiencias.",
     "steps": [
       [
         "t1 m1 h1 p1",
@@ -1582,18 +1493,15 @@
         "Mantén abiertas las demás hipótesis."
       ],
       [
-        "practica",
-        "La palabra no cierra el razonamiento."
-      ],
-      [
         "enlace",
-        "Del posible problema pasamos a justificar la intervención."
+        "Pasemos del nombre del problema al motivo del tratamiento."
       ]
-    ]
+    ],
+    "voice": "principal"
   },
   {
     "id": "antimicrobianos",
-    "mov": 2,
+    "mov": 1,
     "q": 2,
     "title": "El antimicrobiano necesita una indicación.",
     "label": "Uso responsable de antimicrobianos",
@@ -1621,11 +1529,11 @@
     "src": "GNEAUPP · DT VIII, pp. 27–30 · EWMA 2022, §6.2.",
     "type": "Revisión y recomendaciones de uso responsable",
     "limit": "Existen indicaciones específicas. No retrasar la atención ante infección extendida o grave.",
-    "open": "¿Un antimicrobiano? ¿Qué queremos tratar?",
+    "open": "Mira cuánto cabe en la palabra «antimicrobiano».",
     "turns": [
       {
-        "label": "Comparar las tres",
-        "reply": "Suenan parecidos, pero no hacen todos lo mismo.",
+        "label": "Sepárame las opciones, que no son lo mismo.",
+        "reply": "Te las pongo juntas para comparar. La explicación de qué hace cada una te la dejo a ti.",
         "kind": "compare",
         "resourceTitle": "Intervenciones diferentes",
         "items": [
@@ -1646,8 +1554,8 @@
         "state": "exploring"
       },
       {
-        "label": "¿Hace falta?",
-        "reply": "Primero veamos si hace falta. Luego elegimos cuál.",
+        "label": "Primero quiero saber si hace falta.",
+        "reply": "Ya vamos coincidiendo. «Por si acaso» deja bastante sin explicar.",
         "kind": "decision",
         "resourceTitle": "¿Hace falta una intervención antimicrobiana?",
         "items": [
@@ -1668,8 +1576,8 @@
         "state": "exploring"
       },
       {
-        "label": "¿Y si empeoro?",
-        "reply": "Si la cosa empeora y ella se encuentra mal, hay que pedir ayuda. No esperar al próximo apósito.",
+        "label": "Y si hay gravedad, cambia la prioridad.",
+        "reply": "Entonces dejamos el catálogo. Lo que está pasando necesita otra atención.",
         "kind": "facts",
         "resourceTitle": "Límites del cuidado local",
         "items": [
@@ -1687,49 +1595,34 @@
           ]
         ],
         "voice": "principal",
-        "state": "vascular"
+        "state": "exploring"
       }
     ],
-    "bridge": "Y si lo empezamos, dejemos pensada la revisión.",
-    "md": "Primero resuelve si hace falta una intervención antimicrobiana; después, cuál puede corresponder.",
+    "bridge": "Si lo indicamos, dejemos preparada también la revisión.",
+    "md": "«Primero la indicación. Después, la elección». Distingue antibiótico, antiséptico y apósito antimicrobiano. Tú explicas alcance, excepciones y actuación ante gravedad. El personaje presenta los recursos; la recomendación se apoya en las fuentes.",
     "steps": [
       [
-        "t2 razon",
-        "Primero la indicación. G8, pp. 27–30: el resultado aislado no decide."
+        "t2 razon i2",
+        "Primero la indicación. G8, pp. 27–30: el resultado aislado no decide. La valoración clínica orienta la actuación."
       ],
       [
-        "i2",
-        "La valoración clínica orienta la actuación."
-      ],
-      [
-        "t1 m1 p1",
-        "Distingue antibiótico de las intervenciones locales. No son una escalera."
-      ],
-      [
-        "i2 p2",
-        "Antiséptico: indicación y tolerancia."
-      ],
-      [
-        "i3 p3",
-        "Apósito antimicrobiano: objetivo y revisión."
+        "t1 m1 p1 i2 p2 i3 p3",
+        "Distingue antibiótico de las intervenciones locales. No son una escalera. Antiséptico: indicación y tolerancia. Apósito antimicrobiano: objetivo y revisión."
       ],
       [
         "t3",
         "No retrasar atención sistémica si está indicada."
       ],
       [
-        "practica",
-        "Cuestiona el uso por si acaso, sin formular prohibiciones universales."
-      ],
-      [
         "enlace",
-        "Inicio y revisión forman parte del mismo plan."
+        "Si lo indicamos, dejemos preparada también la revisión."
       ]
-    ]
+    ],
+    "voice": "principal"
   },
   {
     "id": "revision-antimicrobiano",
-    "mov": 2,
+    "mov": 1,
     "q": 4,
     "title": "La revisión se prepara desde el inicio.",
     "label": "Revisión del antimicrobiano · plata",
@@ -1757,11 +1650,11 @@
     "src": "GNEAUPP · DT VIII, p. 38 · EWMA 2022, §6.",
     "type": "Recomendación específica sobre plata",
     "limit": "Los 14 días se refieren a la plata en heridas infectadas; no se extrapolan.",
-    "open": "Recuerdo cuándo empezamos. ¿Cuándo miramos si sigue haciendo falta?",
+    "open": "Esta pauta tiene fecha de inicio. La revisión se ha quedado sin casilla.",
     "turns": [
       {
-        "label": "¿Cuándo volvemos a mirarlo?",
-        "reply": "Este tratamiento y yo ya tenemos confianza. ¿Seguimos necesitándonos?",
+        "label": "Pues vamos a ponerla. ¿Qué dejamos previsto?",
+        "reply": "Cuándo mirar la respuesta y qué esperábamos conseguir. Yo te guardo la pauta; tú deja el motivo.",
         "kind": "memory",
         "resourceTitle": "Desde el inicio hasta la revisión",
         "items": [
@@ -1782,8 +1675,8 @@
         "state": "remembering"
       },
       {
-        "label": "¿Qué significa «14 días»?",
-        "reply": "Con la plata hay una revisión que no conviene despistar. María del Mar os cuenta el detalle.",
+        "label": "Cuidado, que los catorce días tienen un contexto.",
+        "reply": "Te lo iba a preguntar. Esa cifra sale de la recomendación sobre plata, no de todo lo que hay en el carro.",
         "kind": "facts",
         "resourceTitle": "Alcance de la recomendación",
         "items": [
@@ -1808,8 +1701,8 @@
         "state": "exploring"
       },
       {
-        "label": "Preparar la revisión",
-        "reply": "¿Qué dejamos apuntado para que la próxima vez podamos decidir?",
+        "label": "Y el calendario no va a decidir por nosotras.",
+        "reply": "Mejor. Bastante trabajo tiene con recordar la cita.",
         "kind": "decision",
         "resourceTitle": "Justificar la continuidad",
         "items": [
@@ -1830,42 +1723,31 @@
         "state": "exploring"
       }
     ],
-    "bridge": "Además de lo que ponemos, revisemos algo de cada cura: la limpieza.",
-    "md": "Relaciona la continuidad con una justificación clínica, no únicamente con el calendario.",
+    "bridge": "Ahora enséñame algo que hacemos en cada cura: la limpieza.",
+    "md": "Explica el ámbito concreto de G8 sobre plata y revaloración a los 14 días. «Necesitamos la respuesta para justificar si continuamos, retiramos o cambiamos». Una réplica ligera sobre el calendario basta; no conviertas la indicación en un chiste.",
     "steps": [
       [
         "t1 p1",
         "Deja claro el objetivo y la respuesta esperada."
       ],
       [
-        "t2 m1 p2",
-        "G8, p. 38: plata en heridas infectadas, máximo inicial de 14 días y revaloración crítica."
+        "t2 m1 p2 i4",
+        "G8, p. 38: plata en heridas infectadas, máximo inicial de 14 días y revaloración crítica. No recomienda uso extensivo, prolongado o preventivo. No extrapoles el plazo."
       ],
       [
-        "i4",
-        "No recomienda uso extensivo, prolongado o preventivo. No extrapoles el plazo."
-      ],
-      [
-        "t3 razon p3",
-        "Continuar, retirar o cambiar requiere justificación."
-      ],
-      [
-        "i2",
-        "Respuesta insuficiente: revisar el diagnóstico y el plan."
-      ],
-      [
-        "practica",
-        "El calendario ayuda a revisar; no decide por sí solo."
+        "t3 razon p3 i2",
+        "Continuar, retirar o cambiar requiere justificación. Respuesta insuficiente: revisar el diagnóstico y el plan."
       ],
       [
         "enlace",
-        "Ahora la limpieza, otro gesto que necesita un objetivo."
+        "Ahora enséñame algo que hacemos en cada cura: la limpieza."
       ]
-    ]
+    ],
+    "voice": "principal"
   },
   {
     "id": "limpieza",
-    "mov": 2,
+    "mov": 1,
     "q": 2,
     "title": "La limpieza se adapta a la herida.",
     "label": "Limpieza de herida y piel",
@@ -1893,11 +1775,11 @@
     "src": "GNEAUPP · DT XVII (2023) · IWII 2025, recomendación 3 y 11, p. 31: zonas y selección de técnica.",
     "type": "Documento técnico y consenso internacional",
     "limit": "Limpieza y desbridamiento no son equivalentes. Presión y temperatura requieren contexto.",
-    "open": "Esto lo hacemos en cada cura. ¿Hoy qué necesitamos limpiar?",
+    "open": "Te vuelvo a sacar la imagen de antes. Ahora vamos a usarla para otra cosa.",
     "turns": [
       {
-        "label": "Volver a las zonas",
-        "reply": "¿Os acordáis de mis bordes y de la piel? También están invitados a la limpieza.",
+        "label": "Enséñame qué zonas tenemos que considerar.",
+        "reply": "El lecho, el borde y la piel de alrededor. Esta ya la conoces; no te hago otra visita guiada completa.",
         "kind": "photo",
         "resourceTitle": "Limpiar por zonas",
         "items": [
@@ -1922,8 +1804,8 @@
         "state": "showing"
       },
       {
-        "label": "¿Siempre igual?",
-        "reply": "Si algo ha cambiado, quizá hoy necesite otra forma de limpiar.",
+        "label": "Lo que cambia es la pregunta: ¿qué necesita hoy?",
+        "reply": "Exacto. La imagen es la misma. La técnica necesita la valoración y el objetivo de esta cura.",
         "kind": "path",
         "resourceTitle": "Elegir con un objetivo",
         "items": [
@@ -1944,8 +1826,8 @@
         "state": "exploring"
       },
       {
-        "label": "¿Con qué y con cuánta fuerza?",
-        "reply": "Que limpie lo que hace falta y que me siente bien. Veamos cómo hacerlo.",
+        "label": "También quiero saber cómo se tolera.",
+        "reply": "Eso no viene dibujado. Habrá que preguntarlo y observar qué ocurre mientras se hace.",
         "kind": "facts",
         "resourceTitle": "Solución, técnica y fuerza",
         "items": [
@@ -1966,8 +1848,8 @@
         "state": "exploring"
       }
     ],
-    "bridge": "Mientras limpiamos, hay otra cosa que escuchar: cómo lo está viviendo ella.",
-    "md": "Recupera el vínculo con la observación inicial: lo que miramos también debe orientar cómo actuamos.",
+    "bridge": "Vamos a detenernos en el dolor antes de seguir.",
+    "md": "«Recuperamos una imagen conocida con una pregunta distinta». No repitas la explicación por zonas. Relaciona solución, técnica, objetivo y tolerancia. Conserva la diferencia entre limpieza y desbridamiento.",
     "steps": [
       [
         "t1 m1 h1 p1",
@@ -1994,18 +1876,15 @@
         "Comprobar tolerancia y respuesta. Limpieza y desbridamiento no son equivalentes."
       ],
       [
-        "practica",
-        "Retira los detalles para dejar la pregunta."
-      ],
-      [
         "enlace",
-        "Da paso a la experiencia de la persona."
+        "Vamos a detenernos en el dolor antes de seguir."
       ]
-    ]
+    ],
+    "voice": "principal"
   },
   {
     "id": "dolor",
-    "mov": 2,
+    "mov": 1,
     "q": 3,
     "title": "El dolor se anticipa y se revisa.",
     "label": "Dolor durante la cura",
@@ -2033,17 +1912,17 @@
     "src": "IWII 2025, recomendación 13, pp. 39–40 · GNEAUPP · DT XIV, p. 28.",
     "type": "Consenso y recomendación de práctica",
     "limit": "No se establecen tiempos analgésicos universales.",
-    "open": "La última cura le dolió. Mejor que os lo cuente ella.",
+    "open": "De esta parte prefiero que hablemos despacio: la cura puede doler.",
     "turns": [
       {
-        "label": "Escuchar a la persona",
-        "reply": "«La última vez me dolió. ¿Podemos hablarlo antes de empezar?»",
-        "kind": "person",
-        "resourceTitle": "Una voz recreada",
+        "label": "¿Qué necesitamos saber antes de empezar?",
+        "reply": "Cómo fue la cura anterior y qué dolor hay hoy. En el registro que vimos, eso no aparecía.",
+        "kind": "facts",
+        "resourceTitle": "Lo que falta preguntar",
         "items": [
           [
             "Preguntar",
-            "Cómo estoy y qué pasó la última vez."
+            "Cómo se encuentra la persona y qué ocurrió en la cura anterior."
           ],
           [
             "Explicar",
@@ -2054,18 +1933,18 @@
             "Cómo vamos a manejar el dolor."
           ]
         ],
-        "voice": "persona",
+        "voice": "principal",
         "state": "discomfort"
       },
       {
-        "label": "Durante la cura",
-        "reply": "«Si me duele, os aviso. Paramos un momento y vemos cómo seguir.»",
-        "kind": "person",
-        "resourceTitle": "Una voz recreada",
+        "label": "Y no basta con preguntarlo al principio.",
+        "reply": "Durante la cura también cambia lo que está pasando.",
+        "kind": "facts",
+        "resourceTitle": "Lo que falta preguntar",
         "items": [
           [
             "Escuchar",
-            "Lo que siento durante la cura."
+            "El dolor que refiere durante la cura."
           ],
           [
             "Adaptar",
@@ -2076,12 +1955,12 @@
             "Si necesitamos cambiar algo."
           ]
         ],
-        "voice": "persona",
+        "voice": "principal",
         "state": "discomfort"
       },
       {
-        "label": "¿Qué cambiamos la próxima vez?",
-        "reply": "Antes de irnos, ¿qué dejamos preparado para que la próxima vaya mejor?",
+        "label": "Dejaremos registrado qué necesita ajustarse.",
+        "reply": "Para que esa conversación llegue a quien haga la siguiente cura.",
         "kind": "outcomes",
         "resourceTitle": "Reevaluar la experiencia",
         "items": [
@@ -2102,36 +1981,33 @@
         "state": "exploring"
       }
     ],
-    "bridge": "Hemos hablado de cómo hacerlo. A veces toca preguntar si conviene hacerlo ahora.",
-    "md": "Pregunta qué cambiaríamos en la siguiente cura y cómo comprobaríamos el efecto. No introduce tiempos analgésicos universales.",
+    "bridge": "Te voy a pedir ahora el ejemplo del talón con escara.",
+    "md": "«¿Hemos valorado el dolor y planificado cómo abordarlo?». Desarrolla anticipación, escucha, adaptación y reevaluación desde las fuentes. Sin humor en dolor, sin voz de paciente recreada y sin prometer una cura indolora.",
     "steps": [
       [
         "t1 m2 p1",
-        "Antes: valorar y planificar el manejo del dolor."
+        "«Antes de empezar, ¿hemos valorado el dolor y cómo abordarlo?»."
       ],
       [
         "t2 p2",
-        "Durante: escuchar y adaptar la técnica. IWII 2025, rec. 13."
+        "«También durante la cura». Explica escucha y adaptación desde IWII, rec. 13."
       ],
       [
         "t3 m1 p3",
-        "Después: evaluar y registrar qué ajustar. Sin prometer un resultado."
+        "«Y para la siguiente visita, ¿qué necesita quedar registrado?». Sin tiempos universales."
       ],
       [
-        "practica",
-        "Deja la experiencia de la persona como foco, sin humor en este momento."
-      ],
-      [
-        "enlace",
-        "De cómo intervenir pasamos a si corresponde intervenir."
+        "cerrar enlace",
+        "Te voy a pedir ahora el ejemplo del talón con escara."
       ]
-    ]
+    ],
+    "voice": "principal"
   },
   {
     "id": "escaras",
     "mov": 2,
     "q": 2,
-    "voice": "isquemica",
+    "voice": "principal",
     "title": "La seguridad antes del desbridamiento.",
     "label": "Escara seca y desbridamiento",
     "exp": "La presencia de tejido necrótico no basta para decidir. Perfusión, estabilidad y signos de complicación condicionan el desbridamiento cortante. En lesiones isquémicas con escara seca sin revascularizar no se recomienda aplicar ambiente húmedo de forma automática.",
@@ -2158,11 +2034,11 @@
     "src": "GNEAUPP · DT XIV, pp. 21 y 28 · EWMA (2026), ficha de isquemia amenazante.",
     "type": "Recomendaciones con condiciones específicas",
     "limit": "No es una prohibición universal de todos los métodos. La gravedad requiere atención oportuna.",
-    "open": "Soy otra herida, en un talón. Antes de quitar esa escara, ¿qué falta saber?",
+    "open": "Aquí está el talón que me pediste. Hay una propuesta de retirar la escara.",
     "turns": [
       {
-        "label": "Abrir la situación",
-        "reply": "Han propuesto quitarme la escara. Aún no sabemos cómo me llega la sangre.",
+        "label": "Antes de decidir, enséñame los datos.",
+        "reply": "Escara seca y propuesta de desbridamiento cortante. La valoración que permitiría decidir está incompleta.",
         "kind": "facts",
         "resourceTitle": "Punto de partida",
         "items": [
@@ -2179,12 +2055,12 @@
             "Retirarla con desbridamiento cortante."
           ]
         ],
-        "voice": "isquemica",
+        "voice": "principal",
         "state": "listening"
       },
       {
-        "label": "¿Qué dato cambia la decisión?",
-        "reply": "Primero reunamos lo que falta. Luego decidimos.",
+        "label": "¿Qué nos falta comprobar?",
+        "reply": "Cómo llega la sangre, la estabilidad y los posibles signos de complicación.",
         "kind": "layers",
         "resourceTitle": "Información de seguridad",
         "items": [
@@ -2201,12 +2077,12 @@
             "Cómo está y qué queremos conseguir."
           ]
         ],
-        "voice": "isquemica",
-        "state": "vascular"
+        "voice": "principal",
+        "state": "exploring"
       },
       {
-        "label": "Contrastar posibilidades",
-        "reply": "Ver algo que quitar no nos dice todavía si es seguro hacerlo.",
+        "label": "Ver algo que retirar no basta para retirarlo.",
+        "reply": "Por eso te he traído el ejemplo. El aspecto llamaba la atención; la decisión necesitaba más.",
         "kind": "decision",
         "resourceTitle": "Antes de actuar",
         "items": [
@@ -2223,12 +2099,12 @@
             "Ante gravedad, no esperar al control ordinario."
           ]
         ],
-        "voice": "isquemica",
-        "state": "vascular"
+        "voice": "principal",
+        "state": "exploring"
       }
     ],
-    "bridge": "A veces falta información para actuar. Otras, la historia necesita otra explicación.",
-    "md": "Explica por qué una regla general no resuelve todos los casos.",
+    "bridge": "Vamos con otra historia: una en la que la explicación deja de encajar.",
+    "md": "«En este supuesto, ¿qué cambia la seguridad de intervenir?». Integra perfusión, estabilidad, complicaciones, objetivos y gravedad. No generalices la recomendación a todos los métodos ni presentes el ejemplo como evolución de una misma lesión.",
     "steps": [
       [
         "t1 m1",
@@ -2255,18 +2131,14 @@
         "No generalices la recomendación a todos los métodos o situaciones."
       ],
       [
-        "practica",
-        "Tacha decidir solo por la necrosis."
-      ],
-      [
         "enlace",
-        "El siguiente contraste nos hace revisar la explicación."
+        "Vamos con otra historia: una en la que la explicación deja de encajar."
       ]
     ]
   },
   {
     "id": "atipica",
-    "mov": 3,
+    "mov": 2,
     "q": 0,
     "title": "Cuando no encaja, revisar el diagnóstico.",
     "label": "Heridas atípicas e inflamatorias",
@@ -2293,11 +2165,11 @@
     "src": "EWMA (2026), ficha 1, pp. 3–6.",
     "type": "Ficha clínica sobre lesiones atípicas",
     "limit": "No se propone diagnosticar por imagen ni reconocer una enfermedad concreta.",
-    "open": "¿Y si estamos tratando otra cosa?",
+    "open": "Esta historia no encaja bien con la explicación que traíamos.",
     "turns": [
       {
-        "label": "¿Qué no encaja?",
-        "reply": "Hemos probado varias cosas y no va como esperábamos. ¿Nos falta alguna pieza?",
+        "label": "¿Me estás pidiendo que vuelva al diagnóstico?",
+        "reply": "Sí. Ya hemos hablado de cambiar la cura. Aquí toca mirar también la explicación.",
         "kind": "layers",
         "resourceTitle": "Explicitar la incertidumbre",
         "items": [
@@ -2318,8 +2190,8 @@
         "state": "exploring"
       },
       {
-        "label": "Mirar un contraste",
-        "reply": "Esta es otra herida, un ejemplo. No hace falta adivinar su nombre: veamos qué no encaja.",
+        "label": "Enséñame el contraste, pero sin hacer adivinanzas.",
+        "reply": "Hecho. Es otra lesión, otro ejemplo. La foto abre una duda, no resuelve su nombre.",
         "kind": "facts",
         "resourceTitle": "Un contraste breve",
         "items": [
@@ -2340,8 +2212,8 @@
         "state": "exploring"
       },
       {
-        "label": "¿Qué decisión revisamos?",
-        "reply": "Antes de subir la intensidad, ¿seguimos pensando que me pasa lo mismo?",
+        "label": "A veces la siguiente decisión será consultar.",
+        "reply": "También es una forma de seguir la historia. No hace falta tener la respuesta para plantear bien la duda.",
         "kind": "decision",
         "resourceTitle": "De la incertidumbre a la consulta",
         "items": [
@@ -2362,8 +2234,8 @@
         "state": "exploring"
       }
     ],
-    "bridge": "Si cambia lo que entendemos, también puede cambiar lo que esperamos conseguir.",
-    "md": "Recupera la pregunta de la escena 3: «¿Seguimos teniendo una explicación suficiente?».",
+    "bridge": "Volvamos a la pregunta de la mesa: qué podemos esperar conseguir.",
+    "md": "«Si los datos no encajan, reabrimos el diagnóstico y valoramos la consulta». Explica desde la ficha clínica. Evita un concurso de reconocimiento por imagen y la atribución de un diagnóstico al personaje abstracto.",
     "steps": [
       [
         "t1 p1",
@@ -2374,26 +2246,19 @@
         "EWMA, ficha 1, pp. 3–6: algunas lesiones inflamatorias parecen infecciosas."
       ],
       [
-        "cerrar t3 razon",
-        "Contrasta intensificar con revisar la explicación."
-      ],
-      [
-        "i2 p3",
-        "Documentar la incertidumbre y solicitar valoración especializada."
-      ],
-      [
-        "practica",
-        "La consulta forma parte del cuidado."
+        "cerrar t3 razon i2 p3",
+        "Contrasta intensificar con revisar la explicación. Documentar la incertidumbre y solicitar valoración especializada."
       ],
       [
         "enlace",
-        "De revisar el diagnóstico pasamos a ajustar expectativas."
+        "Volvamos a la pregunta de la mesa: qué podemos esperar conseguir."
       ]
-    ]
+    ],
+    "voice": "principal"
   },
   {
     "id": "capacidad",
-    "mov": 3,
+    "mov": 2,
     "q": 1,
     "title": "Objetivos posibles y revisables.",
     "label": "Posibilidad de cicatrización y objetivos",
@@ -2422,11 +2287,11 @@
     "src": "GNEAUPP · DT XIV, p. 15 · EWMA 2022, §4, pp. S15–S16 · IWII 2025, p. 26. Organización de objetivos: síntesis docente.",
     "type": "Recomendación, revisión y consenso · síntesis docente",
     "limit": "Los objetivos se individualizan. No se clasifica el pronóstico ni se atribuye imposibilidad de cierre a una etiología. El contrapunto es hipotético.",
-    "open": "Con lo que sabemos ahora, ¿qué podemos conseguir?",
+    "open": "Llevamos un rato juntas y todavía no me has prometido que todas vayamos a cerrar.",
     "turns": [
       {
-        "label": "¿Qué podemos conseguir?",
-        "reply": "Me gustaría cerrar. Veamos qué es posible hoy y qué falta para acercarnos.",
+        "label": "Tú tampoco me has dado datos para prometerlo.",
+        "reply": "Por eso nos entendemos. Hay que valorar cada situación y lo que puede cambiar.",
         "kind": "compare",
         "resourceTitle": "Qué es posible hoy",
         "items": [
@@ -2447,8 +2312,8 @@
         "state": "exploring"
       },
       {
-        "label": "Escuchar a otra herida",
-        "reply": "Yo soy otra historia. Hoy buscamos aliviar lo que más molesta. También hay mucho que hacer.",
+        "label": "Muéstrame una historia con otro objetivo.",
+        "reply": "En este supuesto buscamos aliviar. Te lo traigo para hablar de lo que se puede cuidar y revisar.",
         "kind": "facts",
         "resourceTitle": "Otra situación",
         "items": [
@@ -2465,12 +2330,12 @@
             "No todas las heridas del mismo tipo son iguales."
           ]
         ],
-        "voice": "paliativa",
+        "voice": "principal",
         "state": "listening"
       },
       {
-        "label": "¿Qué cambia y qué continúa?",
-        "reply": "Cambia lo que buscamos. Seguimos cuidando y viendo cómo va.",
+        "label": "Cambiar el objetivo también exige un plan.",
+        "reply": "Sí. No he traído esta historia para dejarla sin seguimiento.",
         "kind": "compare",
         "resourceTitle": "Un cambio de objetivo",
         "items": [
@@ -2487,20 +2352,16 @@
             "Cómo va y si el objetivo sigue teniendo sentido."
           ]
         ],
-        "voice": "paliativa",
-        "state": "relief"
+        "voice": "principal",
+        "state": "exploring"
       }
     ],
-    "bridge": "Si buscamos aliviar, pongámosle nombre a la mejora que le importa.",
-    "md": "Vuelve a la pregunta de la mesa con los datos disponibles. Diferencia las opciones contempladas por IWII de esta organización docente. No uses una clasificación pronóstica ni atribuyas una frase del caso a una guía.",
+    "bridge": "Concretemos ahora qué mejora importa a quien vive con la herida.",
+    "md": "«La posibilidad de cierre se valora. Los objetivos se acuerdan y se revisan». Presenta alivio como otro supuesto docente; no atribuyas imposibilidad de cierre por etiología. La herida no expresa los deseos de la persona.",
     "steps": [
       [
-        "t1 p1",
-        "Recupera la pregunta de la mesa. La valoración orienta el objetivo."
-      ],
-      [
-        "i2 p2",
-        "Explora las barreras y la viabilidad del plan, sin culpabilizar."
+        "t1 p1 i2 p2",
+        "Recupera la pregunta de la mesa. La valoración orienta el objetivo. Explora las barreras y la viabilidad del plan, sin culpabilizar."
       ],
       [
         "t2 p3",
@@ -2511,18 +2372,15 @@
         "Explica que cambiar el objetivo conserva el cuidado y la revisión."
       ],
       [
-        "practica",
-        "No prometer ni descartar el cierre por una etiqueta."
-      ],
-      [
         "enlace",
-        "Aterriza el objetivo en una mejora concreta."
+        "Concretemos ahora qué mejora importa a quien vive con la herida."
       ]
-    ]
+    ],
+    "voice": "principal"
   },
   {
     "id": "otros-resultados",
-    "mov": 3,
+    "mov": 2,
     "q": 3,
     "title": "Una mejora que importe a la persona.",
     "label": "Síntomas y calidad de vida",
@@ -2550,14 +2408,14 @@
     ],
     "src": "EWMA 2022, §4, pp. S15–S16 · IWII 2025, rec. 13, pp. 39–40 · GNEAUPP DT XIV, p. 24: trauma y sangrado en lesiones neoplásicas. Seguimiento: síntesis docente.",
     "type": "Revisión, consenso y recomendaciones con ámbito específico",
-    "limit": "El sangrado y la retirada atraumática se apoyan aquí en recomendaciones sobre heridas neoplásicas. Las prioridades del caso son recreadas; no se prometen resultados.",
-    "open": "Antes de hacer la lista, preguntémosle qué le gustaría mejorar.",
+    "limit": "El sangrado y la retirada atraumática se apoyan aquí en recomendaciones sobre heridas neoplásicas. Las prioridades se exploran mediante preguntas, sin atribuir respuestas a una paciente ni prometer resultados.",
+    "open": "En nuestras historias hay más cosas que el día en que cerramos.",
     "turns": [
       {
-        "label": "Escuchar a la persona",
-        "reply": "«Me gustaría dormir mejor. Y que las curas me ocuparan menos el día.»",
-        "kind": "person",
-        "resourceTitle": "Una voz recreada",
+        "label": "¿Qué no debería quedarse fuera?",
+        "reply": "Lo que supone convivir con la herida. Eso no cabe en una medida del tamaño.",
+        "kind": "facts",
+        "resourceTitle": "Lo que falta preguntar",
         "items": [
           [
             "Escuchar",
@@ -2572,12 +2430,12 @@
             "Cómo notaría esa mejora."
           ]
         ],
-        "voice": "persona",
+        "voice": "principal",
         "state": "listening"
       },
       {
-        "label": "Elegir prioridades",
-        "reply": "Hay varias cosas que pueden mejorar. ¿Cuál le importa más ahora?",
+        "label": "La prioridad tendremos que preguntarla.",
+        "reply": "Sí. Yo traigo historias; cuál es su prioridad tiene que decirlo la persona.",
         "kind": "outcomes",
         "resourceTitle": "Dimensiones que explorar",
         "items": [
@@ -2606,8 +2464,8 @@
         "state": "exploring"
       },
       {
-        "label": "Conectar prioridad y registro",
-        "reply": "Si elegimos una mejora, dejemos apuntado cómo vamos a reconocerla.",
+        "label": "¿Y cómo retomaremos lo que acordemos?",
+        "reply": "Dejándolo escrito con una referencia para revisarlo. Esa parte ya la hemos hablado tú y yo.",
         "kind": "path",
         "resourceTitle": "Una mejora que podamos revisar",
         "items": [
@@ -2625,15 +2483,15 @@
           ]
         ],
         "voice": "principal",
-        "state": "relief"
+        "state": "exploring"
       }
     ],
-    "bridge": "Y que quien venga mañana sepa qué hemos acordado.",
-    "md": "Conecta cada prioridad elegida con una evaluación posterior.",
+    "bridge": "Dejemos ese acuerdo preparado para quien continúe el cuidado.",
+    "md": "«¿Qué mejora importa ahora a esta persona?». Explora dolor, descanso o carga de curas sin fingir respuestas ni elegir por ella. Relaciona prioridad y seguimiento, conservando el ámbito específico de las recomendaciones sobre sangrado y trauma.",
     "steps": [
       [
         "t1 m1",
-        "Escucha la prioridad de la persona, sin asumir que todas elegirán lo mismo."
+        "Explica cómo preguntar por la prioridad de la persona; no representes una respuesta ni supongas que todas elegirán lo mismo."
       ],
       [
         "t2 p1",
@@ -2648,18 +2506,15 @@
         "Conecta una prioridad con una referencia que permita revisarla."
       ],
       [
-        "practica",
-        "El cierre no agota los resultados relevantes."
-      ],
-      [
         "enlace",
-        "El acuerdo necesita continuidad entre profesionales."
+        "Dejemos ese acuerdo preparado para quien continúe el cuidado."
       ]
-    ]
+    ],
+    "voice": "principal"
   },
   {
     "id": "continuidad",
-    "mov": 4,
+    "mov": 3,
     "q": 4,
     "title": "Un plan que continúe en la próxima visita.",
     "label": "Continuidad asistencial",
@@ -2687,11 +2542,11 @@
     "src": "EWMA 2022, §§4–6: participación, comunicación y coordinación · EWMA, fichas de infección e isquemia. Relevo propuesto: síntesis docente.",
     "type": "Recomendaciones sobre continuidad y escalada",
     "limit": "El circuito concreto se adapta al área asistencial; no se inventan contactos ni plazos locales.",
-    "open": "Mañana viene otra compañera. ¿Le dejamos claro por dónde vamos?",
+    "open": "Yo me quedo. En la próxima visita puede venir otra compañera tuya.",
     "turns": [
       {
-        "label": "Preparar el relevo",
-        "reply": "Que no tenga que empezar mi historia desde cero. ¿Qué le contamos?",
+        "label": "No quiero que tenga que reconstruirlo todo.",
+        "reply": "Entonces déjale el plan y el motivo. La lista de productos ya la encontrará.",
         "kind": "path",
         "resourceTitle": "Un relevo en un minuto",
         "items": [
@@ -2716,8 +2571,8 @@
         "state": "exploring"
       },
       {
-        "label": "¿Y si algo cambia antes?",
-        "reply": "Y si algo cambia antes de la cita, ¿qué hacemos?",
+        "label": "Y qué hacer si algo cambia antes de la cita.",
+        "reply": "Eso también. La historia no se para porque la siguiente casilla del calendario esté más lejos.",
         "kind": "layers",
         "resourceTitle": "Programado y no demorable",
         "items": [
@@ -2738,10 +2593,10 @@
         "state": "exploring"
       },
       {
-        "label": "Escuchar a la persona",
-        "reply": "«En casa, si algo cambia, ¿a quién llamo?»",
-        "kind": "person",
-        "resourceTitle": "Una voz recreada",
+        "label": "Fuera de la consulta también tiene que quedar claro.",
+        "reply": "La información para pedir ayuda no puede quedarse solo entre tú y yo.",
+        "kind": "facts",
+        "resourceTitle": "Lo que falta preguntar",
         "items": [
           [
             "Quién",
@@ -2756,20 +2611,16 @@
             "Que quede claro qué hacer."
           ]
         ],
-        "voice": "persona",
+        "voice": "principal",
         "state": "listening"
       }
     ],
-    "bridge": "Ya podemos volver al carro del principio. ¿Empezaríamos igual?",
-    "md": "Vincula el circuito con su contexto real, sin inventar contactos ni plazos locales.",
+    "bridge": "Volvamos al carro del principio. A ver si ahora empezaríamos igual.",
+    "md": "«¿Podría otra compañera entender qué buscamos, por qué y cuándo revisarlo?». Añade la vía real de consulta del área. Distingue seguimiento programado y deterioro que requiere atención antes, sin inventar contactos ni plazos.",
     "steps": [
       [
-        "t1 p1",
-        "EWMA 2022, §§4–6: información compartida y coordinación. El relevo es una síntesis docente."
-      ],
-      [
-        "i4",
-        "Deja prevista la próxima revisión."
+        "t1 p1 i4",
+        "EWMA 2022, §§4–6: información compartida y coordinación. El relevo es una síntesis docente. Deja prevista la próxima revisión."
       ],
       [
         "t2 p3",
@@ -2780,18 +2631,15 @@
         "María del Mar explica la vía real de consulta de su área. No inventes contactos."
       ],
       [
-        "practica",
-        "El plan incluye su motivo, la respuesta y cómo pedir ayuda."
-      ],
-      [
         "enlace",
-        "Regresa al inicio con otra forma de decidir."
+        "Volvamos al carro del principio. A ver si ahora empezaríamos igual."
       ]
-    ]
+    ],
+    "voice": "principal"
   },
   {
     "id": "regreso",
-    "mov": 4,
+    "mov": 3,
     "q": 2,
     "title": "La primera decisión, revisada.",
     "label": "Reconstruir la decisión",
@@ -2821,11 +2669,11 @@
     "src": "Integración docente de GNEAUPP DT XIV, p. 15; DT VIII, pp. 23–30; EWMA 2022, §4; IWII 2025, rec. 11 y 13. Sin algoritmo ni resultado clínico validado.",
     "type": "Integración docente",
     "limit": "No se presenta una cicatrización ficticia como demostración.",
-    "open": "El mismo carro y yo otra vez. ¿Por dónde empezaríais ahora?",
+    "open": "El carro sigue ahí. Nosotras hemos dado unas cuantas vueltas.",
     "turns": [
       {
-        "label": "Recuperar vuestras preguntas",
-        "reply": "Al principio salieron varias preguntas. ¿Cuál haríais primero ahora?",
+        "label": "¿Te acuerdas de las preguntas del principio?",
+        "reply": "Te las he guardado. Para que no digas que soy yo la que se va por las ramas.",
         "kind": "memory",
         "resourceTitle": "Las preguntas del principio",
         "items": [
@@ -2846,8 +2694,8 @@
         "state": "remembering"
       },
       {
-        "label": "¿Por dónde empezamos?",
-        "reply": "Contadme por dónde empezaríamos. El apósito puede esperar un momento.",
+        "label": "¿Vamos a empezar otra vez desde cero?",
+        "reply": "Desde cero, no. Ahora sabemos qué preguntas necesitamos antes de elegir.",
         "kind": "path",
         "resourceTitle": "La primera decisión, paso a paso",
         "items": [
@@ -2876,8 +2724,8 @@
         "state": "exploring"
       },
       {
-        "label": "¿Qué harías distinto?",
-        "reply": "Elegid una cosa que haríais distinta. Con una tenemos para empezar.",
+        "label": "A la sala le voy a pedir un cambio concreto.",
+        "reply": "Y su motivo. Mira, esa ya te la he aprendido.",
         "kind": "decision",
         "resourceTitle": "Una cosa para cambiar",
         "items": [
@@ -2898,42 +2746,31 @@
         "state": "exploring"
       }
     ],
-    "bridge": "Vamos a quedarnos con cinco preguntas para la próxima cura.",
-    "md": "Pide al público que justifique un cambio concreto. No presenta una cicatrización ficticia como demostración del método.",
+    "bridge": "Vamos a dejar las preguntas juntas antes de despedirnos.",
+    "md": "A la sala: «De las preguntas del principio, ¿cuál os ayudaría a cambiar una decisión y por qué?». Una o dos aportaciones. La vuelta al inicio muestra aprendizaje, no una cicatrización ficticia. La última réplica reconoce la complicidad sin dar una moraleja.",
     "steps": [
       [
         "t1 m1",
         "Breve regreso a la sala: recupera las preguntas iniciales. Una o dos aportaciones."
       ],
       [
-        "cerrar t2 p1",
-        "Reconstruye lo que sabemos y lo que falta."
-      ],
-      [
-        "i3 p2",
-        "Recupera el objetivo acordado."
-      ],
-      [
-        "i4 p3",
-        "Relaciona intervención y evaluación, sin volver a explicar toda la ponencia."
+        "cerrar t2 p1 i3 p2 i4 p3",
+        "Reconstruye lo que sabemos y lo que falta. Recupera el objetivo acordado. Relaciona intervención y evaluación, sin volver a explicar toda la ponencia."
       ],
       [
         "t3",
         "Pide un cambio concreto y su motivo."
       ],
       [
-        "practica",
-        "El resultado docente es una decisión mejor justificada, sin desenlace clínico inventado."
-      ],
-      [
         "enlace",
-        "Presenta las preguntas como recuerdo del recorrido."
+        "Vamos a dejar las preguntas juntas antes de despedirnos."
       ]
-    ]
+    ],
+    "voice": "principal"
   },
   {
     "id": "cinco-preguntas",
-    "mov": 4,
+    "mov": 3,
     "q": null,
     "title": "Cinco preguntas para la próxima cura.",
     "label": "Síntesis",
@@ -2971,11 +2808,11 @@
     "src": "Síntesis docente propia a partir de GNEAUPP DT XIV, p. 15; DT VIII, pp. 23–30 y 38; EWMA 2022, §§4–6; IWII 2025, rec. 11 y 13.",
     "type": "Propuesta docente no validada como instrumento",
     "limit": "No atribuir literalmente las preguntas a una guía ni utilizarlas como escala.",
-    "open": "No hace falta llevarse toda mi historia. Estas preguntas caben mejor.",
+    "open": "Estas ya las conocemos. Te las he dejado juntas.",
     "turns": [
       {
-        "label": "Vamos una a una",
-        "reply": "Vamos una a una. Ya han ido saliendo en la conversación.",
+        "label": "Enséñamelas una vez más.",
+        "reply": "Aquí están. Han ido saliendo mientras mirábamos las historias.",
         "kind": "layers",
         "resourceTitle": "Las preguntas que nos llevamos",
         "items": [
@@ -3004,8 +2841,8 @@
         "state": "exploring"
       },
       {
-        "label": "¿Hay que seguir ese orden?",
-        "reply": "Podemos volver a ellas cuando haga falta. No hay que pasar un examen.",
+        "label": "No hace falta convertirlas en una escalera.",
+        "reply": "Menos mal. Hemos vuelto atrás unas cuantas veces y no se ha roto la conversación.",
         "kind": "facts",
         "resourceTitle": "Para volver a ellas",
         "items": [
@@ -3026,8 +2863,8 @@
         "state": "exploring"
       },
       {
-        "label": "¿Qué te llevas tú?",
-        "reply": "Con que alguna os ayude a parar un momento antes de repetir, me doy por escuchada.",
+        "label": "¿Cuál llevaríamos a la próxima cura?",
+        "reply": "La que haga falta para justificar la decisión que tengáis delante.",
         "kind": "outcomes",
         "resourceTitle": "Lo que aporta la conversación",
         "items": [
@@ -3048,8 +2885,8 @@
         "state": "exploring"
       }
     ],
-    "bridge": "Y ahora, pensad en vuestra próxima cura.",
-    "md": "Deja leer las preguntas una a una. No repitas las explicaciones ni enumeres las escenas de origen. Es un recordatorio docente, no un instrumento validado.",
+    "bridge": "Dejemos unos segundos para pensar en la próxima cura.",
+    "md": "«Son preguntas para revisar un plan, no una escala». Muéstralas sin volver a leer la charla. Una sola réplica ligera; después deja tiempo para que cada cual elija.",
     "steps": [
       [
         "t1 p1",
@@ -3072,18 +2909,15 @@
         "Reevaluar: cuándo revisar o pedir ayuda. Las cinco quedan reunidas."
       ],
       [
-        "practica",
-        "Una sola aclaración oral: son un recordatorio docente, no una escala ni un orden rígido."
-      ],
-      [
         "enlace",
-        "No vuelvas a resumir las escenas. Prepara la última pregunta."
+        "Dejemos unos segundos para pensar en la próxima cura."
       ]
-    ]
+    ],
+    "voice": "principal"
   },
   {
     "id": "cierre",
-    "mov": 4,
+    "mov": 3,
     "q": null,
     "title": "En la próxima cura, ¿qué revisarías?",
     "label": "Cierre",
@@ -3111,11 +2945,11 @@
     "src": "Cierre docente propio. Respaldo del recorrido: documentos aportados de GNEAUPP, EWMA e IWII. Fuentes por escena y bibliografía completa disponibles.",
     "type": "Síntesis y cierre docente",
     "limit": "Pendiente de validación clínica y adaptación de circuitos por la ponente.",
-    "open": "Yo ya os he contado mi historia. Ahora os toca pensar en una de las vuestras.",
+    "open": "Bueno, María del Mar. ¿Me guardas un sitio para la próxima conversación?",
     "turns": [
       {
-        "label": "Piensa en una cura",
-        "reply": "Pensad en una cosa que soléis hacer igual. Solo una.",
+        "label": "Mientras no me vuelvas a esconder los datos.",
+        "reply": "Trato hecho. Tú deja una pregunta antes de dar la cura por decidida.",
         "kind": "layers",
         "resourceTitle": "Una pausa antes de repetir",
         "items": [
@@ -3136,8 +2970,8 @@
         "state": "exploring"
       },
       {
-        "label": "Una idea final",
-        "reply": "¿Qué os gustaría saber antes de repetirla?",
+        "label": "¿Una última cosa para quienes nos han acompañado?",
+        "reply": "Que piensen en una actuación que repiten y en el motivo para mantenerla hoy.",
         "kind": "outcomes",
         "resourceTitle": "Una idea para llevar",
         "items": [
@@ -3158,8 +2992,8 @@
         "state": "exploring"
       },
       {
-        "label": "Despedirse",
-        "reply": "Gracias por escucharme. Nos vemos en la próxima cura… con alguna pregunta más.",
+        "label": "Gracias por venir. Ya seguiremos hablando.",
+        "reply": "Eso seguro. Historias no nos van a faltar.",
         "kind": "memory",
         "resourceTitle": "Después de hoy",
         "items": [
@@ -3181,15 +3015,11 @@
       }
     ],
     "bridge": "Gracias por acompañarnos.",
-    "md": "Una pregunta y una despedida. Deja unos segundos de silencio. No leas una lista de hábitos ni añadas un nuevo resumen. La última voz es la de la herida.",
+    "md": "A la sala: «En la próxima cura, ¿qué revisarías antes de repetir?». Pausa. Después, despídete del personaje como de alguien conocido. No añadas una lista ni otra moraleja.",
     "steps": [
       [
         "t1",
         "Invita a elegir una actuación habitual. Pausa breve, sin pedir otra ronda de respuestas."
-      ],
-      [
-        "practica",
-        "Tacha repetir sin revisar. Una sola pregunta final, sin muro ni otro resumen."
       ],
       [
         "t3",
@@ -3197,9 +3027,10 @@
       ],
       [
         "enlace",
-        "Agradece y pasa al cierre institucional."
+        "Gracias por acompañarnos."
       ]
-    ]
+    ],
+    "voice": "principal"
   }
 ];
  // Expressive states: discomfort while talking about procedural pain, relief when the goal is agreed,
@@ -3320,14 +3151,14 @@
   regreso:'Integración docente · GNEAUPP / EWMA / IWII',
   'cinco-preguntas':'Síntesis docente propia · fuentes del recorrido',cierre:'Cierre docente propio · bibliografía en Fuentes'
  };
- const kinds={dual:'Contrapunto · historias A y B',isquemica:'Contrapunto · seguridad vascular'};
+ // The wound remains the same companion while the teaching examples change.
  INITIAL_DECK.movements=MOVES;
  // Stored drafts from an older edition get the new thread (steps, habits) when they load.
- INITIAL_DECK.edition='2026-10-27-narrativa-humana';
+ INITIAL_DECK.edition='2026-10-29-herida-companera';
  INITIAL_DECK.slides=S.map((d,i)=>{
   const s=slide(d.id,MOVES[d.mov].short,d.title,d.voice||'principal',d.open,d.turns.some(t=>t.kind==='decision')?'decision':'conversation',d.points,d.refs,d.q,{mov:d.mov,takeaway:d.propose});
   s.study={number:i+1,label:d.label,explanation:d.exp,sourceNote:d.src,sourceLabel:SOURCE_LABELS[d.id],evidenceType:d.type,limitation:d.limit,opening:d.open,avoid:d.avoid,propose:d.propose,habit:HABITS[d.id][0],ask:HABITS[d.id][1],
-   caseLabel:kinds[d.voice]||(d.id==='capacidad'?'Caso principal y contrapunto de objetivos':'Caso principal · una lesión de pierna'),bridge:d.bridge,turns:d.turns,steps:d.steps};
+   caseLabel:'Personaje abstracto · historias docentes',bridge:d.bridge,turns:d.turns,steps:d.steps};
   s.notes='FUENTE Y RESPALDO\n'+d.src+'\n'+d.type+'\n\nESCENA '+(i+1)+' · '+MOVES[d.mov].short+'\nLo habitual: «'+HABITS[d.id][0]+'» → '+HABITS[d.id][1]+'\nLa herida abre: «'+d.open+'»\n\nMARÍA DEL MAR\n'+d.md+'\n\nPASOS\n'+d.steps.map((p,n)=>(n+1)+'. '+p[1]).join('\n')+'\n\nENLACE\n«'+d.bridge+'»\n\nREVISIÓN\n'+d.limit;
   return s;
  });
@@ -3337,10 +3168,10 @@
   intro('intro-tema','¿Es posible cicatrizar todas las heridas?','Qué no hacer en heridas crónicas.','tema','Bienvenida. Presenta la pregunta de la mesa y tu aportación.',
    [['r','Vamos a revisar decisiones que repetimos en las curas y las preguntas que nos ayudan a justificarlas.'],
     ['r','Una costumbre reconocible, la historia de una herida y una pregunta para la próxima cura. La evidencia nos acompaña.']]),
-  intro('intro-herida','Os presento a la herida','Un caso docente para conversar sobre nuestra práctica.','herida','Presenta el caso en una frase. La dinámica se entenderá al empezar.',
-   [['r','La herida cuenta su historia. Es un caso docente con respuestas preparadas.'],
+  intro('intro-herida','Os presento a la herida','Una compañera de conversación para revisar nuestra práctica.','herida','Presenta el caso en una frase. La dinámica se entenderá al empezar.',
+   [['r','La herida es un personaje abstracto que reúne historias; no representa a una paciente.'],
     ['r','María del Mar aporta la evidencia de los documentos citados.'],
     ['r','Empezamos por la primera decisión.']],
-   {lines:['Hola. Soy una herida de pierna y llevo tiempo abierta.','Mi historia está preparada para hoy. Las preguntas os las podéis llevar a las vuestras.','Veo que el carro ya está listo. ¿Empezamos?']})
+   {lines:['María del Mar y yo nos conocemos. Tenemos unas cuantas conversaciones pendientes.','He traído historias para enseñaros. Algunas se parecen; otras nos van a llevar la contraria.','María del Mar, tú pregunta. Yo te voy enseñando.']})
  );
 })();

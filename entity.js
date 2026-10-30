@@ -317,11 +317,12 @@ void main(){
   [['uT',t],['uBreath',breath],['uListen',c.listen],['uThink',c.think],['uSpeak',c.speak],['uRemember',c.remember],['uShow',c.show],['uTense',c.tense],['uRelief',c.relief],['uLevel',c.listen*level],['uLean',lean],['uBud',bud],['uFocus',c.focus],['uSeed',e.seed]].forEach(([k,x])=>gl.uniform1f(u[k],x));
   gl.drawArrays(gl.TRIANGLE_STRIP,0,4);}
  // The code-generated membrane is the wound's voice; ENTITY_RENDERER='art' brings back the illustration.
- const renderer=()=>globalThis.ENTITY_RENDERER==='art'?'art':'membrane';
+ const renderer=()=>globalThis.ENTITY_RENDERER==='liquid'?'liquid':globalThis.ENTITY_RENDERER==='art'?'art':'membrane';
  function create(kind){
   const canvas=document.createElement('canvas');canvas.className='orb-canvas';canvas.setAttribute('aria-hidden','true');
   const e={canvas,voice:null,state:'idle',seed:Math.random(),cur:{...BASE,listen:0,think:0,speak:0,bud:0,focus:0},target:{...BASE,listen:0,think:0,speak:0,bud:0,focus:0},colors:null,targetColors:null,gaze:[0,0],hoverListen:false,talking:0,thinking:0};
   e.kind=kind||renderer();
+  if(e.kind==='liquid'&&typeof LiquidEntity!=='undefined'&&LiquidEntity.create(e))return e;
   if(e.kind==='membrane'&&createMembrane(e))return e;
   if(createArt(e))return e;
   const gl=canvas.getContext('webgl',{premultipliedAlpha:true,antialias:true,alpha:true});
@@ -377,9 +378,10 @@ void main(){
   if(e.force==='think')e.target.think=animated?1:0;
   e.target.speak=(animated&&now<e.talking&&now>=e.thinking)||(animated&&e.force==='speak')?.35+.45*Math.abs(Math.sin(clock*8.3))*(.6+.4*Math.sin(clock*2.1)):0;
   let gx=0,gy=0;
-  if(pointer&&animated){gx=(pointer[0]-(r.left+r.width/2))/r.width;gy=-(pointer[1]-(r.top+r.height/2))/r.height;const len=Math.hypot(gx,gy);if(len>1){gx/=len;gy/=len;}}
-  e.gaze[0]=lerp(e.gaze[0],gx,Math.min(1,dt*1.5));e.gaze[1]=lerp(e.gaze[1],gy,Math.min(1,dt*1.5));
+  if(pointer&&animated&&!e.interaction){gx=(pointer[0]-(r.left+r.width/2))/r.width;gy=-(pointer[1]-(r.top+r.height/2))/r.height;const len=Math.hypot(gx,gy);if(len>1){gx/=len;gy/=len;}}
+  if(animated||!e.liquid){e.gaze[0]=lerp(e.gaze[0],gx,Math.min(1,dt*1.5));e.gaze[1]=lerp(e.gaze[1],gy,Math.min(1,dt*1.5));}
   const breath=Math.sin(clock*Math.PI*2/5.5);
+  if(e.liquid){LiquidEntity.draw(e,clock,breath,level,dt,animated);return;}
   if(e.mem){drawMembrane(e,breath);return;}
   if(e.art){drawArt(e,breath);return;}
   if(e.gl){
@@ -439,7 +441,7 @@ void main(){
  function mount(zones,{motion:on=true}={}){
   motion=on;statusEl=document.querySelector('.presence-status');setPhase(phase);
   active=[];
-  zones.forEach((zone,i)=>{const want=zone.dataset.renderer||renderer();if(pool[i]&&pool[i].kind!==want){pool[i].canvas.remove();pool[i]=null;}const e=pool[i]||(pool[i]=create(want));setVoice(e,zone.dataset.voice);setState(e,zone.dataset.state);e.force=zone.dataset.force||null;e.lean=Number(zone.dataset.lean||1);
+  zones.forEach((zone,i)=>{const want=zone.dataset.renderer||renderer();if(pool[i]&&pool[i].kind!==want){pool[i].canvas.remove();pool[i]=null;}const e=pool[i]||(pool[i]=create(want));setVoice(e,zone.dataset.voice);setState(e,zone.dataset.state);e.force=zone.dataset.force||null;e.variant=Number(zone.dataset.variant??globalThis.ENTITY_VARIANT??0);e.palette=Number(zone.dataset.palette??globalThis.ENTITY_PALETTE??0);e.ink=Number(zone.dataset.ink??globalThis.ENTITY_INK??0);e.chromatic=Number(zone.dataset.chromatic??globalThis.ENTITY_CHROMATIC??.85);e.attention=zone.dataset.attention||'auto';e.eyes=(zone.dataset.eyes??String(globalThis.ENTITY_EYES||false))==='true';e.lean=Number(zone.dataset.lean||1);
    // The guest buds from the same body: data-bud eases between one and two figures, except on a new scene.
    e.target.bud=Number(zone.dataset.bud||0);e.target.focus=Number(zone.dataset.focus||0);if(e.guest!==zone.dataset.guest){e.guest=zone.dataset.guest;e.guestColor=null;}
    if(e.scene!==zone.dataset.scene||!motion||reduced()){e.scene=zone.dataset.scene;e.cur.bud=e.target.bud;e.cur.focus=e.target.focus;}e.canvas.dataset.phase=phase;zone.append(e.canvas);active.push(e);});
@@ -481,5 +483,16 @@ void main(){
  }
  function reset(){timers.forEach(clearTimeout);timers=[];phase='calm';autoListen=false;mark('calm');pool.forEach(e=>{e.thinking=e.talking=0;e.hoverListen=false;e.target.listen=e.target.think=e.target.speak=0;});}
  document.addEventListener('pointermove',e=>{pointer=[e.clientX,e.clientY];});
- return {mount,rect,glide,cue,listen,reset,level:setLevel,stop(){if(raf)cancelAnimationFrame(raf);raf=0;active=[];}};
+ function interact(zone,point=null,tap=false){
+  if(!motion||reduced())return;
+  const e=active.find(e=>e.canvas.parentElement===zone);if(!e||!e.liquid)return;
+  const input=e.interaction??={point:[0,0],proximity:0,tapId:0,tapPoint:[0,0]};
+  if(!point){input.proximity=0;return;}
+  const x=Number(point[0]),y=Number(point[1]);if(!Number.isFinite(x)||!Number.isFinite(y))return;
+  const distance=Math.hypot(x,y),limit=Math.max(1,distance/1.3);
+  input.point=[x/limit,y/limit];input.proximity=Math.max(0,Math.min(1,(1.45-distance)/.65));
+  if(tap&&distance<1.05){input.tapPoint=input.point.slice();input.tapId++;}
+ }
+ function body(zone,geometry){const e=active.find(e=>e.canvas.parentElement===zone);if(e?.liquid)e.bodyGeometry=geometry;}
+ return {mount,rect,glide,cue,listen,reset,interact,body,level:setLevel,stop(){if(raf)cancelAnimationFrame(raf);raf=0;active=[];}};
 })();
