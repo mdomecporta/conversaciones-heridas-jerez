@@ -379,3 +379,28 @@
 }
 /* En la síntesis de las cinco preguntas no hay costumbre de la que partir: sin trazo. */
 #app:not([data-mode="prepare"]) .lesson .is-synthesis .habit-card .habit-ask::before,#app:not([data-mode="prepare"]) .lesson .is-synthesis .habit-card.conversation-focus .habit-was{display:none}
+/* Presencia · 30 de octubre. La herida flota en un espacio sin suelo, como un asistente de voz.
+   No se desliza por la escena: se diluye donde estaba y se condensa donde hace falta (reappear en app.js).
+   Su contenedor flota despacio y reacciona al estado de la conversación; su cuerpo lo dibuja Presence. */
+.presence-trace{position:fixed;z-index:2;pointer-events:none;object-fit:contain}
+#app:not([data-mode="prepare"]) .entity-stage .orb-zone,.intro-entity .orb-zone{animation:flota 13s ease-in-out infinite alternate}
+#app:not([data-mode="prepare"]) .entity-stage{transition:height .8s var(--ease),transform 1.1s var(--ease),opacity .8s var(--ease)}
+html[data-presence="thinking"] #app:not([data-mode="prepare"]) .entity-stage{transform:translateY(-.3cqw) scale(.93);opacity:.9}
+html[data-presence="speaking"] #app:not([data-mode="prepare"]) .entity-stage{transform:scale(1.04)}
+html[data-presence="listening"] #app:not([data-mode="prepare"]) .entity-stage{transform:translateX(.5cqw) rotate(2.5deg)}
+@keyframes flota{0%{transform:translate(0,0) rotate(0)}35%{transform:translate(.45cqw,-.6cqw) rotate(-1.2deg)}70%{transform:translate(-.35cqw,-.25cqw) rotate(.8deg)}100%{transform:translate(.15cqw,.35cqw) rotate(-.4deg)}}
+.motion-off :is(.entity-stage,.entity-stage .orb-zone),.motion-off .intro-entity .orb-zone{animation:none!important;transform:none!important;transition:none!important}
+@media(prefers-reduced-motion:reduce){:is(.entity-stage,.entity-stage .orb-zone,.intro-entity .orb-zone){animation:none!important;transform:none!important}.presence-trace{display:none}}
+/* Imagen dentro del panel · 30 de octubre. Cuando la herida trae un recurso y además una imagen, la imagen
+   acompaña al recurso como miniatura ampliable; la escena solo es de la imagen cuando es lo que se explora. */
+.lesson .resource-figure{all:unset;box-sizing:border-box;display:flex;align-items:center;gap:.9cqw;width:100%;padding:.45cqw;margin:0 0 .7cqw;border-radius:.8cqw;background:var(--surface-sunk);cursor:zoom-in}
+.lesson .resource-figure img{width:9cqw;height:6cqw;object-fit:cover;border-radius:.5cqw;flex:none}
+.lesson .resource-figure strong{display:block;font:600 var(--t-meta)/1.3 var(--sans);color:var(--ink)}
+.lesson .resource-figure small{display:block;font:500 var(--t-meta)/1.3 var(--sans);color:var(--muted)}
+.lesson .resource-figure:focus-visible{outline:2px solid var(--tone-ink);outline-offset:2px}
+@media(max-width:760px){
+ #app:not([data-mode="present"]) .lesson .resource-figure img{width:96px;height:64px}
+ #app:not([data-mode="present"]) .lesson .resource-figure :is(strong,small){font-size:12px}
+}
+.lesson [data-composition="decision"] .resource-figure{padding:.3cqw;margin-bottom:.4cqw;gap:.7cqw}
+.lesson [data-composition="decision"] .resource-figure img{width:5.6cqw;height:3.6cqw}

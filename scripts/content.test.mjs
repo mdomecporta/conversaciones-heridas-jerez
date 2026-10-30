@@ -95,7 +95,7 @@ test('una biblioteca importada con origen remoto o recorridos inválidos se rech
 
 test('el hilo avanza, muestra imágenes y cruza al siguiente intercambio',()=>{
  const h=setup();h.click({mode:'present'});h.click({slide:'registro'});h.click({action:'route-here'});const P=h.ctx.window.JerezPresentation;const key=k=>h.handlers['document:keydown']({key:k,code:k,target:{matches:()=>false,closest:()=>null},preventDefault(){}});
- key('ArrowRight');assert.equal(P.step,1);assert.match(h.view(),/Registro de intervenciones/);assert.match(h.view(),/has-media/);
+ key('ArrowRight');assert.equal(P.step,1);assert.match(h.view(),/Registro de intervenciones/);assert.doesNotMatch(h.view(),/has-media/);assert.match(h.view(),/class="resource-figure"/);
  key('ArrowRight');assert.equal(P.step,2);assert.doesNotMatch(h.view(),/has-media/);assert.match(h.view().replace(/<[^>]*>/g,' ').replace(/\s+/g,' '),/Estas notas no permiten comparar/);
  key('ArrowRight');assert.equal(P.step,3);assert.match(h.view(),/Para seguir/);assert.match(h.view(),/<small>María del Mar<\/small>/);
  key('ArrowLeft');assert.equal(P.step,2);key('ArrowRight');key('ArrowRight');assert.equal(P.slideId,'historia');assert.equal(P.step,0);
@@ -295,4 +295,20 @@ test('el HTML exportado conserva composiciones, paleta y marcadores dentro del p
  assert.match(reader.view(),/class="media-picture">[\s\S]+class="media-hot on"[\s\S]+<\/div><div class="media-note"/);
  reader.click({action:'media-close'});assert.doesNotMatch(reader.view(),/data-composition="media"/);
  h.click({mode:'prepare'});h.click({slide:'zonas'});assert.match(h.view(),/data-composition="prepare"/);
+});
+test('lo que la herida trae se ve en el mismo paso: la imagen entra en el panel salvo que sea lo que se explora',()=>{
+ const c=vm.createContext({});vm.runInContext(seed+';globalThis.deck=INITIAL_DECK;',c);
+ const h=setup();h.click({mode:'present'});let checked=0;
+ const plain=s=>s.replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&quot;/g,'"').replace(/&#39;/g,"'");
+ for(const s of c.deck.slides.filter(s=>s.study)){
+  h.click({slide:s.id});h.click({action:'route-here'});
+  for(const [action] of s.study.steps){
+   h.click({action:'step-forward'});const asked=action.split(/\s+/).find(a=>/^t\d+$/.test(a));if(!asked)continue;
+   const t=s.study.turns[Number(asked.slice(1))-1],v=plain(h.view());if(!t.items?.length||/\benlace\b|\bpractica\b/.test(action))continue;
+   if(v.includes('class="stage-media'))assert.ok(t.kind==='photo'||/\bh\d+\b/.test(action),s.id+' «'+action+'»: la imagen tapa «'+t.resourceTitle+'»');
+   else{assert.ok(v.includes('class="portal-scroll"'),s.id+' «'+action+'»: falta el panel');assert.ok(v.includes(t.resourceTitle),s.id+' «'+action+'»: falta «'+t.resourceTitle+'»');}
+   checked++;
+  }
+ }
+ assert.ok(checked>=50,'pasos comprobados: '+checked);
 });
