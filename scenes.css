@@ -424,3 +424,16 @@ html[data-presence="listening"] #app:not([data-mode="prepare"]) .entity-stage{tr
 @media(max-width:760px){#app:not([data-mode="present"]) .lesson .is-underway:not([data-composition="question"]) .habit-card.conversation-focus .habit-ask p{font-size:20px}}
 #app .lesson .resource-thread li.now{border-left:2px solid var(--line-strong);padding:.2cqw 0 .2cqw .9cqw}
 #app .lesson .resource-prompt{font:650 var(--t-body)/1.35 var(--sans);color:var(--tone-ink)}
+/* Sitios fijos · 30 de octubre. En cada composición la herida tiene un sitio que no depende de lo largo
+   que sea el hilo: el hilo crece por debajo o a su lado sin empujarla. Su zona nunca sale del escenario. */
+#app .lesson :is([data-composition="dialogue"],[data-composition="concept"]) .stage-core{justify-content:flex-start;padding-top:1cqw}
+#app .lesson [data-composition="concept"] .entity-stage .orb-zone{inset:0 4%}
+#app .lesson :is([data-composition="resource"],[data-composition="decision"]) .stage-core{align-items:start}
+#app .lesson :is([data-composition="resource"],[data-composition="decision"]) .entity-stage{align-self:start}
+#app .lesson [data-composition="closing"] .entity-stage{align-self:start;margin-top:1cqw}
+/* Con la imagen en escena, la herida acompaña su réplica: abajo a la izquierda, como en el panel de recurso. */
+#app .lesson [data-composition="media"] .entity-stage{top:auto;bottom:3cqw;right:auto;left:0;width:7.4cqw;height:7.4cqw}
+#app .lesson [data-composition="media"] .subtitle{padding:.6cqw 0 .2cqw 8cqw}
+#app .lesson [data-composition="media"] .entity-stage .orb-zone{inset:0}
+#app:not([data-mode="prepare"]) .intro-chat-panel{justify-content:flex-start;padding-top:2cqw}
+#app .lesson :is([data-composition="resource"],[data-composition="decision"]) .entity-stage .orb-zone{inset:0}
