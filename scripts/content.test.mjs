@@ -277,7 +277,7 @@ test('las 24 escenas componen el escenario por contenido, conservan anclas y rec
    h.click({action:'step-forward'});states.push(view());views.add(view());
    assert.match(h.view(),new RegExp('aria-label="Etapa '+(s.mov+1)+' de 4:'),s.id);
    assert.ok(h.view().includes(s.study.habit.replace(/&/g,'&amp;').replace(/</g,'&lt;')),s.id+' actuación conservada');
-   assert.match(h.view(),/La pregunta que debemos hacernos/);
+   assert.match(h.view(),/Por costumbre/);assert.match(h.view(),/Nos preguntamos/);
    assert.equal((h.view().match(/class="orb-zone"/g)||[]).length,1,s.id);
   }
   assert.equal(view(),'closing',s.id);assert.match(h.view(),/class="scene-learning"/);

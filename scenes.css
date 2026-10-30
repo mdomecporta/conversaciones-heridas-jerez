@@ -346,3 +346,36 @@
  #app:not([data-mode="present"]) .lesson .hilo-turn{padding:10px 14px;border-radius:14px}
  #app:not([data-mode="present"]) .lesson .hilo-piensa{display:none}
 }
+/* Costumbre y pregunta · 30 de octubre. La costumbre se nombra con una etiqueta, sin tachar ni puntuar;
+   un trazo lleva a la pregunta, que es lo más grande de la columna después del título. */
+#app .lesson .habit-tag{display:inline-block;width:auto;align-self:flex-start;padding:.25cqw .8cqw;border-radius:99px;background:var(--tone-soft);color:var(--tone-ink);font:700 var(--t-meta)/1.2 var(--sans);letter-spacing:.06em;text-transform:uppercase;margin:0 0 .5cqw}
+#app .lesson .habit-card.conversation-focus{gap:0}
+#app .lesson .habit-card.conversation-focus .habit-was{display:flex;flex-direction:column;align-items:flex-start}
+#app .lesson .habit-card.conversation-focus .habit-was p{font:500 var(--t-body)/1.4 var(--sans);color:var(--ink)}
+#app .lesson .habit-card.conversation-focus .habit-ask{border-top:0;padding:0}
+#app .lesson .habit-card.conversation-focus .habit-ask::before{content:"";display:block;width:2px;height:2.6cqw;margin:.5cqw 0 .6cqw .9cqw;background:linear-gradient(var(--line-strong),var(--tone-ink));transform-origin:top}
+#app .lesson .habit-card.is-opening .habit-ask::before{animation:trazo .6s var(--ease) .5s both}
+#app .lesson .habit-card.is-opening .habit-ask>:is(span,p){animation:scene-content-in .6s var(--ease) .9s both}
+#app .lesson .habit-ask>span{font:700 var(--t-meta)/1.2 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--tone-ink)}
+@keyframes trazo{from{transform:scaleY(0)}to{transform:none}}
+/* En la pregunta a la sala, la pregunta ocupa la escena y el trazo sobra. */
+#app .lesson [data-composition="question"] .habit-card .habit-ask::before{display:none}
+/* Al cierre, la etiqueta gira en el hueco donde estaba la pregunta: «Por costumbre» pasa a «Nos llevamos». */
+#app .lesson .scene-learning>.habit-tag.is-turning{display:inline-grid;perspective:20em;background:var(--tone-ink);color:var(--paper);animation:etiqueta-fondo .4s var(--ease) .35s both}
+#app .lesson .habit-tag.is-turning>b{grid-area:1/1;font:inherit;backface-visibility:hidden}
+#app .lesson .habit-tag.is-turning>b:first-child{opacity:0;color:var(--tone-ink);animation:etiqueta-sale .3s var(--ease) .2s both}
+#app .lesson .habit-tag.is-turning>b:last-child{animation:etiqueta-entra .4s var(--ease) .5s both}
+#app .lesson .habit-tag.is-turning[data-plain]{animation:none}
+#app .lesson .habit-tag.is-turning[data-plain]>b{animation:none}
+@keyframes etiqueta-fondo{from{background:var(--tone-soft)}to{background:var(--tone-ink)}}
+@keyframes etiqueta-sale{from{opacity:1;transform:none}to{opacity:0;transform:rotateX(90deg)}}
+@keyframes etiqueta-entra{from{opacity:0;transform:rotateX(-90deg)}to{opacity:1;transform:none}}
+.motion-off .lesson :is(.habit-tag,.habit-tag>b,.habit-ask>span,.habit-ask>p),.motion-off .lesson .habit-ask::before{animation:none!important}
+@media(prefers-reduced-motion:reduce){.lesson :is(.habit-tag,.habit-tag>b,.habit-ask>span,.habit-ask>p),.lesson .habit-ask::before{animation:none!important}}
+@media(max-width:760px){
+ #app:not([data-mode="present"]) .lesson .habit-tag{font-size:10px;padding:3px 10px}
+ #app:not([data-mode="present"]) .lesson .habit-card.conversation-focus .habit-was p{font-size:15px}
+ #app:not([data-mode="present"]) .lesson .habit-card.conversation-focus .habit-ask::before{height:16px;margin:6px 0 6px 10px}
+}
+/* En la síntesis de las cinco preguntas no hay costumbre de la que partir: sin trazo. */
+#app:not([data-mode="prepare"]) .lesson .is-synthesis .habit-card .habit-ask::before,#app:not([data-mode="prepare"]) .lesson .is-synthesis .habit-card.conversation-focus .habit-was{display:none}
