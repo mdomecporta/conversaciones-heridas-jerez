@@ -155,9 +155,9 @@
 .intro-entity{position:relative;height:13cqw;flex-shrink:0}
 .intro-entity .orb-zone{position:absolute;inset:0}
 .intro-chat{display:grid;gap:.5cqw;align-content:start}
-.intro-chat p{margin:0;padding:.6cqw .9cqw;border-radius:.2cqw 1cqw 1cqw 1cqw;background:#fff;font-size:1.1cqw;opacity:.6}
-.intro-chat p.now{opacity:1;font-family:var(--display);font-size:1.45cqw;box-shadow:inset .22cqw 0 0 var(--tone-ink)}
-.intro-chat small{display:block;font-family:var(--sans);font-size:.62cqw;letter-spacing:.08em;text-transform:uppercase;color:var(--tone-ink);font-weight:700}
+.intro-chat>p{margin:0;padding:.6cqw .9cqw;border-radius:.2cqw 1cqw 1cqw 1cqw;background:#fff;font-size:1.1cqw;opacity:.6}
+.intro-chat>p.now{opacity:1;font-family:var(--display);font-size:1.45cqw;box-shadow:inset .22cqw 0 0 var(--tone-ink)}
+.intro-chat>p small{display:block;font-family:var(--sans);font-size:.62cqw;letter-spacing:.08em;text-transform:uppercase;color:var(--tone-ink);font-weight:700}
 .motion-off .intro *,.motion-off .resource-thread li{transition:none!important;animation:none!important}
 @media (prefers-reduced-motion:reduce){
  .intro *,.resource-thread li,.habit-card s{transition:none!important;animation:none!important}
@@ -213,10 +213,6 @@
 .habit-card.conversation-focus .habit-was p{font-family:var(--sans);font-size:1.05cqw;line-height:1.35;color:var(--q4-ink)}
 .habit-card.conversation-focus .habit-ask{padding:.8cqw 1cqw}
 .habit-card.conversation-focus .habit-ask p{font-size:1.65cqw;line-height:1.25}
-.main-question{position:absolute;bottom:.5cqw;left:5%;right:5%;display:flex;justify-content:center;z-index:5}
-.main-question button{max-width:100%;border:1px solid var(--line-strong);border-radius:2cqw;background:var(--surface);color:var(--ink-soft);padding:.7cqw 1.1cqw;font:500 1.1cqw var(--sans);cursor:pointer}
-.main-question button:focus-visible{outline:3px solid var(--tone-ink);outline-offset:3px}
-.main-question button:active{transform:scale(.98)}
 #app[data-mode="present"] .question-context,
 #app[data-mode="present"] .learning-bar,
 #app[data-mode="present"] .top-actions [data-action="script"],
@@ -225,7 +221,6 @@
 @media(max-width:760px){
  .habit-card.conversation-focus .habit-was p{font-size:13px}
  .habit-card.conversation-focus .habit-ask p{font-size:18px}
- .main-question button{font-size:14px;padding:9px 14px;border-radius:20px}
 }
 
 /* ── Escenario de la conversación: reparto, subtítulos, imágenes y estados de la herida. */
@@ -271,8 +266,6 @@
 .stage-v2 .prepared-answer{font-size:1.5cqw;line-height:1.35}
 .stage-v2 .asked-question{align-self:center;background:none;color:var(--muted);padding:0;margin:0;border-radius:0;font-size:.86cqw;max-width:100%;text-align:center}
 .stage-v2 .asked-question small{display:inline;color:var(--muted);opacity:1;margin:0 .3cqw 0 0;font-size:.62cqw}
-.stage-v2 .stage-hint{margin:.3cqw 0 0;font-size:.78cqw;color:var(--muted)}
-.stage-v2 .stage-hint .photo-link{all:unset;cursor:pointer;color:var(--tone-ink);text-decoration:underline}
 .stage-v2 .portal-scroll{flex:1;min-height:0;margin-top:.6cqw}
 .stage-v2 .conversation-resource{margin-top:0}
 /* The thread of what was said: one dot per exchange. */
@@ -282,16 +275,9 @@
 .stage-v2 .thread i.now{background:var(--tone-ink)}
 .stage-v2 .entity-note{font-style:normal}
 /* Listening rings: visible while the wound listens; they swell with the room's voice (--lvl). */
-.presence-rings{position:absolute;left:50%;top:50%;width:min(82%,31cqw);aspect-ratio:1.9;transform:translate(-50%,-46%);pointer-events:none;opacity:0;transition:opacity .8s}
-.has-response .presence-rings{width:min(56%,18cqw)}
-.presence-rings i{position:absolute;inset:0;border-radius:50%;border:1.5px solid color-mix(in srgb,var(--tone-ink) 42%,transparent);transform:scale(calc(1 + var(--lvl,0)*.3));animation:ring 3.6s ease-out infinite}
-.presence-rings i:nth-child(2){animation-delay:-1.2s}
-.presence-rings i:nth-child(3){animation-delay:-2.4s}
-@keyframes ring{0%{scale:.75;opacity:0}20%{opacity:.9}100%{scale:1.45;opacity:0}}
-html[data-presence="listening"] .presence-rings{opacity:1}
-.motion-off .orbit-chip,.motion-off .presence-rings i{animation:none}
+.motion-off .orbit-chip{animation:none}
 @media (prefers-reduced-motion:reduce){
- .orbit-chip,.presence-rings i{animation:none}
+ .orbit-chip{animation:none}
 }
 @media (max-width:760px){
  .stage-v2 .entity-stage{height:230px}
@@ -300,7 +286,7 @@ html[data-presence="listening"] .presence-rings{opacity:1}
  .stage-v2 .entity-stage .orb-zone{inset:0 15% 30%}
  .stage-v2 .opening-message{font-size:20px}
  .stage-v2 .prepared-answer{font-size:17px}
- .stage-v2 .asked-question,.stage-v2 .stage-hint{font-size:12px}
+ .stage-v2 .asked-question{font-size:12px}
  .stage-v2 .subtitle small{font-size:10px}
  .stage-v2 .scene-chip{font-size:11px}
  .stage-v2 .scene-chip img{width:22px;height:22px}
@@ -344,7 +330,6 @@ html[data-presence="listening"] .presence-rings{opacity:1}
 .cast-slot:is(.role-back-a,.role-back-b,.role-recede,.role-recede-b) .cast-name{opacity:.7}
 .cast-link{position:absolute;left:33%;right:33%;top:52%;height:0;border-top:1.5px dashed color-mix(in srgb,var(--tone-ink) 40%,transparent);animation:link-in .8s .4s var(--ease) both}
 @keyframes link-in{from{transform:scaleX(0)}}
-.entity-stage:has(.cast:not([data-speaker="0"])) .presence-rings,.entity-stage:has(.role-front-a) .presence-rings{display:none}
 /* The person: not a wound but a warm, diffuse presence. It comes forward when she speaks. */
 .persona-aura{left:50%;top:50%;aspect-ratio:1;z-index:4;pointer-events:none}
 .persona-aura.role-hidden{--s:.5;--o:0}
@@ -400,7 +385,7 @@ html[data-presence="listening"] .persona-aura.role-front b{animation-duration:3s
 .stage-v2.has-media .stage-core{display:contents}
 .stage-v2.has-media .entity-stage{position:absolute;top:3.4cqw;right:1cqw;width:26%;height:7.5cqw;z-index:6;pointer-events:none}
 .stage-v2.has-media .entity-stage .orb-zone{inset:0 4%}
-.stage-v2.has-media .orbit-chips,.stage-v2.has-media .presence-rings,.stage-v2.has-media .cast-name,.stage-v2.has-media .portal-scroll{display:none}
+.stage-v2.has-media .orbit-chips,.stage-v2.has-media .cast-name,.stage-v2.has-media .portal-scroll{display:none}
 .stage-v2.has-media .stage-media{order:2}
 .stage-v2.has-media .subtitle{order:3;padding:.5cqw 1cqw 0}
 .stage-v2.has-media .opening-message{font-size:1.25cqw}
@@ -462,12 +447,9 @@ html[data-presence="listening"] .persona-aura.role-front b{animation-duration:3s
 .cast.is-budded[data-speaker="1"] .name-a,.cast.is-budded[data-speaker="0"] .name-b{opacity:.55}
 .cast.is-budded .role-recede .cast-name{opacity:0}
 /* The guided conversation fits the slide even in a narrow preview viewport. */
-.main-question button{white-space:normal;text-align:center;line-height:1.3;overflow-wrap:break-word}
 #app[data-mode="present"] .stage-v2:not(.has-response) .entity-stage{height:18cqw}
 #app[data-mode="present"] .stage-v2.has-response:not(.has-media) .entity-stage{height:11cqw}
 #app[data-mode="present"] .stage-v2 .opening-message{font-size:var(--t-ask)}
 #app[data-mode="present"] .stage-v2 .prepared-answer{font-size:var(--t-lead)}
 #app[data-mode="present"] .stage-v2 .asked-question{font-size:var(--t-body)}
 #app[data-mode="present"] .stage-v2 .subtitle small{font-size:var(--t-meta)}
-#app[data-mode="present"] .stage-v2 .stage-hint{font-size:var(--t-meta)}
-#app[data-mode="present"] .main-question button{font-size:var(--t-body);padding:.65cqw 1cqw}
