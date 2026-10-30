@@ -411,3 +411,16 @@ html[data-presence="listening"] #app:not([data-mode="prepare"]) .entity-stage{tr
 @media(prefers-reduced-motion:reduce){.hilo-turn.is-next{animation:none}}
 #app .hilo-turn small{font:650 var(--t-meta)/1.2 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--tone-ink);margin:0 0 .3cqw}
 #app .hilo-turn.is-next small{color:var(--muted)}
+/* Foco, apoyo y contexto · 30 de octubre. En cada paso solo hay un foco: la frase que se está diciendo
+   (la réplica actual de la herida), o «Nos llevamos» en el cierre, o la pregunta a la sala. Es lo único en
+   Fraunces grande a la derecha. El apoyo (lo que trae, el punto nuevo, la pregunta de la escena, María del Mar)
+   va en Figtree o a menor tamaño. El contexto (la costumbre ya presentada, lo anterior, la fuente) se atenúa. */
+#app .lesson .resource-heading>strong{font:650 var(--t-body)/1.3 var(--sans);color:var(--ink);margin-top:.15cqw}
+#app .lesson .resource-heading>span{font:650 var(--t-meta)/1.2 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.lesson .clinical-layout .habit-was,.lesson .clinical-layout .habit-ask p,.lesson .clinical-foundation{transition:opacity .6s var(--ease),font-size .6s var(--ease)}
+.lesson .is-underway .habit-card .habit-was{opacity:.5}
+#app .lesson .is-underway:not([data-composition="question"]) .habit-card.conversation-focus .habit-ask p{font-size:var(--t-lead)}
+.lesson .is-underway .clinical-foundation{opacity:.7}
+@media(max-width:760px){#app:not([data-mode="present"]) .lesson .is-underway:not([data-composition="question"]) .habit-card.conversation-focus .habit-ask p{font-size:20px}}
+#app .lesson .resource-thread li.now{border-left:2px solid var(--line-strong);padding:.2cqw 0 .2cqw .9cqw}
+#app .lesson .resource-prompt{font:650 var(--t-body)/1.35 var(--sans);color:var(--tone-ink)}
