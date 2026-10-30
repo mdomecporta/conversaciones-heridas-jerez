@@ -308,3 +308,41 @@
 @media(max-width:760px){
  #app:not([data-mode="present"]){--t-meta:12px;--t-body:15px;--t-lead:18px;--t-ask:22px;--t-title:30px;--t-statement:26px}
 }
+/* Hilo de conversación · 30 de octubre. María del Mar a la derecha, en Figtree: dice la frase y la frase abre el paso.
+   La herida a la izquierda, en Fraunces. Tres turnos a la vista; los anteriores se atenúan. Nada se trunca. */
+#app .lesson .subtitle{min-height:0}
+.lesson .hilo{list-style:none;margin:0;padding:0;text-align:left;display:flex;flex-direction:column;justify-content:flex-end;gap:.7cqw;min-height:0}
+.lesson .hilo-turn{max-width:88%;padding:.75cqw 1.1cqw;border-radius:1.1cqw;transition:opacity .5s var(--ease)}
+.lesson .hilo-turn small{display:block;font:650 var(--t-meta)/1.2 var(--sans);letter-spacing:.04em;color:var(--tone-ink);margin:0 0 .3cqw}
+.lesson .hilo-turn p{margin:0;white-space:normal;overflow-wrap:break-word;text-wrap:pretty}
+.lesson .hilo-turn.is-herida{align-self:flex-start;background:var(--surface);box-shadow:0 0 0 1px var(--line);border-bottom-left-radius:.3cqw}
+.lesson .hilo-turn.is-herida p{font:420 var(--t-lead)/1.3 var(--display);color:var(--ink)}
+.lesson .hilo-turn.is-ponente{align-self:flex-end;background:var(--tone-soft);border-bottom-right-radius:.3cqw;text-align:right}
+.lesson .hilo-turn.is-ponente p{font:500 var(--t-body)/1.4 var(--sans);color:var(--ink)}
+.lesson .hilo-turn.is-bridge{background:none;border:1.5px dashed var(--tone)}
+.lesson .hilo-turn.is-past{opacity:.45}
+.lesson .hilo-turn.is-past p{font-size:var(--t-body)}
+#app .lesson .hilo-turn.is-now.is-herida p{font-size:var(--t-ask)}
+/* La herida piensa antes de responder: tres puntos que laten y se recogen cuando llega su frase. */
+.lesson .hilo-piensa{align-self:flex-start;display:flex;gap:.35cqw;padding:.6cqw 1cqw;height:1.6cqw;box-sizing:border-box;animation:hilo-piensa .95s var(--ease) both}
+.lesson .hilo-piensa i{width:.55cqw;height:.55cqw;border-radius:50%;background:var(--tone);animation:hilo-punto .6s ease-in-out infinite alternate}
+.lesson .hilo-piensa i:nth-child(2){animation-delay:.15s}
+.lesson .hilo-piensa i:nth-child(3){animation-delay:.3s}
+.lesson .hilo-turn.is-arriving.is-ponente{animation:send .45s var(--ease) both}
+.lesson .hilo-turn.is-arriving.is-herida{animation:bubble-in .45s var(--ease) .9s both}
+.lesson .hilo-turn.is-arriving.is-herida .w{display:inline-block;animation:word-in .45s var(--ease) both;animation-delay:calc(1s + var(--i)*25ms)}
+@keyframes hilo-piensa{0%{opacity:0;height:1.6cqw}20%,80%{opacity:1;height:1.6cqw;padding:.6cqw 1cqw}100%{opacity:0;height:0;padding:0 1cqw;margin-top:-.7cqw}}
+@keyframes hilo-punto{from{opacity:.3;transform:translateY(0)}to{opacity:1;transform:translateY(-.25cqw)}}
+/* Con recurso o imagen abiertos, el hilo se recoge en franja: la frase de María del Mar y la respuesta. */
+.lesson :is([data-composition="resource"],[data-composition="decision"],[data-composition="media"]) .hilo-turn.is-older{display:none}
+#app .lesson :is([data-composition="resource"],[data-composition="decision"],[data-composition="media"]) .hilo-turn.is-now.is-herida p{font-size:var(--t-lead)}
+.lesson :is([data-composition="resource"],[data-composition="decision"],[data-composition="media"]) .hilo{gap:.45cqw}
+.lesson :is([data-composition="resource"],[data-composition="decision"],[data-composition="media"]) .hilo-turn.is-past{opacity:.75}
+.lesson :is([data-composition="resource"],[data-composition="decision"],[data-composition="media"]) .hilo-turn{padding:.5cqw .9cqw}
+.lesson :is([data-composition="resource"],[data-composition="decision"],[data-composition="media"]) .hilo-turn small{margin-bottom:.15cqw}
+.lesson [data-composition="closing"] .hilo-turn.is-ponente{align-self:flex-start;text-align:left}
+@media(max-width:760px){
+ #app:not([data-mode="present"]) .lesson .hilo{gap:8px}
+ #app:not([data-mode="present"]) .lesson .hilo-turn{padding:10px 14px;border-radius:14px}
+ #app:not([data-mode="present"]) .lesson .hilo-piensa{display:none}
+}
