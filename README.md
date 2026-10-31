@@ -1,6 +1,6 @@
 # Conversaciones con una herida · presentación
 
-Presentación proyectada generada desde `../bibliography/GUION_PARA_MARIA_DEL_MAR.md`. El mapa del proyecto y las reglas sobre la herida están en `../CLAUDE.md`; el diseño, en `../design/escena-guion.md`.
+Presentación proyectada generada desde `guion/GUION_PARA_MARIA_DEL_MAR.md`. El mapa del proyecto y las reglas sobre la herida están en `CLAUDE.md`; el diseño, en `docs/diseno.md`.
 
 ## Uso
 
@@ -17,6 +17,7 @@ npm run dev     # http://127.0.0.1:4173/
 - → / espacio: avanzar · ←: retroceder · ↑ ↓: escena anterior o siguiente · Inicio / Fin.
 - **P**: ventana de ponente, sincronizada. Muestra lo que dice María del Mar en cada paso (también las explicaciones que no se proyectan), la réplica de la herida, la nota de pantalla, el paso siguiente, el respaldo y un cronómetro.
 - **G**: recorrido para saltar a una escena. **F**: pantalla completa.
+- `?guia` (o el botón «Guion» de los controles): guía informal para María del Mar, clic a clic, imprimible.
 - Clic en el tercio izquierdo retrocede; en el resto, avanza. Los controles aparecen al mover el ratón.
 - La dirección recuerda el punto: `#escena-6/3` es el paso 3 de la escena 6.
 
@@ -27,5 +28,6 @@ Cada evidencia proyecta un titular, una síntesis, la fuente con su localizador 
 ## Pendiente
 
 - Revisión clínica final y ensayo de duración con la ponente.
-- Documento para llevar con las 21 actuaciones y la bibliografía: existía en la edición anterior (`archivo/edicion-30-octubre/editorial.js`) a partir de otros textos; queda por regenerarlo desde el guion.
+- Documento para el público con las 21 actuaciones y la bibliografía (existía en la edición anterior a partir de otros textos).
+- Publicación en Netlify con acceso protegido y guardado compartido de las notas de la ponente.
 - Prueba en el proyector real.

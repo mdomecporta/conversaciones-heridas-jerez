@@ -12,6 +12,7 @@ const pad=n=>String(n).padStart(2,'0');
 const reduced=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
 const ROMAN=['','I','II','III','IV'];
 const presenter=new URLSearchParams(location.search).has('ponente');
+const guia=new URLSearchParams(location.search).has('guia');
 
 // ───────────── Línea de tiempo ─────────────
 const slides=[];
@@ -287,8 +288,8 @@ function place(v,dir,newSlide){
  }
  if(!was||wasAway){set(r);herida.animate([{opacity:0,transform:'scale(.82)',filter:'blur(16px)'},{opacity:1,transform:'none',filter:'blur(0)'}],{duration:1100,delay:200,easing:'cubic-bezier(.22,1,.36,1)',fill:'backwards'});return;}
  // Se diluye: se expande, se difumina y desaparece; reaparece condensándose.
- const gone=herida.animate([{opacity:1,transform:'none',filter:'blur(0)'},{opacity:0,transform:'scale(1.18)',filter:'blur(14px)'}],{duration:380,easing:'cubic-bezier(.4,0,1,1)',fill:'forwards'});
- moveTimer=setTimeout(()=>{gone.cancel();set(r);herida.animate([{opacity:0,transform:'scale(.84)',filter:'blur(16px)'},{opacity:1,transform:'none',filter:'blur(0)'}],{duration:sameSize?700:850,easing:'cubic-bezier(.22,1,.36,1)'});},400);
+ const gone=herida.animate([{opacity:1,transform:'none',filter:'blur(0)'},{opacity:0,transform:'scale(.94)',filter:'blur(12px)'}],{duration:260,easing:'cubic-bezier(.4,0,1,1)',fill:'forwards'});
+ moveTimer=setTimeout(()=>{gone.cancel();set(r);herida.animate([{opacity:0,transform:'scale(.86)',filter:'blur(14px)'},{opacity:1,transform:'none',filter:'blur(0)'}],{duration:sameSize?700:850,delay:60,easing:'cubic-bezier(.22,1,.36,1)',fill:'backwards'});},280);
 }
 
 // Foco de la imagen: un claro que recorre las zonas señaladas.
@@ -315,7 +316,9 @@ function go(nsi,nk,dir){
  if(changed){
   const old=el;el=build(slides[si]);if(old)el.classList.add('is-entering');el.dataset.dir=d>0?'fwd':'back';
   stage.append(el);
-  if(old){old.classList.add('is-leaving');old.dataset.dir=d>0?'fwd':'back';setTimeout(()=>old.remove(),reduced()?0:900);}
+  // La anterior se retira cuando la nueva ya la cubre del todo.
+  $$('.slide.is-leaving',stage).forEach(n=>n.remove());
+  if(old){old.classList.add('is-leaving');old.dataset.dir=d>0?'fwd':'back';setTimeout(()=>old.remove(),reduced()?0:1100);}
   const fresh=el;void fresh.offsetWidth;setTimeout(()=>fresh.classList.remove('is-entering'),30);
   stage.dataset.type=slides[si].type;
  }
@@ -382,11 +385,85 @@ function presenterView(){
  return render;
 }
 
+
+// ───────────── Guía de la ponente (?guia) ─────────────
+// Un recorrido informal, paso a paso, con lo que sale en pantalla y lo que dice cada una.
+// Se escribe a partir de los mismos pasos que se proyectan, así nunca se separa del guion.
+const q=t=>`«${esc(end(t))}»`;
+function partText(n,p){
+ const r=R[n];if(!r)return 'Avanza el recurso.';
+ const walk=r.walk?asset(r.asset).walkthrough?.steps.filter(x=>x.x!=null)||[]:[];
+ if(r.type==='imagen'&&r.walk&&!r.auto&&p<=walk.length)return `Se ilumina «${esc(walk[p-1].title)}».`;
+ if(r.type==='imagen'&&r.open&&p===r.parts)return `Aparece lo que sigue abierto: ${r.open.items.map(esc).join(', ')}.`;
+ if(r.type==='imagen'&&r.then)return `Aparece el esquema: ${r.then.items.map(esc).join(' · ')}.`;
+ if(r.type==='imagen')return `Aparece «${esc(r.ask||r.tag)}».`;
+ if(r.type==='comparar')return `Aparece el segundo ejemplo: «${esc(r.items[1].tag)}».`;
+ if(r.type==='esquema')return `Aparece «${esc(r.cols[1].head)}»${r.link?`, unida por «${esc(r.link)}»`:''}.`;
+ if(r.type==='registro')return `Se marca lo que falta: «${esc(r.absence[0])}: ${esc(r.absence[1].toLowerCase())}».`;
+ if(r.type==='huecos')return `Aparecen los huecos: ${r.missing.items.map(x=>esc(x.toLowerCase())).join(', ')}.`;
+ if(r.type==='campos')return p===2?`Aparece «${esc(r.banner)}».`:`Y las tres preguntas: ${r.questions.map(esc).join(' ')}`;
+ if(r.type==='imagen-campos'||r.type==='informe')return `Se abren los datos que faltan: ${(r.fields||r.pending).map(x=>esc(x.toLowerCase())).join(', ')}.`;
+ if(r.type==='opciones')return r.supuesto?`Aparece el supuesto: «${esc(r.supuesto)}».`:`Aparecen las opciones: ${r.items.map(esc).join(', ')}.`;
+ if(r.type==='pauta')return `Se abren: ${r.questions.map(x=>esc(x.toLowerCase())).join(', ')}.`;
+ if(r.type==='imagen-lista')return `Aparecen los aspectos que preguntar: ${r.items.map(x=>esc(x.toLowerCase())).join(', ')}.`;
+ if(r.type==='relevo')return `Se distingue «${esc(r.split[0])}» de «${esc(r.split[1])}».`;
+ return 'Avanza el recurso.';
+}
+function brings(n){
+ const r=R[n];if(!r)return 'su recurso';
+ if(r.type==='comparar')return 'dos ejemplos publicados';
+ if(r.asset)return `la imagen «${esc(asset(r.asset).title)}»`;
+ return `${/esquema/i.test(r.label)?'el esquema':'la ficha'} «${esc(r.title)}»`;
+}
+const said=st=>{
+ const shown=(st.lines||[]).map(l=>l.who==='herida'?`<p class="g-herida"><b>La herida</b> ${q(l.text)}</p>`:`<p class="g-tu"><b>Tú</b> ${q(l.text)}</p>`);
+ const onScreen=new Set((st.lines||[]).filter(l=>l.who==='mdm').map(l=>l.text));
+ const extra=(st.spoken||[]).filter(t=>!onScreen.has(t)&&t!==st.sala&&t!==st.close).map(t=>`<p class="g-tu is-off"><b>Tú, sin que salga en pantalla</b> ${q(t)}</p>`);
+ return [...shown,...extra].join('');
+};
+function guideStep(slide,st,k){
+ const s=slide.scene,n=s?.n;
+ let what='';
+ switch(st.kind){
+  case 'still':what=slide.id==='apertura'?'Empezamos con la portada institucional de las jornadas.':'Terminamos con la contraportada institucional.';break;
+  case 'title':what=`Entra el momento ${slide.block.roman}, «${esc(slide.block.name)}», con su pregunta: «${esc(slide.block.question)}».`;break;
+  case 'open':what=`La herida abre la escena. En tu panel se lee lo que vamos a revisar: «${esc(s.habit)}»`;break;
+  case 'resource':what=st.part===1?`La herida trae ${brings(n)}.${R[n]?.walk&&!R[n].auto?' '+partText(n,1):''}`:partText(n,st.part);break;
+  case 'ask':what=`Se tacha «${esc(s.habit)}» y aparece la pregunta: <strong>«${esc(s.ask)}»</strong>`;break;
+  case 'sala':what=`Preguntas a la sala: «${esc(st.sala)}» Deja un par de respuestas, sin abrir debate.`;break;
+  case 'evidence':{const ev=st.evidence;what=`Entra la evidencia: <strong>«${esc(ev.title)}»</strong> (${esc(ev.source)}). La cuentas tú, con tus palabras.${ev.condition?` Que no se te pase la condición: «${esc(end(ev.condition))}»`:''}`;break;}
+  case 'reply':what='La herida contesta a lo que acabas de explicar.';break;
+  case 'take':what=`El aprendizaje entra en tu panel: <strong>«${esc(s.take)}»</strong> Respondes a la pregunta y cierras: ${q(st.close||'')}`;break;
+  case 'bridge':{const nx=slides[slides.indexOf(slide)+1];what=`Sale tu frase para seguir. Con el siguiente clic pasamos a ${nx?.scene?`la escena ${pad(nx.scene.n)}, «${esc(nx.scene.title)}»`:nx?.type==='block'?`el momento ${nx.block.roman}`:'lo siguiente'}.`;break;}
+  case 'blockclose':what=`Cierras el momento «${esc(slide.block.name)}» con las escenas que hemos recorrido a la vista.`;break;
+  case 'page':{const [a,z]=ESCENA_RECOPILACION[st.page];const b=G.blocks.find(b=>b.scenes.includes(a));const rec=(st.recuerda||[]).find(r=>r.block===b.name);const first=ESCENA_RECOPILACION.findIndex(([x])=>G.blocks.find(bb=>bb.scenes.includes(x))===b)===st.page;what=`Recopilación, página ${st.page+1} de ${ESCENA_RECOPILACION.length}: «${esc(b.name)}», escenas ${a}${z>a?'–'+z:''}.${first&&rec?` Lo resumes así: ${q(rec.text)}`:''}`;break;}
+  case 'chips':what=`Aparece «${esc(ESCENA_REGRESO[st.part-1])}», una de las cosas que recoges de la sala.`;break;
+  case 'screen':what=st.what==='portada'?'Arranca con la pregunta de la mesa en grande.':st.what==='presentación de la herida'?'La portada se recoge y aparece la herida: «Os presento a la herida».':`En pantalla: ${esc(st.screen.replace(/^./,c=>c.toUpperCase()))}`;break;
+  case 'say':what='';break;
+ }
+ return `<li class="g-step k-${st.kind}"><span class="g-n">${k+1}</span><div>${what?`<p class="g-what">${what}</p>`:''}${st.kind==='resource'&&!st.fresh?'':said(st)}${(st.notes||[]).map(x=>`<p class="g-note">${esc(x)}</p>`).join('')}</div></li>`;
+}
+function guideView(){
+ document.documentElement.classList.add('is-guide');
+ const sec=slide=>{
+  const s=slide.scene,b=slide.block;
+  const head=s?`<span class="g-kicker">${b?`Momento ${b.roman} · `:''}Escena ${pad(s.n)} de 24</span><h2>${esc(s.title)}</h2>`:slide.type==='block'?`<span class="g-kicker">Momento ${b.roman} de IV</span><h2>${esc(b.name)}</h2>`:slide.type==='intro'?`<span class="g-kicker">Apertura</span><h2>Antes de acercar el carro</h2>`:`<span class="g-kicker">Institucional</span><h2>${slide.id==='apertura'?'Portada':'Contraportada'}</h2>`;
+  const idea=s?.purpose||(slide.type==='block'?b.purpose:slide.type==='intro'?G.intro.purpose:'');
+  const thread=s?.habit?`<dl class="g-thread"><dt>Revisamos</dt><dd><s>${esc(s.habit)}</s></dd><dt>Nos preguntamos</dt><dd>${esc(s.ask)}</dd><dt>Nos llevamos</dt><dd>${esc(s.take)}</dd></dl>`:'';
+  return `<section class="g-sec" id="g-${slide.id}" ${b?`data-q="${b.n}"`:''}><header>${head}${idea?`<p class="g-idea"><b>La idea</b> ${esc(idea.replace(/^./,c=>c.toUpperCase()))}</p>`:''}</header>${thread}<ol class="g-steps">${slide.steps.map((st,k)=>guideStep(slide,st,k)).join('')}</ol>${s?.support?`<p class="g-support"><b>Respaldo</b> ${esc(s.support)}</p>`:''}</section>`;
+ };
+ const map=G.blocks.map(b=>`<li data-q="${b.n}"><a href="#g-bloque-${b.n}"><b>${b.roman}</b> ${esc(b.name)}</a><span>${b.scenes.map(n=>`<a href="#g-escena-${n}">${pad(n)} ${esc(G.scenes[n-1].title)}</a>`).join('')}</span></li>`).join('');
+ $('#guia').innerHTML=`<article class="g"><header class="g-top"><span class="g-kicker">Conversaciones con una herida · IV Jornadas Comisión Heridas Jerez</span><h1>Tu guion, María del Mar</h1><p>Aquí tienes lo que va pasando en pantalla y lo que decís tú y la herida, clic a clic. Cada número es una pulsación. No hace falta aprenderlo ni leerlo en voz alta: es para que sepas siempre dónde estás y qué viene después. Puedes decirlo con tus palabras; lo que conviene no perder son la pregunta, la condición y el aprendizaje de cada escena.</p><ul class="g-keys"><li><b>→</b> o espacio: avanzar</li><li><b>←</b> retroceder</li><li><b>P</b> ventana de ponente</li><li><b>G</b> saltar a una escena</li><li><b>F</b> pantalla completa</li></ul></header><nav class="g-map"><h2>El recorrido</h2><ol>${map}</ol></nav>${slides.map(sec).join('')}<footer class="g-end">Lo que dice la herida son réplicas preparadas; los ejemplos son docentes. La revisión clínica final y la duración se cierran contigo.</footer></article>`;
+ document.title='Tu guion · Conversaciones con una herida';
+}
+
 // ───────────── Arranque ─────────────
 const fromHash=()=>{const [id,step]=decodeURIComponent(location.hash.slice(1)).split('/');const i=slides.findIndex(s=>s.id===id);return i<0?[0,0]:[i,Math.max(0,(Number(step)||1)-1)];};
 document.addEventListener('keydown',key);
 let renderPresenter=null;
-if(presenter){
+if(guia){
+ document.removeEventListener('keydown',key);guideView();
+}else if(presenter){
  renderPresenter=presenterView();
  const sync=(a,b)=>{si=a;k=b;renderPresenter();};
  channel?.addEventListener('message',e=>sync(e.data.si,e.data.k));
@@ -400,7 +477,7 @@ if(presenter){
  const [a,b]=fromHash();sync(a,b);
 }else{
  channel?.addEventListener('message',e=>{if(e.data.from==='ponente')go(e.data.si,e.data.k);});
- $('#hud').addEventListener('click',e=>{const a=e.target.closest('[data-act]')?.dataset.act;if(a==='prev')prev();if(a==='next')next();if(a==='overview')overview();if(a==='fullscreen')fullscreen();if(a==='presenter')openPresenter();});
+ $('#hud').addEventListener('click',e=>{const a=e.target.closest('[data-act]')?.dataset.act;if(a==='prev')prev();if(a==='next')next();if(a==='overview')overview();if(a==='fullscreen')fullscreen();if(a==='presenter')openPresenter();if(a==='guide')window.open(location.pathname+'?guia','guia');});
  $('#overview').addEventListener('click',e=>{const b=e.target.closest('[data-go]');if(b){overview(false);go(Number(b.dataset.go),0);}else if(e.target.id==='overview')overview(false);});
  stage.addEventListener('click',e=>{if(e.target.closest('a,button'))return;const r=stage.getBoundingClientRect();(e.clientX-r.left<r.width*.18?prev:next)();});
  let idle;document.addEventListener('pointermove',()=>{document.body.classList.add('show-hud');clearTimeout(idle);idle=setTimeout(()=>document.body.classList.remove('show-hud'),2200);});

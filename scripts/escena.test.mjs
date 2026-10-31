@@ -6,7 +6,7 @@ import {readFile} from 'node:fs/promises';
 import vm from 'node:vm';
 import {parseGuion,validate,quote} from './guion.mjs';
 const root=new URL('../',import.meta.url);
-const guion=parseGuion(await readFile(new URL('../bibliography/GUION_PARA_MARIA_DEL_MAR.md',root),'utf8'));
+const guion=parseGuion(await readFile(new URL('guion/GUION_PARA_MARIA_DEL_MAR.md',root),'utf8'));
 const ctx=vm.createContext({});
 vm.runInContext(await readFile(new URL('escena-recursos.js',root),'utf8')+';globalThis.R=ESCENA_RECURSOS;globalThis.REC=ESCENA_RECOPILACION;',ctx);
 const manifest=JSON.parse(await readFile(new URL('resources.json',root),'utf8'));

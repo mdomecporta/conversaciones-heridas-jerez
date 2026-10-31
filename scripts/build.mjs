@@ -6,7 +6,7 @@ const root=new URL('../',import.meta.url);
 const read=name=>readFile(new URL(name,root),'utf8');
 const b64=async (name,type)=>`data:${type};base64,`+(await readFile(new URL(name,root))).toString('base64');
 
-const guion=parseGuion(await read('../bibliography/GUION_PARA_MARIA_DEL_MAR.md'));
+const guion=parseGuion(await read('guion/GUION_PARA_MARIA_DEL_MAR.md'));
 const errors=validate(guion);
 if(errors.length){console.error('El guion no encaja con la escena:\n- '+errors.join('\n- '));process.exit(1);}
 

@@ -1,4 +1,4 @@
-// Lee el guion para María del Mar (bibliography/GUION_PARA_MARIA_DEL_MAR.md) y lo convierte
+// Lee el guion para María del Mar (guion/GUION_PARA_MARIA_DEL_MAR.md) y lo convierte
 // en la secuencia de pasos de la escena. El guion es la única fuente de textos: hilo,
 // diálogo, evidencia y notas de pantalla. Las composiciones de recursos viven en escena-recursos.js.
 
