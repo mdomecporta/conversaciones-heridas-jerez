@@ -43,7 +43,7 @@ function expand(s){
   }else if(s.kind==='recap'&&st.what==='recopilación'){
    ESCENA_RECOPILACION.forEach((range,i)=>out.push({...st,kind:'page',page:i,notes:i?undefined:st.notes,recuerda:st.recuerda}));
   }else if(s.kind==='return'&&st.what==='lo que recogemos'){
-   ESCENA_REGRESO.forEach((c,i)=>out.push({...st,kind:'chips',part:i+1,spoken:i===ESCENA_REGRESO.length-1?st.spoken:undefined}));
+   ESCENA_REGRESO.forEach((c,i)=>out.push({...st,kind:'chips',part:i+1,develop:i?undefined:st.develop,spoken:i===ESCENA_REGRESO.length-1?st.spoken:undefined}));
   }else out.push(st);
  }
  return out;
@@ -382,7 +382,8 @@ function spokenNow(st){
  const shown=(st.lines||[]).map(l=>l.who==='herida'?`<p class="pv-herida"><b>La herida</b> ${esc(end(l.text))}</p>`:`<p class="pv-mdm"><b>Tú</b> ${esc(end(l.text))}</p>`);
  const onScreen=new Set((st.lines||[]).filter(l=>l.who==='mdm').map(l=>l.text));
  const extra=(st.spoken||[]).filter(t=>!onScreen.has(t)&&t!==st.sala).map(t=>`<p class="pv-mdm is-off"><b>${t===st.close?'Cierras':'Lo explicas tú'}</b> ${esc(end(t))}</p>`);
- return [st.sala?`<p class="pv-sala"><b>A la sala</b> ${esc(st.sala)}</p>`:'',...shown,...extra].join('');
+ const develop=(st.develop||[]).map(t=>`<p class="pv-mdm is-off"><b>Con tus palabras</b> ${esc(t.replace(/^./,c=>c.toUpperCase()))}</p>`);
+ return [st.sala?`<p class="pv-sala"><b>A la sala</b> ${esc(st.sala)}</p>`:'',...shown,...extra,...develop].join('');
 }
 function presenterView(){
  document.documentElement.classList.add('is-presenter');
@@ -645,6 +646,7 @@ function guideStep(slide,st,k){
  if(!(st.kind==='resource'&&!st.fresh))(st.lines||[]).forEach(l=>lines.push(`<p class="g-say ${l.who==='herida'?'is-herida':''}"><b>${l.who==='herida'?'La herida':'Tú'}</b> ${q(l.text)}</p>`));
  const onScreen=new Set((st.lines||[]).filter(l=>l.who==='mdm').map(l=>l.text));
  if(!(st.kind==='resource'&&!st.fresh))(st.spoken||[]).filter(t=>!onScreen.has(t)&&t!==st.sala).forEach(t=>lines.push(`<p class="g-say is-off"><b>${t===st.close?'Cierras':'Lo explicas tú'}</b> ${q(t)}</p>`));
+ if(!(st.kind==='resource'&&!st.fresh))(st.develop||[]).forEach(t=>lines.push(`<p class="g-say is-off"><b>Con tus palabras</b> ${esc(t.replace(/^./,c=>c.toUpperCase()))}</p>`));
  const what=whatHappens(slide,st);
  return `<li><span class="g-n">${k+1}</span><div>${what?`<p class="g-what">${what}</p>`:''}${lines.join('')}</div></li>`;
 }
