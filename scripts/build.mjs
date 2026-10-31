@@ -28,7 +28,12 @@ const institutional={open:await b64('assets/institutional-open.jpg','image/jpeg'
 const safe=v=>JSON.stringify(v).replace(/</g,'\\u003c').replace(/\u2028/g,'\\u2028').replace(/\u2029/g,'\\u2029');
 const data=`const ESCENA=${safe({guion,assets,institutional})};\n${recursos}`;
 const page=template.replace('/* STYLES */',()=>fonts+'\n'+tokens+'\n'+css).replace('/* DATA */',()=>data).replace('/* ENGINE */',()=>'globalThis.ENTITY_RENDERER="liquid";globalThis.ENTITY_VARIANT=3;globalThis.ENTITY_INK=1;\n'+liquid+'\n'+entity+'\n'+engine);
-await mkdir(new URL('dist/',root),{recursive:true});
+await mkdir(new URL('dist/ver/',root),{recursive:true});
 await writeFile(new URL('dist/index.html',root),page);
+// Enlace para compartir (/ver/): la misma presentación sin guía, ponente ni notas, y sin las palabras
+// que María del Mar dice fuera de pantalla. En Netlify es la única ruta que no pide contraseña.
+const publicGuion=JSON.parse(JSON.stringify(guion),(k,v)=>['spoken','notes','recuerda','close','screen','after'].includes(k)?undefined:v);
+const publicData=`const ESCENA=${safe({guion:publicGuion,assets,institutional,publico:true})};\n${recursos}`;
+await writeFile(new URL('dist/ver/index.html',root),page.replace(data,()=>publicData).replace('<title>Conversaciones con una herida · Escena</title>','<title>Conversaciones con una herida</title>'));
 const steps=guion.scenes.reduce((n,s)=>n+s.steps.length,0);
 console.log(`Presentación generada en dist/index.html · ${guion.scenes.length} escenas, ${steps} pasos del guion, ${used.size} imágenes.`);

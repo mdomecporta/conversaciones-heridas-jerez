@@ -521,7 +521,8 @@ body.show-hud #hud-bar{opacity:.8}
 /* ── Ventana de ponente ── */
 #presenter{display:none}
 html.is-presenter #stage,html.is-presenter #hud,html.is-presenter #hud-bar{display:none}
-html.is-presenter body{display:block;overflow:auto;background:#2b2625}
+html.is-presenter,html.is-presenter body{background:#2b2625}
+html.is-presenter body{display:block;overflow:auto}
 html.is-presenter body::after{display:none}
 html.is-presenter #presenter{display:flex;flex-direction:column;min-height:100vh;color:#f3ece4;font-family:var(--sans)}
 .pv-head{display:flex;justify-content:space-between;align-items:flex-end;padding:28px 36px 20px;border-bottom:1px solid rgba(255,255,255,.1)}
@@ -604,3 +605,62 @@ html.is-guide #guia{display:block}
 .g-support{margin-top:16px;font-size:14px;color:var(--muted)}
 .g-end{margin-top:56px;font-size:14px;color:var(--muted)}
 @media print{html.is-guide body{background:#fff}.g{padding:0;max-width:none;font-size:12pt}.g-map,.g-thread{-webkit-print-color-adjust:exact;print-color-adjust:exact}.g-sec{break-before:page}.g-step{break-inside:avoid}}
+
+/* ── Notas de preparación ── */
+.notes{margin-top:28px;padding:20px 22px;border-radius:16px;background:#fff;box-shadow:inset 0 0 0 1px var(--line);font:450 15px/1.5 var(--sans);color:var(--ink)}
+.notes-head{display:flex;align-items:baseline;gap:12px;margin-bottom:10px}
+.notes-head h3{font:650 13px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--blood-deep)}
+.notes-count{font-size:13px;color:var(--muted)}
+.notes-list{display:flex;flex-direction:column;gap:10px;margin:0 0 14px;padding:0;list-style:none}
+.notes-list:empty{display:none}
+.note{padding:12px 14px;border-radius:12px;background:var(--blush)}
+.note header{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;font-size:12px;color:var(--muted);margin-bottom:6px}
+.note header a{color:var(--ink);font-weight:600}
+.note p{margin:0;white-space:normal}
+.note-sec{font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:11px;padding:3px 8px;border-radius:20px;background:#fff;color:var(--blood-deep)}
+.note-sec.s-evidencia{color:var(--olive);background:var(--olive-soft)}
+.note-sec.s-recursos{color:#8a5a12;background:#f8e8cc}
+.note-sec.s-hilo{color:#fbefe3;background:var(--night)}
+.note-who{margin-left:auto}
+.note-del{all:unset;cursor:pointer;width:22px;height:22px;display:grid;place-items:center;border-radius:50%;color:var(--muted);font-size:16px}
+.note-del:hover{background:#fff;color:var(--blood)}
+.note-files{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.note-files img{display:block;height:96px;width:auto;border-radius:8px;box-shadow:0 6px 14px -8px rgba(0,0,0,.4)}
+.notes-secs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.notes-secs label{cursor:pointer}
+.notes-secs input{position:absolute;opacity:0;pointer-events:none}
+.notes-secs span{display:inline-block;padding:6px 11px;border-radius:20px;font-size:13px;font-weight:550;background:var(--paper);box-shadow:inset 0 0 0 1px var(--line)}
+.notes-secs input:checked+span{background:var(--night);color:var(--night-ink);box-shadow:none}
+.notes-secs input:focus-visible+span{outline:2px solid var(--blood)}
+.notes textarea{width:100%;box-sizing:border-box;padding:11px 12px;border-radius:10px;border:1px solid var(--line);font:inherit;resize:vertical;background:#fffdfa}
+.notes-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:8px}
+.notes-file{cursor:pointer}
+.notes-file input{position:absolute;opacity:0;width:1px;height:1px}
+.notes-file span{display:inline-block;padding:8px 12px;border-radius:10px;font-size:13px;font-weight:600;background:var(--paper);box-shadow:inset 0 0 0 1px var(--line)}
+.notes-file input:focus-visible+span{outline:2px solid var(--blood)}
+.notes-author{flex:1;min-width:140px;padding:8px 10px;border-radius:10px;border:1px solid var(--line);font:inherit}
+.notes button[type=submit]{padding:9px 16px;border:0;border-radius:10px;background:var(--night);color:var(--night-ink);font:inherit;font-weight:650;cursor:pointer}
+.notes button[disabled]{opacity:.6}
+.notes-status{margin:8px 0 0;font-size:13px;color:var(--muted);min-height:1em}
+.notes.is-off :is(.notes-secs,textarea,.notes-row){opacity:.45;pointer-events:none}
+.g-actions{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 0}
+.g-actions a,.g-actions button{all:unset;cursor:pointer;padding:8px 14px;border-radius:10px;font:600 14px var(--sans);background:#fff;box-shadow:inset 0 0 0 1px var(--line);color:var(--ink)}
+.g-actions a:hover,.g-actions button:hover{background:var(--blush)}
+.g-hint{margin-top:14px!important;padding:12px 14px;border-radius:12px;background:var(--blush);font-size:15px!important;color:var(--herida-ink)!important}
+.g-h3{font:650 12px/1.4 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:22px 0 10px}
+.g-notes h2 a{color:inherit;text-decoration:none}
+/* En la ventana de ponente, las notas de la escena bajo lo que se dice. */
+#pv-notes{display:none}
+html.is-presenter #pv-notes{display:block;padding:0 36px 28px}
+html.is-presenter #pv-notes .notes{background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1);color:#f3ece4}
+html.is-presenter #pv-notes .note{background:rgba(255,255,255,.08)}
+html.is-presenter #pv-notes .note header,html.is-presenter #pv-notes .notes-count,html.is-presenter #pv-notes .notes-status{color:#bfb2aa}
+html.is-presenter #pv-notes .notes-head h3{color:#d9a7a2}
+html.is-presenter #pv-notes :is(textarea,.notes-author){background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14);color:#f3ece4}
+html.is-presenter #pv-notes :is(.notes-secs span,.notes-file span){background:rgba(255,255,255,.08);box-shadow:none;color:#e8dfd6}
+html.is-presenter #pv-notes .notes-secs input:checked+span{background:#f3ece4;color:var(--night)}
+html.is-presenter #pv-notes button[type=submit]{background:#f3ece4;color:var(--night)}
+html.is-presenter #presenter{min-height:auto}
+/* Enlace público: sin guía, ponente ni notas. */
+html.is-public #hud [data-act="presenter"],html.is-public #hud [data-act="guide"]{display:none}
+@media print{.notes-form{display:none}}

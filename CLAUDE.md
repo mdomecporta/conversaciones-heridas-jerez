@@ -17,7 +17,9 @@ escena-recursos.js                  lo que trae la herida en cada escena
 entity.js                           API Presence (su renderizador de membrana no se usa)
 entity-liquid.js                    cuerpo de la herida: líquida, tinta «Sangre y piel»
 resources.json, assets/             imágenes con créditos y zonas, fuentes, portadas institucionales
-scripts/guion.mjs, scripts/build.mjs  lector del guion y compilación a dist/index.html
+scripts/guion.mjs, scripts/build.mjs  lector del guion y compilación a dist/index.html y dist/ver/ (pública)
+netlify/                            contraseña (función de borde), API de notas y adjuntos (Netlify Blobs)
+scripts/servidor-local.mjs          imita el sitio publicado en local (npm run local)
 archivo/edicion-30-octubre/         edición anterior; no usar como referencia
 ```
 
@@ -27,7 +29,8 @@ Fuera del repositorio, en la carpeta del proyecto: `bibliography/` (las seis gu�
 
 - `npm run build` genera `dist/index.html`, autónomo. Si el guion deja una escena sin hilo, sin evidencia o sin enlace, se detiene y lo dice. `npm test` comprueba guion, recursos y entidad. `npm run dev` sirve en http://127.0.0.1:4173/.
 - Los textos se cambian en el guion y se recompila. La composición de los recursos está en `escena-recursos.js`; los colores, solo en `tokens.css`.
-- La dirección admite `#escena-6/3` (escena 6, paso 3). `?ponente` abre la ventana de ponente y `?guia`, la guía informal para María del Mar.
+- La dirección admite `#escena-6/3` (escena 6, paso 3). `?ponente` abre la ventana de ponente; `?guia`, la guía informal para María del Mar con sus notas por escena; `?notas`, todas las notas juntas.
+- Publicado: `/` pide la contraseña de `SITE_PASSWORD` (variable de entorno de Netlify, nunca en el código); `/ver/` es el enlace público sin notas ni guion privado. Detalles en el README.
 
 ## La herida
 

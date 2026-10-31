@@ -1,1 +1,15 @@
-{"name":"conversaciones-heridas-jerez","version":"0.1.0","private":true,"scripts":{"build":"node scripts/build.mjs","dev":"python3 -m http.server 4173 --bind 127.0.0.1 --directory dist","test":"node --jitless --test scripts/*.test.mjs"},"description":"Presentación proyectada generada desde el guion para María del Mar, sin dependencias de ejecución"}
+{
+ "name": "conversaciones-heridas-jerez",
+ "version": "0.1.0",
+ "private": true,
+ "scripts": {
+  "build": "node scripts/build.mjs",
+  "dev": "python3 -m http.server 4173 --bind 127.0.0.1 --directory dist",
+  "test": "node --jitless --test scripts/*.test.mjs",
+  "local": "node scripts/servidor-local.mjs"
+ },
+ "description": "Presentación proyectada generada desde el guion para María del Mar",
+ "dependencies": {
+  "@netlify/blobs": "^11.1.7"
+ }
+}

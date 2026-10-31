@@ -11,8 +11,11 @@ const words=t=>t.split(/\s+/).filter(Boolean).length;
 const pad=n=>String(n).padStart(2,'0');
 const reduced=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
 const ROMAN=['','I','II','III','IV'];
-const presenter=new URLSearchParams(location.search).has('ponente');
-const guia=new URLSearchParams(location.search).has('guia');
+const presenter=!(ESCENA.publico===true)&&new URLSearchParams(location.search).has('ponente');
+const PUBLICO=ESCENA.publico===true;
+if(PUBLICO)document.documentElement.classList.add('is-public');
+const params=new URLSearchParams(location.search);
+const guia=!PUBLICO&&params.has('guia'),notasView=!PUBLICO&&params.has('notas');
 
 // ───────────── Línea de tiempo ─────────────
 const slides=[];
@@ -347,7 +350,7 @@ function fullscreen(){if(document.fullscreenElement)document.exitFullscreen();el
 function openPresenter(){window.open(location.pathname+'?ponente'+location.hash,'ponente','width=1100,height=760');}
 
 function key(e){
- if(e.metaKey||e.ctrlKey||e.altKey)return;
+ if(e.metaKey||e.ctrlKey||e.altKey||e.target.closest?.('input,textarea,select'))return;
  const ov=!$('#overview').hidden;
  switch(e.key){
   case 'ArrowRight':case ' ':case 'PageDown':case 'Enter':if(ov&&e.key==='Enter')return;e.preventDefault();next();break;
@@ -359,7 +362,7 @@ function key(e){
   case 'g':case 'G':overview();break;
   case 'Escape':if(ov)overview(false);break;
   case 'f':case 'F':fullscreen();break;
-  case 'p':case 'P':if(!presenter)openPresenter();break;
+  case 'p':case 'P':if(!presenter&&!PUBLICO)openPresenter();break;
   default:return;
  }
 }
@@ -385,6 +388,111 @@ function presenterView(){
  return render;
 }
 
+
+
+// ───────────── Notas de preparación ─────────────
+// Por escena y sección, con imágenes adjuntas. Se guardan en Netlify (/api/notas) tras entrar con la
+// contraseña; en local o en el enlace público no hay notas y el cuadro lo explica.
+const SECCIONES=[['hilo','La pregunta y el hilo'],['herida','Conversación con la herida'],['recursos','Imágenes y recursos'],['evidencia','Evidencia'],['otros','Otros']];
+const seccion=id=>SECCIONES.find(x=>x[0]===id)?.[1]||'Otros';
+const slideTitle=s=>s.scene?`Escena ${pad(s.scene.n)} · ${s.scene.title}`:s.type==='block'?`Momento ${s.block.roman} · ${s.block.name}`:s.type==='intro'?'Apertura · Os presento a la herida':s.id==='apertura'?'Portada institucional':'Cierre institucional';
+const store={get:k=>{try{return localStorage.getItem(k)||'';}catch{return '';}},set:(k,v)=>{try{localStorage.setItem(k,v);}catch{}}};
+const Notas={
+ ok:null,list:[],listeners:new Set(),
+ async load(){
+  if(PUBLICO){this.ok=false;return this.list;}
+  try{const r=await fetch('/api/notas',{credentials:'same-origin',headers:{accept:'application/json'}});if(!r.ok||!/json/.test(r.headers.get('content-type')||''))throw 0;this.list=await r.json();this.ok=true;}catch{this.ok=false;}
+  this.listeners.forEach(f=>f());return this.list;
+ },
+ async upload(file){
+  const blob=await shrink(file);
+  const r=await fetch('/api/adjuntos',{method:'POST',credentials:'same-origin',headers:{'content-type':blob.type,'x-nombre':encodeURIComponent(file.name)},body:blob});
+  const data=await r.json();if(!r.ok)throw Error(data.error||'No se pudo subir la imagen.');return data;
+ },
+ async add(note){
+  const r=await fetch('/api/notas',{method:'POST',credentials:'same-origin',headers:{'content-type':'application/json'},body:JSON.stringify(note)});
+  const data=await r.json();if(!r.ok)throw Error(data.error||'No se pudo guardar la nota.');
+  this.list.push(data);this.listeners.forEach(f=>f());return data;
+ },
+ async remove(id){
+  const r=await fetch('/api/notas?id='+encodeURIComponent(id),{method:'DELETE',credentials:'same-origin'});
+  if(!r.ok)throw Error('No se pudo borrar la nota.');
+  this.list=this.list.filter(n=>n.id!==id);this.listeners.forEach(f=>f());
+ },
+ of:slide=>Notas.list.filter(n=>n.slide===slide)
+};
+// Las fotos grandes se reducen antes de subir (lado mayor de 2400 px), para que quepan y carguen rápido.
+async function shrink(file){
+ if(!/^image\/(jpeg|png|webp)$/.test(file.type)||file.size<1.5e6)return file;
+ try{
+  const img=await createImageBitmap(file),k=Math.min(1,2400/Math.max(img.width,img.height));
+  const c=document.createElement('canvas');c.width=Math.round(img.width*k);c.height=Math.round(img.height*k);c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+  return await new Promise(r=>c.toBlob(b=>r(b||file),'image/jpeg',.86));
+ }catch{return file;}
+}
+const when=d=>new Date(d).toLocaleString('es-ES',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+function noteItem(n,{withScene=false}={}){
+ const s=slides.find(x=>x.id===n.slide);
+ return `<li class="note" data-id="${esc(n.id)}"><header><span class="note-sec s-${esc(n.section)}">${esc(seccion(n.section))}</span>${withScene&&s?`<a href="?guia#g-${esc(n.slide)}">${esc(slideTitle(s))}</a>`:''}${n.step!=null?`<span class="note-step">paso ${n.step+1}</span>`:''}<span class="note-who">${esc(n.author)} · ${esc(when(n.date))}</span><button class="note-del" data-del="${esc(n.id)}" title="Borrar nota" aria-label="Borrar nota">×</button></header>${n.text?`<p>${esc(n.text).replace(/\n/g,'<br>')}</p>`:''}${n.files?.length?`<div class="note-files">${n.files.map(f=>`<a href="/api/adjuntos?id=${esc(f.id)}" target="_blank" rel="noopener"><img src="/api/adjuntos?id=${esc(f.id)}" alt="${esc(f.name)}" loading="lazy"></a>`).join('')}</div>`:''}</li>`;
+}
+// Cuadro de notas de una escena: secciones, texto, imágenes y quién escribe.
+function noteBox(slide,{step=null,compact=false}={}){
+ return `<section class="notes ${compact?'is-compact':''}" data-slide="${esc(slide.id)}" ${step!=null?`data-step="${step}"`:''}><header class="notes-head"><h3>Notas${compact?' de esta escena':''}</h3><span class="notes-count"></span></header><ol class="notes-list"></ol><form class="notes-form"><div class="notes-secs" role="radiogroup" aria-label="Sobre qué es la nota">${SECCIONES.map(([v,l],i)=>`<label><input type="radio" name="section" value="${v}" ${i===0?'checked':''}><span>${esc(l)}</span></label>`).join('')}</div><textarea name="text" rows="${compact?2:3}" placeholder="Qué cambiarías: la pregunta, lo que dice la herida, una imagen, la evidencia…"></textarea><div class="notes-row"><label class="notes-file"><input type="file" name="files" accept="image/jpeg,image/png,image/webp,image/gif" multiple><span>Adjuntar imágenes</span></label><input class="notes-author" name="author" placeholder="Tu nombre" autocomplete="name"><button type="submit">Guardar nota</button></div><p class="notes-status" role="status"></p></form></section>`;
+}
+function bindNotes(root){
+ const paint=()=>{
+  root.querySelectorAll('.notes').forEach(box=>{
+   const list=Notas.of(box.dataset.slide);
+   box.querySelector('.notes-list').innerHTML=list.map(n=>noteItem(n)).join('');
+   box.querySelector('.notes-count').textContent=list.length?`${list.length} ${list.length===1?'nota':'notas'}`:'';
+   box.classList.toggle('is-off',Notas.ok===false);
+   if(Notas.ok===false)box.querySelector('.notes-status').textContent='Las notas se guardan en la versión publicada, después de entrar con la contraseña.';
+  });
+ };
+ Notas.listeners.add(paint);paint();
+ root.querySelectorAll('.notes-author').forEach(i=>{i.value=store.get('herida-autor');});
+ root.addEventListener('change',e=>{
+  if(e.target.matches('.notes-author'))store.set('herida-autor',e.target.value.trim());
+  if(e.target.matches('.notes-file input')){const n=e.target.files.length;e.target.nextElementSibling.textContent=n?`${n} ${n===1?'imagen':'imágenes'}`:'Adjuntar imágenes';}
+ });
+ root.addEventListener('click',async e=>{
+  const del=e.target.closest('[data-del]');if(!del)return;
+  if(!confirm('¿Borrar esta nota? No se puede deshacer.'))return;
+  try{await Notas.remove(del.dataset.del);}catch(err){alert(err.message);}
+ });
+ root.addEventListener('submit',async e=>{
+  const form=e.target.closest('.notes-form');if(!form)return;e.preventDefault();
+  const box=form.closest('.notes'),status=form.querySelector('.notes-status'),button=form.querySelector('button');
+  if(Notas.ok===false)return;
+  const text=form.text.value.trim(),picked=[...form.files.files];
+  if(!text&&!picked.length){status.textContent='Escribe algo o adjunta una imagen.';return;}
+  button.disabled=true;status.textContent=picked.length?'Subiendo imágenes…':'Guardando…';
+  try{
+   const files=[];for(const f of picked)files.push(await Notas.upload(f));
+   await Notas.add({slide:box.dataset.slide,step:box.dataset.step!=null?Number(box.dataset.step):null,section:form.section.value,text,author:form.author.value.trim(),files});
+   form.text.value='';form.files.value='';form.querySelector('.notes-file span').textContent='Adjuntar imágenes';status.textContent='Guardada.';
+  }catch(err){status.textContent=err.message;}
+  button.disabled=false;
+ });
+}
+// Todas las notas juntas, para recogerlas y aplicarlas.
+function notesView(){
+ document.documentElement.classList.add('is-guide');
+ const render=()=>{
+  const groups=slides.map(s=>({s,list:Notas.of(s.id)})).filter(g=>g.list.length);
+  $('#guia').innerHTML=`<article class="g g-notes"><header class="g-top"><span class="g-kicker">Conversaciones con una herida</span><h1>Notas de preparación</h1><p>${Notas.ok===false?'Las notas solo están disponibles en la versión publicada, después de entrar con la contraseña.':Notas.list.length?`${Notas.list.length} ${Notas.list.length===1?'nota':'notas'} en ${groups.length} ${groups.length===1?'escena':'escenas'}, por orden del recorrido.`:'Todavía no hay notas.'}</p><p class="g-actions"><a href="?guia">Ir a la guía</a>${Notas.list.length?'<button data-export>Descargar todas (.md)</button>':''}</p></header>${groups.map(({s,list})=>`<section class="g-sec"><header><span class="g-kicker">${esc(s.block?`Momento ${s.block.roman}`:'Apertura y cierre')}</span><h2><a href="?guia#g-${esc(s.id)}">${esc(slideTitle(s))}</a></h2></header>${SECCIONES.map(([v,l])=>{const xs=list.filter(n=>n.section===v);return xs.length?`<h3 class="g-h3">${esc(l)}</h3><ol class="notes-list">${xs.map(n=>noteItem(n)).join('')}</ol>`:'';}).join('')}</section>`).join('')}</article>`;
+ };
+ Notas.listeners.add(render);render();
+ $('#guia').addEventListener('click',async e=>{
+  if(e.target.closest('[data-export]')){
+   const md='# Notas de preparación · Conversaciones con una herida\n\n'+slides.map(s=>({s,list:Notas.of(s.id)})).filter(g=>g.list.length).map(({s,list})=>`## ${slideTitle(s)}\n\n`+SECCIONES.map(([v,l])=>{const xs=list.filter(n=>n.section===v);return xs.length?`### ${l}\n\n`+xs.map(n=>`- **${n.author}** (${when(n.date)}${n.step!=null?`, paso ${n.step+1}`:''}): ${n.text.replace(/\n/g,'\n  ')}${n.files?.length?'\n  '+n.files.map(f=>`[${f.name}](${location.origin}/api/adjuntos?id=${f.id})`).join(' · '):''}`).join('\n')+'\n':'';}).join('\n')).join('\n');
+   const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([md],{type:'text/markdown'}));a.download='notas-conversaciones-herida.md';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000);
+  }
+  const del=e.target.closest('[data-del]');if(del&&confirm('¿Borrar esta nota? No se puede deshacer.')){try{await Notas.remove(del.dataset.del);}catch(err){alert(err.message);}}
+ });
+ document.title='Notas · Conversaciones con una herida';
+ Notas.load();
+}
 
 // ───────────── Guía de la ponente (?guia) ─────────────
 // Un recorrido informal, paso a paso, con lo que sale en pantalla y lo que dice cada una.
@@ -450,26 +558,33 @@ function guideView(){
   const head=s?`<span class="g-kicker">${b?`Momento ${b.roman} · `:''}Escena ${pad(s.n)} de 24</span><h2>${esc(s.title)}</h2>`:slide.type==='block'?`<span class="g-kicker">Momento ${b.roman} de IV</span><h2>${esc(b.name)}</h2>`:slide.type==='intro'?`<span class="g-kicker">Apertura</span><h2>Antes de acercar el carro</h2>`:`<span class="g-kicker">Institucional</span><h2>${slide.id==='apertura'?'Portada':'Contraportada'}</h2>`;
   const idea=s?.purpose||(slide.type==='block'?b.purpose:slide.type==='intro'?G.intro.purpose:'');
   const thread=s?.habit?`<dl class="g-thread"><dt>Revisamos</dt><dd><s>${esc(s.habit)}</s></dd><dt>Nos preguntamos</dt><dd>${esc(s.ask)}</dd><dt>Nos llevamos</dt><dd>${esc(s.take)}</dd></dl>`:'';
-  return `<section class="g-sec" id="g-${slide.id}" ${b?`data-q="${b.n}"`:''}><header>${head}${idea?`<p class="g-idea"><b>La idea</b> ${esc(idea.replace(/^./,c=>c.toUpperCase()))}</p>`:''}</header>${thread}<ol class="g-steps">${slide.steps.map((st,k)=>guideStep(slide,st,k)).join('')}</ol>${s?.support?`<p class="g-support"><b>Respaldo</b> ${esc(s.support)}</p>`:''}</section>`;
+  return `<section class="g-sec" id="g-${slide.id}" ${b?`data-q="${b.n}"`:''}><header>${head}${idea?`<p class="g-idea"><b>La idea</b> ${esc(idea.replace(/^./,c=>c.toUpperCase()))}</p>`:''}</header>${thread}<ol class="g-steps">${slide.steps.map((st,k)=>guideStep(slide,st,k)).join('')}</ol>${s?.support?`<p class="g-support"><b>Respaldo</b> ${esc(s.support)}</p>`:''}${noteBox(slide)}</section>`;
  };
  const map=G.blocks.map(b=>`<li data-q="${b.n}"><a href="#g-bloque-${b.n}"><b>${b.roman}</b> ${esc(b.name)}</a><span>${b.scenes.map(n=>`<a href="#g-escena-${n}">${pad(n)} ${esc(G.scenes[n-1].title)}</a>`).join('')}</span></li>`).join('');
- $('#guia').innerHTML=`<article class="g"><header class="g-top"><span class="g-kicker">Conversaciones con una herida · IV Jornadas Comisión Heridas Jerez</span><h1>Tu guion, María del Mar</h1><p>Aquí tienes lo que va pasando en pantalla y lo que decís tú y la herida, clic a clic. Cada número es una pulsación. No hace falta aprenderlo ni leerlo en voz alta: es para que sepas siempre dónde estás y qué viene después. Puedes decirlo con tus palabras; lo que conviene no perder son la pregunta, la condición y el aprendizaje de cada escena.</p><ul class="g-keys"><li><b>→</b> o espacio: avanzar</li><li><b>←</b> retroceder</li><li><b>P</b> ventana de ponente</li><li><b>G</b> saltar a una escena</li><li><b>F</b> pantalla completa</li></ul></header><nav class="g-map"><h2>El recorrido</h2><ol>${map}</ol></nav>${slides.map(sec).join('')}<footer class="g-end">Lo que dice la herida son réplicas preparadas; los ejemplos son docentes. La revisión clínica final y la duración se cierran contigo.</footer></article>`;
+ $('#guia').innerHTML=`<article class="g"><header class="g-top"><span class="g-kicker">Conversaciones con una herida · IV Jornadas Comisión Heridas Jerez</span><h1>Tu guion, María del Mar</h1><p>Aquí tienes lo que va pasando en pantalla y lo que decís tú y la herida, clic a clic. Cada número es una pulsación. No hace falta aprenderlo ni leerlo en voz alta: es para que sepas siempre dónde estás y qué viene después. Puedes decirlo con tus palabras; lo que conviene no perder son la pregunta, la condición y el aprendizaje de cada escena.</p><p class="g-actions"><a href="?notas">Ver todas las notas</a><a href="./" target="_blank">Abrir la presentación</a><a href="/salir">Salir</a></p><p class="g-hint">Al final de cada escena hay un cuadro para tus notas: elige sobre qué es (la pregunta, la herida, las imágenes, la evidencia u otros), escribe y, si quieres, adjunta tus imágenes. Se guarda solo y lo vemos las dos.</p><ul class="g-keys"><li><b>→</b> o espacio: avanzar</li><li><b>←</b> retroceder</li><li><b>P</b> ventana de ponente</li><li><b>G</b> saltar a una escena</li><li><b>F</b> pantalla completa</li></ul></header><nav class="g-map"><h2>El recorrido</h2><ol>${map}</ol></nav>${slides.map(sec).join('')}<footer class="g-end">Lo que dice la herida son réplicas preparadas; los ejemplos son docentes. La revisión clínica final y la duración se cierran contigo.</footer></article>`;
  document.title='Tu guion · Conversaciones con una herida';
+ bindNotes($('#guia'));Notas.load();
+ if(location.hash)setTimeout(()=>document.getElementById(location.hash.slice(1))?.scrollIntoView(),50);
 }
 
 // ───────────── Arranque ─────────────
 const fromHash=()=>{const [id,step]=decodeURIComponent(location.hash.slice(1)).split('/');const i=slides.findIndex(s=>s.id===id);return i<0?[0,0]:[i,Math.max(0,(Number(step)||1)-1)];};
 document.addEventListener('keydown',key);
 let renderPresenter=null;
-if(guia){
+if(notasView){
+ document.removeEventListener('keydown',key);notesView();
+}else if(guia){
  document.removeEventListener('keydown',key);guideView();
 }else if(presenter){
  renderPresenter=presenterView();
- const sync=(a,b)=>{si=a;k=b;renderPresenter();};
+ // El cuadro de notas solo se rehace al cambiar de escena, para no perder lo que se está escribiendo.
+ let notesFor=null;const pvNotes=document.createElement('div');pvNotes.id='pv-notes';document.body.append(pvNotes);bindNotes(pvNotes);Notas.load();
+ const sync=(a,b)=>{si=a;k=b;renderPresenter();if(notesFor!==slides[si].id){notesFor=slides[si].id;pvNotes.innerHTML=noteBox(slides[si],{compact:true});pvNotes.querySelectorAll('.notes-author').forEach(i=>{i.value=store.get('herida-autor');});Notas.listeners.forEach(f=>f());}};
  channel?.addEventListener('message',e=>sync(e.data.si,e.data.k));
  const send=(a,b)=>{a=Math.max(0,Math.min(slides.length-1,a));const n=slides[a].steps.length;b=b<0?n-1:Math.min(n-1,Math.max(0,b));sync(a,b);channel?.postMessage({si:a,k:b,from:'ponente'});location.replace('#'+slides[a].id+(b?'/'+(b+1):''));};
  document.removeEventListener('keydown',key);
  document.addEventListener('keydown',e=>{
+  if(e.target.closest?.('input,textarea,select'))return;
   if(['ArrowRight',' ','PageDown'].includes(e.key)){e.preventDefault();if(k<slides[si].steps.length-1)send(si,k+1);else send(si+1,0);}
   if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();if(k>0)send(si,k-1);else send(si-1,-1);}
   if(e.key==='ArrowDown')send(si+1,0);if(e.key==='ArrowUp')send(si-1,0);
