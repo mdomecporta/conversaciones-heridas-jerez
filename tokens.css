@@ -1,0 +1,49 @@
+/* Tokens: única fuente de paleta, tipografía y movimiento. Se carga antes que escena.css.
+   La paleta parte de la tinta «Sangre y piel» de la herida (entity-liquid.js) y se reparte en tres mundos:
+   conversación (piel y carmín), evidencia (hoja, ocre y oliva) y progreso (noche cálida). */
+:root{
+ /* Base y texto sobre marfil. */
+ --paper:#f6f0e8;
+ --ink:#302b2a;
+ --ink-soft:#554842;
+ --muted:#72635e;
+ --line:#d9cdc5;
+ --line-strong:#c7a89c;
+ /* La herida: Sangre y piel. */
+ --blood:#c6323e;
+ --blood-deep:#743536;
+ --coral:#e46a5a;
+ --skin:#e9b696;
+ --blush:#fdeee8;
+ --serum:#fff2d4;
+ /* Conversación. */
+ --bubble-herida:linear-gradient(155deg,#fff4ef 0%,#fde0d5 100%);
+ --herida-ink:#3d1d20;
+ --bubble-mdm:#fff;
+ /* Progreso: noche cálida. */
+ --night:#22171a;
+ --night-2:#2e1f22;
+ --night-ink:#fbefe3;
+ --night-muted:rgba(251,239,227,.56);
+ --night-line:rgba(251,239,227,.14);
+ /* Evidencia: hoja, ocre y oliva. */
+ --sheet:#fffdf4;
+ --sheet-line:#e6dfbd;
+ --ochre:#d4c570;
+ --olive:#666126;
+ --olive-soft:#f1eed3;
+ --olive-ink:#33321c;
+ /* Pigmento del momento: lo redefine [data-q] en escena.css. */
+ --tone:#ef7d6b;
+ --tone-ink:#a5333a;
+ --tone-soft:#fbe1da;
+ /* Tipografía: Fraunces para titulares y evidencia; Figtree para conversación, hilo y rótulos. */
+ --display:"Fraunces",Georgia,"Times New Roman",serif;
+ --sans:"Figtree","Avenir Next","Segoe UI",sans-serif;
+ /* Movimiento y textura. */
+ --ease:cubic-bezier(.22,1,.36,1);
+ --grain:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .11  0 0 0 0 .13  0 0 0 0 .16  0 0 0 .5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+ font-synthesis:none;
+ font-family:var(--sans);
+ color:var(--ink);
+}
