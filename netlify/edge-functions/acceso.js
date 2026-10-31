@@ -9,6 +9,8 @@ const html=(body,status=200,extra={})=>new Response(body,{status,headers:{'conte
 export default async (req,context)=>{
  const url=new URL(req.url),path=url.pathname;
  if((path==='/ver'||path.startsWith('/ver/'))&&env('COMPARTIR')!=='no')return context.next();
+ // Los cambios de texto se aplican también en el enlace público: leerlos no pide contraseña.
+ if(path==='/api/textos'&&req.method==='GET')return context.next();
  const password=env('SITE_PASSWORD'),secret=secretOf(env);
  if(!password)return new Response('Falta configurar SITE_PASSWORD en Netlify (Configuración del sitio → Variables de entorno).',{status:503,headers:{'content-type':'text/plain; charset=utf-8'}});
  if(path==='/salir')return new Response(null,{status:303,headers:{location:'/','set-cookie':clearCookie()}});

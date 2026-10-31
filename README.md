@@ -15,7 +15,8 @@ npm run dev     # http://127.0.0.1:4173/
 ## Durante la presentación
 
 - → / espacio: avanzar · ←: retroceder · ↑ ↓: escena anterior o siguiente · Inicio / Fin.
-- **P**: ventana de ponente, sincronizada. Muestra lo que dice María del Mar en cada paso (también las explicaciones que no se proyectan), la réplica de la herida, la nota de pantalla, el paso siguiente, el respaldo y un cronómetro.
+- **P**: ventana de ponente, sincronizada. Muestra la diapositiva en vivo y el paso siguiente, lo que dice María del Mar (también lo que explica sin proyectar), la réplica de la herida, el respaldo y un cronómetro.
+- **N**: panel flotante de preparación sobre la diapositiva: notas por sección con imágenes y cambios puntuales de texto.
 - **G**: recorrido para saltar a una escena. **F**: pantalla completa.
 - `?guia` (o el botón «Guion» de los controles): guía informal para María del Mar, clic a clic, imprimible.
 - Clic en el tercio izquierdo retrocede; en el resto, avanza. Los controles aparecen al mover el ratón.
@@ -28,7 +29,7 @@ El sitio publicado tiene dos entradas:
 - **`/`** pide contraseña. Da acceso a la presentación completa, la guía de María del Mar (`/?guia`), la ventana de ponente y las notas.
 - **`/ver/`** es el enlace para compartir, sin contraseña. Muestra solo la presentación, sin guía, ponente ni notas, y sin las explicaciones que ella no proyecta.
 
-Las notas se guardan solas en Netlify Blobs, por escena y por sección (la pregunta y el hilo, la conversación con la herida, imágenes y recursos, evidencia, otros), con imágenes adjuntas. `/?notas` las reúne todas por orden del recorrido y permite descargarlas en Markdown para aplicarlas. `/salir` cierra la sesión.
+Con **N** se abre sobre la diapositiva un panel con dos pestañas. **Nota**: por sección (la pregunta y el hilo, la conversación con la herida, imágenes y recursos, evidencia, otros), con imágenes adjuntas. **Cambiar textos**: corrige una frase de lo que se ve; se guarda como «original → nuevo», se aplica al momento y también en `/ver/`. Todo se guarda en Netlify Blobs. `/?notas` reúne notas y cambios por orden del recorrido y los descarga en Markdown para pasarlos al guion. `/salir` cierra la sesión.
 
 ### Puesta en marcha (una vez)
 

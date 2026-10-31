@@ -64,3 +64,15 @@ test('se rechazan notas vacías, escenas raras y archivos que no son imágenes',
  assert.equal((await odd.json()).section,'otros');
  assert.equal((await handle(await req('/api/adjuntos',{method:'POST',body:'x',headers:{'content-type':'application/pdf'}}),ctx)).status,415);
 });
+test('los cambios de texto se leen sin sesión, se escriben con ella y vuelven al original',async()=>{
+ const texts=memory(),ctx={notes:memory(),files:memory(),texts,secret:SECRET};
+ const post=(b,auth=true)=>req('/api/textos',{method:'POST',auth,headers:{'content-type':'application/json'},body:JSON.stringify(b)});
+ assert.equal((await handle(await post({slide:'escena-1',original:'Hola',text:'Buenas'},false),ctx)).status,401);
+ const made=await (await handle(await post({slide:'escena-1',original:'Hola',text:'Buenas'}),ctx)).json();
+ const again=await (await handle(await post({slide:'escena-1',original:'Hola',text:'Buenos días'}),ctx)).json();
+ assert.equal(again.id,made.id);
+ const read=await (await handle(await req('/api/textos',{auth:false}),ctx)).json();
+ assert.deepEqual(read.map(t=>t.text),['Buenos días']);
+ await handle(await post({slide:'escena-1',original:'Hola',text:'Hola'}),ctx);
+ assert.equal(texts.size(),0);
+});

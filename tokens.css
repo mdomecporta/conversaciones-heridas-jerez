@@ -1,6 +1,6 @@
 /* Tokens: única fuente de paleta, tipografía y movimiento. Se carga antes que escena.css.
    La paleta parte de la tinta «Sangre y piel» de la herida (entity-liquid.js) y se reparte en tres mundos:
-   conversación (piel y carmín), evidencia (hoja, ocre y oliva) y progreso (noche cálida). */
+   conversación (piel y carmín), evidencia (hoja, ocre y oliva) y progreso (noche cálida). La sala, en azul pizarra. */
 :root{
  /* Base y texto sobre marfil. */
  --paper:#f6f0e8;
@@ -20,6 +20,11 @@
  --bubble-herida:linear-gradient(155deg,#fff4ef 0%,#fde0d5 100%);
  --herida-ink:#3d1d20;
  --bubble-mdm:#fff;
+ /* La sala: un azul pizarra propio, distinto de la herida, la ponente y la ciencia. */
+ --room:#5b7c9e;
+ --room-ink:#38526e;
+ --room-deep:#22364d;
+ --room-soft:#e6edf4;
  /* Progreso: noche cálida. */
  --night:#22171a;
  --night-2:#2e1f22;
