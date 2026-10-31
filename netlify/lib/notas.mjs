@@ -1,23 +1,25 @@
-// Notas de preparación por escena y sección, con imágenes adjuntas. Cada nota es un documento propio
+// Notas de preparación por escena y sección, con imágenes adjuntas, y cambios puntuales de texto. Cada nota es un documento propio
 // en Netlify Blobs (así dos personas escribiendo a la vez no se pisan). Los almacenes se inyectan para
 // poder probarlo sin Netlify.
 import {valid,readCookie} from './acceso.mjs';
 
 export const SECCIONES=['hilo','herida','recursos','evidencia','otros'];
-const MAX_TEXT=6000,MAX_FILES=6,MAX_BYTES=5.5*1024*1024;
+const MAX_TEXT=6000,MAX_CHANGE=2000,MAX_FILES=6,MAX_BYTES=5.5*1024*1024;
 const IMAGES=['image/jpeg','image/png','image/webp','image/gif'];
 const json=(data,status=200)=>new Response(JSON.stringify(data),{status,headers:{'content-type':'application/json; charset=utf-8','cache-control':'no-store'}});
 const id=()=>Date.now().toString(36)+'-'+crypto.getRandomValues(new Uint32Array(1))[0].toString(36);
 const clean=(s,n)=>String(s??'').replace(/\r\n?/g,'\n').trim().slice(0,n);
 
-export async function handle(req,{notes,files,secret}){
- if(!await valid(secret,readCookie(req)))return json({error:'Hace falta entrar con la contraseña.'},401);
+export async function handle(req,{notes,files,texts,secret}){
  const url=new URL(req.url);
+ const authed=await valid(secret,readCookie(req));
+ // Los cambios de texto se leen sin contraseña, porque también se aplican en el enlace público.
+ if(url.pathname.endsWith('/textos')&&req.method==='GET')return json(await all(texts));
+ if(!authed)return json({error:'Hace falta entrar con la contraseña.'},401);
+ if(url.pathname.endsWith('/textos'))return textChanges(req,url,texts);
  if(url.pathname.endsWith('/adjuntos'))return attachments(req,url,files);
  if(req.method==='GET'){
-  const {blobs}=await notes.list();
-  const all=(await Promise.all(blobs.map(b=>notes.get(b.key,{type:'json'})))).filter(Boolean);
-  return json(all.sort((a,b)=>a.date.localeCompare(b.date)));
+  return json(await all(notes));
  }
  if(req.method==='POST'){
   let body;try{body=await req.json();}catch{return json({error:'Nota no válida.'},400);}
@@ -37,6 +39,31 @@ export async function handle(req,{notes,files,secret}){
   const note=await notes.get(key,{type:'json'});
   if(note){await Promise.all((note.files||[]).map(f=>files.delete(f.id)));await notes.delete(key);}
   return json({ok:true});
+ }
+ return json({error:'Método no admitido.'},405);
+}
+
+async function all(store){
+ const {blobs}=await store.list();
+ return (await Promise.all(blobs.map(b=>store.get(b.key,{type:'json'})))).filter(Boolean).sort((a,b)=>a.date.localeCompare(b.date));
+}
+
+// Cambios puntuales de texto: «original → nuevo» dentro de una escena. Si se vuelve al original, se borra.
+async function textChanges(req,url,texts){
+ if(req.method==='POST'){
+  let body;try{body=await req.json();}catch{return json({error:'Cambio no válido.'},400);}
+  const slide=clean(body.slide,40),original=String(body.original??'').trim().slice(0,MAX_CHANGE),text=clean(body.text,MAX_CHANGE),author=clean(body.author,60)||'Sin firmar';
+  if(!/^[\w-]{1,40}$/.test(slide)||!original)return json({error:'Cambio no válido.'},400);
+  const existing=(await all(texts)).find(t=>t.slide===slide&&t.original===original);
+  if(!text||text===original){if(existing)await texts.delete(existing.id);return json({ok:true,removed:true});}
+  const change={id:existing?.id||id(),slide,original,text,author,date:new Date().toISOString()};
+  await texts.setJSON(change.id,change);
+  return json(change,existing?200:201);
+ }
+ if(req.method==='DELETE'){
+  const key=url.searchParams.get('id')||'';
+  if(!/^[\w-]{4,40}$/.test(key))return json({error:'Cambio no válido.'},400);
+  await texts.delete(key);return json({ok:true});
  }
  return json({error:'Método no admitido.'},405);
 }

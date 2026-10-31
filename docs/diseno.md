@@ -20,7 +20,8 @@ En cada paso hay un solo foco. Hay tres mundos y cada uno tiene su propia superf
 
 - Burbujas de mensajería en Figtree. La herida, a la izquierda, en un degradado de piel a coral con su nombre en carmín; antes de hablar aparecen tres puntos y después su frase palabra a palabra. María del Mar, en blanco, alineada a la derecha y con sus iniciales.
 - Se proyectan las frases cortas de María del Mar como disparador. Las de más de 32 palabras y la explicación que acompaña a la evidencia solo aparecen en la ventana de ponente.
-- «Para seguir» es una burbuja de María del Mar con borde discontinuo que respira.
+- «Para seguir» es la misma burbuja de María del Mar con la etiqueta «→ para seguir».
+- **La sala** tiene su color, azul pizarra (`--room`): la pregunta a la sala es una burbuja azul y lo que se recoge de la sala (escena 22) lleva sus puntos azules.
 - Lo que trae la herida (fichas, esquemas, imágenes) lleva la etiqueta «La herida trae» y una tarjeta en tonos de piel. Las fichas muestran huecos donde falta información, sin inventar datos. En las imágenes, un foco recorre las zonas del catálogo con una tarjeta por zona. Cada imagen conserva su identificación y su crédito.
 
 ## Evidencia: la hoja
@@ -34,7 +35,11 @@ Cada diapositiva lleva su fondo opaco (marfil, noche o blanco institucional) y l
 
 ## Guía de la ponente
 
-`?guia` muestra, a partir de los mismos pasos, un recorrido informal para María del Mar: qué sale en cada clic, qué dice ella, qué responde la herida, la idea de cada escena y qué viene después. Se puede imprimir.
+`?guia` muestra, por diapositiva, «De qué va» (la idea, lo que revisamos, la pregunta, la evidencia y lo que nos llevamos) y después el paso a paso: qué pasa en cada clic y qué decís ella y la herida. Se genera de los mismos pasos y de los cambios de texto guardados, así que refleja cada cambio. Se puede imprimir.
+
+## Ventana de ponente y preparación
+
+La ventana de ponente muestra la diapositiva en vivo y el paso siguiente (dos espejos de la página que siguen a la presentación), con lo que se dice ahora. Las notas no aparecen ahí: viven en un panel flotante sobre la diapositiva (N), que se abre, se escribe y se cierra.
 
 ## Tipografía
 

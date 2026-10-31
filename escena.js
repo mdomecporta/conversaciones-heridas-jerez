@@ -16,6 +16,9 @@ const PUBLICO=ESCENA.publico===true;
 if(PUBLICO)document.documentElement.classList.add('is-public');
 const params=new URLSearchParams(location.search);
 const guia=!PUBLICO&&params.has('guia'),notasView=!PUBLICO&&params.has('notas');
+// ?espejo=0 refleja la diapositiva actual en la ventana de ponente; ?espejo=1, el paso siguiente, ya quieto.
+const ESPEJO=params.has('espejo'),QUIETO=params.get('espejo')==='1';
+if(ESPEJO)document.documentElement.classList.add('is-mirror');
 
 // ───────────── Línea de tiempo ─────────────
 const slides=[];
@@ -247,7 +250,7 @@ function apply(dir=1,newSlide=false){
  if(walk)spot(walk,v);
  $$('.page',el).forEach(p=>p.classList.toggle('is-on',Number(p.dataset.page)===v.page&&v.plane==='pages'));
  // Intercambio actual: se escribe solo al avanzar; al retroceder aparece entero.
- const live=dir>0&&!reduced();
+ const live=dir>0&&!reduced()&&!QUIETO;
  $$('.say',el).forEach(s=>{const on=Number(s.dataset.k)===k;s.classList.toggle('is-on',on);s.classList.toggle('live',on&&live);s.classList.toggle('static',on&&!live);});
  const current=$(`.say[data-k="${k}"]`,el);
  if(current)current.closest('.speech').dataset.plane=v.plane;
@@ -258,9 +261,11 @@ function apply(dir=1,newSlide=false){
  const h=current?.querySelector('.line.herida');
  if(h&&live)Presence.cue(v.state==='idle'?'responding':v.state,{delay:Number(h.dataset.at)*1000,think:Number(h.dataset.think)*1000,speak:Number(h.dataset.words)*60+400});
  document.documentElement.dataset.speaking=h?'1':'';
- location.replace('#'+slide.id+(k?'/'+(k+1):''));
  hud();
+ if(ESPEJO)return;
+ location.replace('#'+slide.id+(k?'/'+(k+1):''));
  channel?.postMessage({si,k});
+ Editor.follow();
 }
 
 // La herida no se desliza: se disuelve donde estaba y se condensa en su nuevo sitio.
@@ -279,7 +284,7 @@ function place(v,dir,newSlide){
  const was=lastPlace;lastPlace=key;
  const wasAway=herida.classList.contains('is-away');
  herida.classList.remove('is-away');
- if(reduced()){set(r);return;}
+ if(reduced()||QUIETO){set(r);return;}
  if(was===key){set(r);return;}
  const sameSize=was&&Math.abs(parseFloat(herida.style.width)-r.w)<.5;
  if(newSlide&&!wasAway&&was){
@@ -360,99 +365,94 @@ function key(e){
   case 'Home':go(0,0,-1);break;
   case 'End':go(slides.length-1,0,1);break;
   case 'g':case 'G':overview();break;
-  case 'Escape':if(ov)overview(false);break;
+  case 'Escape':if(ov)overview(false);else Editor.close();break;
   case 'f':case 'F':fullscreen();break;
   case 'p':case 'P':if(!presenter&&!PUBLICO)openPresenter();break;
+  case 'n':case 'N':if(!PUBLICO)Editor.toggle();break;
   default:return;
  }
 }
 
 // ───────────── Ventana de ponente ─────────────
+// La diapositiva en vivo y el paso siguiente (dos espejos de la misma página), con lo que se dice ahora.
+const slideTitle=s=>s.scene?`Escena ${pad(s.scene.n)} · ${s.scene.title}`:s.type==='block'?`Momento ${s.block.roman} · ${s.block.name}`:s.type==='intro'?'Apertura · Os presento a la herida':s.id==='apertura'?'Portada institucional':'Cierre institucional';
+const STEP_KIND={open:'Apertura de escena',resource:'La herida trae su recurso',ask:'La pregunta',sala:'A la sala',evidence:'Evidencia científica',reply:'Réplica',take:'El aprendizaje',bridge:'Para seguir',blockclose:'Cierre del momento',page:'Recopilación',chips:'Lo que recogemos',say:'Conversación',screen:'Pantalla',title:'Entrada del momento',still:'Pantalla institucional'};
+const nextOf=(a,b)=>slides[a].steps[b+1]?[a,b+1]:slides[a+1]?[a+1,0]:[a,b];
+function spokenNow(st){
+ const shown=(st.lines||[]).map(l=>l.who==='herida'?`<p class="pv-herida"><b>La herida</b> ${esc(end(l.text))}</p>`:`<p class="pv-mdm"><b>Tú</b> ${esc(end(l.text))}</p>`);
+ const onScreen=new Set((st.lines||[]).filter(l=>l.who==='mdm').map(l=>l.text));
+ const extra=(st.spoken||[]).filter(t=>!onScreen.has(t)&&t!==st.sala).map(t=>`<p class="pv-mdm is-off"><b>${t===st.close?'Cierras':'Lo explicas tú'}</b> ${esc(end(t))}</p>`);
+ return [st.sala?`<p class="pv-sala"><b>A la sala</b> ${esc(st.sala)}</p>`:'',...shown,...extra].join('');
+}
 function presenterView(){
  document.documentElement.classList.add('is-presenter');
+ const hash=location.hash;
+ $('#presenter').innerHTML=`<div class="pv"><header class="pv-head"><div><span class="pv-kicker" id="pv-where"></span><h1 id="pv-kind"></h1></div><div class="pv-clock"><b id="pv-timer">00:00</b><span id="pv-step"></span></div></header><main class="pv-grid"><section class="pv-live"><div class="pv-frame"><iframe title="Diapositiva actual" src="?espejo=0${hash}"></iframe></div><div class="pv-say"><h2>Ahora</h2><div id="pv-now"></div></div></section><aside class="pv-side"><h2>Siguiente</h2><div class="pv-frame is-small"><iframe title="Paso siguiente" src="?espejo=1${hash}"></iframe></div><div id="pv-next"></div><p class="pv-support" id="pv-support"></p></aside></main><footer class="pv-keys">→ avanzar · ← retroceder · ↑ ↓ escena · las dos ventanas avanzan juntas</footer></div>`;
  const started=Date.now();
- const render=()=>{
-  const s=slides[si],st=s.steps[k],nx=s.steps[k+1]?{s,st:s.steps[k+1],k:k+1}:slides[si+1]?{s:slides[si+1],st:slides[si+1].steps[0],k:0}:null;
-  // En el orden en que se dice: el intercambio proyectado y, después, lo que María del Mar explica sin proyectar.
-  const lines=st=>{
-   const shown=(st.lines||[]).map(l=>l.who==='herida'?`<p class="pv-herida"><b>La herida</b> ${esc(end(l.text))}</p>`:`<p class="pv-mdm">${esc(end(l.text))}</p>`);
-   const said=new Set((st.lines||[]).filter(l=>l.who==='mdm').map(l=>l.text));
-   const extra=(st.spoken||[]).filter(t=>!said.has(t)&&t!==st.sala).map(t=>`<p class="pv-mdm">${t===st.close?'<b>Cierras</b> ':''}${esc(end(t))}</p>`);
-   return [st.sala?`<p class="pv-sala"><b>A la sala</b> ${esc(st.sala)}</p>`:'',...shown,...extra].join('');
-  };
-  const title=s=>s.scene?`Escena ${pad(s.scene.n)} · ${s.scene.title}`:s.type==='block'?`Momento ${s.block.roman} · ${s.block.name}`:s.type==='intro'?'Apertura · Os presento a la herida':s.id==='apertura'?'Portada institucional':'Cierre institucional';
-  const kind={open:'Apertura de escena',resource:'Recurso de la herida',ask:'La pregunta',sala:'A la sala',evidence:'Evidencia científica',reply:'Réplica',take:'El aprendizaje',bridge:'Para seguir',blockclose:'Cierre de bloque',page:'Recopilación',chips:'Lo que recogemos',say:'Conversación',screen:'Pantalla',title:'Entrada de bloque',still:'Pantalla institucional'}[st.kind]||st.kind;
-  $('#presenter').innerHTML=`<header class="pv-head"><div><span class="pv-kicker">${esc(title(s))}</span><h1>${esc(kind)}${st.part&&st.kind==='resource'?` · ${st.part}/${R[s.scene.n].parts}`:''}${st.kind==='page'?` · ${st.page+1}/7`:''}</h1></div><div class="pv-clock"><b id="pv-timer">00:00</b><span>paso ${k+1} de ${s.steps.length}</span></div></header><main class="pv-main"><section class="pv-now"><h2>Ahora</h2>${lines(st)||'<p class="pv-quiet">Sin texto hablado en este paso.</p>'}${(st.recuerda||[]).filter((r,i)=>st.kind!=='page'||i===['Antes de empezar','Durante la cura','Cuando algo no encaja','Antes de irnos'].indexOf(G.blocks.find(b=>b.scenes.includes(ESCENA_RECOPILACION[st.page][0])).name)).map(r=>`<p class="pv-mdm"><b>${esc(r.block)}</b> ${esc(end(r.text))}</p>`).join('')}${(st.notes||[]).map(n=>`<p class="pv-note">${esc(n)}</p>`).join('')}${st.screen?`<details open><summary>En pantalla</summary><p>${esc(st.screen)}</p></details>`:''}${s.scene&&s.scene.purpose&&k===0?`<p class="pv-note"><b>Qué queremos explicar</b> ${esc(s.scene.purpose)}</p>`:''}</section><aside class="pv-next"><h2>Siguiente</h2>${nx?`<span class="pv-kicker">${esc(title(nx.s))}</span>${lines(nx.st)||'<p class="pv-quiet">Cambio de pantalla.</p>'}`:'<p class="pv-quiet">Final.</p>'}${s.scene?.support?`<p class="pv-support"><b>Respaldo</b> ${esc(s.scene.support)}</p>`:''}</aside></main><footer class="pv-keys">→ avanzar · ← retroceder · ↑↓ escena · G recorrido · F pantalla completa</footer>`;
+ setInterval(()=>{const t=Math.floor((Date.now()-started)/1000);$('#pv-timer').textContent=pad(Math.floor(t/60))+':'+pad(t%60);},1000);
+ return ()=>{
+  const s=slides[si],st=s.steps[k],[na,nb]=nextOf(si,k),ns=slides[na],nst=ns.steps[nb];
+  $('#pv-where').textContent=slideTitle(s);
+  $('#pv-kind').textContent=(STEP_KIND[st.kind]||'')+(st.kind==='resource'&&R[s.scene?.n]?.parts>1?` · ${st.part} de ${R[s.scene.n].parts}`:'')+(st.kind==='page'?` · página ${st.page+1} de 7`:'');
+  $('#pv-step').textContent=`paso ${k+1} de ${s.steps.length}`;
+  $('#pv-now').innerHTML=spokenNow(st)||'<p class="pv-quiet">En este paso no dices nada: deja que se vea.</p>';
+  $('#pv-next').innerHTML=(na!==si?`<span class="pv-kicker">${esc(slideTitle(ns))}</span>`:'')+(spokenNow(nst)||'<p class="pv-quiet">Cambio de pantalla.</p>');
+  $('#pv-support').innerHTML=s.scene?.support?`<b>Respaldo</b> ${esc(s.scene.support)}`:'';
  };
- setInterval(()=>{const t=Math.floor((Date.now()-started)/1000),m=$('#pv-timer');if(m)m.textContent=pad(Math.floor(t/60))+':'+pad(t%60);},1000);
- return render;
 }
-
-
 
 // ───────────── Notas de preparación ─────────────
 // Por escena y sección, con imágenes adjuntas. Se guardan en Netlify (/api/notas) tras entrar con la
-// contraseña; en local o en el enlace público no hay notas y el cuadro lo explica.
+// contraseña; en local sin servidor o en el enlace público no hay notas y el cuadro lo explica.
 const SECCIONES=[['hilo','La pregunta y el hilo'],['herida','Conversación con la herida'],['recursos','Imágenes y recursos'],['evidencia','Evidencia'],['otros','Otros']];
 const seccion=id=>SECCIONES.find(x=>x[0]===id)?.[1]||'Otros';
-const slideTitle=s=>s.scene?`Escena ${pad(s.scene.n)} · ${s.scene.title}`:s.type==='block'?`Momento ${s.block.roman} · ${s.block.name}`:s.type==='intro'?'Apertura · Os presento a la herida':s.id==='apertura'?'Portada institucional':'Cierre institucional';
 const store={get:k=>{try{return localStorage.getItem(k)||'';}catch{return '';}},set:(k,v)=>{try{localStorage.setItem(k,v);}catch{}}};
+const api=async (url,opts={})=>{const r=await fetch(url,{credentials:'same-origin',...opts,headers:{accept:'application/json',...(opts.headers||{})}});const data=/json/.test(r.headers.get('content-type')||'')?await r.json():null;if(!r.ok||!data)throw Error(data?.error||'No se ha podido conectar.');return data;};
 const Notas={
  ok:null,list:[],listeners:new Set(),
+ notify(){this.listeners.forEach(f=>f());},
  async load(){
   if(PUBLICO){this.ok=false;return this.list;}
-  try{const r=await fetch('/api/notas',{credentials:'same-origin',headers:{accept:'application/json'}});if(!r.ok||!/json/.test(r.headers.get('content-type')||''))throw 0;this.list=await r.json();this.ok=true;}catch{this.ok=false;}
-  this.listeners.forEach(f=>f());return this.list;
+  try{this.list=await api('/api/notas');this.ok=true;}catch{this.ok=false;}
+  this.notify();return this.list;
  },
  async upload(file){
   const blob=await shrink(file);
-  const r=await fetch('/api/adjuntos',{method:'POST',credentials:'same-origin',headers:{'content-type':blob.type,'x-nombre':encodeURIComponent(file.name)},body:blob});
-  const data=await r.json();if(!r.ok)throw Error(data.error||'No se pudo subir la imagen.');return data;
+  return api('/api/adjuntos',{method:'POST',headers:{'content-type':blob.type,'x-nombre':encodeURIComponent(file.name)},body:blob});
  },
- async add(note){
-  const r=await fetch('/api/notas',{method:'POST',credentials:'same-origin',headers:{'content-type':'application/json'},body:JSON.stringify(note)});
-  const data=await r.json();if(!r.ok)throw Error(data.error||'No se pudo guardar la nota.');
-  this.list.push(data);this.listeners.forEach(f=>f());return data;
- },
- async remove(id){
-  const r=await fetch('/api/notas?id='+encodeURIComponent(id),{method:'DELETE',credentials:'same-origin'});
-  if(!r.ok)throw Error('No se pudo borrar la nota.');
-  this.list=this.list.filter(n=>n.id!==id);this.listeners.forEach(f=>f());
- },
+ async add(note){const data=await api('/api/notas',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(note)});this.list.push(data);this.notify();return data;},
+ async remove(id){await api('/api/notas?id='+encodeURIComponent(id),{method:'DELETE'});this.list=this.list.filter(n=>n.id!==id);this.notify();},
  of:slide=>Notas.list.filter(n=>n.slide===slide)
 };
 // Las fotos grandes se reducen antes de subir (lado mayor de 2400 px), para que quepan y carguen rápido.
 async function shrink(file){
  if(!/^image\/(jpeg|png|webp)$/.test(file.type)||file.size<1.5e6)return file;
  try{
-  const img=await createImageBitmap(file),k=Math.min(1,2400/Math.max(img.width,img.height));
-  const c=document.createElement('canvas');c.width=Math.round(img.width*k);c.height=Math.round(img.height*k);c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+  const img=await createImageBitmap(file),f=Math.min(1,2400/Math.max(img.width,img.height));
+  const c=document.createElement('canvas');c.width=Math.round(img.width*f);c.height=Math.round(img.height*f);c.getContext('2d').drawImage(img,0,0,c.width,c.height);
   return await new Promise(r=>c.toBlob(b=>r(b||file),'image/jpeg',.86));
  }catch{return file;}
 }
 const when=d=>new Date(d).toLocaleString('es-ES',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
-function noteItem(n,{withScene=false}={}){
- const s=slides.find(x=>x.id===n.slide);
- return `<li class="note" data-id="${esc(n.id)}"><header><span class="note-sec s-${esc(n.section)}">${esc(seccion(n.section))}</span>${withScene&&s?`<a href="?guia#g-${esc(n.slide)}">${esc(slideTitle(s))}</a>`:''}${n.step!=null?`<span class="note-step">paso ${n.step+1}</span>`:''}<span class="note-who">${esc(n.author)} · ${esc(when(n.date))}</span><button class="note-del" data-del="${esc(n.id)}" title="Borrar nota" aria-label="Borrar nota">×</button></header>${n.text?`<p>${esc(n.text).replace(/\n/g,'<br>')}</p>`:''}${n.files?.length?`<div class="note-files">${n.files.map(f=>`<a href="/api/adjuntos?id=${esc(f.id)}" target="_blank" rel="noopener"><img src="/api/adjuntos?id=${esc(f.id)}" alt="${esc(f.name)}" loading="lazy"></a>`).join('')}</div>`:''}</li>`;
+function noteItem(n){
+ return `<li class="note" data-id="${esc(n.id)}"><header><span class="note-sec s-${esc(n.section)}">${esc(seccion(n.section))}</span>${n.step!=null?`<span class="note-step">paso ${n.step+1}</span>`:''}<span class="note-who">${esc(n.author)} · ${esc(when(n.date))}</span><button class="note-del" data-del="${esc(n.id)}" title="Borrar nota" aria-label="Borrar nota">×</button></header>${n.text?`<p>${esc(n.text).replace(/\n/g,'<br>')}</p>`:''}${n.files?.length?`<div class="note-files">${n.files.map(f=>`<a href="/api/adjuntos?id=${esc(f.id)}" target="_blank" rel="noopener"><img src="/api/adjuntos?id=${esc(f.id)}" alt="${esc(f.name)}" loading="lazy"></a>`).join('')}</div>`:''}</li>`;
 }
-// Cuadro de notas de una escena: secciones, texto, imágenes y quién escribe.
-function noteBox(slide,{step=null,compact=false}={}){
- return `<section class="notes ${compact?'is-compact':''}" data-slide="${esc(slide.id)}" ${step!=null?`data-step="${step}"`:''}><header class="notes-head"><h3>Notas${compact?' de esta escena':''}</h3><span class="notes-count"></span></header><ol class="notes-list"></ol><form class="notes-form"><div class="notes-secs" role="radiogroup" aria-label="Sobre qué es la nota">${SECCIONES.map(([v,l],i)=>`<label><input type="radio" name="section" value="${v}" ${i===0?'checked':''}><span>${esc(l)}</span></label>`).join('')}</div><textarea name="text" rows="${compact?2:3}" placeholder="Qué cambiarías: la pregunta, lo que dice la herida, una imagen, la evidencia…"></textarea><div class="notes-row"><label class="notes-file"><input type="file" name="files" accept="image/jpeg,image/png,image/webp,image/gif" multiple><span>Adjuntar imágenes</span></label><input class="notes-author" name="author" placeholder="Tu nombre" autocomplete="name"><button type="submit">Guardar nota</button></div><p class="notes-status" role="status"></p></form></section>`;
+function noteBox(slide,step){
+ return `<section class="notes" data-slide="${esc(slide.id)}" data-step="${step}"><form class="notes-form"><div class="notes-secs" role="radiogroup" aria-label="Sobre qué es la nota">${SECCIONES.map(([v,l],i)=>`<label><input type="radio" name="section" value="${v}" ${i===0?'checked':''}><span>${esc(l)}</span></label>`).join('')}</div><textarea name="text" rows="4" placeholder="Qué cambiarías aquí: la pregunta, lo que dice la herida, una imagen, la evidencia…"></textarea><div class="notes-row"><label class="notes-file"><input type="file" name="files" accept="image/jpeg,image/png,image/webp,image/gif" multiple><span>Adjuntar imágenes</span></label><button type="submit">Guardar nota</button></div><p class="notes-status" role="status"></p></form><header class="notes-head"><h3>Notas de esta escena</h3><span class="notes-count"></span></header><ol class="notes-list"></ol></section>`;
 }
 function bindNotes(root){
  const paint=()=>{
   root.querySelectorAll('.notes').forEach(box=>{
-   const list=Notas.of(box.dataset.slide);
-   box.querySelector('.notes-list').innerHTML=list.map(n=>noteItem(n)).join('');
-   box.querySelector('.notes-count').textContent=list.length?`${list.length} ${list.length===1?'nota':'notas'}`:'';
+   const list=Notas.of(box.dataset.slide).slice().reverse();
+   box.querySelector('.notes-list').innerHTML=list.map(noteItem).join('');
+   box.querySelector('.notes-count').textContent=list.length?`${list.length}`:'ninguna todavía';
    box.classList.toggle('is-off',Notas.ok===false);
    if(Notas.ok===false)box.querySelector('.notes-status').textContent='Las notas se guardan en la versión publicada, después de entrar con la contraseña.';
   });
  };
  Notas.listeners.add(paint);paint();
- root.querySelectorAll('.notes-author').forEach(i=>{i.value=store.get('herida-autor');});
  root.addEventListener('change',e=>{
-  if(e.target.matches('.notes-author'))store.set('herida-autor',e.target.value.trim());
+  if(e.target.matches('.ed-author'))store.set('herida-autor',e.target.value.trim());
   if(e.target.matches('.notes-file input')){const n=e.target.files.length;e.target.nextElementSibling.textContent=n?`${n} ${n===1?'imagen':'imágenes'}`:'Adjuntar imágenes';}
  });
  root.addEventListener('click',async e=>{
@@ -469,136 +469,245 @@ function bindNotes(root){
   button.disabled=true;status.textContent=picked.length?'Subiendo imágenes…':'Guardando…';
   try{
    const files=[];for(const f of picked)files.push(await Notas.upload(f));
-   await Notas.add({slide:box.dataset.slide,step:box.dataset.step!=null?Number(box.dataset.step):null,section:form.section.value,text,author:form.author.value.trim(),files});
-   form.text.value='';form.files.value='';form.querySelector('.notes-file span').textContent='Adjuntar imágenes';status.textContent='Guardada.';
+   await Notas.add({slide:box.dataset.slide,step:Number(box.dataset.step),section:form.section.value,text,author:author(),files});
+   form.text.value='';form.files.value='';form.querySelector('.notes-file span').textContent='Adjuntar imágenes';status.textContent='Guardada. Puedes seguir o cerrar.';
   }catch(err){status.textContent=err.message;}
   button.disabled=false;
  });
 }
-// Todas las notas juntas, para recogerlas y aplicarlas.
+const author=()=>$('.ed-author')?.value.trim()||store.get('herida-autor');
+
+// ───────────── Cambios de texto ─────────────
+// Correcciones puntuales sin esperar a recompilar: se guardan como «original → nuevo» y se aplican al
+// cargar, también en /ver/. El guion sigue siendo la fuente: los cambios se recogen en ?notas y se pasan a él.
+const Textos={
+ list:[],ok:false,
+ async load(){
+  try{this.list=await api('/api/textos');this.ok=true;}catch{this.list=[];this.ok=false;}
+  this.list.forEach(t=>swap(t.slide,t.original,t.text));
+  return this.list;
+ },
+ origin(slide,text){return this.list.find(t=>t.slide===slide&&t.text===text)?.original??text;},
+ changed(slide,text){return this.list.some(t=>t.slide===slide&&t.text===text);},
+ async save(slide,current,text){
+  const original=this.origin(slide,current);
+  const data=await api('/api/textos',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({slide,original,text,author:author()})});
+  this.list=this.list.filter(t=>!(t.slide===slide&&t.original===original));
+  if(!data.removed)this.list.push(data);
+  swap(slide,current,data.removed?original:text);
+ }
+};
+// Sustituye un texto exacto en los datos de una diapositiva (escena, pasos, momento y su recurso).
+function swap(slideId,from,to){
+ const slide=slides.find(x=>x.id===slideId);if(!slide||from===to)return;
+ const seen=new Set();
+ const walk=o=>{
+  if(!o||typeof o!=='object'||seen.has(o))return;seen.add(o);
+  for(const key of Object.keys(o)){if(key==='src'||key==='walkthrough')continue;const v=o[key];if(typeof v==='string'){if(v===from)o[key]=to;}else walk(v);}
+ };
+ walk(slide.scene);walk(slide.steps);walk(slide.block);if(slide.scene)walk(R[slide.scene.n]);
+}
+// Rehace la diapositiva actual con los textos nuevos, sin animación.
+function refresh(){if(!el)return;const old=el;el=build(slides[si]);old.replaceWith(el);apply(0,false);}
+// Los textos que se ven en este paso y se pueden corregir.
+function editable(slide,k){
+ const s=slide.scene,st=slide.steps[k],v=view(slide,k),out=[];
+ const add=(label,text)=>{if(text&&!out.some(f=>f.text===text))out.push({label,text});};
+ if(s?.habit){add('A revisar',s.habit);if(v.ask)add('Nos preguntamos',s.ask);if(v.take)add('Nos llevamos',s.take);}
+ if(slide.type==='block'){add('Nombre del momento',slide.block.name);add('Pregunta del momento',slide.block.question);}
+ (st.lines||[]).forEach(l=>add(l.who==='herida'?'Lo que dice la herida':'Lo que dice María del Mar',l.text));
+ if(st.kind==='sala')add('Pregunta a la sala',st.sala);
+ if(v.plane==='evidence'){const ev=slide.steps.find(x=>x.kind==='evidence').evidence;add('Evidencia · titular',ev.title);add('Evidencia · idea',ev.idea);add('Evidencia · condición',ev.condition);}
+ if(['resource','ask'].includes(st.kind)&&R[s?.n]?.title)add('Título de lo que trae la herida',R[s.n].title);
+ return out;
+}
+
+// ───────────── Panel flotante de preparación ─────────────
+// Sobre la diapositiva, se abre con N o con el botón «Notas» y se cierra con Esc: una nota sobre lo que
+// se está viendo, o un cambio de texto que se aplica al momento.
+const Editor={
+ el:null,open:false,tab:'nota',slide:null,
+ mount(){
+  if(PUBLICO||ESPEJO)return;
+  const fab=document.createElement('button');fab.id='ed-fab';fab.type='button';fab.innerHTML='<i></i><span>Notas</span><b></b>';fab.title='Notas y cambios (N)';
+  fab.addEventListener('click',()=>this.toggle());document.body.append(fab);
+  this.el=document.createElement('aside');this.el.id='editor';this.el.hidden=true;this.el.setAttribute('aria-label','Notas y cambios de esta diapositiva');
+  this.el.innerHTML=`<header class="ed-head"><div><span class="ed-k">Preparar</span><h2 class="ed-title"></h2><p class="ed-step"></p></div><button class="ed-close" type="button" aria-label="Cerrar (Esc)">×</button></header><nav class="ed-tabs"><button type="button" data-tab="nota">Nota</button><button type="button" data-tab="textos">Cambiar textos</button></nav><div class="ed-body"></div><footer class="ed-foot"><input class="ed-author" placeholder="Tu nombre" autocomplete="name" aria-label="Tu nombre"><a href="?notas" target="_blank">Ver todas las notas y cambios</a></footer>`;
+  document.body.append(this.el);
+  this.el.querySelector('.ed-author').value=store.get('herida-autor');
+  this.el.querySelector('.ed-close').addEventListener('click',()=>this.close());
+  this.el.querySelector('.ed-tabs').addEventListener('click',e=>{const t=e.target.closest('[data-tab]');if(t){this.tab=t.dataset.tab;this.render(true);}});
+  this.el.addEventListener('click',e=>this.textClick(e));
+  bindNotes(this.el);
+  Notas.listeners.add(()=>this.count());
+  Notas.load();
+ },
+ toggle(){this.open?this.close():this.show();},
+ show(){if(!this.el)return;this.open=true;this.el.hidden=false;document.body.classList.add('is-editing');this.render(true);setTimeout(()=>this.el.querySelector('textarea')?.focus(),60);},
+ close(){if(!this.el||!this.open)return;this.open=false;this.el.hidden=true;document.body.classList.remove('is-editing');},
+ count(){const b=$('#ed-fab b');if(b){const n=Notas.of(slides[si]?.id).length;b.textContent=n||'';}},
+ // Al avanzar con el panel abierto, sigue a la diapositiva sin perder lo que se está escribiendo.
+ follow(){this.count();if(!this.open)return;const s=slides[si];const draft=this.el.querySelector('.notes textarea')?.value||this.el.querySelector('.ed-field.is-dirty');if(this.slide===s.id&&draft){this.header();const box=this.el.querySelector('.notes');if(box)box.dataset.step=k;return;}this.render(this.slide!==s.id);},
+ header(){const s=slides[si];this.el.querySelector('.ed-title').textContent=slideTitle(s);this.el.querySelector('.ed-step').textContent=`Paso ${k+1} de ${s.steps.length} · ${STEP_KIND[s.steps[k].kind]||''}`;this.el.querySelectorAll('.ed-tabs button').forEach(b=>b.classList.toggle('is-on',b.dataset.tab===this.tab));},
+ render(){
+  const s=slides[si];this.slide=s.id;this.header();
+  const body=this.el.querySelector('.ed-body');
+  if(this.tab==='nota'){body.innerHTML=noteBox(s,k);Notas.notify();return;}
+  const fields=editable(s,k);
+  body.innerHTML=Notas.ok===false&&!Textos.ok?'<p class="ed-off">Los cambios de texto se guardan en la versión publicada, después de entrar con la contraseña.</p>':fields.length?`<p class="ed-hint">Corrige palabras o frases de lo que se ve en este paso. El cambio se aplica al momento en la presentación y queda anotado para pasarlo al guion.</p>${fields.map((f,i)=>`<div class="ed-field ${Textos.changed(s.id,f.text)?'is-changed':''}" data-i="${i}"><label for="ed-t${i}">${esc(f.label)}${Textos.changed(s.id,f.text)?'<span>cambiado</span>':''}</label><textarea id="ed-t${i}" rows="${Math.min(5,Math.ceil(f.text.length/46)+1)}">${esc(f.text)}</textarea><div class="ed-row"><button type="button" data-save>Guardar cambio</button>${Textos.changed(s.id,f.text)?'<button type="button" data-revert class="is-quiet">Volver al original</button>':''}<small class="ed-status"></small></div></div>`).join('')}`:'<p class="ed-off">En este paso no hay textos que cambiar.</p>';
+  body.dataset.fields=JSON.stringify(fields.map(f=>f.text));
+  body.querySelectorAll('.ed-field textarea').forEach(t=>t.addEventListener('input',()=>t.closest('.ed-field').classList.add('is-dirty')));
+ },
+ async textClick(e){
+  const btn=e.target.closest('[data-save],[data-revert]');if(!btn)return;
+  const field=btn.closest('.ed-field'),status=field.querySelector('.ed-status');
+  const current=JSON.parse(this.el.querySelector('.ed-body').dataset.fields)[Number(field.dataset.i)];
+  const s=slides[si],text=btn.matches('[data-revert]')?Textos.origin(s.id,current):field.querySelector('textarea').value.trim();
+  if(!text){status.textContent='El texto no puede quedar vacío.';return;}
+  if(text===current){status.textContent='No hay cambios.';return;}
+  btn.disabled=true;status.textContent='Guardando…';
+  try{await Textos.save(s.id,current,text);refresh();this.render();}catch(err){status.textContent=err.message;btn.disabled=false;}
+ }
+};
+
+// ───────────── Notas y cambios juntos (?notas) ─────────────
 function notesView(){
  document.documentElement.classList.add('is-guide');
  const render=()=>{
-  const groups=slides.map(s=>({s,list:Notas.of(s.id)})).filter(g=>g.list.length);
-  $('#guia').innerHTML=`<article class="g g-notes"><header class="g-top"><span class="g-kicker">Conversaciones con una herida</span><h1>Notas de preparación</h1><p>${Notas.ok===false?'Las notas solo están disponibles en la versión publicada, después de entrar con la contraseña.':Notas.list.length?`${Notas.list.length} ${Notas.list.length===1?'nota':'notas'} en ${groups.length} ${groups.length===1?'escena':'escenas'}, por orden del recorrido.`:'Todavía no hay notas.'}</p><p class="g-actions"><a href="?guia">Ir a la guía</a>${Notas.list.length?'<button data-export>Descargar todas (.md)</button>':''}</p></header>${groups.map(({s,list})=>`<section class="g-sec"><header><span class="g-kicker">${esc(s.block?`Momento ${s.block.roman}`:'Apertura y cierre')}</span><h2><a href="?guia#g-${esc(s.id)}">${esc(slideTitle(s))}</a></h2></header>${SECCIONES.map(([v,l])=>{const xs=list.filter(n=>n.section===v);return xs.length?`<h3 class="g-h3">${esc(l)}</h3><ol class="notes-list">${xs.map(n=>noteItem(n)).join('')}</ol>`:'';}).join('')}</section>`).join('')}</article>`;
+  const groups=slides.map(s=>({s,list:Notas.of(s.id),texts:Textos.list.filter(t=>t.slide===s.id)})).filter(g=>g.list.length||g.texts.length);
+  const total=Notas.list.length,changes=Textos.list.length;
+  $('#guia').innerHTML=`<article class="g g-notes"><header class="g-top"><span class="g-kicker">Conversaciones con una herida</span><h1>Notas y cambios</h1><p>${Notas.ok===false?'Las notas solo están disponibles en la versión publicada, después de entrar con la contraseña.':total||changes?`${total} ${total===1?'nota':'notas'} y ${changes} ${changes===1?'cambio de texto':'cambios de texto'}, por orden del recorrido.`:'Todavía no hay notas ni cambios.'}</p><p class="g-actions"><a href="./">Abrir la presentación</a><a href="?guia">Abrir la guía</a>${total||changes?'<button data-export>Descargar todo (.md)</button>':''}</p></header>${groups.map(({s,list,texts})=>`<section class="g-sec"><header><span class="g-kicker">${esc(s.block?`Momento ${s.block.roman}`:'Apertura y cierre')}</span><h2><a href="./#${esc(s.id)}">${esc(slideTitle(s))}</a></h2></header>${texts.length?`<h3 class="g-h3">Cambios de texto</h3><ol class="changes">${texts.map(t=>`<li><del>${esc(t.original)}</del><ins>${esc(t.text)}</ins><small>${esc(t.author)} · ${esc(when(t.date))}</small></li>`).join('')}</ol>`:''}${SECCIONES.map(([v,l])=>{const xs=list.filter(n=>n.section===v);return xs.length?`<h3 class="g-h3">${esc(l)}</h3><ol class="notes-list">${xs.map(noteItem).join('')}</ol>`:'';}).join('')}</section>`).join('')}</article>`;
  };
  Notas.listeners.add(render);render();
  $('#guia').addEventListener('click',async e=>{
   if(e.target.closest('[data-export]')){
-   const md='# Notas de preparación · Conversaciones con una herida\n\n'+slides.map(s=>({s,list:Notas.of(s.id)})).filter(g=>g.list.length).map(({s,list})=>`## ${slideTitle(s)}\n\n`+SECCIONES.map(([v,l])=>{const xs=list.filter(n=>n.section===v);return xs.length?`### ${l}\n\n`+xs.map(n=>`- **${n.author}** (${when(n.date)}${n.step!=null?`, paso ${n.step+1}`:''}): ${n.text.replace(/\n/g,'\n  ')}${n.files?.length?'\n  '+n.files.map(f=>`[${f.name}](${location.origin}/api/adjuntos?id=${f.id})`).join(' · '):''}`).join('\n')+'\n':'';}).join('\n')).join('\n');
-   const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([md],{type:'text/markdown'}));a.download='notas-conversaciones-herida.md';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000);
+   const md='# Notas y cambios · Conversaciones con una herida\n\n'+slides.map(s=>({s,list:Notas.of(s.id),texts:Textos.list.filter(t=>t.slide===s.id)})).filter(g=>g.list.length||g.texts.length).map(({s,list,texts})=>`## ${slideTitle(s)}\n\n`+(texts.length?'### Cambios de texto\n\n'+texts.map(t=>`- «${t.original}» → «${t.text}» (${t.author}, ${when(t.date)})`).join('\n')+'\n\n':'')+SECCIONES.map(([v,l])=>{const xs=list.filter(n=>n.section===v);return xs.length?`### ${l}\n\n`+xs.map(n=>`- **${n.author}** (${when(n.date)}${n.step!=null?`, paso ${n.step+1}`:''}): ${n.text.replace(/\n/g,'\n  ')}${n.files?.length?'\n  '+n.files.map(f=>`[${f.name}](${location.origin}/api/adjuntos?id=${f.id})`).join(' · '):''}`).join('\n')+'\n':'';}).join('\n')).join('\n');
+   const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([md],{type:'text/markdown'}));a.download='notas-y-cambios-conversaciones-herida.md';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000);
   }
   const del=e.target.closest('[data-del]');if(del&&confirm('¿Borrar esta nota? No se puede deshacer.')){try{await Notas.remove(del.dataset.del);}catch(err){alert(err.message);}}
  });
- document.title='Notas · Conversaciones con una herida';
+ document.title='Notas y cambios · Conversaciones con una herida';
  Notas.load();
 }
 
 // ───────────── Guía de la ponente (?guia) ─────────────
-// Un recorrido informal, paso a paso, con lo que sale en pantalla y lo que dice cada una.
-// Se escribe a partir de los mismos pasos que se proyectan, así nunca se separa del guion.
+// Por diapositiva: de qué va y, después, el paso a paso. Se escribe con los mismos pasos que se proyectan
+// (y con los cambios de texto guardados), así refleja cada cambio del guion.
 const q=t=>`«${esc(end(t))}»`;
 function partText(n,p){
- const r=R[n];if(!r)return 'Avanza el recurso.';
+ const r=R[n];if(!r)return 'Avanza lo que trae la herida.';
  const walk=r.walk?asset(r.asset).walkthrough?.steps.filter(x=>x.x!=null)||[]:[];
  if(r.type==='imagen'&&r.walk&&!r.auto&&p<=walk.length)return `Se ilumina «${esc(walk[p-1].title)}».`;
  if(r.type==='imagen'&&r.open&&p===r.parts)return `Aparece lo que sigue abierto: ${r.open.items.map(esc).join(', ')}.`;
  if(r.type==='imagen'&&r.then)return `Aparece el esquema: ${r.then.items.map(esc).join(' · ')}.`;
  if(r.type==='imagen')return `Aparece «${esc(r.ask||r.tag)}».`;
  if(r.type==='comparar')return `Aparece el segundo ejemplo: «${esc(r.items[1].tag)}».`;
- if(r.type==='esquema')return `Aparece «${esc(r.cols[1].head)}»${r.link?`, unida por «${esc(r.link)}»`:''}.`;
+ if(r.type==='esquema')return `Aparece «${esc(r.cols[1].head)}».`;
  if(r.type==='registro')return `Se marca lo que falta: «${esc(r.absence[0])}: ${esc(r.absence[1].toLowerCase())}».`;
  if(r.type==='huecos')return `Aparecen los huecos: ${r.missing.items.map(x=>esc(x.toLowerCase())).join(', ')}.`;
- if(r.type==='campos')return p===2?`Aparece «${esc(r.banner)}».`:`Y las tres preguntas: ${r.questions.map(esc).join(' ')}`;
- if(r.type==='imagen-campos'||r.type==='informe')return `Se abren los datos que faltan: ${(r.fields||r.pending).map(x=>esc(x.toLowerCase())).join(', ')}.`;
+ if(r.type==='campos')return p===2?`Aparece «${esc(r.banner)}».`:'Aparecen las tres preguntas para revisar.';
+ if(r.type==='imagen-campos'||r.type==='informe')return `Aparecen los datos que faltan: ${(r.fields||r.pending).map(x=>esc(x.toLowerCase())).join(', ')}.`;
  if(r.type==='opciones')return r.supuesto?`Aparece el supuesto: «${esc(r.supuesto)}».`:`Aparecen las opciones: ${r.items.map(esc).join(', ')}.`;
- if(r.type==='pauta')return `Se abren: ${r.questions.map(x=>esc(x.toLowerCase())).join(', ')}.`;
+ if(r.type==='pauta')return `Aparecen: ${r.questions.map(x=>esc(x.toLowerCase())).join(', ')}.`;
  if(r.type==='imagen-lista')return `Aparecen los aspectos que preguntar: ${r.items.map(x=>esc(x.toLowerCase())).join(', ')}.`;
  if(r.type==='relevo')return `Se distingue «${esc(r.split[0])}» de «${esc(r.split[1])}».`;
- return 'Avanza el recurso.';
+ return 'Avanza lo que trae la herida.';
 }
 function brings(n){
  const r=R[n];if(!r)return 'su recurso';
  if(r.type==='comparar')return 'dos ejemplos publicados';
  if(r.asset)return `la imagen «${esc(asset(r.asset).title)}»`;
- return `${/esquema/i.test(r.label)?'el esquema':'la ficha'} «${esc(r.title)}»`;
+ return `${/esquema/i.test(r.label)?'un esquema':'una ficha'}: «${esc(r.title)}»`;
 }
-const said=st=>{
- const shown=(st.lines||[]).map(l=>l.who==='herida'?`<p class="g-herida"><b>La herida</b> ${q(l.text)}</p>`:`<p class="g-tu"><b>Tú</b> ${q(l.text)}</p>`);
- const onScreen=new Set((st.lines||[]).filter(l=>l.who==='mdm').map(l=>l.text));
- const extra=(st.spoken||[]).filter(t=>!onScreen.has(t)&&t!==st.sala&&t!==st.close).map(t=>`<p class="g-tu is-off"><b>Tú, sin que salga en pantalla</b> ${q(t)}</p>`);
- return [...shown,...extra].join('');
-};
-function guideStep(slide,st,k){
+function whatHappens(slide,st){
  const s=slide.scene,n=s?.n;
- let what='';
  switch(st.kind){
-  case 'still':what=slide.id==='apertura'?'Empezamos con la portada institucional de las jornadas.':'Terminamos con la contraportada institucional.';break;
-  case 'title':what=`Entra el momento ${slide.block.roman}, «${esc(slide.block.name)}», con su pregunta: «${esc(slide.block.question)}».`;break;
-  case 'open':what=`La herida abre la escena. En tu panel se lee lo que vamos a revisar: «${esc(s.habit)}»`;break;
-  case 'resource':what=st.part===1?`La herida trae ${brings(n)}.${R[n]?.walk&&!R[n].auto?' '+partText(n,1):''}`:partText(n,st.part);break;
-  case 'ask':what=`Se tacha «${esc(s.habit)}» y aparece la pregunta: <strong>«${esc(s.ask)}»</strong>`;break;
-  case 'sala':what=`Preguntas a la sala: «${esc(st.sala)}» Deja un par de respuestas, sin abrir debate.`;break;
-  case 'evidence':{const ev=st.evidence;what=`Entra la evidencia: <strong>«${esc(ev.title)}»</strong> (${esc(ev.source)}). La cuentas tú, con tus palabras.${ev.condition?` Que no se te pase la condición: «${esc(end(ev.condition))}»`:''}`;break;}
-  case 'reply':what='La herida contesta a lo que acabas de explicar.';break;
-  case 'take':what=`El aprendizaje entra en tu panel: <strong>«${esc(s.take)}»</strong> Respondes a la pregunta y cierras: ${q(st.close||'')}`;break;
-  case 'bridge':{const nx=slides[slides.indexOf(slide)+1];what=`Sale tu frase para seguir. Con el siguiente clic pasamos a ${nx?.scene?`la escena ${pad(nx.scene.n)}, «${esc(nx.scene.title)}»`:nx?.type==='block'?`el momento ${nx.block.roman}`:'lo siguiente'}.`;break;}
-  case 'blockclose':what=`Cierras el momento «${esc(slide.block.name)}» con las escenas que hemos recorrido a la vista.`;break;
-  case 'page':{const [a,z]=ESCENA_RECOPILACION[st.page];const b=G.blocks.find(b=>b.scenes.includes(a));const rec=(st.recuerda||[]).find(r=>r.block===b.name);const first=ESCENA_RECOPILACION.findIndex(([x])=>G.blocks.find(bb=>bb.scenes.includes(x))===b)===st.page;what=`Recopilación, página ${st.page+1} de ${ESCENA_RECOPILACION.length}: «${esc(b.name)}», escenas ${a}${z>a?'–'+z:''}.${first&&rec?` Lo resumes así: ${q(rec.text)}`:''}`;break;}
-  case 'chips':what=`Aparece «${esc(ESCENA_REGRESO[st.part-1])}», una de las cosas que recoges de la sala.`;break;
-  case 'screen':what=st.what==='portada'?'Arranca con la pregunta de la mesa en grande.':st.what==='presentación de la herida'?'La portada se recoge y aparece la herida: «Os presento a la herida».':`En pantalla: ${esc(st.screen.replace(/^./,c=>c.toUpperCase()))}`;break;
-  case 'say':what='';break;
+  case 'still':return slide.id==='apertura'?'Portada institucional de las jornadas.':'Contraportada institucional.';
+  case 'title':return `Entra el momento ${slide.block.roman}: «${esc(slide.block.name)}».`;
+  case 'open':return `Empieza la escena. En el panel se ve lo que revisamos: «${esc(s.habit)}»`;
+  case 'resource':return st.part===1?`La herida trae ${brings(n)}.${R[n]?.walk&&!R[n].auto?' '+partText(n,1):''}`:partText(n,st.part);
+  case 'ask':return `Se tacha lo que revisamos y aparece la pregunta: <strong>«${esc(s.ask)}»</strong>`;
+  case 'sala':return 'Preguntas a la sala y escuchas un par de respuestas.';
+  case 'evidence':{const ev=st.evidence;return `Entra la evidencia: <strong>«${esc(ev.title)}»</strong> (${esc(ev.source)}).${ev.condition?` Recuerda la condición: «${esc(end(ev.condition))}»`:''}`;}
+  case 'reply':return 'La herida responde.';
+  case 'take':return `Entra lo que nos llevamos: <strong>«${esc(s.take)}»</strong>`;
+  case 'bridge':{const nx=slides[slides.indexOf(slide)+1];return `Frase para pasar a ${nx?.scene?`la escena ${pad(nx.scene.n)}`:nx?.type==='block'?`el momento ${nx.block.roman}`:'lo siguiente'}.`;}
+  case 'blockclose':return `Cierras el momento «${esc(slide.block.name)}».`;
+  case 'page':{const [a,z]=ESCENA_RECOPILACION[st.page];return `Recopilación, página ${st.page+1} de ${ESCENA_RECOPILACION.length}: escenas ${a}${z>a?'–'+z:''}.`;}
+  case 'chips':return `Aparece «${esc(ESCENA_REGRESO[st.part-1])}».`;
+  case 'screen':return st.what==='portada'?'La pregunta de la mesa, en grande.':st.what==='presentación de la herida'?'Aparece la herida: «Os presento a la herida».':st.what==='lo que recuperamos'?'Vuelve el hilo de la escena 1 y el esquema del carro.':st.what==='al terminar el repaso'?'Queda: «Una actuación para revisar en la próxima cura».':st.what==='regreso a la pregunta de la mesa'?'Vuelve la pregunta de la mesa con su respuesta.':st.what==='pregunta final'?'Queda la pregunta final para la sala.':'';
+  default:return '';
  }
- return `<li class="g-step k-${st.kind}"><span class="g-n">${k+1}</span><div>${what?`<p class="g-what">${what}</p>`:''}${st.kind==='resource'&&!st.fresh?'':said(st)}${(st.notes||[]).map(x=>`<p class="g-note">${esc(x)}</p>`).join('')}</div></li>`;
+}
+function guideStep(slide,st,k){
+ const lines=[];
+ if(st.sala)lines.push(`<p class="g-say"><b>Tú, a la sala</b> ${q(st.sala)}</p>`);
+ if(!(st.kind==='resource'&&!st.fresh))(st.lines||[]).forEach(l=>lines.push(`<p class="g-say ${l.who==='herida'?'is-herida':''}"><b>${l.who==='herida'?'La herida':'Tú'}</b> ${q(l.text)}</p>`));
+ const onScreen=new Set((st.lines||[]).filter(l=>l.who==='mdm').map(l=>l.text));
+ if(!(st.kind==='resource'&&!st.fresh))(st.spoken||[]).filter(t=>!onScreen.has(t)&&t!==st.sala).forEach(t=>lines.push(`<p class="g-say is-off"><b>${t===st.close?'Cierras':'Lo explicas tú'}</b> ${q(t)}</p>`));
+ const what=whatHappens(slide,st);
+ return `<li><span class="g-n">${k+1}</span><div>${what?`<p class="g-what">${what}</p>`:''}${lines.join('')}</div></li>`;
+}
+function about(slide){
+ const s=slide.scene,b=slide.block;
+ if(s?.habit){const ev=slide.steps.find(x=>x.kind==='evidence').evidence;return `<p>${esc(s.purpose.replace(/^./,c=>c.toUpperCase()))}</p><p>Partimos de algo que se hace a menudo: <em>«${esc(s.habit)}»</em>. La conversación con la herida lleva a la pregunta <strong>«${esc(s.ask)}»</strong>, la evidencia (${esc(ev.source)}) ayuda a responderla y nos llevamos: <strong>«${esc(s.take)}»</strong></p>`;}
+ if(slide.type==='block')return `<p>${esc(b.purpose.replace(/^./,c=>c.toUpperCase()))}</p><p>La pregunta de este momento: <strong>«${esc(b.question)}»</strong></p>`;
+ if(slide.type==='intro')return `<p>${esc(G.intro.purpose.replace(/^./,c=>c.toUpperCase()))}</p><p>Presentas la pregunta de la mesa y a la herida, que os acompañará toda la charla.</p>`;
+ if(s)return `<p>${esc(s.purpose.replace(/^./,c=>c.toUpperCase()))}</p>`;
+ return '';
 }
 function guideView(){
  document.documentElement.classList.add('is-guide');
  const sec=slide=>{
   const s=slide.scene,b=slide.block;
-  const head=s?`<span class="g-kicker">${b?`Momento ${b.roman} · `:''}Escena ${pad(s.n)} de 24</span><h2>${esc(s.title)}</h2>`:slide.type==='block'?`<span class="g-kicker">Momento ${b.roman} de IV</span><h2>${esc(b.name)}</h2>`:slide.type==='intro'?`<span class="g-kicker">Apertura</span><h2>Antes de acercar el carro</h2>`:`<span class="g-kicker">Institucional</span><h2>${slide.id==='apertura'?'Portada':'Contraportada'}</h2>`;
-  const idea=s?.purpose||(slide.type==='block'?b.purpose:slide.type==='intro'?G.intro.purpose:'');
-  const thread=s?.habit?`<dl class="g-thread"><dt>Revisamos</dt><dd><s>${esc(s.habit)}</s></dd><dt>Nos preguntamos</dt><dd>${esc(s.ask)}</dd><dt>Nos llevamos</dt><dd>${esc(s.take)}</dd></dl>`:'';
-  return `<section class="g-sec" id="g-${slide.id}" ${b?`data-q="${b.n}"`:''}><header>${head}${idea?`<p class="g-idea"><b>La idea</b> ${esc(idea.replace(/^./,c=>c.toUpperCase()))}</p>`:''}</header>${thread}<ol class="g-steps">${slide.steps.map((st,k)=>guideStep(slide,st,k)).join('')}</ol>${s?.support?`<p class="g-support"><b>Respaldo</b> ${esc(s.support)}</p>`:''}${noteBox(slide)}</section>`;
+  const kicker=s?`${b?`Momento ${b.roman} · `:''}Escena ${pad(s.n)}`:slide.type==='block'?`Momento ${b.roman} de IV`:slide.type==='intro'?'Apertura':'Institucional';
+  const title=s?s.title:slide.type==='block'?b.name:slide.type==='intro'?'Antes de acercar el carro':slide.id==='apertura'?'Portada':'Contraportada';
+  return `<section class="g-sec" id="g-${slide.id}" ${b?`data-q="${b.n}"`:''}><header><span class="g-kicker">${esc(kicker)}</span><h2>${esc(title)}</h2></header>${about(slide)?`<div class="g-about"><h3>De qué va</h3>${about(slide)}</div>`:''}<h3 class="g-h3">Paso a paso</h3><ol class="g-steps">${slide.steps.map((st,k)=>guideStep(slide,st,k)).join('')}</ol></section>`;
  };
  const map=G.blocks.map(b=>`<li data-q="${b.n}"><a href="#g-bloque-${b.n}"><b>${b.roman}</b> ${esc(b.name)}</a><span>${b.scenes.map(n=>`<a href="#g-escena-${n}">${pad(n)} ${esc(G.scenes[n-1].title)}</a>`).join('')}</span></li>`).join('');
- $('#guia').innerHTML=`<article class="g"><header class="g-top"><span class="g-kicker">Conversaciones con una herida · IV Jornadas Comisión Heridas Jerez</span><h1>Tu guion, María del Mar</h1><p>Aquí tienes lo que va pasando en pantalla y lo que decís tú y la herida, clic a clic. Cada número es una pulsación. No hace falta aprenderlo ni leerlo en voz alta: es para que sepas siempre dónde estás y qué viene después. Puedes decirlo con tus palabras; lo que conviene no perder son la pregunta, la condición y el aprendizaje de cada escena.</p><p class="g-actions"><a href="?notas">Ver todas las notas</a><a href="./" target="_blank">Abrir la presentación</a><a href="/salir">Salir</a></p><p class="g-hint">Al final de cada escena hay un cuadro para tus notas: elige sobre qué es (la pregunta, la herida, las imágenes, la evidencia u otros), escribe y, si quieres, adjunta tus imágenes. Se guarda solo y lo vemos las dos.</p><ul class="g-keys"><li><b>→</b> o espacio: avanzar</li><li><b>←</b> retroceder</li><li><b>P</b> ventana de ponente</li><li><b>G</b> saltar a una escena</li><li><b>F</b> pantalla completa</li></ul></header><nav class="g-map"><h2>El recorrido</h2><ol>${map}</ol></nav>${slides.map(sec).join('')}<footer class="g-end">Lo que dice la herida son réplicas preparadas; los ejemplos son docentes. La revisión clínica final y la duración se cierran contigo.</footer></article>`;
+ $('#guia').innerHTML=`<article class="g"><header class="g-top"><span class="g-kicker">Conversaciones con una herida · IV Jornadas Comisión Heridas Jerez</span><h1>Tu guion, María del Mar</h1><p>Diapositiva a diapositiva: primero de qué va y luego qué pasa en cada clic. No hace falta aprenderlo; dilo con tus palabras. Lo importante de cada escena es la pregunta, la condición de la evidencia y lo que nos llevamos.</p><p class="g-actions"><a href="./" target="_blank">Abrir la presentación</a><a href="?notas">Notas y cambios</a><a href="/salir">Salir</a></p><p class="g-hint">Para anotar o corregir algo, abre la presentación y pulsa <b>N</b> (o el botón «Notas»): verás la diapositiva mientras escribes.</p></header><nav class="g-map"><h2>El recorrido</h2><ol>${map}</ol></nav>${slides.map(sec).join('')}<footer class="g-end">Lo que dice la herida son réplicas preparadas; los ejemplos son docentes. La revisión clínica final y la duración se cierran contigo.</footer></article>`;
  document.title='Tu guion · Conversaciones con una herida';
- bindNotes($('#guia'));Notas.load();
  if(location.hash)setTimeout(()=>document.getElementById(location.hash.slice(1))?.scrollIntoView(),50);
 }
 
 // ───────────── Arranque ─────────────
 const fromHash=()=>{const [id,step]=decodeURIComponent(location.hash.slice(1)).split('/');const i=slides.findIndex(s=>s.id===id);return i<0?[0,0]:[i,Math.max(0,(Number(step)||1)-1)];};
-document.addEventListener('keydown',key);
-let renderPresenter=null;
-if(notasView){
- document.removeEventListener('keydown',key);notesView();
-}else if(guia){
- document.removeEventListener('keydown',key);guideView();
-}else if(presenter){
- renderPresenter=presenterView();
- // El cuadro de notas solo se rehace al cambiar de escena, para no perder lo que se está escribiendo.
- let notesFor=null;const pvNotes=document.createElement('div');pvNotes.id='pv-notes';document.body.append(pvNotes);bindNotes(pvNotes);Notas.load();
- const sync=(a,b)=>{si=a;k=b;renderPresenter();if(notesFor!==slides[si].id){notesFor=slides[si].id;pvNotes.innerHTML=noteBox(slides[si],{compact:true});pvNotes.querySelectorAll('.notes-author').forEach(i=>{i.value=store.get('herida-autor');});Notas.listeners.forEach(f=>f());}};
- channel?.addEventListener('message',e=>sync(e.data.si,e.data.k));
- const send=(a,b)=>{a=Math.max(0,Math.min(slides.length-1,a));const n=slides[a].steps.length;b=b<0?n-1:Math.min(n-1,Math.max(0,b));sync(a,b);channel?.postMessage({si:a,k:b,from:'ponente'});location.replace('#'+slides[a].id+(b?'/'+(b+1):''));};
- document.removeEventListener('keydown',key);
- document.addEventListener('keydown',e=>{
-  if(e.target.closest?.('input,textarea,select'))return;
-  if(['ArrowRight',' ','PageDown'].includes(e.key)){e.preventDefault();if(k<slides[si].steps.length-1)send(si,k+1);else send(si+1,0);}
-  if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();if(k>0)send(si,k-1);else send(si-1,-1);}
-  if(e.key==='ArrowDown')send(si+1,0);if(e.key==='ArrowUp')send(si-1,0);
- });
- const [a,b]=fromHash();sync(a,b);
-}else{
+(async()=>{
+ // Los cambios de texto guardados se aplican antes de pintar nada (con un límite, por si no hay red).
+ await Promise.race([Textos.load(),new Promise(r=>setTimeout(r,2500))]);
+ if(notasView)return notesView();
+ if(guia)return guideView();
+ if(presenter){
+  const render=presenterView();
+  const sync=(a,b)=>{si=a;k=b;render();};
+  channel?.addEventListener('message',e=>sync(e.data.si,e.data.k));
+  const send=(a,b)=>{a=Math.max(0,Math.min(slides.length-1,a));const n=slides[a].steps.length;b=b<0?n-1:Math.min(n-1,Math.max(0,b));sync(a,b);channel?.postMessage({si:a,k:b,from:'ponente'});location.replace('#'+slides[a].id+(b?'/'+(b+1):''));};
+  document.addEventListener('keydown',e=>{
+   if(e.target.closest?.('input,textarea,select'))return;
+   if(['ArrowRight',' ','PageDown'].includes(e.key)){e.preventDefault();if(k<slides[si].steps.length-1)send(si,k+1);else send(si+1,0);}
+   if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();if(k>0)send(si,k-1);else send(si-1,-1);}
+   if(e.key==='ArrowDown')send(si+1,0);if(e.key==='ArrowUp')send(si-1,0);
+  });
+  const [a,b]=fromHash();sync(a,b);
+  return;
+ }
+ const [a,b]=fromHash();
+ if(ESPEJO){
+  // Sigue a la presentación y a la ponente; el espejo de «siguiente» va un paso por delante.
+  const follow=(x,y)=>{const [p,q2]=QUIETO?nextOf(x,y):[x,y];go(p,q2,QUIETO?0:undefined);};
+  channel?.addEventListener('message',e=>follow(e.data.si,e.data.k));
+  await document.fonts.ready;follow(a,b);
+  return;
+ }
+ document.addEventListener('keydown',key);
  channel?.addEventListener('message',e=>{if(e.data.from==='ponente')go(e.data.si,e.data.k);});
- $('#hud').addEventListener('click',e=>{const a=e.target.closest('[data-act]')?.dataset.act;if(a==='prev')prev();if(a==='next')next();if(a==='overview')overview();if(a==='fullscreen')fullscreen();if(a==='presenter')openPresenter();if(a==='guide')window.open(location.pathname+'?guia','guia');});
- $('#overview').addEventListener('click',e=>{const b=e.target.closest('[data-go]');if(b){overview(false);go(Number(b.dataset.go),0);}else if(e.target.id==='overview')overview(false);});
+ $('#hud').addEventListener('click',e=>{const act=e.target.closest('[data-act]')?.dataset.act;if(act==='prev')prev();if(act==='next')next();if(act==='overview')overview();if(act==='fullscreen')fullscreen();if(act==='presenter')openPresenter();if(act==='guide')window.open(location.pathname+'?guia','guia');});
+ $('#overview').addEventListener('click',e=>{const btn=e.target.closest('[data-go]');if(btn){overview(false);go(Number(btn.dataset.go),0);}else if(e.target.id==='overview')overview(false);});
  stage.addEventListener('click',e=>{if(e.target.closest('a,button'))return;const r=stage.getBoundingClientRect();(e.clientX-r.left<r.width*.18?prev:next)();});
  let idle;document.addEventListener('pointermove',()=>{document.body.classList.add('show-hud');clearTimeout(idle);idle=setTimeout(()=>document.body.classList.remove('show-hud'),2200);});
  addEventListener('resize',()=>{lastPlace=null;apply(0);});
- const [a,b]=fromHash();
- document.fonts.ready.then(()=>go(a,b,1));
+ Editor.mount();
+ await document.fonts.ready;go(a,b,1);
  globalThis.Escena={slides,go,next,prev,state:()=>({si,k,id:slides[si].id,view:view(slides[si],k)})};
-}
+})();
 })();
