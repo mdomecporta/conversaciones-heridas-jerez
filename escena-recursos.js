@@ -3,10 +3,11 @@
 // parts: cuántos avances tiene el recurso antes de la pregunta. thumb: queda en miniatura durante la evidencia.
 // auto: las zonas de la imagen se recorren solas en lugar de una por avance.
 const ESCENA_RECURSOS={
+ // Foto del carro: al añadirla a resources.json como 'carro', añadir aquí side con ese asset. La escena 22 reutiliza este recurso.
  1:{type:'esquema',label:'Esquema docente',title:'Antes de acercar el carro',parts:2,
   cols:[{head:'Material preparado',items:['El carro está listo','El apósito ya está elegido']},{head:'Historia por conocer',empty:3}],link:'¿Y antes?'},
- 2:{type:'registro',label:'Registro ficticio · propuesta docente',title:'Registro de intervenciones',parts:2,
-  rows:[['Visita 1','Cura local'],['Visita 2','Se repite'],['Visita 3','Se repite']],absence:['Respuesta de la herida','Sin datos comparables']},
+ 2:{type:'registro',label:'Notas ficticias · propuesta docente',title:'Notas de las últimas curas',parts:2,
+  rows:[['Visita 1','Limpieza · apósito · próxima cita'],['Visita 2','Limpieza · apósito · próxima cita'],['Visita 3','Limpieza · apósito · próxima cita']],absence:['Cómo ha respondido la herida','No consta']},
  3:{type:'huecos',label:'Ficha docente',title:'La historia y sus huecos',parts:2,
   known:{head:'Lo que sabemos',items:['Lleva tiempo abierta','Se han hecho curas']},missing:{head:'Lo que falta',items:['Causa','Antecedentes relevantes','Factores que la mantienen']}},
  4:{type:'imagen',asset:'wound-zones',parts:4,walk:true,thumb:true},
@@ -28,7 +29,7 @@ const ESCENA_RECURSOS={
   open:{head:'Siguen abiertas',items:['Perfusión','Carga','Respuesta al plan']}},
  13:{type:'opciones',label:'Esquema docente · sin orden de potencia',title:'Lo que cabe en «antimicrobiano»',parts:2,
   ask:'¿Está indicada una intervención antimicrobiana?',items:['Antibiótico','Antiséptico','Apósito antimicrobiano']},
- 14:{type:'pauta',label:'Pauta docente',title:'Pauta antimicrobiana',parts:2,
+ 14:{type:'pauta',label:'Pauta docente · supuesto',title:'Pauta con apósito de plata',parts:2,
   fields:[['Inicio',true],['Objetivo',true],['Revisión',false]],questions:['Qué esperábamos','Qué ha cambiado','Qué justifica continuar']},
  15:{type:'imagen',asset:'wound-zones',parts:2,walk:true,auto:true,thumb:true,ask:'¿Qué necesita la limpieza hoy?',
   then:{head:'Según valoración y tolerancia',items:['Con qué','Cómo','Con qué fuerza']}},

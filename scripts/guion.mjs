@@ -27,9 +27,11 @@ function beats(lines){
   const screen=label.match(/^En pantalla · (.+)$/);
   if(screen){out.push({kind:'screen',what:screen[1],text:rest});continue;}
   if(/^La herida/.test(label)){out.push({kind:'herida',text:quote(rest)});continue;}
-  if(/^María del Mar, a la sala/.test(label)){out.push({kind:'sala',text:quote(rest),after:rest.slice(rest.lastIndexOf('»')+1).replace(/^\.\s*/,'').trim()});continue;}
+  if(/^María del Mar, a la sala/.test(label)){const q=quote(rest);out.push({kind:'sala',text:q,after:rest.slice(rest.indexOf('«')+q.length+2).replace(/^\.\s*/,'').trim()});continue;}
   if(/^María del Mar cierra el bloque/.test(label)){out.push({kind:'blockclose',text:quote(rest)});continue;}
   if(/^María del Mar abre el bloque/.test(label)){out.push({kind:'blockopen',text:quote(rest)});continue;}
+  // Orientación privada: lo que desarrolla con sus palabras. No se proyecta ni se recita.
+  if(/^María del Mar, con sus palabras/.test(label)){out.push({kind:'develop',text:rest.trim()});continue;}
   if(/^María del Mar cierra/.test(label)){out.push({kind:'cierra',text:quote(rest)});continue;}
   if(/^María del Mar/.test(label)){out.push({kind:'mdm',text:quote(rest)});continue;}
   if(label==='Para seguir'){out.push({kind:'seguir',text:quote(rest)});continue;}
@@ -77,6 +79,7 @@ function practiceSteps(bs){
    say(step,'mdm',b.text);
    continue;
   }
+  if(b.kind==='develop'){(step.develop??=[]).push(b.text);continue;}
   if(b.kind==='sala'){push({kind:'sala',sala:b.text,after:b.after});spoken(step,b.text);continue;}
   if(b.kind==='cierra'){spoken(step,b.text);step.close=b.text;continue;}
   if(b.kind==='seguir'){push({kind:'bridge',lines:[{who:'mdm',text:b.text}],spoken:[b.text]});continue;}
@@ -99,10 +102,11 @@ function dialogueSteps(bs){
    continue;
   }
   if(b.kind==='herida'){
-   // Responde a la frase visible de María del Mar o a una pantalla; tras una explicación o la sala, abre paso.
-   const attach=step&&step.kind!=='sala'&&!step.lines?.some(l=>l.who==='herida')&&(step.lines?.some(l=>l.who==='mdm')||!step.spoken);
+   // Responde a la frase visible de María del Mar o a una pantalla; tras una explicación (también la orientada «con sus palabras») o la sala, abre paso.
+   const attach=step&&step.kind!=='sala'&&!step.develop&&!step.lines?.some(l=>l.who==='herida')&&(step.lines?.some(l=>l.who==='mdm')||!step.spoken);
    if(!attach)push({kind:'say'});(step.lines??=[]).push({who:'herida',text:b.text});continue;
   }
+  if(b.kind==='develop'){if(!step)push({kind:'say'});(step.develop??=[]).push(b.text);continue;}
   if(b.kind==='sala'){push({kind:'sala',sala:b.text,after:b.after,spoken:[b.text]});continue;}
   if(b.kind==="recuerda"&&step){(step.recuerda??=[]).push({block:b.block,text:b.text});continue;}
   if(b.kind==='note'&&step){(step.notes??=[]).push(b.text);continue;}
