@@ -1,5 +1,5 @@
-// Narrative edition (27/10/2026): the 24 scenes of RECORRIDO_NARRATIVO_24_ESCENAS.md.
-// Three voices: science on the left, the wound on the right, María del Mar through the steps.
+// Editorial edition (30/10/2026): 21 practices, return, full summary and farewell.
+// Two interlocutors; science has its own moment, source and conditions.
 // Each step is "action | cue". Actions (space separated): tN ask turn N, iN select item N,
 // pN highlight point N (p alone: all), razon reveal reasoning, practica avoid/propose, enlace bridge.
 (() => {
@@ -7,10 +7,10 @@
  delete REFERENCES.W21;
  delete REFERENCES.P25;
  const MOVES=[
-  {short:'Antes de empezar',sub:'Historia, causa y valoración'},
-  {short:'Durante la cura',sub:'Respuesta, indicación y tolerancia'},
-  {short:'Cuando algo no encaja',sub:'Seguridad, diagnóstico y objetivos'},
-  {short:'Antes de irnos',sub:'Acuerdos, revisión y continuidad'}
+  {short:'Antes de empezar',sub:'¿Qué necesitamos saber antes de elegir?'},
+  {short:'Durante la cura',sub:'¿Por qué lo hacemos y cómo sabremos si ayuda?'},
+  {short:'Cuando algo no encaja',sub:'¿Qué nos hace cambiar de camino o de objetivo?'},
+  {short:'Antes de irnos',sub:'¿Qué dejamos acordado para la próxima visita?'}
  ];
  // The five closing questions (scene 23) are the learning thread of every scene.
  [["Comprender", "¿Qué explica esta herida y qué la mantiene abierta?"], ["Acordar", "¿Qué queremos conseguir con la persona y qué es posible hoy?"], ["Decidir", "¿Por qué hacemos esta intervención?"], ["Comprobar", "¿Qué ha cambiado y con qué lo comparamos?"], ["Reevaluar", "¿Cuándo revisamos el plan o pedimos ayuda antes?"]].forEach(([short,text],i)=>Object.assign(QUESTIONS[i],{short,text}));
@@ -19,7 +19,7 @@
     "id": "apertura",
     "mov": 0,
     "q": null,
-    "title": "Valorar antes de elegir.",
+    "title": "Antes de elegir",
     "label": "Valorar antes de elegir",
     "exp": "Antes de elegir el tratamiento tópico, diagnosticar y valorar. Hoy lo recorremos conversando con un personaje que reúne historias de heridas y nos ayuda a revisar las decisiones de cuidado.",
     "points": [
@@ -37,7 +37,7 @@
       ]
     ],
     "avoid": "Empezar la cura eligiendo el producto.",
-    "propose": "Empezar por qué sabemos y qué información falta, sin demorar cuidados necesarios.",
+    "propose": "Valorar y orientar el diagnóstico antes de elegir, sin demorar cuidados necesarios.",
     "refs": [
       "G14"
     ],
@@ -114,28 +114,42 @@
       }
     ],
     "bridge": "Enséñame esas notas. Vamos a ver qué cuentan.",
-    "md": "«Hoy viene conmigo alguien a quien conocéis, aunque no la hayáis oído hablar así. La herida y yo tenemos unas cuantas conversaciones pendientes». Deja entrar su réplica sin leerla encima. A la sala: «Antes de empezar, ¿qué dos cosas querríais saber?». No prometas datos reales ni un desenlace.",
+    "md": "«Hoy viene conmigo alguien a quien conocéis, aunque no la hayáis oído hablar así. La herida y yo tenemos unas cuantas conversaciones pendientes». Deja entrar su réplica sin leerla encima. A la sala: «Antes de empezar, ¿qué dos cosas querríais saber?». No prometas datos reales ni un desenlace.\n\nRECORRIDO EDITORIAL\nActuación: Elegir el apósito antes de valorar.\nPregunta: ¿Qué sabemos y qué nos falta?\nAprendizaje: Valorar y orientar el diagnóstico antes de elegir, sin demorar cuidados necesarios.\nEn el paso científico, la herida escucha y el concepto toma el foco. La fuente y las condiciones acompañan la explicación.",
     "steps": [
       [
-        "t1 p1",
+        "practica",
+        "Pregunta a la sala para orientar la escucha: «¿Qué sabemos y qué nos falta?». No abrir una ronda en cada escena."
+      ],
+      [
+        "t1",
         "«Antes de tocar el carro, ¿qué necesitaríais saber?». Recoge dos preguntas de la sala."
       ],
       [
-        "t2 p2 p3",
+        "t2",
         "«Vamos a mirar lo que se ha hecho y lo que falta». La valoración no demora lo urgente."
       ],
       [
+        "p1",
+        "Explica el fundamento: Antes de elegir el tratamiento tópico, diagnosticar y valorar. Hoy lo recorremos conversando con un personaje que reúne historias de heridas y nos ayuda a revisar las decisiones de cuidado. Fuente: GNEAUPP · DT XIV (2020), p. 15: diagnóstico y valoración antes del tratamiento tópico. Apertura y participación: recursos docentes. Condición que debe decirse: La valoración no demora cuidados necesarios ni medidas urgentes."
+      ],
+      [
         "enlace",
-        "Enséñame esas notas. Vamos a ver qué cuentan."
+        "Responde la pregunta: «Valorar y orientar el diagnóstico antes de elegir, sin demorar cuidados necesarios.». Haz una pausa. Después enlaza: «Enséñame esas notas. Vamos a ver qué cuentan.»"
       ]
     ],
-    "voice": "principal"
+    "voice": "principal",
+    "habit": "Elegir el apósito antes de valorar.",
+    "ask": "¿Qué sabemos y qué nos falta?",
+    "role": "practice",
+    "safety": "La valoración no demora cuidados necesarios ni medidas urgentes.",
+    "scienceTitle": "La valoración orienta la elección",
+    "scienceText": "El diagnóstico identifica la causa, las enfermedades concomitantes y las complicaciones que condicionan el tratamiento."
   },
   {
     "id": "registro",
     "mov": 0,
     "q": 3,
-    "title": "Registrar la cura y su respuesta.",
+    "title": "Las notas de la última cura",
     "label": "Registro y evolución",
     "exp": "Un registro de curas cuenta qué se ha hecho. Para decidir también necesitamos saber cómo ha respondido la herida. La reevaluación permite ajustar el plan y detectar complicaciones.",
     "points": [
@@ -153,7 +167,7 @@
       ]
     ],
     "avoid": "Interpretar la repetición de cuidados como prueba de que el plan sigue siendo adecuado.",
-    "propose": "Relacionar lo realizado con la evolución observada.",
+    "propose": "Registrar la intervención y la respuesta para poder revisar el plan.",
     "refs": [
       "G14"
     ],
@@ -234,28 +248,42 @@
       }
     ],
     "bridge": "Antes de juzgar esa pauta, aclaremos qué estaban tratando.",
-    "md": "«Aquí hay cuidados registrados. No estamos poniendo eso en duda. Buscamos qué respuesta tuvieron». La herida pone la ironía; tú reconoces el trabajo y señalas la información ausente. «Enséñame ahora qué sabemos de la causa». Registro conceptual, no historia de una paciente real.",
+    "md": "«Aquí hay cuidados registrados. No estamos poniendo eso en duda. Buscamos qué respuesta tuvieron». La herida pone la ironía; tú reconoces el trabajo y señalas la información ausente. «Enséñame ahora qué sabemos de la causa». Registro conceptual, no historia de una paciente real.\n\nRECORRIDO EDITORIAL\nActuación: Registrar la cura sin comprobar su respuesta.\nPregunta: ¿Qué ha cambiado desde la última visita?\nAprendizaje: Registrar la intervención y la respuesta para poder revisar el plan.\nEn el paso científico, la herida escucha y el concepto toma el foco. La fuente y las condiciones acompañan la explicación.",
     "steps": [
       [
-        "t1 m1 p1",
+        "practica",
+        "Pregunta a la sala para orientar la escucha: «¿Qué ha cambiado desde la última visita?». No abrir una ronda en cada escena."
+      ],
+      [
+        "t1 m1",
         "«Enséñame las notas». Muestra el registro conceptual; no lo atribuyas al personaje."
       ],
       [
-        "cerrar t2 i3 p2 p3",
+        "cerrar t2 i3",
         "«Hay trabajo hecho. Lo que busco es la respuesta». Señala la ausencia de datos comparables, sin reproche."
       ],
       [
+        "p2",
+        "Explica el fundamento: Un registro de curas cuenta qué se ha hecho. Para decidir también necesitamos saber cómo ha respondido la herida. La reevaluación permite ajustar el plan y detectar complicaciones. Fuente: GNEAUPP · DT XIV (2020), p. 15: seguimiento, reevaluación y ajuste del plan. Registro mostrado: recurso docente. "
+      ],
+      [
         "enlace",
-        "Antes de juzgar esa pauta, aclaremos qué estaban tratando."
+        "Responde la pregunta: «Registrar la intervención y la respuesta para poder revisar el plan.». Haz una pausa. Después enlaza: «Antes de juzgar esa pauta, aclaremos qué estaban tratando.»"
       ]
     ],
-    "voice": "principal"
+    "voice": "principal",
+    "habit": "Registrar la cura sin comprobar su respuesta.",
+    "ask": "¿Qué ha cambiado desde la última visita?",
+    "role": "practice",
+    "safety": "",
+    "scienceTitle": "Registrar permite reevaluar",
+    "scienceText": "Repetir elementos de la valoración permite comparar la evolución, detectar complicaciones y ajustar el plan."
   },
   {
     "id": "historia",
     "mov": 0,
     "q": 0,
-    "title": "Una causa que necesitamos conocer.",
+    "title": "La historia y sus huecos",
     "label": "Etiología y diagnóstico",
     "exp": "El diagnóstico debe identificar la causa de la lesión, las enfermedades concomitantes y las complicaciones que contribuyen a ella o retrasan la cicatrización. «Herida crónica» describe la evolución; no la explica.",
     "points": [
@@ -273,7 +301,7 @@
       ]
     ],
     "avoid": "Que «herida crónica» funcione como explicación suficiente.",
-    "propose": "Precisar la etiología y los factores relevantes para el plan.",
+    "propose": "Precisar la causa y los factores que condicionan el plan.",
     "refs": [
       "G14"
     ],
@@ -354,28 +382,42 @@
       }
     ],
     "bridge": "Ahora enséñame la imagen. Pero vamos a mirar también alrededor.",
-    "md": "«Crónica nos dice algo del tiempo. La causa es otra pregunta». Recoge su réplica sin competir por el remate. Distingue lo documentado, la hipótesis y lo pendiente. No atribuyas una etiología a esta historia incompleta.",
+    "md": "«Crónica nos dice algo del tiempo. La causa es otra pregunta». Recoge su réplica sin competir por el remate. Distingue lo documentado, la hipótesis y lo pendiente. No atribuyas una etiología a esta historia incompleta.\n\nRECORRIDO EDITORIAL\nActuación: Dar la causa por explicada al decir «crónica».\nPregunta: ¿Qué la causó y qué la mantiene abierta?\nAprendizaje: Precisar la causa y los factores que condicionan el plan.\nEn el paso científico, la herida escucha y el concepto toma el foco. La fuente y las condiciones acompañan la explicación.",
     "steps": [
       [
-        "t1 p1",
+        "practica",
+        "Pregunta a la sala para orientar la escucha: «¿Qué la causó y qué la mantiene abierta?». No abrir una ronda en cada escena."
+      ],
+      [
+        "t1",
         "«No me lo vas a poner tan fácil. ¿Qué cuenta esta historia?». Distingue tiempo y causa."
       ],
       [
-        "t2 m1 p2 p3",
+        "t2 m1",
         "«Distingamos lo que consta de lo que falta comprobar». La imagen ilustra valoración, no confirma un diagnóstico."
       ],
       [
-        "cerrar enlace",
-        "Ahora enséñame la imagen. Pero vamos a mirar también alrededor."
+        "cerrar p1",
+        "Explica el fundamento: El diagnóstico debe identificar la causa de la lesión, las enfermedades concomitantes y las complicaciones que contribuyen a ella o retrasan la cicatrización. «Herida crónica» describe la evolución; no la explica. Fuente: GNEAUPP · DT XIV (2020), p. 15: causa, enfermedades concomitantes y complicaciones. "
+      ],
+      [
+        "enlace",
+        "Responde la pregunta: «Precisar la causa y los factores que condicionan el plan.». Haz una pausa. Después enlaza: «Ahora enséñame la imagen. Pero vamos a mirar también alrededor.»"
       ]
     ],
-    "voice": "principal"
+    "voice": "principal",
+    "habit": "Dar la causa por explicada al decir «crónica».",
+    "ask": "¿Qué la causó y qué la mantiene abierta?",
+    "role": "practice",
+    "safety": "",
+    "scienceTitle": "La duración deja preguntas abiertas",
+    "scienceText": "El diagnóstico debe explicar la causa y los factores que contribuyen a la lesión o retrasan su cicatrización."
   },
   {
     "id": "zonas",
     "mov": 0,
     "q": 0,
-    "title": "La valoración incluye la piel de alrededor.",
+    "title": "También alrededor",
     "label": "Lecho, borde y piel",
     "exp": "La valoración incluye la lesión y su entorno: lecho, borde, piel perilesional y piel circundante. Observar y describir aporta información; una imagen aislada no sustituye la valoración clínica.",
     "points": [
@@ -397,7 +439,7 @@
       ]
     ],
     "avoid": "Reducir la valoración al aspecto del lecho.",
-    "propose": "Ampliar la observación y relacionarla con la historia.",
+    "propose": "Incorporar la lesión, su entorno y la historia a la valoración.",
     "refs": [
       "G14",
       "I25"
@@ -479,22 +521,26 @@
       }
     ],
     "bridge": "Guarda esa idea. Vamos a comparar dos historias que se parecen.",
-    "md": "«Primero describimos lo que vemos. Luego lo relacionamos con la historia». La réplica sobre la foto expresa complicidad; no sustituye la explicación. Recorre la imagen conceptual sin pedir un diagnóstico por reconocimiento.",
+    "md": "«Primero describimos lo que vemos. Luego lo relacionamos con la historia». La réplica sobre la foto expresa complicidad; no sustituye la explicación. Recorre la imagen conceptual sin pedir un diagnóstico por reconocimiento.\n\nRECORRIDO EDITORIAL\nActuación: Valorar solo el centro.\nPregunta: ¿Qué pasa en el borde y en la piel de alrededor?\nAprendizaje: Incorporar la lesión, su entorno y la historia a la valoración.\nEn el paso científico, la herida escucha y el concepto toma el foco. La fuente y las condiciones acompañan la explicación.",
     "steps": [
       [
-        "t1 m1 h1 p1",
+        "practica",
+        "Pregunta a la sala para orientar la escucha: «¿Qué pasa en el borde y en la piel de alrededor?». No abrir una ronda en cada escena."
+      ],
+      [
+        "t1 m1 h1",
         "Recorre la imagen sin pedir un diagnóstico: lecho."
       ],
       [
-        "h2 p2",
+        "h2",
         "Borde: describir lo observado."
       ],
       [
-        "h3 p3",
+        "h3",
         "Piel perilesional."
       ],
       [
-        "h4 p4",
+        "h4",
         "Piel circundante. IWII 2025, rec. 3."
       ],
       [
@@ -502,18 +548,28 @@
         "Distingue observación e interpretación con una frase."
       ],
       [
+        "p4",
+        "Explica el fundamento: La valoración incluye la lesión y su entorno: lecho, borde, piel perilesional y piel circundante. Observar y describir aporta información; una imagen aislada no sustituye la valoración clínica. Fuente: GNEAUPP · DT XIV (2020), p. 15 · IWII 2025, recomendación 3: herida, borde y piel. "
+      ],
+      [
         "enlace",
-        "Guarda esa idea. Vamos a comparar dos historias que se parecen."
+        "Responde la pregunta: «Incorporar la lesión, su entorno y la historia a la valoración.». Haz una pausa. Después enlaza: «Guarda esa idea. Vamos a comparar dos historias que se parecen.»"
       ]
     ],
-    "voice": "principal"
+    "voice": "principal",
+    "habit": "Valorar solo el centro.",
+    "ask": "¿Qué pasa en el borde y en la piel de alrededor?",
+    "role": "practice",
+    "safety": "",
+    "scienceTitle": "Cuatro zonas que forman parte del cuidado",
+    "scienceText": "La valoración y la limpieza contemplan lecho, borde, piel perilesional y piel circundante. Lo observado se interpreta junto con la historia."
   },
   {
     "id": "parecidas",
     "mov": 0,
     "q": 0,
     "voice": "principal",
-    "title": "La causa y la perfusión cambian el plan.",
+    "title": "Dos historias parecidas",
     "label": "Etiología y situación vascular",
     "exp": "Dos lesiones de pierna pueden parecerse y necesitar planes distintos. La etiología y la situación vascular condicionan las prioridades y la seguridad del tratamiento. No se trata de diagnosticar por la fotografía.",
     "points": [
@@ -531,7 +587,7 @@
       ]
     ],
     "avoid": "Trasladar una pauta por semejanza visual o localización.",
-    "propose": "Identificar qué información cambia la decisión en cada caso.",
+    "propose": "Relacionar las prioridades y la seguridad con la etiología y la perfusión.",
     "refs": [
       "G14",
       "E26"
@@ -609,31 +665,45 @@
       }
     ],
     "bridge": "Volvamos al cambio de apósito. ¿Qué esperamos conseguir con él?",
-    "md": "«La etiología y la perfusión cambian las prioridades y la seguridad». Se trata de dos ejemplos docentes con datos establecidos. Tú explicas la implicación clínica. La herida presenta y compara; no diagnostica ni interpreta una fotografía como prueba.",
+    "md": "«La etiología y la perfusión cambian las prioridades y la seguridad». Se trata de dos ejemplos docentes con datos establecidos. Tú explicas la implicación clínica. La herida presenta y compara; no diagnostica ni interpreta una fotografía como prueba.\n\nRECORRIDO EDITORIAL\nActuación: Copiar la pauta por el parecido.\nPregunta: ¿Qué dato cambia el plan en cada una?\nAprendizaje: Relacionar las prioridades y la seguridad con la etiología y la perfusión.\nEn el paso científico, la herida escucha y el concepto toma el foco. La fuente y las condiciones acompañan la explicación.",
     "steps": [
       [
-        "t1 m1 p1 i2",
+        "practica",
+        "Pregunta a la sala para orientar la escucha: «¿Qué dato cambia el plan en cada una?». No abrir una ronda en cada escena."
+      ],
+      [
+        "t1 m1 i2",
         "Ejemplo A con causa venosa establecida. No pedir diagnóstico por imagen. Relaciona el tratamiento local con el abordaje causal."
       ],
       [
-        "t2 m2 p2",
+        "t2 m2",
         "Ejemplo B: la perfusión cambia prioridades y seguridad. G14, pp. 20–21."
       ],
       [
-        "t3 p3",
+        "t3",
         "Contrasta solo la diferencia que cambia el plan."
       ],
       [
+        "p3",
+        "Explica el fundamento: Dos lesiones de pierna pueden parecerse y necesitar planes distintos. La etiología y la situación vascular condicionan las prioridades y la seguridad del tratamiento. No se trata de diagnosticar por la fotografía. Fuente: GNEAUPP · DT XIV (2020), pp. 20–21 · EWMA (2026), fichas de úlcera venosa e isquemia amenazante. Condición que debe decirse: La etiología viene establecida en estos ejemplos. La imagen no permite diagnosticar."
+      ],
+      [
         "enlace",
-        "Volvamos al cambio de apósito. ¿Qué esperamos conseguir con él?"
+        "Responde la pregunta: «Relacionar las prioridades y la seguridad con la etiología y la perfusión.». Haz una pausa. Después enlaza: «Volvamos al cambio de apósito. ¿Qué esperamos conseguir con él?»"
       ]
-    ]
+    ],
+    "habit": "Copiar la pauta por el parecido.",
+    "ask": "¿Qué dato cambia el plan en cada una?",
+    "role": "practice",
+    "safety": "La etiología viene establecida en estos ejemplos. La imagen no permite diagnosticar.",
+    "scienceTitle": "La etiología cambia las prioridades",
+    "scienceText": "El abordaje causal y la situación vascular condicionan el plan. Dos lesiones parecidas pueden requerir decisiones diferentes."
   },
   {
     "id": "causa",
     "mov": 0,
     "q": 0,
-    "title": "El cuidado local forma parte de un plan.",
+    "title": "El plan junto al apósito",
     "label": "Factores mantenedores",
     "exp": "Cambiar la cobertura no resuelve por sí solo lo que mantiene la lesión. La intervención local se integra con el abordaje de la causa; edema y carga mecánica son ejemplos que requieren valoración e indicación específicas.",
     "points": [
@@ -651,7 +721,7 @@
       ]
     ],
     "avoid": "Que un cambio de cobertura sustituya la revisión de la causa.",
-    "propose": "Comprobar cómo encaja cada intervención en el plan.",
+    "propose": "Relacionar el cuidado local con la causa y los factores mantenedores.",
     "refs": [
       "G14",
       "E22"
@@ -729,14 +799,18 @@
       }
     ],
     "bridge": "Y el plan que proponemos, ¿se puede llevar a cabo fuera de la consulta?",
-    "md": "«Un cambio de cobertura puede tener sentido. Hay que explicar para qué y cómo encaja en el abordaje de la causa». Acepta su contrapunto: no se trata de desacreditar productos. «Ahora enséñame qué hemos preguntado sobre el día a día». No representes la respuesta de la paciente.",
+    "md": "«Un cambio de cobertura puede tener sentido. Hay que explicar para qué y cómo encaja en el abordaje de la causa». Acepta su contrapunto: no se trata de desacreditar productos. «Ahora enséñame qué hemos preguntado sobre el día a día». No representes la respuesta de la paciente.\n\nRECORRIDO EDITORIAL\nActuación: Cambiar de apósito sin revisar la causa.\nPregunta: ¿Qué esperamos que cambie con esta cobertura?\nAprendizaje: Relacionar el cuidado local con la causa y los factores mantenedores.\nEn el paso científico, la herida escucha y el concepto toma el foco. La fuente y las condiciones acompañan la explicación.",
     "steps": [
       [
-        "t1 p1",
+        "practica",
+        "Pregunta a la sala para orientar la escucha: «¿Qué esperamos que cambie con esta cobertura?». No abrir una ronda en cada escena."
+      ],
+      [
+        "t1",
         "Relaciona intervención local y causa, sin explicar todos los tratamientos."
       ],
       [
-        "i2 m1 p2",
+        "i2 m1",
         "Ejemplo venoso: abordaje causal con indicación. G14, pp. 20–22."
       ],
       [
@@ -748,21 +822,31 @@
         "Pregunta para pensar: ¿qué cambio esperamos de otra cobertura?"
       ],
       [
-        "cerrar razon i2 p3",
+        "cerrar razon i2",
         "El producto puede ser pertinente, pero no sustituye a la valoración causal. Conecta la decisión local con los factores mantenedores."
       ],
       [
+        "p3",
+        "Explica el fundamento: Cambiar la cobertura no resuelve por sí solo lo que mantiene la lesión. La intervención local se integra con el abordaje de la causa; edema y carga mecánica son ejemplos que requieren valoración e indicación específicas. Fuente: GNEAUPP · DT XIV (2020), pp. 20–22: etiología venosa, situación arterial y descarga en pie diabético · EWMA 2022, §6.2. Condición que debe decirse: La compresión y la descarga requieren valoración e indicación específicas."
+      ],
+      [
         "enlace",
-        "Y el plan que proponemos, ¿se puede llevar a cabo fuera de la consulta?"
+        "Responde la pregunta: «Relacionar el cuidado local con la causa y los factores mantenedores.». Haz una pausa. Después enlaza: «Y el plan que proponemos, ¿se puede llevar a cabo fuera de la consulta?»"
       ]
     ],
-    "voice": "principal"
+    "voice": "principal",
+    "habit": "Cambiar de apósito sin revisar la causa.",
+    "ask": "¿Qué esperamos que cambie con esta cobertura?",
+    "role": "practice",
+    "safety": "La compresión y la descarga requieren valoración e indicación específicas.",
+    "scienceTitle": "La cobertura forma parte del plan",
+    "scienceText": "La intervención local debe relacionarse con el abordaje de la causa y los factores mantenedores, con indicaciones específicas para cada situación."
   },
   {
     "id": "persona",
     "mov": 0,
     "q": 1,
-    "title": "Un plan que la persona pueda llevar.",
+    "title": "El cuidado en casa",
     "label": "Persona y plan viable",
     "exp": "La perspectiva de la persona forma parte de la valoración y de las decisiones. Un plan explicado no es necesariamente un plan comprendido y viable: dolor, comprensión, apoyo y dificultades cotidianas lo condicionan.",
     "points": [
@@ -780,7 +864,7 @@
       ]
     ],
     "avoid": "Dar por hecho que un plan explicado es un plan comprendido y viable.",
-    "propose": "Preguntar qué dificultades encuentra la persona y qué necesita aclarar.",
+    "propose": "Comprobar comprensión y acordar un plan viable con la persona.",
     "refs": [
       "E22",
       "I25"
@@ -858,28 +942,42 @@
       }
     ],
     "bridge": "Dejemos también previsto cómo comprobar si el plan está ayudando.",
-    "md": "«¿Qué entiende la persona, qué le cuesta y con qué apoyo cuenta?». Tú desarrollas las preguntas sobre dolor, ayuda, comprensión y vida cotidiana. La herida recuerda esa dimensión sin apropiarse de preferencias ni representar a una paciente.",
+    "md": "«¿Qué entiende la persona, qué le cuesta y con qué apoyo cuenta?». Tú desarrollas las preguntas sobre dolor, ayuda, comprensión y vida cotidiana. La herida recuerda esa dimensión sin apropiarse de preferencias ni representar a una paciente.\n\nRECORRIDO EDITORIAL\nActuación: Dar por comprendido y viable el plan explicado.\nPregunta: ¿Qué le cuesta y qué necesita aclarar?\nAprendizaje: Comprobar comprensión y acordar un plan viable con la persona.\nEn el paso científico, la herida escucha y el concepto toma el foco. La fuente y las condiciones acompañan la explicación.",
     "steps": [
       [
-        "t1 m1 p1",
+        "practica",
+        "Pregunta a la sala para orientar la escucha: «¿Qué le cuesta y qué necesita aclarar?». No abrir una ronda en cada escena."
+      ],
+      [
+        "t1 m1",
         "«Pues ayúdame a mirar esa parte». Pregunta por el cuidado fuera de la consulta sin representar una respuesta de paciente."
       ],
       [
-        "t2 m2 p2 p3",
+        "t2 m2",
         "«Hay que preguntar por comprensión, ayuda, dificultades y dolor». EWMA 2022, §4."
       ],
       [
-        "cerrar enlace",
-        "Dejemos también previsto cómo comprobar si el plan está ayudando."
+        "cerrar p3",
+        "Explica el fundamento: La perspectiva de la persona forma parte de la valoración y de las decisiones. Un plan explicado no es necesariamente un plan comprendido y viable: dolor, comprensión, apoyo y dificultades cotidianas lo condicionan. Fuente: EWMA 2022, §4, pp. S15–S16: perspectiva y participación de la persona · IWII 2025, rec. 11: factores individuales. Condición que debe decirse: Las preferencias y dificultades se preguntan a la persona."
+      ],
+      [
+        "enlace",
+        "Responde la pregunta: «Comprobar comprensión y acordar un plan viable con la persona.». Haz una pausa. Después enlaza: «Dejemos también previsto cómo comprobar si el plan está ayudando.»"
       ]
     ],
-    "voice": "principal"
+    "voice": "principal",
+    "habit": "Dar por comprendido y viable el plan explicado.",
+    "ask": "¿Qué le cuesta y qué necesita aclarar?",
+    "role": "practice",
+    "safety": "Las preferencias y dificultades se preguntan a la persona.",
+    "scienceTitle": "El plan se acuerda con la persona",
+    "scienceText": "Comprensión, preferencias, dolor, apoyo y dificultades cotidianas forman parte de las decisiones y de la viabilidad del cuidado."
   },
   {
     "id": "medicion",
     "mov": 1,
     "q": 3,
-    "title": "Una referencia para comparar.",
+    "title": "Una referencia para volver",
     "label": "Medición y seguimiento",
     "exp": "Evaluar la evolución requiere una referencia comparable: medición y descripción con instrumentos válidos, fiables y apropiados para el tipo de lesión y el contexto. Una impresión aislada no demuestra mejora ni empeoramiento.",
     "points": [
@@ -897,7 +995,7 @@
       ]
     ],
     "avoid": "Valorar la evolución solo con impresiones o usar una escala fuera de su ámbito.",
-    "propose": "Establecer una referencia comparable y pertinente.",
+    "propose": "Comparar con herramientas apropiadas y mediciones reproducibles.",
     "refs": [
       "G14"
     ],
@@ -974,10 +1072,14 @@
       }
     ],
     "bridge": "Probemos ahora una situación: ¿y si no vemos el cambio esperado?",
-    "md": "«La impresión tiene que poder contrastarse». Explica qué registrar y con qué herramienta apropiada. No inventes medidas ni resultados. Presenta la escena siguiente como supuesto, no como seguimiento real de una paciente.",
+    "md": "«La impresión tiene que poder contrastarse». Explica qué registrar y con qué herramienta apropiada. No inventes medidas ni resultados. Presenta la escena siguiente como supuesto, no como seguimiento real de una paciente.\n\nRECORRIDO EDITORIAL\nActuación: Quedarnos con «parece que va mejor».\nPregunta: ¿Qué ha cambiado y cómo lo medimos?\nAprendizaje: Comparar con herramientas apropiadas y mediciones reproducibles.\nEn el paso científico, la herida escucha y el concepto toma el foco. La fuente y las condiciones acompañan la explicación.",
     "steps": [
       [
-        "t1 m1 p1",
+        "practica",
+        "Pregunta a la sala para orientar la escucha: «¿Qué ha cambiado y cómo lo medimos?». No abrir una ronda en cada escena."
+      ],
+      [
+        "t1 m1",
         "Establece la referencia inicial: lesión, entorno y persona."
       ],
       [
@@ -985,21 +1087,31 @@
         "La impresión necesita una comparación."
       ],
       [
-        "t3 p2 i3 p3",
+        "t3 i3",
         "G14, p. 15: instrumentos válidos, fiables y adecuados al contexto. Mantener un método comparable en las revisiones."
       ],
       [
+        "p2",
+        "Explica el fundamento: Evaluar la evolución requiere una referencia comparable: medición y descripción con instrumentos válidos, fiables y apropiados para el tipo de lesión y el contexto. Una impresión aislada no demuestra mejora ni empeoramiento. Fuente: GNEAUPP · DT XIV (2020), p. 15: instrumentos válidos, fiables y adecuados al contexto. Ficha de seguimiento: propuesta docente. "
+      ],
+      [
         "enlace",
-        "Probemos ahora una situación: ¿y si no vemos el cambio esperado?"
+        "Responde la pregunta: «Comparar con herramientas apropiadas y mediciones reproducibles.». Haz una pausa. Después enlaza: «Probemos ahora una situación: ¿y si no vemos el cambio esperado?»"
       ]
     ],
-    "voice": "principal"
+    "voice": "principal",
+    "habit": "Quedarnos con «parece que va mejor».",
+    "ask": "¿Qué ha cambiado y cómo lo medimos?",
+    "role": "practice",
+    "safety": "",
+    "scienceTitle": "Comparar requiere una medida apropiada",
+    "scienceText": "Los instrumentos deben ser válidos, fiables e indicados para el contexto y el tipo de lesión. Su validez no se presupone al cambiar de ámbito."
   },
   {
     "id": "reevaluacion",
     "mov": 1,
     "q": 4,
-    "title": "La falta de progreso pide una revisión.",
+    "title": "Cuando no vemos el cambio",
     "label": "Reevaluación",
     "exp": "Cuando la evolución no es la esperada, se reevalúan el diagnóstico, las complicaciones, la intervención y los factores que pueden dificultar la cicatrización. Repetir o intensificar automáticamente no responde a esa pregunta.",
     "points": [
@@ -1017,7 +1129,7 @@
       ]
     ],
     "avoid": "Repetir o intensificar automáticamente el tratamiento.",
-    "propose": "Reabrir la valoración para justificar el siguiente paso.",
+    "propose": "Reabrir la valoración y justificar el siguiente paso.",
     "refs": [
       "G14",
       "E22"
@@ -1099,14 +1211,18 @@
       }
     ],
     "bridge": "Ha salido la infección. Antes de pedir una muestra, aclaremos para qué.",
-    "md": "A la sala: «¿Qué dos posibilidades revisaríais antes de añadir tratamiento?». Ordena las respuestas como hipótesis. La herida puede pinchar la inercia, no atribuir por sí sola una causa al estancamiento. Es la segunda pausa de participación.",
+    "md": "A la sala: «¿Qué dos posibilidades revisaríais antes de añadir tratamiento?». Ordena las respuestas como hipótesis. La herida puede pinchar la inercia, no atribuir por sí sola una causa al estancamiento. Es la segunda pausa de participación.\n\nRECORRIDO EDITORIAL\nActuación: Intensificar sin revisar por qué no avanza.\nPregunta: ¿Qué revisamos antes de añadir tratamiento?\nAprendizaje: Reabrir la valoración y justificar el siguiente paso.\nEn el paso científico, la herida escucha y el concepto toma el foco. La fuente y las condiciones acompañan la explicación.",
     "steps": [
+      [
+        "practica",
+        "Pregunta a la sala para orientar la escucha: «¿Qué revisamos antes de añadir tratamiento?». No abrir una ronda en cada escena."
+      ],
       [
         "t1",
         "Segunda pausa con la sala: pide dos posibilidades ante la falta de progreso."
       ],
       [
-        "razon p1 i2 p2 i3 p3",
+        "razon i2 i3",
         "Reabrir el diagnóstico, sin dar una causa por confirmada. Comprobar complicaciones y situación vascular. Revisar aplicación y tolerancia del plan. G14, p. 15."
       ],
       [
@@ -1114,21 +1230,27 @@
         "Vuelve a la referencia registrada. Ordena las aportaciones como hipótesis."
       ],
       [
-        "cerrar",
-        "Revisa intensificar automáticamente."
+        "cerrar p1",
+        "Explica el fundamento: Cuando la evolución no es la esperada, se reevalúan el diagnóstico, las complicaciones, la intervención y los factores que pueden dificultar la cicatrización. Repetir o intensificar automáticamente no responde a esa pregunta. Fuente: GNEAUPP · DT XIV (2020), p. 15: reevaluación y ajuste del plan · EWMA 2022, §§3 y 6. "
       ],
       [
         "enlace",
-        "Ha salido la infección. Antes de pedir una muestra, aclaremos para qué."
+        "Responde la pregunta: «Reabrir la valoración y justificar el siguiente paso.». Haz una pausa. Después enlaza: «Ha salido la infección. Antes de pedir una muestra, aclaremos para qué.»"
       ]
     ],
-    "voice": "principal"
+    "voice": "principal",
+    "habit": "Intensificar sin revisar por qué no avanza.",
+    "ask": "¿Qué revisamos antes de añadir tratamiento?",
+    "role": "practice",
+    "safety": "",
+    "scienceTitle": "La falta de progreso reabre la valoración",
+    "scienceText": "Reevaluar permite revisar la explicación, detectar complicaciones y decidir si hacen falta otras pruebas o un ajuste del plan."
   },
   {
     "id": "cultivo",
     "mov": 1,
     "q": 2,
-    "title": "Una muestra con una pregunta clínica.",
+    "title": "Antes de pedir la muestra",
     "label": "Indicación de la muestra",
     "exp": "La muestra necesita una indicación, una preparación y una técnica adecuadas, y un resultado que pueda modificar la decisión. Las fuentes desaconsejan el muestreo rutinario de todas las heridas.",
     "points": [
@@ -1146,7 +1268,7 @@
       ]
     ],
     "avoid": "Cultivar por costumbre o interpretar sin saber cómo se obtuvo la muestra.",
-    "propose": "Explicitar la pregunta clínica y obtener información adecuada para responderla.",
+    "propose": "Formular la pregunta clínica y justificar la muestra y su técnica.",
     "refs": [
       "G8",
       "E26"
@@ -1224,14 +1346,18 @@
       }
     ],
     "bridge": "Vamos a imaginar que llega el informe: cultivo positivo.",
-    "md": "«¿Qué sospechamos y qué haríamos distinto con el resultado?». Explica la indicación y la calidad de la muestra. Mala evolución exige valoración, no cultivo automático. El informe siguiente es un supuesto docente.",
+    "md": "«¿Qué sospechamos y qué haríamos distinto con el resultado?». Explica la indicación y la calidad de la muestra. Mala evolución exige valoración, no cultivo automático. El informe siguiente es un supuesto docente.\n\nRECORRIDO EDITORIAL\nActuación: Pedir un cultivo porque toca.\nPregunta: ¿Qué decisión podría cambiar con el resultado?\nAprendizaje: Formular la pregunta clínica y justificar la muestra y su técnica.\nEn el paso científico, la herida escucha y el concepto toma el foco. La fuente y las condiciones acompañan la explicación.",
     "steps": [
       [
-        "t1 m1 p1 i3 p3",
+        "practica",
+        "Pregunta a la sala para orientar la escucha: «¿Qué decisión podría cambiar con el resultado?». No abrir una ronda en cada escena."
+      ],
+      [
+        "t1 m1 i3",
         "Plantea el motivo antes de la muestra. G8, pp. 23–24. Conecta el resultado esperado con una decisión que podría cambiar."
       ],
       [
-        "t2 p2",
+        "t2",
         "La preparación y la técnica condicionan la calidad."
       ],
       [
@@ -1239,17 +1365,27 @@
         "Revisa el motivo: la costumbre no es indicación. La mala evolución exige valorar; no impone automáticamente cultivar."
       ],
       [
+        "p3",
+        "Explica el fundamento: La muestra necesita una indicación, una preparación y una técnica adecuadas, y un resultado que pueda modificar la decisión. Las fuentes desaconsejan el muestreo rutinario de todas las heridas. Fuente: GNEAUPP · DT VIII, pp. 23–24 · EWMA (2026), ficha de úlcera venosa, muestras. Condición que debe decirse: La falta de progreso aislada no obliga a cultivar."
+      ],
+      [
         "enlace",
-        "Vamos a imaginar que llega el informe: cultivo positivo."
+        "Responde la pregunta: «Formular la pregunta clínica y justificar la muestra y su técnica.». Haz una pausa. Después enlaza: «Vamos a imaginar que llega el informe: cultivo positivo.»"
       ]
     ],
-    "voice": "principal"
+    "voice": "principal",
+    "habit": "Pedir un cultivo porque toca.",
+    "ask": "¿Qué decisión podría cambiar con el resultado?",
+    "role": "practice",
+    "safety": "La falta de progreso aislada no obliga a cultivar.",
+    "scienceTitle": "La muestra responde una pregunta clínica",
+    "scienceText": "La indicación, la preparación y la técnica condicionan la utilidad de la muestra. Su resultado debe poder orientar una decisión."
   },
   {
     "id": "infeccion",
     "mov": 1,
     "q": 0,
-    "title": "El cultivo se interpreta con la clínica.",
+    "title": "Cuando llega el informe",
     "label": "Colonización e infección",
     "exp": "La presencia de microorganismos o un cultivo positivo no establecen por sí solos infección clínica. El resultado se interpreta junto con los signos, la evolución y la situación de la persona, teniendo en cuenta que en algunos contextos los signos pueden estar atenuados.",
     "points": [
@@ -1267,7 +1403,7 @@
       ]
     ],
     "avoid": "Convertir un resultado aislado en diagnóstico y tratamiento automático.",
-    "propose": "Completar la valoración clínica antes de decidir.",
+    "propose": "Interpretar el resultado junto con la clínica y la evolución.",
     "refs": [
       "G8",
       "E22"
@@ -1349,14 +1485,18 @@
       }
     ],
     "bridge": "Y cuando no avanza, a veces aparece otra palabra: biofilm.",
-    "md": "«El diagnóstico necesita interpretar el resultado con la clínica». Explica signos, evolución y sus límites. La complicidad se construye al anticipar la pregunta, no bromeando con la infección. Si hay gravedad, la atención no espera.",
+    "md": "«El diagnóstico necesita interpretar el resultado con la clínica». Explica signos, evolución y sus límites. La complicidad se construye al anticipar la pregunta, no bromeando con la infección. Si hay gravedad, la atención no espera.\n\nRECORRIDO EDITORIAL\nActuación: Dar por segura la infección por un cultivo positivo.\nPregunta: ¿Qué signos tienen la herida y la persona?\nAprendizaje: Interpretar el resultado junto con la clínica y la evolución.\nEn el paso científico, la herida escucha y el concepto toma el foco. La fuente y las condiciones acompañan la explicación.",
     "steps": [
       [
-        "t1 m1 p1",
+        "practica",
+        "Pregunta a la sala para orientar la escucha: «¿Qué signos tienen la herida y la persona?». No abrir una ronda en cada escena."
+      ],
+      [
+        "t1 m1",
         "Separa el resultado microbiológico del diagnóstico clínico. G8, p. 17."
       ],
       [
-        "t2 p2 i4 p3",
+        "t2 i4",
         "Relaciona signos, evolución y situación de la persona. Recuerda que en algunos contextos los signos pueden estar atenuados."
       ],
       [
@@ -1364,17 +1504,27 @@
         "Una decisión breve para pensar, sin abrir otro debate completo. Si hay gravedad, la atención no espera."
       ],
       [
+        "p2",
+        "Explica el fundamento: La presencia de microorganismos o un cultivo positivo no establecen por sí solos infección clínica. El resultado se interpreta junto con los signos, la evolución y la situación de la persona, teniendo en cuenta que en algunos contextos los signos pueden estar atenuados. Fuente: GNEAUPP · DT VIII (2021), pp. 17 y 23–24: diagnóstico clínico y muestras · EWMA 2022, §3. Condición que debe decirse: Ante infección extendida o grave, no demorar la atención indicada."
+      ],
+      [
         "enlace",
-        "Y cuando no avanza, a veces aparece otra palabra: biofilm."
+        "Responde la pregunta: «Interpretar el resultado junto con la clínica y la evolución.». Haz una pausa. Después enlaza: «Y cuando no avanza, a veces aparece otra palabra: biofilm.»"
       ]
     ],
-    "voice": "principal"
+    "voice": "principal",
+    "habit": "Dar por segura la infección por un cultivo positivo.",
+    "ask": "¿Qué signos tienen la herida y la persona?",
+    "role": "practice",
+    "safety": "Ante infección extendida o grave, no demorar la atención indicada.",
+    "scienceTitle": "El resultado necesita contexto clínico",
+    "scienceText": "La presencia de microorganismos no demuestra por sí sola infección. Se interpreta junto con signos, evolución y situación de la persona."
   },
   {
     "id": "biofilm",
     "mov": 1,
     "q": 0,
-    "title": "Biofilm: una posibilidad que necesita contexto.",
+    "title": "La hipótesis del biofilm",
     "label": "Biofilm y heridas de difícil cicatrización",
     "exp": "El biofilm tiene un papel en las heridas de difícil cicatrización, y su evaluación tiene límites. Conocer el mecanismo no demuestra que explique esta lesión: la hipótesis convive con la revisión de perfusión, carga, intervención y contexto.",
     "points": [
@@ -1392,7 +1542,7 @@
       ]
     ],
     "avoid": "Que una hipótesis cierre prematuramente el razonamiento.",
-    "propose": "Mantener la revisión de perfusión, carga, intervención y contexto.",
+    "propose": "Mantener el razonamiento y revisar las demás causas posibles.",
     "refs": [
       "E22",
       "E26"
@@ -1474,10 +1624,14 @@
       }
     ],
     "bridge": "Pasemos del nombre del problema al motivo del tratamiento.",
-    "md": "«El concepto puede ayudarnos a entender una posibilidad; no demuestra que explique esta herida». Define desde EWMA y vuelve al razonamiento. La herida no adquiere autoridad científica por acumular experiencias.",
+    "md": "«El concepto puede ayudarnos a entender una posibilidad; no demuestra que explique esta herida». Define desde EWMA y vuelve al razonamiento. La herida no adquiere autoridad científica por acumular experiencias.\n\nRECORRIDO EDITORIAL\nActuación: Decir «será biofilm» y dejar de buscar.\nPregunta: ¿Qué explica esta hipótesis y qué sigue pendiente?\nAprendizaje: Mantener el razonamiento y revisar las demás causas posibles.\nEn el paso científico, la herida escucha y el concepto toma el foco. La fuente y las condiciones acompañan la explicación.",
     "steps": [
       [
-        "t1 m1 h1 p1",
+        "practica",
+        "Pregunta a la sala para orientar la escucha: «¿Qué explica esta hipótesis y qué sigue pendiente?». No abrir una ronda en cada escena."
+      ],
+      [
+        "t1 m1 h1",
         "Presenta el concepto con el modelo, sin atribuirlo al caso. EWMA 2022, §2."
       ],
       [
@@ -1485,25 +1639,35 @@
         "Matriz: una explicación breve."
       ],
       [
-        "h3 p2",
+        "h3",
         "Microorganismos. El modelo no demuestra biofilm en esta herida."
       ],
       [
-        "cerrar t2 p3",
+        "cerrar t2",
         "Mantén abiertas las demás hipótesis."
       ],
       [
+        "p3",
+        "Explica el fundamento: El biofilm tiene un papel en las heridas de difícil cicatrización, y su evaluación tiene límites. Conocer el mecanismo no demuestra que explique esta lesión: la hipótesis convive con la revisión de perfusión, carga, intervención y contexto. Fuente: EWMA 2022, §§2–3: biofilm, biocarga y límites de evaluación. Comparación de hipótesis: síntesis docente. Condición que debe decirse: El modelo no demuestra biofilm en una herida concreta."
+      ],
+      [
         "enlace",
-        "Pasemos del nombre del problema al motivo del tratamiento."
+        "Responde la pregunta: «Mantener el razonamiento y revisar las demás causas posibles.». Haz una pausa. Después enlaza: «Pasemos del nombre del problema al motivo del tratamiento.»"
       ]
     ],
-    "voice": "principal"
+    "voice": "principal",
+    "habit": "Decir «será biofilm» y dejar de buscar.",
+    "ask": "¿Qué explica esta hipótesis y qué sigue pendiente?",
+    "role": "practice",
+    "safety": "El modelo no demuestra biofilm en una herida concreta.",
+    "scienceTitle": "Una hipótesis que no cierra el razonamiento",
+    "scienceText": "El biofilm puede contribuir a la dificultad de cicatrización. Un modelo o el aspecto de una imagen no demuestran que explique esta lesión."
   },
   {
     "id": "antimicrobianos",
     "mov": 1,
     "q": 2,
-    "title": "El antimicrobiano necesita una indicación.",
+    "title": "El motivo del antimicrobiano",
     "label": "Uso responsable de antimicrobianos",
     "exp": "Antibiótico, antiséptico y apósito antimicrobiano tienen funciones y alcances distintos; no se ordenan por potencia. Primero se decide si hace falta una intervención antimicrobiana y después cuál, valorando la gravedad.",
     "points": [
@@ -1521,7 +1685,7 @@
       ]
     ],
     "avoid": "El antibiótico tópico empírico rutinario y la elección «por si acaso».",
-    "propose": "Seleccionar según el problema identificado, sin retrasar la atención sistémica cuando esté indicada.",
+    "propose": "Vincular la elección a la indicación y a la gravedad.",
     "refs": [
       "G8",
       "E22"
@@ -1599,14 +1763,18 @@
       }
     ],
     "bridge": "Si lo indicamos, dejemos preparada también la revisión.",
-    "md": "«Primero la indicación. Después, la elección». Distingue antibiótico, antiséptico y apósito antimicrobiano. Tú explicas alcance, excepciones y actuación ante gravedad. El personaje presenta los recursos; la recomendación se apoya en las fuentes.",
+    "md": "«Primero la indicación. Después, la elección». Distingue antibiótico, antiséptico y apósito antimicrobiano. Tú explicas alcance, excepciones y actuación ante gravedad. El personaje presenta los recursos; la recomendación se apoya en las fuentes.\n\nRECORRIDO EDITORIAL\nActuación: Añadir un antimicrobiano «por si acaso».\nPregunta: ¿Hace falta y qué problema queremos tratar?\nAprendizaje: Vincular la elección a la indicación y a la gravedad.\nEn el paso científico, la herida escucha y el concepto toma el foco. La fuente y las condiciones acompañan la explicación.",
     "steps": [
+      [
+        "practica",
+        "Pregunta a la sala para orientar la escucha: «¿Hace falta y qué problema queremos tratar?». No abrir una ronda en cada escena."
+      ],
       [
         "t2 razon i2",
         "Primero la indicación. G8, pp. 27–30: el resultado aislado no decide. La valoración clínica orienta la actuación."
       ],
       [
-        "t1 m1 p1 i2 p2 i3 p3",
+        "t1 m1 i2 i3",
         "Distingue antibiótico de las intervenciones locales. No son una escalera. Antiséptico: indicación y tolerancia. Apósito antimicrobiano: objetivo y revisión."
       ],
       [
@@ -1614,17 +1782,27 @@
         "No retrasar atención sistémica si está indicada."
       ],
       [
+        "p1",
+        "Explica el fundamento: Antibiótico, antiséptico y apósito antimicrobiano tienen funciones y alcances distintos; no se ordenan por potencia. Primero se decide si hace falta una intervención antimicrobiana y después cuál, valorando la gravedad. Fuente: GNEAUPP · DT VIII, pp. 27–30 · EWMA 2022, §6.2. Condición que debe decirse: Ante infección extendida o grave, no retrasar la atención indicada."
+      ],
+      [
         "enlace",
-        "Si lo indicamos, dejemos preparada también la revisión."
+        "Responde la pregunta: «Vincular la elección a la indicación y a la gravedad.». Haz una pausa. Después enlaza: «Si lo indicamos, dejemos preparada también la revisión.»"
       ]
     ],
-    "voice": "principal"
+    "voice": "principal",
+    "habit": "Añadir un antimicrobiano «por si acaso».",
+    "ask": "¿Hace falta y qué problema queremos tratar?",
+    "role": "practice",
+    "safety": "Ante infección extendida o grave, no retrasar la atención indicada.",
+    "scienceTitle": "La indicación precede a la elección",
+    "scienceText": "Antibiótico, antiséptico y apósito antimicrobiano tienen funciones y alcances diferentes. La elección requiere valoración clínica y de la gravedad."
   },
   {
     "id": "revision-antimicrobiano",
     "mov": 1,
     "q": 4,
-    "title": "La revisión se prepara desde el inicio.",
+    "title": "La revisión pendiente",
     "label": "Revisión del antimicrobiano · plata",
     "exp": "Iniciar un antimicrobiano incluye dejar preparada su revisión. GNEAUPP aconseja con plata en heridas infectadas un periodo inicial máximo de 14 días, seguido de una revaloración crítica de su utilidad, y no recomienda su uso extensivo, prolongado o preventivo.",
     "points": [
@@ -1642,7 +1820,7 @@
       ]
     ],
     "avoid": "Renovar por inercia.",
-    "propose": "Revisar respuesta e indicación, sin trasladar el plazo de la plata a todos los antimicrobianos.",
+    "propose": "Preparar la revisión de respuesta e indicación, respetando el ámbito de la recomendación.",
     "refs": [
       "G8",
       "E22"
@@ -1724,32 +1902,46 @@
       }
     ],
     "bridge": "Ahora enséñame algo que hacemos en cada cura: la limpieza.",
-    "md": "Explica el ámbito concreto de G8 sobre plata y revaloración a los 14 días. «Necesitamos la respuesta para justificar si continuamos, retiramos o cambiamos». Una réplica ligera sobre el calendario basta; no conviertas la indicación en un chiste.",
+    "md": "Explica el ámbito concreto de G8 sobre plata y revaloración a los 14 días. «Necesitamos la respuesta para justificar si continuamos, retiramos o cambiamos». Una réplica ligera sobre el calendario basta; no conviertas la indicación en un chiste.\n\nRECORRIDO EDITORIAL\nActuación: Renovar la plata sin revisar su indicación.\nPregunta: ¿Cuándo comprobamos si todavía hace falta?\nAprendizaje: Preparar la revisión de respuesta e indicación, respetando el ámbito de la recomendación.\nEn el paso científico, la herida escucha y el concepto toma el foco. La fuente y las condiciones acompañan la explicación.",
     "steps": [
       [
-        "t1 p1",
+        "practica",
+        "Pregunta a la sala para orientar la escucha: «¿Cuándo comprobamos si todavía hace falta?». No abrir una ronda en cada escena."
+      ],
+      [
+        "t1",
         "Deja claro el objetivo y la respuesta esperada."
       ],
       [
-        "t2 m1 p2 i4",
+        "t2 m1 i4",
         "G8, p. 38: plata en heridas infectadas, máximo inicial de 14 días y revaloración crítica. No recomienda uso extensivo, prolongado o preventivo. No extrapoles el plazo."
       ],
       [
-        "t3 razon p3 i2",
+        "t3 razon i2",
         "Continuar, retirar o cambiar requiere justificación. Respuesta insuficiente: revisar el diagnóstico y el plan."
       ],
       [
+        "p2",
+        "Explica el fundamento: Iniciar un antimicrobiano incluye dejar preparada su revisión. GNEAUPP aconseja con plata en heridas infectadas un periodo inicial máximo de 14 días, seguido de una revaloración crítica de su utilidad, y no recomienda su uso extensivo, prolongado o preventivo. Fuente: GNEAUPP · DT VIII, p. 38 · EWMA 2022, §6. Condición que debe decirse: Plata en heridas infectadas: máximo inicial de 14 días y revaloración crítica. El plazo no se extrapola."
+      ],
+      [
         "enlace",
-        "Ahora enséñame algo que hacemos en cada cura: la limpieza."
+        "Responde la pregunta: «Preparar la revisión de respuesta e indicación, respetando el ámbito de la recomendación.». Haz una pausa. Después enlaza: «Ahora enséñame algo que hacemos en cada cura: la limpieza.»"
       ]
     ],
-    "voice": "principal"
+    "voice": "principal",
+    "habit": "Renovar la plata sin revisar su indicación.",
+    "ask": "¿Cuándo comprobamos si todavía hace falta?",
+    "role": "practice",
+    "safety": "Plata en heridas infectadas: máximo inicial de 14 días y revaloración crítica. El plazo no se extrapola.",
+    "scienceTitle": "La indicación también se revisa",
+    "scienceText": "La plata requiere revalorar críticamente su utilidad tras el periodo inicial indicado por GNEAUPP. Renovarla exige revisar la respuesta y el motivo."
   },
   {
     "id": "limpieza",
     "mov": 1,
     "q": 2,
-    "title": "La limpieza se adapta a la herida.",
+    "title": "La limpieza de hoy",
     "label": "Limpieza de herida y piel",
     "exp": "La limpieza terapéutica abarca la herida y la piel. Solución, técnica y fuerza se seleccionan según la valoración, los objetivos y las características de cada zona. No es un ritual idéntico en todas las lesiones.",
     "points": [
@@ -1767,7 +1959,7 @@
       ]
     ],
     "avoid": "Una receta idéntica para todas las lesiones o atender solo al lecho.",
-    "propose": "Individualizar la limpieza según zonas, objetivo y tolerancia.",
+    "propose": "Adaptar la limpieza a la valoración y al objetivo.",
     "refs": [
       "G17",
       "I25"
@@ -1849,10 +2041,14 @@
       }
     ],
     "bridge": "Vamos a detenernos en el dolor antes de seguir.",
-    "md": "«Recuperamos una imagen conocida con una pregunta distinta». No repitas la explicación por zonas. Relaciona solución, técnica, objetivo y tolerancia. Conserva la diferencia entre limpieza y desbridamiento.",
+    "md": "«Recuperamos una imagen conocida con una pregunta distinta». No repitas la explicación por zonas. Relaciona solución, técnica, objetivo y tolerancia. Conserva la diferencia entre limpieza y desbridamiento.\n\nRECORRIDO EDITORIAL\nActuación: Limpiar siempre igual.\nPregunta: ¿Qué necesita la limpieza hoy, en cada zona?\nAprendizaje: Adaptar la limpieza a la valoración y al objetivo.\nEn el paso científico, la herida escucha y el concepto toma el foco. La fuente y las condiciones acompañan la explicación.",
     "steps": [
       [
-        "t1 m1 h1 p1",
+        "practica",
+        "Pregunta a la sala para orientar la escucha: «¿Qué necesita la limpieza hoy, en cada zona?». No abrir una ronda en cada escena."
+      ],
+      [
+        "t1 m1 h1",
         "Recupera la imagen conocida: ahora la miramos para decidir cómo limpiar. Lecho."
       ],
       [
@@ -1868,25 +2064,35 @@
         "Piel circundante."
       ],
       [
-        "t2 m2 p2",
+        "t2 m2",
         "IWII 2025, rec. 11: selección según herida, piel, objetivos y persona."
       ],
       [
-        "cerrar i3 p3",
+        "cerrar i3",
         "Comprobar tolerancia y respuesta. Limpieza y desbridamiento no son equivalentes."
       ],
       [
+        "p2",
+        "Explica el fundamento: La limpieza terapéutica abarca la herida y la piel. Solución, técnica y fuerza se seleccionan según la valoración, los objetivos y las características de cada zona. No es un ritual idéntico en todas las lesiones. Fuente: GNEAUPP · DT XVII (2023) · IWII 2025, recomendación 3 y 11, p. 31: zonas y selección de técnica. Condición que debe decirse: Limpieza y desbridamiento son intervenciones diferentes."
+      ],
+      [
         "enlace",
-        "Vamos a detenernos en el dolor antes de seguir."
+        "Responde la pregunta: «Adaptar la limpieza a la valoración y al objetivo.». Haz una pausa. Después enlaza: «Vamos a detenernos en el dolor antes de seguir.»"
       ]
     ],
-    "voice": "principal"
+    "voice": "principal",
+    "habit": "Limpiar siempre igual.",
+    "ask": "¿Qué necesita la limpieza hoy, en cada zona?",
+    "role": "practice",
+    "safety": "Limpieza y desbridamiento son intervenciones diferentes.",
+    "scienceTitle": "La técnica depende de la valoración",
+    "scienceText": "IWII relaciona la selección con la herida y sus bordes, la piel, los objetivos, los factores individuales y los recursos disponibles."
   },
   {
     "id": "dolor",
     "mov": 1,
     "q": 3,
-    "title": "El dolor se anticipa y se revisa.",
+    "title": "El dolor en la cura",
     "label": "Dolor durante la cura",
     "exp": "El dolor se valora antes, se anticipa su manejo, se adapta la técnica durante el procedimiento y se evalúa después. Normalizarlo o mantener una técnica sin revisar su tolerancia no forma parte de un cuidado justificado.",
     "points": [
@@ -1904,7 +2110,7 @@
       ]
     ],
     "avoid": "Normalizar el dolor del procedimiento o mantener una técnica sin revisar su tolerancia.",
-    "propose": "Ajustar el cuidado según la experiencia individual.",
+    "propose": "Anticipar, valorar y revisar el dolor y la tolerancia.",
     "refs": [
       "I25",
       "G14"
@@ -1982,33 +2188,47 @@
       }
     ],
     "bridge": "Te voy a pedir ahora el ejemplo del talón con escara.",
-    "md": "«¿Hemos valorado el dolor y planificado cómo abordarlo?». Desarrolla anticipación, escucha, adaptación y reevaluación desde las fuentes. Sin humor en dolor, sin voz de paciente recreada y sin prometer una cura indolora.",
+    "md": "«¿Hemos valorado el dolor y planificado cómo abordarlo?». Desarrolla anticipación, escucha, adaptación y reevaluación desde las fuentes. Sin humor en dolor, sin voz de paciente recreada y sin prometer una cura indolora.\n\nRECORRIDO EDITORIAL\nActuación: Dar por inevitable el dolor de la cura.\nPregunta: ¿Cómo lo vive y qué podemos ajustar?\nAprendizaje: Anticipar, valorar y revisar el dolor y la tolerancia.\nEn el paso científico, la herida escucha y el concepto toma el foco. La fuente y las condiciones acompañan la explicación.",
     "steps": [
       [
-        "t1 m2 p1",
+        "practica",
+        "Pregunta a la sala para orientar la escucha: «¿Cómo lo vive y qué podemos ajustar?». No abrir una ronda en cada escena."
+      ],
+      [
+        "t1 m2",
         "«Antes de empezar, ¿hemos valorado el dolor y cómo abordarlo?»."
       ],
       [
-        "t2 p2",
+        "t2",
         "«También durante la cura». Explica escucha y adaptación desde IWII, rec. 13."
       ],
       [
-        "t3 m1 p3",
+        "t3 m1",
         "«Y para la siguiente visita, ¿qué necesita quedar registrado?». Sin tiempos universales."
       ],
       [
-        "cerrar enlace",
-        "Te voy a pedir ahora el ejemplo del talón con escara."
+        "cerrar p2",
+        "Explica el fundamento: El dolor se valora antes, se anticipa su manejo, se adapta la técnica durante el procedimiento y se evalúa después. Normalizarlo o mantener una técnica sin revisar su tolerancia no forma parte de un cuidado justificado. Fuente: IWII 2025, recomendación 13, pp. 39–40 · GNEAUPP · DT XIV, p. 28. "
+      ],
+      [
+        "enlace",
+        "Responde la pregunta: «Anticipar, valorar y revisar el dolor y la tolerancia.». Haz una pausa. Después enlaza: «Te voy a pedir ahora el ejemplo del talón con escara.»"
       ]
     ],
-    "voice": "principal"
+    "voice": "principal",
+    "habit": "Dar por inevitable el dolor de la cura.",
+    "ask": "¿Cómo lo vive y qué podemos ajustar?",
+    "role": "practice",
+    "safety": "",
+    "scienceTitle": "La experiencia de dolor cambia el cuidado",
+    "scienceText": "IWII recomienda adaptar la técnica de limpieza e incorporar estrategias de manejo según la experiencia de dolor de la persona."
   },
   {
     "id": "escaras",
     "mov": 2,
     "q": 2,
     "voice": "principal",
-    "title": "La seguridad antes del desbridamiento.",
+    "title": "El talón con escara",
     "label": "Escara seca y desbridamiento",
     "exp": "La presencia de tejido necrótico no basta para decidir. Perfusión, estabilidad y signos de complicación condicionan el desbridamiento cortante. En lesiones isquémicas con escara seca sin revascularizar no se recomienda aplicar ambiente húmedo de forma automática.",
     "points": [
@@ -2026,7 +2246,7 @@
       ]
     ],
     "avoid": "Decidir únicamente por la presencia de tejido necrótico.",
-    "propose": "Valorar seguridad y contexto antes de intervenir.",
+    "propose": "Comprobar la seguridad y el contexto antes de decidir la intervención.",
     "refs": [
       "G14",
       "E26"
@@ -2104,22 +2324,26 @@
       }
     ],
     "bridge": "Vamos con otra historia: una en la que la explicación deja de encajar.",
-    "md": "«En este supuesto, ¿qué cambia la seguridad de intervenir?». Integra perfusión, estabilidad, complicaciones, objetivos y gravedad. No generalices la recomendación a todos los métodos ni presentes el ejemplo como evolución de una misma lesión.",
+    "md": "«En este supuesto, ¿qué cambia la seguridad de intervenir?». Integra perfusión, estabilidad, complicaciones, objetivos y gravedad. No generalices la recomendación a todos los métodos ni presentes el ejemplo como evolución de una misma lesión.\n\nRECORRIDO EDITORIAL\nActuación: Decidir desbridar solo por ver necrosis.\nPregunta: ¿Qué sabemos de la perfusión, la estabilidad y las complicaciones?\nAprendizaje: Comprobar la seguridad y el contexto antes de decidir la intervención.\nEn el paso científico, la herida escucha y el concepto toma el foco. La fuente y las condiciones acompañan la explicación.",
     "steps": [
+      [
+        "practica",
+        "Pregunta a la sala para orientar la escucha: «¿Qué sabemos de la perfusión, la estabilidad y las complicaciones?». No abrir una ronda en cada escena."
+      ],
       [
         "t1 m1",
         "Contrapunto: talón con escara seca y propuesta de desbridamiento cortante."
       ],
       [
-        "h1 p1",
+        "h1",
         "Primer dato: perfusión. G14, pp. 21 y 28."
       ],
       [
-        "h2 p2",
+        "h2",
         "Estabilidad, drenaje y otros signos de complicación."
       ],
       [
-        "h3 p3",
+        "h3",
         "Integra a la persona, sus objetivos y la gravedad."
       ],
       [
@@ -2131,16 +2355,26 @@
         "No generalices la recomendación a todos los métodos o situaciones."
       ],
       [
+        "p2",
+        "Explica el fundamento: La presencia de tejido necrótico no basta para decidir. Perfusión, estabilidad y signos de complicación condicionan el desbridamiento cortante. En lesiones isquémicas con escara seca sin revascularizar no se recomienda aplicar ambiente húmedo de forma automática. Fuente: GNEAUPP · DT XIV, pp. 21 y 28 · EWMA (2026), ficha de isquemia amenazante. Condición que debe decirse: En el talón con escara seca, valorar perfusión, estabilidad y complicaciones. No es una prohibición universal."
+      ],
+      [
         "enlace",
-        "Vamos con otra historia: una en la que la explicación deja de encajar."
+        "Responde la pregunta: «Comprobar la seguridad y el contexto antes de decidir la intervención.». Haz una pausa. Después enlaza: «Vamos con otra historia: una en la que la explicación deja de encajar.»"
       ]
-    ]
+    ],
+    "habit": "Decidir desbridar solo por ver necrosis.",
+    "ask": "¿Qué sabemos de la perfusión, la estabilidad y las complicaciones?",
+    "role": "practice",
+    "safety": "Antes del desbridamiento cortante en extremidades inferiores se necesita valoración vascular. Los signos de complicación cambian la prioridad.",
+    "scienceTitle": "La escara necesita contexto",
+    "scienceText": "GNEAUPP no considera preciso el desbridamiento cortante de la escara seca de talón sin infección, edema, eritema, fluctuación ni drenaje."
   },
   {
     "id": "atipica",
     "mov": 2,
     "q": 0,
-    "title": "Cuando no encaja, revisar el diagnóstico.",
+    "title": "La explicación que no encaja",
     "label": "Heridas atípicas e inflamatorias",
     "exp": "Algunas lesiones inflamatorias pueden parecer infecciosas. Cuando la evolución no encaja, el diagnóstico preciso y la valoración especializada ayudan a evitar tanto el sobretratamiento como el infratratamiento de la infección.",
     "points": [
@@ -2158,7 +2392,7 @@
       ]
     ],
     "avoid": "Acumular intervenciones sobre la misma explicación cuando la evolución no encaja.",
-    "propose": "Reconsiderar el diagnóstico y consultar.",
+    "propose": "Documentar la incertidumbre y solicitar la valoración necesaria.",
     "refs": [
       "E26"
     ],
@@ -2235,32 +2469,46 @@
       }
     ],
     "bridge": "Volvamos a la pregunta de la mesa: qué podemos esperar conseguir.",
-    "md": "«Si los datos no encajan, reabrimos el diagnóstico y valoramos la consulta». Explica desde la ficha clínica. Evita un concurso de reconocimiento por imagen y la atribución de un diagnóstico al personaje abstracto.",
+    "md": "«Si los datos no encajan, reabrimos el diagnóstico y valoramos la consulta». Explica desde la ficha clínica. Evita un concurso de reconocimiento por imagen y la atribución de un diagnóstico al personaje abstracto.\n\nRECORRIDO EDITORIAL\nActuación: Insistir en una explicación que no encaja.\nPregunta: ¿Necesitamos revisar el diagnóstico?\nAprendizaje: Documentar la incertidumbre y solicitar la valoración necesaria.\nEn el paso científico, la herida escucha y el concepto toma el foco. La fuente y las condiciones acompañan la explicación.",
     "steps": [
       [
-        "t1 p1",
+        "practica",
+        "Pregunta a la sala para orientar la escucha: «¿Necesitamos revisar el diagnóstico?». No abrir una ronda en cada escena."
+      ],
+      [
+        "t1",
         "Recupera la pregunta sobre la causa, sin repetir el bloque inicial."
       ],
       [
-        "t2 m1 p2",
+        "t2 m1",
         "EWMA, ficha 1, pp. 3–6: algunas lesiones inflamatorias parecen infecciosas."
       ],
       [
-        "cerrar t3 razon i2 p3",
+        "cerrar t3 razon i2",
         "Contrasta intensificar con revisar la explicación. Documentar la incertidumbre y solicitar valoración especializada."
       ],
       [
+        "p3",
+        "Explica el fundamento: Algunas lesiones inflamatorias pueden parecer infecciosas. Cuando la evolución no encaja, el diagnóstico preciso y la valoración especializada ayudan a evitar tanto el sobretratamiento como el infratratamiento de la infección. Fuente: EWMA (2026), ficha 1, pp. 3–6. Condición que debe decirse: La fotografía ilustra el ejemplo; el diagnóstico requiere valoración."
+      ],
+      [
         "enlace",
-        "Volvamos a la pregunta de la mesa: qué podemos esperar conseguir."
+        "Responde la pregunta: «Documentar la incertidumbre y solicitar la valoración necesaria.». Haz una pausa. Después enlaza: «Volvamos a la pregunta de la mesa: qué podemos esperar conseguir.»"
       ]
     ],
-    "voice": "principal"
+    "voice": "principal",
+    "habit": "Insistir en una explicación que no encaja.",
+    "ask": "¿Necesitamos revisar el diagnóstico?",
+    "role": "practice",
+    "safety": "La fotografía ilustra el ejemplo; el diagnóstico requiere valoración.",
+    "scienceTitle": "La discordancia exige reconsiderar",
+    "scienceText": "Algunas heridas inflamatorias pueden parecer infecciosas. La evolución y los hallazgos que no encajan requieren reconsiderar el diagnóstico y la valoración especializada."
   },
   {
     "id": "capacidad",
     "mov": 2,
     "q": 1,
-    "title": "Objetivos posibles y revisables.",
+    "title": "Lo que podemos conseguir",
     "label": "Posibilidad de cicatrización y objetivos",
     "exp": "La valoración de la herida y de la persona orienta los objetivos. El consenso IWII contempla objetivos de cicatrización, prevención de infección o manejo paliativo. Las prioridades y la viabilidad del cuidado se acuerdan con la persona y se revisan.",
     "points": [
@@ -2278,7 +2526,7 @@
       ]
     ],
     "avoid": "Prometer el cierre o descartarlo solo por antigüedad o etiqueta diagnóstica.",
-    "propose": "Valorar las posibilidades actuales y acordar objetivos.",
+    "propose": "Valorar las posibilidades y acordar objetivos revisables.",
     "refs": [
       "G14",
       "E22",
@@ -2357,14 +2605,18 @@
       }
     ],
     "bridge": "Concretemos ahora qué mejora importa a quien vive con la herida.",
-    "md": "«La posibilidad de cierre se valora. Los objetivos se acuerdan y se revisan». Presenta alivio como otro supuesto docente; no atribuyas imposibilidad de cierre por etiología. La herida no expresa los deseos de la persona.",
+    "md": "«La posibilidad de cierre se valora. Los objetivos se acuerdan y se revisan». Presenta alivio como otro supuesto docente; no atribuyas imposibilidad de cierre por etiología. La herida no expresa los deseos de la persona.\n\nRECORRIDO EDITORIAL\nActuación: Prometer el cierre o descartarlo sin valorar.\nPregunta: ¿Qué podemos conseguir hoy con la persona?\nAprendizaje: Valorar las posibilidades y acordar objetivos revisables.\nEn el paso científico, la herida escucha y el concepto toma el foco. La fuente y las condiciones acompañan la explicación.",
     "steps": [
       [
-        "t1 p1 i2 p2",
+        "practica",
+        "Pregunta a la sala para orientar la escucha: «¿Qué podemos conseguir hoy con la persona?». No abrir una ronda en cada escena."
+      ],
+      [
+        "t1 i2",
         "Recupera la pregunta de la mesa. La valoración orienta el objetivo. Explora las barreras y la viabilidad del plan, sin culpabilizar."
       ],
       [
-        "t2 p3",
+        "t2",
         "Contrapunto docente: objetivo de alivio. IWII 2025, p. 26; EWMA 2022, §4."
       ],
       [
@@ -2372,17 +2624,27 @@
         "Explica que cambiar el objetivo conserva el cuidado y la revisión."
       ],
       [
+        "cerrar p2",
+        "Explica el fundamento: La valoración de la herida y de la persona orienta los objetivos. El consenso IWII contempla objetivos de cicatrización, prevención de infección o manejo paliativo. Las prioridades y la viabilidad del cuidado se acuerdan con la persona y se revisan. Fuente: GNEAUPP · DT XIV, p. 15 · EWMA 2022, §4, pp. S15–S16 · IWII 2025, p. 26. Organización de objetivos: síntesis docente. Condición que debe decirse: Los objetivos se revisan. Una etiqueta diagnóstica no determina por sí sola la posibilidad de cierre."
+      ],
+      [
         "enlace",
-        "Concretemos ahora qué mejora importa a quien vive con la herida."
+        "Responde la pregunta: «Valorar las posibilidades y acordar objetivos revisables.». Haz una pausa. Después enlaza: «Concretemos ahora qué mejora importa a quien vive con la herida.»"
       ]
     ],
-    "voice": "principal"
+    "voice": "principal",
+    "habit": "Prometer el cierre o descartarlo sin valorar.",
+    "ask": "¿Qué podemos conseguir hoy con la persona?",
+    "role": "practice",
+    "safety": "Los objetivos se revisan. Una etiqueta diagnóstica no determina por sí sola la posibilidad de cierre.",
+    "scienceTitle": "Los objetivos se valoran y se acuerdan",
+    "scienceText": "IWII contempla objetivos de cicatrización, prevención de infección o manejo paliativo. La organización de estos objetivos en el recorrido es una síntesis docente."
   },
   {
     "id": "otros-resultados",
     "mov": 2,
     "q": 3,
-    "title": "Una mejora que importe a la persona.",
+    "title": "La mejora que importa",
     "label": "Síntomas y calidad de vida",
     "exp": "Dolor, fugas, olor, sangrado y carga de cuidados pueden ser resultados relevantes. Se acuerdan con la persona, de forma individualizada, y se evalúan respecto al objetivo pactado.",
     "points": [
@@ -2400,7 +2662,7 @@
       ]
     ],
     "avoid": "Medir el beneficio únicamente por el cierre.",
-    "propose": "Acordar qué mejora se busca y cómo comprobarla.",
+    "propose": "Acordar y evaluar resultados relevantes, incluidos síntomas y vida cotidiana.",
     "refs": [
       "E22",
       "I25",
@@ -2487,36 +2749,50 @@
       }
     ],
     "bridge": "Dejemos ese acuerdo preparado para quien continúe el cuidado.",
-    "md": "«¿Qué mejora importa ahora a esta persona?». Explora dolor, descanso o carga de curas sin fingir respuestas ni elegir por ella. Relaciona prioridad y seguimiento, conservando el ámbito específico de las recomendaciones sobre sangrado y trauma.",
+    "md": "«¿Qué mejora importa ahora a esta persona?». Explora dolor, descanso o carga de curas sin fingir respuestas ni elegir por ella. Relaciona prioridad y seguimiento, conservando el ámbito específico de las recomendaciones sobre sangrado y trauma.\n\nRECORRIDO EDITORIAL\nActuación: Valorar el beneficio solo por el cierre.\nPregunta: ¿Qué mejora le importa ahora a la persona?\nAprendizaje: Acordar y evaluar resultados relevantes, incluidos síntomas y vida cotidiana.\nEn el paso científico, la herida escucha y el concepto toma el foco. La fuente y las condiciones acompañan la explicación.",
     "steps": [
+      [
+        "practica",
+        "Pregunta a la sala para orientar la escucha: «¿Qué mejora le importa ahora a la persona?». No abrir una ronda en cada escena."
+      ],
       [
         "t1 m1",
         "Explica cómo preguntar por la prioridad de la persona; no representes una respuesta ni supongas que todas elegirán lo mismo."
       ],
       [
-        "t2 p1",
+        "t2",
         "EWMA 2022, §4: impacto de síntomas y cuidado en la vida cotidiana."
       ],
       [
-        "i5 m2 p2",
+        "i5 m2",
         "Incluye tiempo, esfuerzo y apoyo en la carga del cuidado."
       ],
       [
-        "t3 p3",
+        "t3",
         "Conecta una prioridad con una referencia que permita revisarla."
       ],
       [
+        "p3",
+        "Explica el fundamento: Dolor, fugas, olor, sangrado y carga de cuidados pueden ser resultados relevantes. Se acuerdan con la persona, de forma individualizada, y se evalúan respecto al objetivo pactado. Fuente: EWMA 2022, §4, pp. S15–S16 · IWII 2025, rec. 13, pp. 39–40 · GNEAUPP DT XIV, p. 24: trauma y sangrado en lesiones neoplásicas. Seguimiento: síntesis docente. Condición que debe decirse: Explorar la prioridad con la persona. La recomendación sobre sangrado citada se refiere a heridas neoplásicas."
+      ],
+      [
         "enlace",
-        "Dejemos ese acuerdo preparado para quien continúe el cuidado."
+        "Responde la pregunta: «Acordar y evaluar resultados relevantes, incluidos síntomas y vida cotidiana.». Haz una pausa. Después enlaza: «Dejemos ese acuerdo preparado para quien continúe el cuidado.»"
       ]
     ],
-    "voice": "principal"
+    "voice": "principal",
+    "habit": "Valorar el beneficio solo por el cierre.",
+    "ask": "¿Qué mejora le importa ahora a la persona?",
+    "role": "practice",
+    "safety": "Explorar la prioridad con la persona. La recomendación sobre sangrado citada se refiere a heridas neoplásicas.",
+    "scienceTitle": "El beneficio se define con la persona",
+    "scienceText": "Los síntomas y la carga del cuidado afectan a la vida cotidiana. Las prioridades se preguntan y se acuerda cómo evaluar el resultado buscado."
   },
   {
     "id": "continuidad",
     "mov": 3,
     "q": 4,
-    "title": "Un plan que continúe en la próxima visita.",
+    "title": "Quien venga mañana",
     "label": "Continuidad asistencial",
     "exp": "La continuidad requiere documentar objetivo, intervención, respuesta y próxima revisión, y compartir una vía de consulta. Hay que distinguir el seguimiento programado de los cambios que exigen valorar antes.",
     "points": [
@@ -2534,7 +2810,7 @@
       ]
     ],
     "avoid": "Reconstruir o repetir el plan sin conocer su razonamiento.",
-    "propose": "Compartir información útil y una vía asistencial de consulta.",
+    "propose": "Compartir objetivo, motivo, respuesta, revisión y vía de consulta.",
     "refs": [
       "E22",
       "E26"
@@ -2616,32 +2892,46 @@
       }
     ],
     "bridge": "Volvamos al carro del principio. A ver si ahora empezaríamos igual.",
-    "md": "«¿Podría otra compañera entender qué buscamos, por qué y cuándo revisarlo?». Añade la vía real de consulta del área. Distingue seguimiento programado y deterioro que requiere atención antes, sin inventar contactos ni plazos.",
+    "md": "«¿Podría otra compañera entender qué buscamos, por qué y cuándo revisarlo?». Añade la vía real de consulta del área. Distingue seguimiento programado y deterioro que requiere atención antes, sin inventar contactos ni plazos.\n\nRECORRIDO EDITORIAL\nActuación: Repetir el plan sin conocer su motivo.\nPregunta: ¿Qué necesita saber quien venga mañana?\nAprendizaje: Compartir objetivo, motivo, respuesta, revisión y vía de consulta.\nEn el paso científico, la herida escucha y el concepto toma el foco. La fuente y las condiciones acompañan la explicación.",
     "steps": [
       [
-        "t1 p1 i4",
+        "practica",
+        "Pregunta a la sala para orientar la escucha: «¿Qué necesita saber quien venga mañana?». No abrir una ronda en cada escena."
+      ],
+      [
+        "t1 i4",
         "EWMA 2022, §§4–6: información compartida y coordinación. El relevo es una síntesis docente. Deja prevista la próxima revisión."
       ],
       [
-        "t2 p3",
+        "t2",
         "Distingue revisión programada y deterioro que requiere atención antes."
       ],
       [
-        "t3 m1 p2",
+        "t3 m1",
         "María del Mar explica la vía real de consulta de su área. No inventes contactos."
       ],
       [
+        "cerrar p1",
+        "Explica el fundamento: La continuidad requiere documentar objetivo, intervención, respuesta y próxima revisión, y compartir una vía de consulta. Hay que distinguir el seguimiento programado de los cambios que exigen valorar antes. Fuente: EWMA 2022, §§4–6: participación, comunicación y coordinación · EWMA, fichas de infección e isquemia. Relevo propuesto: síntesis docente. Condición que debe decirse: Adaptar la vía de consulta al circuito real del área. El deterioro puede exigir valorar antes."
+      ],
+      [
         "enlace",
-        "Volvamos al carro del principio. A ver si ahora empezaríamos igual."
+        "Responde la pregunta: «Compartir objetivo, motivo, respuesta, revisión y vía de consulta.». Haz una pausa. Después enlaza: «Volvamos al carro del principio. A ver si ahora empezaríamos igual.»"
       ]
     ],
-    "voice": "principal"
+    "voice": "principal",
+    "habit": "Repetir el plan sin conocer su motivo.",
+    "ask": "¿Qué necesita saber quien venga mañana?",
+    "role": "practice",
+    "safety": "Adaptar la vía de consulta al circuito real del área. El deterioro puede exigir valorar antes.",
+    "scienceTitle": "Compartir el razonamiento permite continuar",
+    "scienceText": "La comunicación y la coordinación sostienen el seguimiento. El formato de relevo que proponemos reúne objetivo, intervención, respuesta, revisión y consulta."
   },
   {
     "id": "regreso",
     "mov": 3,
     "q": 2,
-    "title": "La primera decisión, revisada.",
+    "title": "Volvemos al carro",
     "label": "Reconstruir la decisión",
     "exp": "Reconstruimos la secuencia: información disponible, datos pendientes, objetivo, intervención y evaluación. El final no es elegir otro producto, sino explicar qué pregunta modificaría la siguiente decisión y por qué.",
     "points": [
@@ -2659,7 +2949,7 @@
       ]
     ],
     "avoid": "Convertir el final en «ahora elegimos otro producto».",
-    "propose": "Explicar qué pregunta modificaría la siguiente decisión y por qué.",
+    "propose": "Volver a una decisión conocida y explicar qué preguntaríamos ahora.",
     "refs": [
       "G14",
       "G8",
@@ -2669,7 +2959,7 @@
     "src": "Integración docente de GNEAUPP DT XIV, p. 15; DT VIII, pp. 23–30; EWMA 2022, §4; IWII 2025, rec. 11 y 13. Sin algoritmo ni resultado clínico validado.",
     "type": "Integración docente",
     "limit": "No se presenta una cicatrización ficticia como demostración.",
-    "open": "El carro sigue ahí. Nosotras hemos dado unas cuantas vueltas.",
+    "open": "El carro sigue aquí. ¿Empezaríamos igual?",
     "turns": [
       {
         "label": "¿Te acuerdas de las preguntas del principio?",
@@ -2746,69 +3036,79 @@
         "state": "exploring"
       }
     ],
-    "bridge": "Vamos a dejar las preguntas juntas antes de despedirnos.",
-    "md": "A la sala: «De las preguntas del principio, ¿cuál os ayudaría a cambiar una decisión y por qué?». Una o dos aportaciones. La vuelta al inicio muestra aprendizaje, no una cicatrización ficticia. La última réplica reconoce la complicidad sin dar una moraleja.",
+    "bridge": "Recojamos lo que hemos revisado antes de irnos.",
+    "md": "Recupera una o dos preguntas de apertura. Pregunta qué información pediríamos ahora antes de elegir. La diferencia muestra aprendizaje en el razonamiento, sin representar una evolución clínica ficticia. Abre después la recopilación completa.",
     "steps": [
       [
         "t1 m1",
-        "Breve regreso a la sala: recupera las preguntas iniciales. Una o dos aportaciones."
+        "Recupera las dos preguntas de apertura. Pide una o dos aportaciones: ¿qué preguntaríamos ahora antes de elegir?"
       ],
       [
-        "cerrar t2 p1 i3 p2 i4 p3",
-        "Reconstruye lo que sabemos y lo que falta. Recupera el objetivo acordado. Relaciona intervención y evaluación, sin volver a explicar toda la ponencia."
-      ],
-      [
-        "t3",
-        "Pide un cambio concreto y su motivo."
+        "cerrar t2",
+        "Reconoce el cambio en el razonamiento. La comparación es docente, no una mejoría clínica demostrada."
       ],
       [
         "enlace",
-        "Vamos a dejar las preguntas juntas antes de despedirnos."
+        "Cierra el regreso: «Ahora tenemos más claro qué necesitamos saber». Abre la recopilación completa."
       ]
     ],
-    "voice": "principal"
+    "voice": "principal",
+    "habit": "",
+    "ask": "",
+    "safety": "",
+    "role": "reflection"
   },
   {
     "id": "cinco-preguntas",
     "mov": 3,
     "q": null,
-    "title": "Cinco preguntas para la próxima cura.",
+    "title": "Lo que nos llevamos",
     "label": "Síntesis",
-    "exp": "Cada pregunta recoge un fundamento trabajado en la conversación. Sirven para ordenar y comunicar el razonamiento; no son una escala ni etapas rígidas.",
+    "exp": "Recopilación de las 21 actuaciones revisadas, agrupadas por los cuatro momentos. Los textos proceden de cada escena y conservan su fuente. Las cinco preguntas quedan disponibles como recordatorio complementario.",
     "points": [
       [
-        "Comprender",
-        "¿Qué explica esta herida y qué la mantiene abierta?"
+        "Antes de empezar · 1/2",
+        "Actuaciones 1–4"
       ],
       [
-        "Acordar",
-        "¿Qué queremos conseguir con la persona y qué es posible hoy?"
+        "Antes de empezar · 2/2",
+        "Actuaciones 5–7"
       ],
       [
-        "Decidir",
-        "¿Por qué hacemos esta intervención?"
+        "Durante la cura · 1/3",
+        "Actuaciones 8–10"
       ],
       [
-        "Comprobar",
-        "¿Qué ha cambiado y con qué lo comparamos?"
+        "Durante la cura · 2/3",
+        "Actuaciones 11–13"
       ],
       [
-        "Reevaluar",
-        "¿Cuándo revisamos el plan o pedimos ayuda antes?"
+        "Durante la cura · 3/3",
+        "Actuaciones 14–16"
+      ],
+      [
+        "Cuando algo no encaja",
+        "Actuaciones 17–20"
+      ],
+      [
+        "Antes de irnos",
+        "Actuación 21"
       ]
     ],
     "avoid": "Presentar las preguntas como una nueva escala o como etapas rígidas.",
-    "propose": "Usarlas para ordenar y comunicar el razonamiento.",
+    "propose": "Recuperar las 21 actuaciones con las mismas preguntas y aprendizajes del recorrido.",
     "refs": [
       "G14",
       "G8",
+      "G17",
       "E22",
+      "E26",
       "I25"
     ],
-    "src": "Síntesis docente propia a partir de GNEAUPP DT XIV, p. 15; DT VIII, pp. 23–30 y 38; EWMA 2022, §§4–6; IWII 2025, rec. 11 y 13.",
+    "src": "Recopilación docente de las 21 actuaciones. Cada fila conserva el respaldo y el alcance de su escena. Bibliografía completa y localizadores en el resumen para llevar.",
     "type": "Propuesta docente no validada como instrumento",
-    "limit": "No atribuir literalmente las preguntas a una guía ni utilizarlas como escala.",
-    "open": "Estas ya las conocemos. Te las he dejado juntas.",
+    "limit": "Síntesis docente. No es un algoritmo ni una escala validada. Las condiciones de cada decisión se conservan en la escena y en el resumen.",
+    "open": "Hemos ido dejando preguntas. Ahora vamos a recoger también lo que cambia cada una.",
     "turns": [
       {
         "label": "Enséñamelas una vez más.",
@@ -2885,41 +3185,53 @@
         "state": "exploring"
       }
     ],
-    "bridge": "Dejemos unos segundos para pensar en la próxima cura.",
-    "md": "«Son preguntas para revisar un plan, no una escala». Muéstralas sin volver a leer la charla. Una sola réplica ligera; después deja tiempo para que cada cual elija.",
+    "bridge": "Elige ahora una actuación de tu práctica para revisar.",
+    "md": "Recorre las siete páginas de resumen. Son las mismas 21 actuaciones, preguntas y aprendizajes vistos durante la charla. Recuerda cada relación en pocas palabras. Las cinco preguntas transversales quedan como apoyo en Ampliar y en el documento para llevar.",
     "steps": [
       [
-        "t1 p1",
-        "Comprender: ¿qué explica la herida? Deja tiempo para leer."
+        "p1",
+        "Recupera antes de empezar · 1/2: actuaciones 1–4. Lee la relación entre actuación, pregunta y aprendizaje sin reabrir la explicación."
       ],
       [
-        "i2 p2",
-        "Acordar: objetivo con la persona."
+        "p2",
+        "Recupera antes de empezar · 2/2: actuaciones 5–7. Lee la relación entre actuación, pregunta y aprendizaje sin reabrir la explicación."
       ],
       [
-        "i3 p3",
-        "Decidir: motivo de la intervención."
+        "p3",
+        "Recupera durante la cura · 1/3: actuaciones 8–10. Lee la relación entre actuación, pregunta y aprendizaje sin reabrir la explicación."
       ],
       [
-        "i4 p4",
-        "Comprobar: cambio observado."
+        "p4",
+        "Recupera durante la cura · 2/3: actuaciones 11–13. Lee la relación entre actuación, pregunta y aprendizaje sin reabrir la explicación."
       ],
       [
-        "i5 p5",
-        "Reevaluar: cuándo revisar o pedir ayuda. Las cinco quedan reunidas."
+        "p5",
+        "Recupera durante la cura · 3/3: actuaciones 14–16. Lee la relación entre actuación, pregunta y aprendizaje sin reabrir la explicación."
+      ],
+      [
+        "p6",
+        "Recupera cuando algo no encaja: actuaciones 17–20. Lee la relación entre actuación, pregunta y aprendizaje sin reabrir la explicación."
+      ],
+      [
+        "p7",
+        "Recupera antes de irnos: actuación 21. Lee la relación entre actuación, pregunta y aprendizaje sin reabrir la explicación."
       ],
       [
         "enlace",
-        "Dejemos unos segundos para pensar en la próxima cura."
+        "La tabla completa conserva las fuentes en el resumen para llevar. Pide elegir una actuación para la próxima cura."
       ]
     ],
-    "voice": "principal"
+    "voice": "principal",
+    "habit": "",
+    "ask": "",
+    "safety": "",
+    "role": "summary"
   },
   {
     "id": "cierre",
     "mov": 3,
     "q": null,
-    "title": "En la próxima cura, ¿qué revisarías?",
+    "title": "En la próxima cura…",
     "label": "Cierre",
     "exp": "El cierre invita a trasladar el razonamiento a una situación cotidiana. La valoración, la indicación y la reevaluación trabajadas durante la presentación sustentan esa reflexión. La pregunta final es una propuesta docente propia.",
     "points": [
@@ -2933,7 +3245,7 @@
       ]
     ],
     "avoid": "Terminar con una lista de prohibiciones sin contexto.",
-    "propose": "Llevar las preguntas a una situación concreta de la práctica.",
+    "propose": "Elegir una actuación y una pregunta para la próxima cura.",
     "refs": [
       "G14",
       "G8",
@@ -2945,13 +3257,13 @@
     "src": "Cierre docente propio. Respaldo del recorrido: documentos aportados de GNEAUPP, EWMA e IWII. Fuentes por escena y bibliografía completa disponibles.",
     "type": "Síntesis y cierre docente",
     "limit": "Pendiente de validación clínica y adaptación de circuitos por la ponente.",
-    "open": "Bueno, María del Mar. ¿Me guardas un sitio para la próxima conversación?",
+    "open": "El carro estaba preparado desde el principio.",
     "turns": [
       {
-        "label": "Mientras no me vuelvas a esconder los datos.",
-        "reply": "Trato hecho. Tú deja una pregunta antes de dar la cura por decidida.",
+        "label": "Y ahora llevamos unas cuantas preguntas para cuando lo acerquemos.",
+        "reply": "Entonces tenemos conversación para la próxima visita.",
         "kind": "layers",
-        "resourceTitle": "Una pausa antes de repetir",
+        "resourceTitle": "Para la próxima visita",
         "items": [
           [
             "Una actuación",
@@ -2992,8 +3304,8 @@
         "state": "exploring"
       },
       {
-        "label": "Gracias por venir. Ya seguiremos hablando.",
-        "reply": "Eso seguro. Historias no nos van a faltar.",
+        "label": "Gracias por enseñarnos tus historias.",
+        "reply": "Tú guarda las preguntas. Yo ya te iré trayendo historias.",
         "kind": "memory",
         "resourceTitle": "Después de hoy",
         "items": [
@@ -3015,128 +3327,33 @@
       }
     ],
     "bridge": "Gracias por acompañarnos.",
-    "md": "A la sala: «En la próxima cura, ¿qué revisarías antes de repetir?». Pausa. Después, despídete del personaje como de alguien conocido. No añadas una lista ni otra moraleja.",
+    "md": "Recupera el carro del comienzo con la herida. Invita a elegir una actuación para la próxima cura y deja silencio. Cierra la pregunta de la mesa desde la valoración individual y los objetivos acordados y revisables. No prometer desenlaces. Despedida breve.",
     "steps": [
       [
         "t1",
-        "Invita a elegir una actuación habitual. Pausa breve, sin pedir otra ronda de respuestas."
+        "Recupera con naturalidad el carro de la apertura. «Y ahora llevamos unas cuantas preguntas para cuando lo acerquemos»."
       ],
       [
-        "t3",
-        "Deja que la herida se despida."
+        "practica",
+        "A la sala: «En la próxima cura, ¿qué revisarías antes de repetir?». Deja unos segundos de silencio. No pedir otra ronda de respuestas."
       ],
       [
         "enlace",
-        "Gracias por acompañarnos."
+        "Responde a la pregunta de la mesa: la posibilidad de cierre requiere valoración individual y objetivos acordados y revisables. Cierra sin prometer resultados. Gracias por acompañarnos."
       ]
     ],
-    "voice": "principal"
+    "voice": "principal",
+    "habit": "",
+    "ask": "En la próxima cura, ¿qué revisarías antes de repetir?",
+    "safety": "",
+    "role": "farewell"
   }
 ];
  // Expressive states: discomfort while talking about procedural pain, relief when the goal is agreed,
  // showing when a picture opens. They express the conversation, not clinical findings.
  const moods={dolor:{0:'discomfort',1:'discomfort'},capacidad:{2:'relief'},'otros-resultados':{2:'relief'}};
  S.forEach(d=>d.turns.forEach((t,i)=>{if(moods[d.id]?.[i])t.state=moods[d.id][i];else if(t.kind==='photo')t.state='showing';}));
- // The theme of the talk: what we usually do (the «qué no hacer») and the question that stops the habit.
- // Each scene opens on the habit; the «practica» step crosses it out and leaves the question.
- const HABITS={
-  "apertura": [
-    "Elegir el apósito antes de valorar.",
-    "¿Qué sabemos de esta herida y qué nos falta?"
-  ],
-  "registro": [
-    "Repetir la cura sin comprobar la respuesta.",
-    "¿Qué ha cambiado desde la última visita?"
-  ],
-  "historia": [
-    "Decir «es crónica» y dar la causa por explicada.",
-    "¿Qué la causó y qué la mantiene abierta?"
-  ],
-  "zonas": [
-    "Valorar solo el centro de la herida.",
-    "¿Qué pasa en el borde y en la piel de alrededor?"
-  ],
-  "parecidas": [
-    "Copiar la pauta porque se parecen.",
-    "¿Qué dato cambia el plan en cada una?"
-  ],
-  "causa": [
-    "Cambiar de apósito sin revisar la causa.",
-    "¿Qué esperamos que cambie con esta cobertura?"
-  ],
-  "persona": [
-    "Explicar el plan y darlo por entendido.",
-    "¿Qué le cuesta y qué necesita aclarar?"
-  ],
-  "medicion": [
-    "Quedarnos con «parece que va mejor».",
-    "¿Qué ha cambiado y cómo lo hemos medido?"
-  ],
-  "reevaluacion": [
-    "Intensificar sin revisar por qué no avanza.",
-    "¿Qué revisamos antes de añadir tratamiento?"
-  ],
-  "infeccion": [
-    "Dar por segura la infección por un cultivo positivo.",
-    "¿Qué signos tienen la herida y la persona?"
-  ],
-  "cultivo": [
-    "Pedir un cultivo solo porque toca.",
-    "¿Qué decisión podría cambiar con el resultado?"
-  ],
-  "biofilm": [
-    "Decir «será biofilm» y dejar de buscar.",
-    "¿Qué explica esta posibilidad y qué nos falta?"
-  ],
-  "antimicrobianos": [
-    "Añadir un antimicrobiano «por si acaso».",
-    "¿Hace falta y qué problema queremos tratar?"
-  ],
-  "revision-antimicrobiano": [
-    "Renovar la plata sin revisar su indicación.",
-    "¿Cuándo revisamos si todavía hace falta?"
-  ],
-  "limpieza": [
-    "Limpiar siempre igual sin revisar la herida.",
-    "¿Qué necesita la limpieza hoy, en cada zona?"
-  ],
-  "dolor": [
-    "Dar por inevitable el dolor de la cura.",
-    "¿Cómo lo está viviendo y qué podemos ajustar ahora?"
-  ],
-  "escaras": [
-    "Decidir desbridar solo por ver necrosis.",
-    "¿Cómo llega la sangre y es seguro intervenir ahora?"
-  ],
-  "atipica": [
-    "Insistir en la misma explicación aunque no encaje.",
-    "¿Y si necesitamos revisar el diagnóstico?"
-  ],
-  "capacidad": [
-    "Prometer el cierre o darlo por perdido sin valorar.",
-    "¿Qué podemos conseguir hoy con la persona?"
-  ],
-  "otros-resultados": [
-    "Valorar el beneficio solo por el cierre.",
-    "¿Qué mejora le importa ahora a la persona?"
-  ],
-  "continuidad": [
-    "Repetir el plan sin conocer por qué se indicó.",
-    "¿Qué necesita saber quien venga mañana?"
-  ],
-  "regreso": [
-    "Buscar otro producto antes de revisar la decisión.",
-    "¿Qué preguntaríamos antes de elegir ahora?"
-  ],
-  "cinco-preguntas": [
-    "Repetir sin revisar las preguntas del plan.",
-    "¿Qué pregunta necesitamos recuperar?"
-  ],
-  "cierre": [
-    "Repetir sin revisar si sigue teniendo sentido.",
-    "En la próxima cura, ¿qué revisarías antes de repetir?"
-  ]
-};
+ // The editable triplet lives in S; the summary reads the resulting slides.
  const SOURCE_LABELS={
   apertura:'GNEAUPP DT XIV · p. 15',registro:'GNEAUPP DT XIV · p. 15',historia:'GNEAUPP DT XIV · p. 15',
   zonas:'GNEAUPP DT XIV · p. 15 / IWII · rec. 3',parecidas:'GNEAUPP DT XIV · pp. 20–21 / EWMA · fichas',
@@ -3149,17 +3366,17 @@
   atipica:'EWMA · ficha 1, pp. 3–6',capacidad:'IWII · p. 26 / EWMA 2022 · §4 / síntesis docente',
   'otros-resultados':'EWMA · §4 / IWII · rec. 13 / GNEAUPP · p. 24',continuidad:'EWMA 2022 · §§4–6 / fichas clínicas',
   regreso:'Integración docente · GNEAUPP / EWMA / IWII',
-  'cinco-preguntas':'Síntesis docente propia · fuentes del recorrido',cierre:'Cierre docente propio · bibliografía en Fuentes'
+  'cinco-preguntas':'21 actuaciones · fuentes por escena',cierre:'Cierre docente propio · bibliografía en Fuentes'
  };
  // The wound remains the same companion while the teaching examples change.
  INITIAL_DECK.movements=MOVES;
  // Stored drafts from an older edition get the new thread (steps, habits) when they load.
- INITIAL_DECK.edition='2026-10-29-herida-companera';
+ INITIAL_DECK.edition='2026-10-30-recorrido-editorial';
  INITIAL_DECK.slides=S.map((d,i)=>{
   const s=slide(d.id,MOVES[d.mov].short,d.title,d.voice||'principal',d.open,d.turns.some(t=>t.kind==='decision')?'decision':'conversation',d.points,d.refs,d.q,{mov:d.mov,takeaway:d.propose});
-  s.study={number:i+1,label:d.label,explanation:d.exp,sourceNote:d.src,sourceLabel:SOURCE_LABELS[d.id],evidenceType:d.type,limitation:d.limit,opening:d.open,avoid:d.avoid,propose:d.propose,habit:HABITS[d.id][0],ask:HABITS[d.id][1],
+  s.study={number:i+1,label:d.label,explanation:d.exp,sourceNote:d.src,sourceLabel:SOURCE_LABELS[d.id],evidenceType:d.type,limitation:d.limit,opening:d.open,avoid:d.avoid,propose:d.propose,role:d.role,habit:d.habit,ask:d.ask,safety:d.safety,scienceTitle:d.scienceTitle||'',scienceText:d.scienceText||'',
    caseLabel:'Personaje abstracto · historias docentes',bridge:d.bridge,turns:d.turns,steps:d.steps};
-  s.notes='FUENTE Y RESPALDO\n'+d.src+'\n'+d.type+'\n\nESCENA '+(i+1)+' · '+MOVES[d.mov].short+'\nLo habitual: «'+HABITS[d.id][0]+'» → '+HABITS[d.id][1]+'\nLa herida abre: «'+d.open+'»\n\nMARÍA DEL MAR\n'+d.md+'\n\nPASOS\n'+d.steps.map((p,n)=>(n+1)+'. '+p[1]).join('\n')+'\n\nENLACE\n«'+d.bridge+'»\n\nREVISIÓN\n'+d.limit;
+  s.notes='FUENTE Y RESPALDO\n'+d.src+'\n'+d.type+'\n\nESCENA '+(i+1)+' · '+MOVES[d.mov].short+'\nRevisamos: «'+d.habit+'» → '+d.ask+'\nLa herida abre: «'+d.open+'»\n\nMARÍA DEL MAR\n'+d.md+'\n\nPASOS\n'+d.steps.map((p,n)=>(n+1)+'. '+p[1]).join('\n')+'\n\nENLACE\n«'+d.bridge+'»\n\nREVISIÓN\n'+d.limit;
   return s;
  });
  // Two short introductions. The first scene demonstrates the interaction itself.
@@ -3167,7 +3384,7 @@
  INITIAL_DECK.slides.unshift(
   intro('intro-tema','¿Es posible cicatrizar todas las heridas?','Qué no hacer en heridas crónicas.','tema','Bienvenida. Presenta la pregunta de la mesa y tu aportación.',
    [['r','Vamos a revisar decisiones que repetimos en las curas y las preguntas que nos ayudan a justificarlas.'],
-    ['r','Una costumbre reconocible, la historia de una herida y una pregunta para la próxima cura. La evidencia nos acompaña.']]),
+    ['r','Revisamos una actuación, nos hacemos una pregunta y nos llevamos un aprendizaje. Las historias y la evidencia nos ayudan a decidir.']]),
   intro('intro-herida','Os presento a la herida','Una compañera de conversación para revisar nuestra práctica.','herida','Presenta el caso en una frase. La dinámica se entenderá al empezar.',
    [['r','La herida es un personaje abstracto que reúne historias; no representa a una paciente.'],
     ['r','María del Mar aporta la evidencia de los documentos citados.'],
