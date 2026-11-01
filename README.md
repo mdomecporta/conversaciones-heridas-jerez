@@ -17,7 +17,7 @@ npm run dev     # http://127.0.0.1:4173/
 - → / espacio: avanzar · ←: retroceder · ↑ ↓: escena anterior o siguiente · Inicio / Fin.
 - **P**: ventana de ponente, sincronizada. Muestra la diapositiva en vivo y el paso siguiente, lo que dice María del Mar (también lo que explica sin proyectar), la réplica de la herida, el respaldo y un cronómetro.
 - **N**: panel flotante de preparación sobre la diapositiva: notas por sección con imágenes y cambios puntuales de texto.
-- **G**: recorrido para saltar a una escena. **F**: pantalla completa.
+- **G**: recorrido para saltar a una escena. **F**: pantalla completa. **R**: reserva con las 47 recomendaciones del DT XIV (Esc vuelve al mismo paso).
 - `?guia` (o el botón «Guion» de los controles): guía informal para María del Mar, clic a clic, imprimible.
 - Clic en el tercio izquierdo retrocede; en el resto, avanza. Los controles aparecen al mover el ratón.
 - La dirección recuerda el punto: `#escena-6/3` es el paso 3 de la escena 6.
@@ -58,6 +58,6 @@ Cada evidencia proyecta un titular, una síntesis, la fuente con su localizador 
 ## Pendiente
 
 - Revisión clínica final y ensayo de duración con la ponente.
-- Documento para el público con las 21 actuaciones y la bibliografía (existía en la edición anterior a partir de otros textos).
+- Documento para el público con las 11 actuaciones, la reserva de 47 recomendaciones y la bibliografía; los datos ya están en el guion.
 - Conectar el sitio de Netlify y definir las variables de entorno (ver «Publicación en Netlify»).
 - Prueba en el proyector real.

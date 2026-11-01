@@ -15,6 +15,19 @@ export function quote(line){
 const all=line=>{const out=[];let rest=line;for(let q;(q=quote(rest))!==null;){out.push(q);rest=rest.slice(rest.indexOf('«')+q.length+2);}return out;};
 const words=t=>t.split(/\s+/).filter(Boolean).length;
 const roman={I:1,II:2,III:3,IV:4};
+const STRENGTH={alta:'Alta',moderada:'Moderada',baja:'Baja'};
+
+// Reserva: «- **p. 16 · Alta** · Recomendación. — En la charla: escena 1» (o «Relacionada: escena N», «Curiosidad»).
+function reserveItem(line){
+ const m=line.match(/^- \*\*p\. (\d+) · (Alta|Moderada|Baja)\*\* · (.+?)(?: — (.+))?$/);
+ if(!m)return null;
+ const [,page,strength,text,note]=m;
+ const item={page:Number(page),strength:STRENGTH[strength.toLowerCase()],text:text.trim()};
+ const scene=note?.match(/escena (\d+)/)?.[1];
+ if(note)item.tag=/^En la charla/.test(note)?'charla':/^Relacionada/.test(note)?'relacionada':/^Curiosidad/.test(note)?'curiosidad':'nota';
+ if(scene)item.scene=Number(scene);
+ return item;
+}
 
 // Cada párrafo en negrita inicial («**Etiqueta:** texto») pasa a ser un «beat».
 function beats(lines){
@@ -35,6 +48,8 @@ function beats(lines){
   if(/^María del Mar cierra/.test(label)){out.push({kind:'cierra',text:quote(rest)});continue;}
   if(/^María del Mar/.test(label)){out.push({kind:'mdm',text:quote(rest)});continue;}
   if(label==='Para seguir'){out.push({kind:'seguir',text:quote(rest)});continue;}
+  const deeper=label.match(/^Para profundizar · \[(\d)\] (.+)$/);
+  if(deeper){out.push({kind:'deeper',ref:Number(deeper[1]),name:deeper[2],text:quote(rest)});continue;}
   if(/^(Antes de empezar|Durante la cura|Cuando algo no encaja|Antes de irnos)(, María del Mar recuerda)?$/.test(label)){out.push({kind:'recuerda',block:label.replace(/, María.*/,''),text:quote(rest)});continue;}
   out.push({kind:'field',label,text:rest.replace(/\s+$/,'')});
  }
@@ -109,6 +124,7 @@ function dialogueSteps(bs){
   if(b.kind==='develop'){if(!step)push({kind:'say'});(step.develop??=[]).push(b.text);continue;}
   if(b.kind==='sala'){push({kind:'sala',sala:b.text,after:b.after,spoken:[b.text]});continue;}
   if(b.kind==="recuerda"&&step){(step.recuerda??=[]).push({block:b.block,text:b.text});continue;}
+  if(b.kind==='deeper'&&step){(step.deeper??=[]).push({ref:b.ref,name:b.name,text:b.text});continue;}
   if(b.kind==='note'&&step){(step.notes??=[]).push(b.text);continue;}
  }
  return steps;
@@ -123,9 +139,16 @@ export function parseGuion(md){
   if(h3){cur={level:3,title:h3[1],lines:[]};sections.push(cur);continue;}
   cur?.lines.push(line);
  }
- const out={blocks:[],scenes:[],intro:null,references:[]};
- let block=null;
+ const out={blocks:[],scenes:[],intro:null,references:[],reserve:null};
+ let block=null,inReserve=false;
  for(const sec of sections){
+  if(sec.level===2)inReserve=/^Reserva/.test(sec.title);
+  if(inReserve){
+   const items=sec.lines.map(l=>l.trim()).filter(l=>l.startsWith('- **p.')).map(reserveItem);
+   if(sec.level===2)out.reserve={title:sec.title.replace(/^Reserva · /,''),intro:sec.lines.map(l=>l.trim()).filter(Boolean).find(l=>!l.startsWith('-'))||'',groups:[]};
+   else{const [n,name]=sec.title.split(' · ');out.reserve.groups.push({n,name,items});}
+   continue;
+  }
   const bs=beats(sec.lines);
   const field=l=>bs.find(b=>b.kind==='field'&&b.label===l)?.text;
   if(sec.level===2&&/^Apertura/.test(sec.title)){
@@ -148,7 +171,8 @@ export function parseGuion(md){
    const close=bs.find(b=>b.kind==='blockclose');if(close&&block)block.close=close.text;
    const scene={n,title:sm[2],block:block.n,purpose:field('Qué queremos explicar'),habit:field('A revisar'),ask:field('Nos preguntamos'),take:field('Nos llevamos'),support:field('Respaldo')};
    const own=bs.filter(b=>b.kind!=='blockclose');
-   scene.kind=scene.habit?'practice':n===22?'return':n===23?'recap':'farewell';
+   // Tras las actuaciones: primero el regreso al carro y después el cierre.
+   scene.kind=scene.habit?'practice':out.scenes.some(x=>x.kind==='return')?'farewell':'return';
    scene.steps=scene.kind==='practice'?practiceSteps(own):dialogueSteps(own);
    block.scenes.push(n);out.scenes.push(scene);
   }
@@ -159,7 +183,7 @@ export function parseGuion(md){
 // Comprobaciones mínimas para que un cambio en el guion no rompa la escena en silencio.
 export function validate(g){
  const errors=[];
- if(g.scenes.length!==24)errors.push(`Se esperaban 24 escenas y hay ${g.scenes.length}.`);
+ if(g.scenes.length!==13)errors.push(`Se esperaban 13 escenas y hay ${g.scenes.length}.`);
  if(g.blocks.length!==4)errors.push(`Se esperaban 4 bloques y hay ${g.blocks.length}.`);
  for(const s of g.scenes.filter(s=>s.kind==='practice')){
   for(const k of ['habit','ask','take'])if(!s[k])errors.push(`Escena ${s.n}: falta ${k}.`);
@@ -168,5 +192,9 @@ export function validate(g){
   const ev=s.steps.find(x=>x.kind==='evidence')?.evidence;
   if(ev&&(!ev.title||!ev.idea||!ev.source))errors.push(`Escena ${s.n}: evidencia incompleta.`);
  }
+ const items=g.reserve?.groups.flatMap(x=>x.items)||[];
+ if(items.length!==47)errors.push(`La reserva debería tener las 47 recomendaciones y tiene ${items.length}.`);
+ if(items.some(x=>!x))errors.push('Hay una línea de la reserva que no se entiende (p. N · Fuerza · texto).');
+ for(const x of items.filter(x=>x?.scene)){const s=g.scenes.find(s=>s.n===x.scene);if(s?.kind!=='practice')errors.push(`Reserva: «${x.text.slice(0,40)}…» remite a la escena ${x.scene}, que no es una actuación.`);}
  return errors;
 }

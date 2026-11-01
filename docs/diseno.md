@@ -8,20 +8,22 @@ En cada paso hay un solo foco. Hay tres mundos y cada uno tiene su propia superf
 
 ## Progreso: la noche
 
-- Un panel fijo a la izquierda (#22171A, un tercio del ancho) con el recorrido de las 24 escenas, el número y el título de la escena, y el hilo.
+- Un panel fijo a la izquierda (#22171A, un tercio del ancho) con el recorrido de las 13 escenas, el número y el título de la escena, y el hilo.
 - **El hilo como sutura.** Las tres etiquetas (A revisar, Nos preguntamos, Nos llevamos) se ven desde el primer paso, unidas por un hilo discontinuo.
   - **A revisar** abre la escena en grande. Al aparecer la pregunta, una línea coral la tacha (también en varias líneas), el texto se reduce sin dejar de leerse y su nudo pasa a ser una puntada (×).
   - **Nos preguntamos** entra en piel; baja de tamaño durante la evidencia.
   - **Nos llevamos** entra directamente en el hilo como una ficha de la hoja científica (papel, filo oliva, nudo ocre): lo que nos llevamos se apoya en la evidencia. Es lo más claro del panel y cierra la escena. No se repite en el espacio de la derecha.
-- Cada momento tiene su pigmento sobre la noche: coral (I), ámbar (II), malva (III) y salvia (IV). Las escenas terminadas son puntadas; la actual, un anillo que respira. Al volver a una escena anterior (escena 22), su hilo conserva el pigmento de su momento.
+- Cada momento tiene su pigmento sobre la noche: coral (I), ámbar (II), malva (III) y salvia (IV). Las escenas terminadas son puntadas; la actual, un anillo que respira. Al volver a una escena anterior (escena 12), su hilo conserva el pigmento de su momento.
 - Las entradas de bloque y la recopilación ocupan toda la pantalla en la misma noche: son la estructura de la charla.
+- **La guía de partida (apertura).** Cuando la herida trae el carro, aparece *Qué no hacer en heridas crónicas* con una marca por cada una de sus 47 recomendaciones, agrupadas en sus seis apartados. Después se iluminan en carmín las que salen en la charla, entran los cuatro momentos con su pigmento y el resto queda como «Guardadas, por si preguntáis».
+- **El cierre (escena 13)** empieza en la noche: «Lo que nos llevamos», tres páginas de recopilación y «Para seguir profundizando» (los apartados de la guía con lo que queda en la reserva y una línea por guía de la bibliografía). Después vuelve al marfil para la pregunta de la mesa, la pregunta final y el agradecimiento.
 
 ## Conversación: la herida
 
 - Burbujas de mensajería en Figtree. La herida, a la izquierda, en un degradado de piel a coral con su nombre en carmín; antes de hablar aparecen tres puntos y después su frase palabra a palabra. María del Mar, en blanco, alineada a la derecha y con sus iniciales.
 - Se proyectan las frases cortas de María del Mar como disparador. Las de más de 32 palabras y la explicación que acompaña a la evidencia solo aparecen en la ventana de ponente.
 - «Para seguir» es la misma burbuja de María del Mar con la etiqueta «→ para seguir».
-- **La sala** tiene su color, azul pizarra (`--room`): la pregunta a la sala es una burbuja azul y lo que se recoge de la sala (escena 22) lleva sus puntos azules.
+- **La sala** tiene su color, azul pizarra (`--room`): la pregunta a la sala es una burbuja azul y lo que se recoge de la sala (escena 12) lleva sus puntos azules.
 - Lo que trae la herida (fichas, esquemas, imágenes) lleva la etiqueta «La herida trae» y una tarjeta en tonos de piel. Las fichas muestran huecos donde falta información, sin inventar datos. En las imágenes, un foco recorre las zonas del catálogo con una tarjeta por zona. Cada imagen conserva su identificación y su crédito.
 
 ## Evidencia: la hoja
@@ -63,6 +65,10 @@ Entidad líquida con la tinta Sangre y piel (`entity-liquid.js`, variante 3, tin
 | Para seguir | Igual | Burbuja de enlace | Igual |
 | Cierre de bloque | Igual | Escenas del bloque con puntadas y la frase de cierre | Abajo a la derecha |
 
+## Reserva: la hoja completa
+
+- La tecla **R** abre, sobre la charla y sin cambiar de paso, las 47 recomendaciones del DT XIV en el mundo de la evidencia: pestañas por apartado y una tarjeta por recomendación con su síntesis, página, fuerza y, si procede, «En la charla · escena N», «Relacionada» o «Curiosidad». Los apartados largos pasan a tres columnas para caber en una pantalla.
+
 ## Comprobación
 
-Se recorren los 214 estados a 1280 × 720 sin desbordamientos ni solapes entre el panel, las burbujas, el recurso, la hoja de evidencia y la herida. `npm test` comprueba que el guion encaja (21 actuaciones con hilo, evidencia y orden), que no se proyectan explicaciones largas, que cada recurso existe en el catálogo y el comportamiento de la entidad líquida.
+Se recorren los 131 estados a 1280 × 720 sin errores ni burbujas fuera de la pantalla, y los seis apartados de la reserva caben sin desbordar. `npm test` comprueba que el guion encaja (11 actuaciones con hilo, evidencia y orden; la reserva con sus 47 recomendaciones, citadas en el respaldo de su escena cuando salen en la charla), que no se proyectan explicaciones largas, que cada recurso existe en el catálogo y el comportamiento de la entidad líquida.
