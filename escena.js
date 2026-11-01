@@ -40,7 +40,7 @@ function expand(s){
   if(s.kind==='practice'&&st.kind==='resource'){
    const parts=R[s.n]?.parts||1;
    for(let p=1;p<=parts;p++)out.push({...st,part:p,lines:p===1?st.lines:st.lines,fresh:p===1});
-  }else if(s.kind==='recap'&&st.what==='recopilación'){
+  }else if(st.what==='recopilación'){
    ESCENA_RECOPILACION.forEach((range,i)=>out.push({...st,kind:'page',page:i,notes:i?undefined:st.notes,recuerda:st.recuerda}));
   }else if(s.kind==='return'&&st.what==='lo que recogemos'){
    ESCENA_REGRESO.forEach((c,i)=>out.push({...st,kind:'chips',part:i+1,develop:i?undefined:st.develop,spoken:i===ESCENA_REGRESO.length-1?st.spoken:undefined}));
@@ -143,6 +143,14 @@ function rail(slide){
  return `<header class="rail"><div class="rail-where"><span class="rail-roman">${ROMAN[blockN]}</span><span class="rail-name">${esc(slide.block?.name||'')}</span></div><ol class="rail-track">${G.blocks.map(b=>`<li class="rail-group ${b.n===blockN?'is-now':''} ${b.n<blockN?'is-past':''}" data-q="${b.n}">${b.scenes.map(n=>`<i class="tick ${n<sceneN?'is-done':''} ${n===sceneN?'is-now':''}" title="${n}"></i>`).join('')}</li>`).join('')}</ol></header>`;
 }
 const side=(slide,inner)=>`<aside class="side">${rail(slide)}${inner}<footer class="side-foot">Conversaciones con una herida</footer></aside>`;
+// La guía de partida: una marca por recomendación del DT XIV, agrupadas por apartado; se iluminan las que salen en la charla.
+const RES=G.reserve.groups,RES_ITEMS=RES.flatMap(g=>g.items),RES_IN=RES_ITEMS.filter(x=>x.tag==='charla').length;
+function dt14(){
+ const marks=g=>g.items.map((x,i)=>`<i class="${x.tag==='charla'?'is-in':''}" style="--d:${i*.03}s"></i>`).join('');
+ return `<div class="dt14"><span class="dt14-k">El punto de partida</span><h2 class="dt14-title">Qué no hacer en heridas crónicas</h2><p class="dt14-ref">GNEAUPP · Documento Técnico XIV · 2.ª ed. · 2020</p><p class="dt14-count"><b>${RES_ITEMS.length}</b> recomendaciones · <span><b>${RES_IN}</b> para cualquier cura</span></p><ol class="dt14-groups">${RES.map((g,i)=>`<li style="--g:${i}"><span class="dt14-name">${esc(g.name)}</span><span class="dt14-marks">${marks(g)}</span></li>`).join('')}</ol><div class="dt14-bring"><ol class="dt14-moments">${G.blocks.map(b=>`<li data-q="${b.n}"><b>${b.roman}</b>${esc(b.name)}</li>`).join('')}</ol><p class="dt14-kept"><i></i>Guardadas, por si preguntáis · ${RES_ITEMS.length-RES_IN}</p></div></div>`;
+}
+const strength=x=>`p. ${x.page} · fuerza ${x.strength.toLowerCase()}`;
+const tagText=x=>x.tag==='charla'?`En la charla · escena ${pad(x.scene)}`:x.tag==='relacionada'?`Relacionada · escena ${pad(x.scene)}`:x.tag==='curiosidad'?'Curiosidad':'';
 const anchors=places=>places.map(p=>`<i class="anchor" data-place="${p}" aria-hidden="true"></i>`).join('');
 function threadHtml(s,{label=''}={}){
  // Al volver a una escena anterior, su hilo conserva el pigmento de su momento.
@@ -159,7 +167,7 @@ function build(slide){
   case 'institutional':
    el.innerHTML=`<img class="inst" src="${slide.src}" alt="">`;break;
   case 'intro':
-   el.innerHTML=`<div class="cover"><p class="cover-meta">IV Jornadas Comisión Heridas Jerez · Mesa redonda</p><h1 class="cover-title">¿Es posible cicatrizar todas las heridas?</h1><div class="cover-foot"><p class="cover-sub">Qué no hacer en heridas crónicas</p><p class="cover-author">María del Mar Candil Ramón<span>19 de noviembre de 2026</span></p></div></div><div class="meet"><span class="meet-eyebrow">Antes de acercar el carro</span><h2 class="meet-title">Os presento a la herida</h2><p class="meet-id">Personaje abstracto que reúne historias docentes. No es un caso clínico: su forma y su color no se diagnostican.</p></div><div class="speech">${says}</div>${anchors(['intro'])}`;
+   el.innerHTML=`<div class="cover"><p class="cover-meta">IV Jornadas Comisión Heridas Jerez · Mesa redonda</p><h1 class="cover-title">¿Es posible cicatrizar todas las heridas?</h1><div class="cover-foot"><p class="cover-sub">Qué no hacer en heridas crónicas</p><p class="cover-author">María del Mar Candil Ramón<span>19 de noviembre de 2026</span></p></div></div><div class="meet"><span class="meet-eyebrow">Antes de acercar el carro</span><h2 class="meet-title">Os presento a la herida</h2><p class="meet-id">Personaje abstracto que reúne historias docentes. No es un caso clínico: su forma y su color no se diagnostican.</p></div>${dt14()}<div class="speech">${says}</div>${anchors(['intro'])}`;
    break;
   case 'block':{
    const b=slide.block;
@@ -175,18 +183,17 @@ function build(slide){
   }
   case 'return':{
    const s1=G.scenes[0];
-   el.innerHTML=`${side(slide,`<div class="return-title"><span class="scene-n">Escena 22</span><h2 class="scene-title">${esc(slide.scene.title)}</h2></div>${threadHtml(s1,{label:'Volvemos a la escena 01'})}`)}<section class="space"><div class="res-wrap">${resource(1)}</div><div class="sala"><span class="sala-k">A la sala</span><p class="sala-q">${esc(slide.steps.find(x=>x.kind==='sala').sala)}</p><span class="sala-after">${esc(slide.steps.find(x=>x.kind==='sala').notes?.[0]||'')}</span></div><div class="gather"><span class="gather-k">Lo que recogemos</span><ol>${ESCENA_REGRESO.map((c,i)=>`<li data-part="${i+1}"><i></i>${esc(c)}</li>`).join('')}</ol></div></section><div class="speech">${says}</div>${anchors(['talk','dock','close'])}`;
-   break;
-  }
-  case 'recap':{
-   const scenes=G.scenes.filter(x=>x.kind==='practice');
-   const pages=ESCENA_RECOPILACION.map(([a,z],i)=>{const rows=scenes.filter(x=>x.n>=a&&x.n<=z),b=G.blocks.find(b=>b.scenes.includes(a));return `<div class="page" data-page="${i}" data-q="${b.n}"><header class="page-head"><span class="rail-roman">${b.roman}</span><span>${esc(b.name)}</span><span class="page-n">${i+1} / ${ESCENA_RECOPILACION.length}</span></header><div class="table"><div class="trow thead"><span></span><span>A revisar</span><span>Nos preguntamos</span><span>Nos llevamos</span></div>${rows.map((x,j)=>`<div class="trow" style="--d:${.08+j*.09}s"><span class="tn">${pad(x.n)}</span><span class="th"><s>${esc(x.habit)}</s></span><span class="ta">${esc(x.ask)}</span><span class="tt">${esc(x.take)}</span></div>`).join('')}</div></div>`;}).join('');
-   el.innerHTML=`${rail(slide)}<div class="recap-intro"><span class="scene-n">Escena 23</span><h2 class="recap-title">${esc(slide.scene.title)}</h2><p class="recap-count"><b>21</b> actuaciones revisadas · <b>4</b> momentos de la visita</p><div class="recap-stitches" aria-hidden="true">${scenes.map((x,i)=>`<i style="--d:${.3+i*.035}s"></i>`).join('')}</div></div><div class="pages">${pages}</div><div class="recap-end"><p>Una actuación para revisar en la próxima cura</p></div><div class="speech">${says}</div>${anchors(['talk','corner','close'])}`;
+   el.innerHTML=`${side(slide,`<div class="return-title"><span class="scene-n">Escena ${pad(slide.scene.n)}</span><h2 class="scene-title">${esc(slide.scene.title)}</h2></div>${threadHtml(s1,{label:'Volvemos a la escena 01'})}`)}<section class="space"><div class="res-wrap">${resource(1)}</div><div class="sala"><span class="sala-k">A la sala</span><p class="sala-q">${esc(slide.steps.find(x=>x.kind==='sala').sala)}</p><span class="sala-after">${esc(slide.steps.find(x=>x.kind==='sala').notes?.[0]||'')}</span></div><div class="gather"><span class="gather-k">Lo que recogemos</span><ol>${ESCENA_REGRESO.map((c,i)=>`<li data-part="${i+1}"><i></i>${esc(c)}</li>`).join('')}</ol></div></section><div class="speech">${says}</div>${anchors(['talk','dock','close'])}`;
    break;
   }
   case 'farewell':{
-   const src=[...new Set([19,20,21].flatMap(n=>G.scenes[n-1].steps.find(x=>x.kind==='evidence').evidence.source.split(' / ')))].join(' · ');
-   el.innerHTML=`<div class="mesa"><span class="mesa-k">La pregunta de la mesa</span><h1 class="mesa-q">¿Es posible cicatrizar todas las heridas?</h1><p class="mesa-a">Valorar cada situación y acordar objetivos revisables.</p><p class="mesa-src">Escenas 19–21 · ${esc(src)}</p></div><div class="final"><h1 class="final-q">En la próxima cura, ¿qué revisarías antes de repetir?</h1></div><div class="thanks"><p>Gracias por acompañarnos</p><span>María del Mar Candil Ramón · IV Jornadas Comisión Heridas Jerez</span></div><div class="speech">${says}</div>${anchors(['talk','corner','close'])}`;
+   // Cierre: recopilación (noche), para seguir profundizando, la pregunta de la mesa, la pregunta final y gracias.
+   const scenes=G.scenes.filter(x=>x.kind==='practice');
+   const pages=ESCENA_RECOPILACION.map(([a,z],i)=>{const rows=scenes.filter(x=>x.n>=a&&x.n<=z),bs=G.blocks.filter(b=>b.scenes.some(n=>n>=a&&n<=z));return `<div class="page" data-page="${i}" data-q="${bs[0].n}"><header class="page-head">${bs.map(b=>`<span class="page-block" data-q="${b.n}"><span class="rail-roman">${b.roman}</span><span>${esc(b.name)}</span></span>`).join('')}<span class="page-n">${i+1} / ${ESCENA_RECOPILACION.length}</span></header><div class="table"><div class="trow thead"><span></span><span>A revisar</span><span>Nos preguntamos</span><span>Nos llevamos</span></div>${rows.map((x,j)=>`<div class="trow" data-q="${x.block}" style="--d:${.08+j*.09}s"><span class="tn">${pad(x.n)}</span><span class="th"><s>${esc(x.habit)}</s></span><span class="ta">${esc(x.ask)}</span><span class="tt">${esc(x.take)}</span></div>`).join('')}</div></div>`;}).join('');
+   const deeper=slide.steps.find(x=>x.deeper)?.deeper||[];
+   const deep=`<div class="deeper"><section class="deeper-guide"><span class="deeper-k">Qué no hacer en heridas crónicas · GNEAUPP DT XIV</span><h3>${RES_ITEMS.length} recomendaciones; hoy, ${RES_IN}</h3><ol>${RES.map(g=>{const n=g.items.filter(x=>x.tag==='charla').length;return `<li><span class="deeper-n">${esc(g.n)}</span><span class="deeper-name">${esc(g.name)}</span><span class="deeper-marks">${g.items.map(x=>`<i class="${x.tag==='charla'?'is-in':''}"></i>`).join('')}</span><span class="deeper-c">${n?`${n} hoy · `:''}${g.items.length-n} en la reserva</span></li>`;}).join('')}</ol></section><section class="deeper-where"><span class="deeper-k">Dónde seguir</span><ol>${deeper.map(d=>`<li><b>${esc(d.name)}</b><span>${esc(end(d.text))}</span></li>`).join('')}</ol></section></div>`;
+   const src=[...new Set(scenes.slice(-2).flatMap(x=>x.steps.find(y=>y.kind==='evidence').evidence.source.split(' / ')))].join(' · ');
+   el.innerHTML=`<div class="night" aria-hidden="true"></div>${rail(slide)}<div class="recap-intro"><span class="scene-n">Escena ${pad(slide.scene.n)}</span><h2 class="recap-title">Lo que nos llevamos</h2><p class="recap-count"><b>${scenes.length}</b> actuaciones revisadas · <b>4</b> momentos de la visita</p><div class="recap-stitches" aria-hidden="true">${scenes.map((x,i)=>`<i style="--d:${.3+i*.06}s"></i>`).join('')}</div></div><div class="pages">${pages}</div>${deep}<div class="mesa"><span class="mesa-k">La pregunta de la mesa</span><h1 class="mesa-q">¿Es posible cicatrizar todas las heridas?</h1><p class="mesa-a">Valorar cada situación y acordar objetivos revisables.</p><p class="mesa-src">Escenas ${scenes.slice(-2).map(x=>x.n).join(' y ')} · ${esc(src)}</p></div><div class="final"><h1 class="final-q">En la próxima cura, ¿qué revisarías antes de repetir?</h1></div><div class="thanks"><p>Gracias por acompañarnos</p><span>María del Mar Candil Ramón · IV Jornadas Comisión Heridas Jerez</span></div><div class="speech">${says}</div>${anchors(['talk','corner','close'])}`;
    break;
   }
  }
@@ -197,7 +204,12 @@ function build(slide){
 function view(slide,k){
  const v={plane:'',part:0,habit:'on',ask:false,take:false,place:'none',state:'idle',page:0};
  const steps=slide.steps;
- if(slide.type==='intro'){v.plane=k===0?'cover':'meet';v.place=k===0?'none':'intro';return v;}
+ if(slide.type==='intro'){
+  // Portada, la herida y, cuando trae el carro, la guía de la que partimos.
+  const planes={'portada':'cover','presentación de la herida':'meet','la guía de partida':'guide','lo que traemos':'bring'};
+  v.plane='cover';for(let i=0;i<=k;i++)if(steps[i].kind==='screen')v.plane=planes[steps[i].what]||v.plane;
+  v.place=v.plane==='cover'?'none':'intro';return v;
+ }
  if(slide.type==='block'){v.plane='block';v.place='block';return v;}
  if(slide.type==='institutional'){v.plane='inst';return v;}
  for(let i=0;i<=k;i++){
@@ -216,19 +228,18 @@ function view(slide,k){
    case 'chips':v.plane='gather';v.part=st.part;v.place='dock';break;
    case 'screen':
     if(st.what==='lo que recuperamos'){v.plane='resource';v.part=99;v.habit='struck';v.ask=true;v.take=true;v.place='dock';}
-    if(st.what==='al terminar el repaso'){v.plane='end';v.place='close';}
+    if(st.what==='para seguir profundizando'){v.plane='deeper';v.place='corner';}
     if(st.what==='regreso a la pregunta de la mesa'){v.plane='mesa';v.place='corner';}
     if(st.what==='pregunta final'){v.plane='final';v.place='corner';v.state='idle';}
     break;
    case 'say':
-    if(!v.plane){v.plane=slide.type==='recap'?'recap':'talk';v.place='talk';}
+    if(!v.plane){v.plane=slide.type==='farewell'?'recap':'talk';v.place='talk';}
     if(slide.type==='farewell'&&i===steps.length-1){v.plane='thanks';v.place='close';}
-    if(slide.type==='recap'&&v.plane==='end')v.place='close';
     break;
   }
  }
  if(slide.type==='return'&&v.plane!=='talk'){v.ask=true;v.take=true;v.habit='struck';}
- if(slide.type==='practice'&&v.plane==='close'&&v.state==='relief'&&slide.scene.n===16)v.state='idle';
+ if(slide.type==='practice'&&v.plane==='close'&&v.state==='relief'&&slide.scene.n===8)v.state='idle';
  return v;
 }
 
@@ -351,12 +362,38 @@ function overview(open){
   $('[data-go].is-now',o)?.focus();
  }
 }
+// ───────────── Reserva (R) ─────────────
+// Las 47 recomendaciones del DT XIV, por apartados, encima de la charla. No cambia el paso en el que estamos:
+// al cerrarla (Esc o R) seguimos donde lo dejamos. La ventana de ponente la abre y la recorre por el canal.
+const Reserva={
+ open:false,g:0,el:null,
+ item:x=>`<li class="rv-item ${x.tag?'is-'+x.tag:''}"><p>${esc(x.text)}</p><footer><span>${esc(strength(x))}</span>${tagText(x)?`<b>${esc(tagText(x))}</b>`:''}</footer></li>`,
+ render(){
+  if(!this.el){this.el=document.createElement('div');this.el.id='reserva';this.el.hidden=true;stage.append(this.el);
+   this.el.addEventListener('click',e=>{const b=e.target.closest('[data-rv]');if(b)this.show(Number(b.dataset.rv));else if(e.target.closest('[data-rv-close]'))this.close();});}
+  const g=RES[this.g];
+  this.el.innerHTML=`<div class="rv"><header class="rv-head"><div><span class="rv-k">Reserva · ${esc(G.reserve.title)}</span><h2>Qué no hacer en heridas crónicas</h2><p>GNEAUPP · Documento Técnico XIV · 2.ª ed. · 2020 · ${RES_ITEMS.length} recomendaciones</p></div><button type="button" data-rv-close aria-label="Volver a la charla (Esc)">Volver a la charla</button></header><nav class="rv-tabs">${RES.map((x,i)=>`<button type="button" data-rv="${i}" class="${i===this.g?'is-on':''}"><b>${esc(x.n)}</b>${esc(x.name)}<span>${x.items.length}</span></button>`).join('')}</nav><section class="rv-group"><h3><b>${esc(g.n)}</b>${esc(g.name)} <span>pp. ${g.items[0].page}–${g.items.at(-1).page}</span></h3><ol class="rv-list ${g.items.length>8?'is-dense':''}">${g.items.map(this.item).join('')}</ol></section><footer class="rv-foot">← → apartado · 1–6 para saltar · Esc o R para volver a la charla · Síntesis de cada recomendación; el «¿Por qué no?» está en la página indicada</footer></div>`;
+ },
+ show(g=this.g){this.g=Math.max(0,Math.min(RES.length-1,g));this.render();this.open=true;this.el.hidden=false;this.sync();},
+ close(){if(!this.open)return;this.open=false;this.el.hidden=true;this.sync();},
+ toggle(){this.open?this.close():this.show();},
+ move(d){this.show(this.g+d);},
+ sync(){if(!ESPEJO)channel?.postMessage({reserva:{open:this.open,g:this.g}});},
+ // Órdenes de la ventana de ponente o del teclado mientras está abierta.
+ act(a){if(a==='toggle')this.toggle();else if(a==='close')this.close();else if(a==='next')this.move(1);else if(a==='prev')this.move(-1);else if(typeof a==='number')this.show(a);}
+};
+function reserveKey(e){
+ const map={ArrowRight:'next',PageDown:'next',' ':'next',Enter:'next',ArrowDown:'next',ArrowLeft:'prev',PageUp:'prev',ArrowUp:'prev',Backspace:'prev',Escape:'close',r:'close',R:'close'};
+ if(/^[1-6]$/.test(e.key)){e.preventDefault();Reserva.act(Number(e.key)-1);return;}
+ if(map[e.key]){e.preventDefault();Reserva.act(map[e.key]);}
+}
 function fullscreen(){if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen?.();}
 function openPresenter(){window.open(location.pathname+'?ponente'+location.hash,'ponente','width=1100,height=760');}
 
 function key(e){
  if(e.metaKey||e.ctrlKey||e.altKey||e.target.closest?.('input,textarea,select'))return;
  const ov=!$('#overview').hidden;
+ if(Reserva.open)return reserveKey(e);
  switch(e.key){
   case 'ArrowRight':case ' ':case 'PageDown':case 'Enter':if(ov&&e.key==='Enter')return;e.preventDefault();next();break;
   case 'ArrowLeft':case 'PageUp':case 'Backspace':e.preventDefault();prev();break;
@@ -369,6 +406,7 @@ function key(e){
   case 'f':case 'F':fullscreen();break;
   case 'p':case 'P':if(!presenter&&!PUBLICO)openPresenter();break;
   case 'n':case 'N':if(!PUBLICO)Editor.toggle();break;
+  case 'r':case 'R':overview(false);Editor.close();Reserva.show();break;
   default:return;
  }
 }
@@ -385,20 +423,27 @@ function spokenNow(st){
  const develop=(st.develop||[]).map(t=>`<p class="pv-mdm is-off"><b>Con tus palabras</b> ${esc(t.replace(/^./,c=>c.toUpperCase()))}</p>`);
  return [st.sala?`<p class="pv-sala"><b>A la sala</b> ${esc(st.sala)}</p>`:'',...shown,...extra,...develop].join('');
 }
+const presenterReserve={open:false,g:0};
 function presenterView(){
  document.documentElement.classList.add('is-presenter');
  const hash=location.hash;
- $('#presenter').innerHTML=`<div class="pv"><header class="pv-head"><div><span class="pv-kicker" id="pv-where"></span><h1 id="pv-kind"></h1></div><div class="pv-clock"><b id="pv-timer">00:00</b><span id="pv-step"></span></div></header><main class="pv-grid"><section class="pv-live"><div class="pv-frame"><iframe title="Diapositiva actual" src="?espejo=0${hash}"></iframe></div><div class="pv-say"><h2>Ahora</h2><div id="pv-now"></div></div></section><aside class="pv-side"><h2>Siguiente</h2><div class="pv-frame is-small"><iframe title="Paso siguiente" src="?espejo=1${hash}"></iframe></div><div id="pv-next"></div><p class="pv-support" id="pv-support"></p></aside></main><footer class="pv-keys">→ avanzar · ← retroceder · ↑ ↓ escena · las dos ventanas avanzan juntas</footer></div>`;
+ $('#presenter').innerHTML=`<div class="pv"><header class="pv-head"><div><span class="pv-kicker" id="pv-where"></span><h1 id="pv-kind"></h1></div><div class="pv-clock"><b id="pv-timer">00:00</b><span id="pv-step"></span></div></header><main class="pv-grid"><section class="pv-live"><div class="pv-frame"><iframe title="Diapositiva actual" src="?espejo=0${hash}"></iframe></div><div class="pv-say"><h2>Ahora</h2><div id="pv-now"></div></div></section><aside class="pv-side"><h2>Siguiente</h2><div class="pv-frame is-small"><iframe title="Paso siguiente" src="?espejo=1${hash}"></iframe></div><div id="pv-next"></div><p class="pv-support" id="pv-support"></p></aside></main><footer class="pv-keys">→ avanzar · ← retroceder · ↑ ↓ escena · R reserva (← → apartado, Esc volver) · las dos ventanas avanzan juntas</footer></div>`;
  const started=Date.now();
  setInterval(()=>{const t=Math.floor((Date.now()-started)/1000);$('#pv-timer').textContent=pad(Math.floor(t/60))+':'+pad(t%60);},1000);
  return ()=>{
   const s=slides[si],st=s.steps[k],[na,nb]=nextOf(si,k),ns=slides[na],nst=ns.steps[nb];
   $('#pv-where').textContent=slideTitle(s);
-  $('#pv-kind').textContent=(STEP_KIND[st.kind]||'')+(st.kind==='resource'&&R[s.scene?.n]?.parts>1?` · ${st.part} de ${R[s.scene.n].parts}`:'')+(st.kind==='page'?` · página ${st.page+1} de 7`:'');
+  $('#pv-kind').textContent=(STEP_KIND[st.kind]||'')+(st.kind==='resource'&&R[s.scene?.n]?.parts>1?` · ${st.part} de ${R[s.scene.n].parts}`:'')+(st.kind==='page'?` · página ${st.page+1} de ${ESCENA_RECOPILACION.length}`:'');
   $('#pv-step').textContent=`paso ${k+1} de ${s.steps.length}`;
   $('#pv-now').innerHTML=spokenNow(st)||'<p class="pv-quiet">En este paso no dices nada: deja que se vea.</p>';
   $('#pv-next').innerHTML=(na!==si?`<span class="pv-kicker">${esc(slideTitle(ns))}</span>`:'')+(spokenNow(nst)||'<p class="pv-quiet">Cambio de pantalla.</p>');
   $('#pv-support').innerHTML=s.scene?.support?`<b>Respaldo</b> ${esc(s.scene.support)}`:'';
+  document.documentElement.classList.toggle('is-reserve',presenterReserve.open);
+  if(presenterReserve.open){
+   const g=RES[presenterReserve.g];
+   $('#pv-kind').textContent=`Reserva abierta · ${g.n} ${g.name}`;
+   $('#pv-now').innerHTML=`<p class="pv-quiet">En la pantalla está la reserva. Esc vuelve a la charla, en este mismo paso.</p>${g.items.map(x=>`<p class="pv-mdm is-off"><b>${esc(strength(x))}${tagText(x)?' · '+esc(tagText(x)):''}</b> ${esc(x.text)}</p>`).join('')}`;
+  }
  };
 }
 
@@ -407,6 +452,10 @@ function presenterView(){
 // contraseña; en local sin servidor o en el enlace público no hay notas y el cuadro lo explica.
 const SECCIONES=[['hilo','La pregunta y el hilo'],['herida','Conversación con la herida'],['recursos','Imágenes y recursos'],['evidencia','Evidencia'],['otros','Otros']];
 const seccion=id=>SECCIONES.find(x=>x[0]===id)?.[1]||'Otros';
+// Hasta el recorte a 13 escenas (1 de noviembre de 2026) las notas y los cambios se guardaban con la numeración
+// de 24 escenas: no se cuelgan de las diapositivas actuales y ?notas los muestra aparte para pasarlos al guion.
+const RECORTE=Date.parse('2026-11-01T19:15:00+01:00');
+const antiguo=x=>Date.parse(x.date)<RECORTE;
 const store={get:k=>{try{return localStorage.getItem(k)||'';}catch{return '';}},set:(k,v)=>{try{localStorage.setItem(k,v);}catch{}}};
 const api=async (url,opts={})=>{const r=await fetch(url,{credentials:'same-origin',...opts,headers:{accept:'application/json',...(opts.headers||{})}});const data=/json/.test(r.headers.get('content-type')||'')?await r.json():null;if(!r.ok||!data)throw Error(data?.error||'No se ha podido conectar.');return data;};
 const Notas={
@@ -423,7 +472,7 @@ const Notas={
  },
  async add(note){const data=await api('/api/notas',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(note)});this.list.push(data);this.notify();return data;},
  async remove(id){await api('/api/notas?id='+encodeURIComponent(id),{method:'DELETE'});this.list=this.list.filter(n=>n.id!==id);this.notify();},
- of:slide=>Notas.list.filter(n=>n.slide===slide)
+ of:slide=>Notas.list.filter(n=>n.slide===slide&&!antiguo(n))
 };
 // Las fotos grandes se reducen antes de subir (lado mayor de 2400 px), para que quepan y carguen rápido.
 async function shrink(file){
@@ -485,11 +534,11 @@ const Textos={
  list:[],ok:false,
  async load(){
   try{this.list=await api('/api/textos');this.ok=true;}catch{this.list=[];this.ok=false;}
-  this.list.forEach(t=>swap(t.slide,t.original,t.text));
+  this.list.filter(t=>!antiguo(t)).forEach(t=>swap(t.slide,t.original,t.text));
   return this.list;
  },
- origin(slide,text){return this.list.find(t=>t.slide===slide&&t.text===text)?.original??text;},
- changed(slide,text){return this.list.some(t=>t.slide===slide&&t.text===text);},
+ origin(slide,text){return this.list.find(t=>t.slide===slide&&t.text===text&&!antiguo(t))?.original??text;},
+ changed(slide,text){return this.list.some(t=>t.slide===slide&&t.text===text&&!antiguo(t));},
  async save(slide,current,text){
   const original=this.origin(slide,current);
   const data=await api('/api/textos',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({slide,original,text,author:author()})});
@@ -575,14 +624,17 @@ const Editor={
 function notesView(){
  document.documentElement.classList.add('is-guide');
  const render=()=>{
-  const groups=slides.map(s=>({s,list:Notas.of(s.id),texts:Textos.list.filter(t=>t.slide===s.id)})).filter(g=>g.list.length||g.texts.length);
+  const groups=slides.map(s=>({s,list:Notas.of(s.id),texts:Textos.list.filter(t=>t.slide===s.id&&!antiguo(t))})).filter(g=>g.list.length||g.texts.length);
+  const oldIds=[...new Set([...Notas.list,...Textos.list].filter(antiguo).map(x=>x.slide))];
+  const old=oldIds.map(id=>({id,label:/^escena-\d+$/.test(id)?`Escena ${pad(id.split('-')[1])} de la numeración anterior (24 escenas)`:id,list:Notas.list.filter(n=>n.slide===id&&antiguo(n)),texts:Textos.list.filter(t=>t.slide===id&&antiguo(t))}));
   const total=Notas.list.length,changes=Textos.list.length;
-  $('#guia').innerHTML=`<article class="g g-notes"><header class="g-top"><span class="g-kicker">Conversaciones con una herida</span><h1>Notas y cambios</h1><p>${Notas.ok===false?'Las notas solo están disponibles en la versión publicada, después de entrar con la contraseña.':total||changes?`${total} ${total===1?'nota':'notas'} y ${changes} ${changes===1?'cambio de texto':'cambios de texto'}, por orden del recorrido.`:'Todavía no hay notas ni cambios.'}</p><p class="g-actions"><a href="./">Abrir la presentación</a><a href="?guia">Abrir la guía</a>${total||changes?'<button data-export>Descargar todo (.md)</button>':''}</p></header>${groups.map(({s,list,texts})=>`<section class="g-sec"><header><span class="g-kicker">${esc(s.block?`Momento ${s.block.roman}`:'Apertura y cierre')}</span><h2><a href="./#${esc(s.id)}">${esc(slideTitle(s))}</a></h2></header>${texts.length?`<h3 class="g-h3">Cambios de texto</h3><ol class="changes">${texts.map(t=>`<li><del>${esc(t.original)}</del><ins>${esc(t.text)}</ins><small>${esc(t.author)} · ${esc(when(t.date))}</small></li>`).join('')}</ol>`:''}${SECCIONES.map(([v,l])=>{const xs=list.filter(n=>n.section===v);return xs.length?`<h3 class="g-h3">${esc(l)}</h3><ol class="notes-list">${xs.map(noteItem).join('')}</ol>`:'';}).join('')}</section>`).join('')}</article>`;
+  $('#guia').innerHTML=`<article class="g g-notes"><header class="g-top"><span class="g-kicker">Conversaciones con una herida</span><h1>Notas y cambios</h1><p>${Notas.ok===false?'Las notas solo están disponibles en la versión publicada, después de entrar con la contraseña.':total||changes?`${total} ${total===1?'nota':'notas'} y ${changes} ${changes===1?'cambio de texto':'cambios de texto'}, por orden del recorrido.`:'Todavía no hay notas ni cambios.'}</p><p class="g-actions"><a href="./">Abrir la presentación</a><a href="?guia">Abrir la guía</a>${total||changes?'<button data-export>Descargar todo (.md)</button>':''}</p></header>${groups.map(({s,list,texts})=>`<section class="g-sec"><header><span class="g-kicker">${esc(s.block?`Momento ${s.block.roman}`:'Apertura y cierre')}</span><h2><a href="./#${esc(s.id)}">${esc(slideTitle(s))}</a></h2></header>${texts.length?`<h3 class="g-h3">Cambios de texto</h3><ol class="changes">${texts.map(t=>`<li><del>${esc(t.original)}</del><ins>${esc(t.text)}</ins><small>${esc(t.author)} · ${esc(when(t.date))}</small></li>`).join('')}</ol>`:''}${SECCIONES.map(([v,l])=>{const xs=list.filter(n=>n.section===v);return xs.length?`<h3 class="g-h3">${esc(l)}</h3><ol class="notes-list">${xs.map(noteItem).join('')}</ol>`:'';}).join('')}</section>`).join('')}${old.length?`<section class="g-sec"><header><span class="g-kicker">Antes del recorte a 13 escenas</span><h2>Notas y cambios de la edición anterior</h2></header><p class="g-note">Se guardaron con la numeración de 24 escenas y ya no se aplican a la presentación. Revísalos y pasa al guion lo que siga valiendo.</p>${old.map(o=>`<h3 class="g-h3">${esc(o.label)}</h3>${o.texts.length?`<ol class="changes">${o.texts.map(t=>`<li><del>${esc(t.original)}</del><ins>${esc(t.text)}</ins><small>${esc(t.author)} · ${esc(when(t.date))}</small></li>`).join('')}</ol>`:''}${o.list.length?`<ol class="notes-list">${o.list.map(noteItem).join('')}</ol>`:''}`).join('')}</section>`:''}</article>`;
  };
  Notas.listeners.add(render);render();
  $('#guia').addEventListener('click',async e=>{
   if(e.target.closest('[data-export]')){
-   const md='# Notas y cambios · Conversaciones con una herida\n\n'+slides.map(s=>({s,list:Notas.of(s.id),texts:Textos.list.filter(t=>t.slide===s.id)})).filter(g=>g.list.length||g.texts.length).map(({s,list,texts})=>`## ${slideTitle(s)}\n\n`+(texts.length?'### Cambios de texto\n\n'+texts.map(t=>`- «${t.original}» → «${t.text}» (${t.author}, ${when(t.date)})`).join('\n')+'\n\n':'')+SECCIONES.map(([v,l])=>{const xs=list.filter(n=>n.section===v);return xs.length?`### ${l}\n\n`+xs.map(n=>`- **${n.author}** (${when(n.date)}${n.step!=null?`, paso ${n.step+1}`:''}): ${n.text.replace(/\n/g,'\n  ')}${n.files?.length?'\n  '+n.files.map(f=>`[${f.name}](${location.origin}/api/adjuntos?id=${f.id})`).join(' · '):''}`).join('\n')+'\n':'';}).join('\n')).join('\n');
+   const oldMd=[...Notas.list,...Textos.list].filter(antiguo).map(x=>`- ${x.slide} (numeración de 24 escenas) · ${x.original?`«${x.original}» → «${x.text}»`:x.text.replace(/\n/g,' ')} (${x.author}, ${when(x.date)})`).join('\n');
+   const md='# Notas y cambios · Conversaciones con una herida\n\n'+(oldMd?`## Antes del recorte a 13 escenas\n\n${oldMd}\n\n`:'')+slides.map(s=>({s,list:Notas.of(s.id),texts:Textos.list.filter(t=>t.slide===s.id&&!antiguo(t))})).filter(g=>g.list.length||g.texts.length).map(({s,list,texts})=>`## ${slideTitle(s)}\n\n`+(texts.length?'### Cambios de texto\n\n'+texts.map(t=>`- «${t.original}» → «${t.text}» (${t.author}, ${when(t.date)})`).join('\n')+'\n\n':'')+SECCIONES.map(([v,l])=>{const xs=list.filter(n=>n.section===v);return xs.length?`### ${l}\n\n`+xs.map(n=>`- **${n.author}** (${when(n.date)}${n.step!=null?`, paso ${n.step+1}`:''}): ${n.text.replace(/\n/g,'\n  ')}${n.files?.length?'\n  '+n.files.map(f=>`[${f.name}](${location.origin}/api/adjuntos?id=${f.id})`).join(' · '):''}`).join('\n')+'\n':'';}).join('\n')).join('\n');
    const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([md],{type:'text/markdown'}));a.download='notas-y-cambios-conversaciones-herida.md';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000);
   }
   const del=e.target.closest('[data-del]');if(del&&confirm('¿Borrar esta nota? No se puede deshacer.')){try{await Notas.remove(del.dataset.del);}catch(err){alert(err.message);}}
@@ -636,7 +688,7 @@ function whatHappens(slide,st){
   case 'blockclose':return `Cierras el momento «${esc(slide.block.name)}».`;
   case 'page':{const [a,z]=ESCENA_RECOPILACION[st.page];return `Recopilación, página ${st.page+1} de ${ESCENA_RECOPILACION.length}: escenas ${a}${z>a?'–'+z:''}.`;}
   case 'chips':return `Aparece «${esc(ESCENA_REGRESO[st.part-1])}».`;
-  case 'screen':return st.what==='portada'?'La pregunta de la mesa, en grande.':st.what==='presentación de la herida'?'Aparece la herida: «Os presento a la herida».':st.what==='lo que recuperamos'?'Vuelve el hilo de la escena 1 y el esquema del carro.':st.what==='al terminar el repaso'?'Queda: «Una actuación para revisar en la próxima cura».':st.what==='regreso a la pregunta de la mesa'?'Vuelve la pregunta de la mesa con su respuesta.':st.what==='pregunta final'?'Queda la pregunta final para la sala.':'';
+  case 'screen':return st.what==='portada'?'La pregunta de la mesa, en grande.':st.what==='presentación de la herida'?'Aparece la herida: «Os presento a la herida».':st.what==='lo que recuperamos'?'Vuelve el hilo de la escena 1 y el esquema del carro.':st.what==='la guía de partida'?`Aparece la guía de partida: «Qué no hacer en heridas crónicas», con sus ${RES_ITEMS.length} recomendaciones por apartados.`:st.what==='lo que traemos'?`Se iluminan las ${RES_IN} que salen en la charla y entran los cuatro momentos; el resto queda guardado.`:st.what==='para seguir profundizando'?'Para seguir profundizando: los apartados de la guía con lo que queda en la reserva y dónde seguir en cada guía.':st.what==='regreso a la pregunta de la mesa'?'Vuelve la pregunta de la mesa con su respuesta.':st.what==='pregunta final'?'Queda la pregunta final para la sala.':'';
   default:return '';
  }
 }
@@ -666,8 +718,9 @@ function guideView(){
   const title=s?s.title:slide.type==='block'?b.name:slide.type==='intro'?'Antes de acercar el carro':slide.id==='apertura'?'Portada':'Contraportada';
   return `<section class="g-sec" id="g-${slide.id}" ${b?`data-q="${b.n}"`:''}><header><span class="g-kicker">${esc(kicker)}</span><h2>${esc(title)}</h2></header>${about(slide)?`<div class="g-about"><h3>De qué va</h3>${about(slide)}</div>`:''}<h3 class="g-h3">Paso a paso</h3><ol class="g-steps">${slide.steps.map((st,k)=>guideStep(slide,st,k)).join('')}</ol></section>`;
  };
+ const reserve=`<section class="g-sec g-reserve" id="g-reserva"><header><span class="g-kicker">Por si preguntan · tecla R</span><h2>${esc(G.reserve.title)}</h2></header><div class="g-about"><p>${esc(G.reserve.intro.replace(/\*/g,''))}</p></div>${RES.map(g=>`<h3 class="g-h3">${esc(g.n)} · ${esc(g.name)}</h3><ol class="g-rv">${g.items.map(x=>`<li class="${x.tag?'is-'+x.tag:''}"><p>${esc(x.text)}</p><small>${esc(strength(x))}${tagText(x)?' · <b>'+esc(tagText(x))+'</b>':''}</small></li>`).join('')}</ol>`).join('')}</section>`;
  const map=G.blocks.map(b=>`<li data-q="${b.n}"><a href="#g-bloque-${b.n}"><b>${b.roman}</b> ${esc(b.name)}</a><span>${b.scenes.map(n=>`<a href="#g-escena-${n}">${pad(n)} ${esc(G.scenes[n-1].title)}</a>`).join('')}</span></li>`).join('');
- $('#guia').innerHTML=`<article class="g"><header class="g-top"><span class="g-kicker">Conversaciones con una herida · IV Jornadas Comisión Heridas Jerez</span><h1>Tu guion, María del Mar</h1><p>Diapositiva a diapositiva: primero de qué va y luego qué pasa en cada clic. No hace falta aprenderlo; dilo con tus palabras. Lo importante de cada escena es la pregunta, la condición de la evidencia y lo que nos llevamos.</p><p class="g-actions"><a href="./" target="_blank">Abrir la presentación</a><a href="?notas">Notas y cambios</a><a href="/salir">Salir</a></p><p class="g-hint">Para anotar o corregir algo, abre la presentación y pulsa <b>N</b> (o el botón «Notas»): verás la diapositiva mientras escribes.</p></header><nav class="g-map"><h2>El recorrido</h2><ol>${map}</ol></nav>${slides.map(sec).join('')}<footer class="g-end">Lo que dice la herida son réplicas preparadas; los ejemplos son docentes. La revisión clínica final y la duración se cierran contigo.</footer></article>`;
+ $('#guia').innerHTML=`<article class="g"><header class="g-top"><span class="g-kicker">Conversaciones con una herida · IV Jornadas Comisión Heridas Jerez</span><h1>Tu guion, María del Mar</h1><p>Diapositiva a diapositiva: primero de qué va y luego qué pasa en cada clic. No hace falta aprenderlo; dilo con tus palabras. Lo importante de cada escena es la pregunta, la condición de la evidencia y lo que nos llevamos.</p><p class="g-actions"><a href="./" target="_blank">Abrir la presentación</a><a href="?notas">Notas y cambios</a><a href="/salir">Salir</a></p><p class="g-hint">Para anotar o corregir algo, abre la presentación y pulsa <b>N</b> (o el botón «Notas»): verás la diapositiva mientras escribes.</p></header><nav class="g-map"><h2>El recorrido</h2><ol>${map}<li><a href="#g-reserva"><b>R</b> Reserva · por si preguntan</a></li></ol></nav>${slides.map(sec).join('')}${reserve}<footer class="g-end">Lo que dice la herida son réplicas preparadas; los ejemplos son docentes. La revisión clínica final y la duración se cierran contigo.</footer></article>`;
  document.title='Tu guion · Conversaciones con una herida';
  if(location.hash)setTimeout(()=>document.getElementById(location.hash.slice(1))?.scrollIntoView(),50);
 }
@@ -682,10 +735,20 @@ const fromHash=()=>{const [id,step]=decodeURIComponent(location.hash.slice(1)).s
  if(presenter){
   const render=presenterView();
   const sync=(a,b)=>{si=a;k=b;render();};
-  channel?.addEventListener('message',e=>sync(e.data.si,e.data.k));
+  channel?.addEventListener('message',e=>{if(e.data.reserva&&typeof e.data.reserva==='object'){Object.assign(presenterReserve,e.data.reserva);render();return;}if(e.data.si!=null)sync(e.data.si,e.data.k);});
+  const toReserve=a=>channel?.postMessage({from:'ponente',reserva:a});
   const send=(a,b)=>{a=Math.max(0,Math.min(slides.length-1,a));const n=slides[a].steps.length;b=b<0?n-1:Math.min(n-1,Math.max(0,b));sync(a,b);channel?.postMessage({si:a,k:b,from:'ponente'});location.replace('#'+slides[a].id+(b?'/'+(b+1):''));};
   document.addEventListener('keydown',e=>{
    if(e.target.closest?.('input,textarea,select'))return;
+   if(e.key==='r'||e.key==='R'){toReserve('toggle');return;}
+   if(presenterReserve.open){
+    e.preventDefault();
+    if(/^[1-6]$/.test(e.key))toReserve(Number(e.key)-1);
+    else if(['ArrowRight',' ','PageDown','ArrowDown'].includes(e.key))toReserve('next');
+    else if(['ArrowLeft','PageUp','ArrowUp'].includes(e.key))toReserve('prev');
+    else if(e.key==='Escape')toReserve('close');
+    return;
+   }
    if(['ArrowRight',' ','PageDown'].includes(e.key)){e.preventDefault();if(k<slides[si].steps.length-1)send(si,k+1);else send(si+1,0);}
    if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();if(k>0)send(si,k-1);else send(si-1,-1);}
    if(e.key==='ArrowDown')send(si+1,0);if(e.key==='ArrowUp')send(si-1,0);
@@ -697,19 +760,19 @@ const fromHash=()=>{const [id,step]=decodeURIComponent(location.hash.slice(1)).s
  if(ESPEJO){
   // Sigue a la presentación y a la ponente; el espejo de «siguiente» va un paso por delante.
   const follow=(x,y)=>{const [p,q2]=QUIETO?nextOf(x,y):[x,y];go(p,q2,QUIETO?0:undefined);};
-  channel?.addEventListener('message',e=>follow(e.data.si,e.data.k));
+  channel?.addEventListener('message',e=>{if(e.data.si!=null)follow(e.data.si,e.data.k);});
   await document.fonts.ready;follow(a,b);
   return;
  }
  document.addEventListener('keydown',key);
- channel?.addEventListener('message',e=>{if(e.data.from==='ponente')go(e.data.si,e.data.k);});
- $('#hud').addEventListener('click',e=>{const act=e.target.closest('[data-act]')?.dataset.act;if(act==='prev')prev();if(act==='next')next();if(act==='overview')overview();if(act==='fullscreen')fullscreen();if(act==='presenter')openPresenter();if(act==='guide')window.open(location.pathname+'?guia','guia');});
+ channel?.addEventListener('message',e=>{if(e.data.from!=='ponente')return;if(e.data.reserva!==undefined)Reserva.act(e.data.reserva);else go(e.data.si,e.data.k);});
+ $('#hud').addEventListener('click',e=>{const act=e.target.closest('[data-act]')?.dataset.act;if(act==='prev')prev();if(act==='next')next();if(act==='overview')overview();if(act==='fullscreen')fullscreen();if(act==='presenter')openPresenter();if(act==='reserve')Reserva.show();if(act==='guide')window.open(location.pathname+'?guia','guia');});
  $('#overview').addEventListener('click',e=>{const btn=e.target.closest('[data-go]');if(btn){overview(false);go(Number(btn.dataset.go),0);}else if(e.target.id==='overview')overview(false);});
- stage.addEventListener('click',e=>{if(e.target.closest('a,button'))return;const r=stage.getBoundingClientRect();(e.clientX-r.left<r.width*.18?prev:next)();});
+ stage.addEventListener('click',e=>{if(e.target.closest('a,button,#reserva'))return;const r=stage.getBoundingClientRect();(e.clientX-r.left<r.width*.18?prev:next)();});
  let idle;document.addEventListener('pointermove',()=>{document.body.classList.add('show-hud');clearTimeout(idle);idle=setTimeout(()=>document.body.classList.remove('show-hud'),2200);});
  addEventListener('resize',()=>{lastPlace=null;apply(0);});
  Editor.mount();
  await document.fonts.ready;go(a,b,1);
- globalThis.Escena={slides,go,next,prev,state:()=>({si,k,id:slides[si].id,view:view(slides[si],k)})};
+ globalThis.Escena={slides,go,next,prev,reserva:Reserva,state:()=>({si,k,id:slides[si].id,view:view(slides[si],k),reserva:Reserva.open?RES[Reserva.g].n:null})};
 })();
 })();

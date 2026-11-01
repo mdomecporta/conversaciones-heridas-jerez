@@ -1,6 +1,6 @@
 # Recursos incorporados · 27 de octubre de 2026
 
-Se han incorporado 11 imágenes a 21 de las 24 escenas. Apertura, síntesis de cinco preguntas y cierre conservan la entidad animada o los recursos de texto existentes. Las dos pantallas institucionales se mantienen.
+Se han incorporado 11 imágenes al catálogo. Desde el recorte del 1 de noviembre (13 escenas), la presentación usa 7 en 6 escenas; el pioderma gangrenoso, el sistema de compresión y el modelo del biofilm siguen en el catálogo, sin uso. Las dos pantallas institucionales se mantienen.
 
 ## Fotografías externas
 

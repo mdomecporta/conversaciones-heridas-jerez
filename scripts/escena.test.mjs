@@ -15,7 +15,7 @@ test('el guion encaja con la escena',()=>{assert.deepEqual(validate(guion),[]);}
 test('las comillas anidadas se conservan',()=>{assert.equal(quote('«A veces nos ponen “crónica”». Sigue'),'A veces nos ponen “crónica”');assert.equal(quote('«Dar «crónica» por hecho»'),'Dar «crónica» por hecho');});
 test('cada actuación tiene hilo completo y evidencia con fuente',()=>{
  const practice=guion.scenes.filter(s=>s.kind==='practice');
- assert.equal(practice.length,21);
+ assert.equal(practice.length,11);
  for(const s of practice){
   const ev=s.steps.find(x=>x.kind==='evidence').evidence;
   assert.ok(ev.title&&ev.idea&&ev.source,`Escena ${s.n}`);
@@ -29,12 +29,27 @@ test('las explicaciones largas de María del Mar no se proyectan',()=>{
  for(const s of guion.scenes.filter(s=>s.kind==='practice'))assert.ok(!s.steps.find(x=>x.kind==='evidence').lines,`Escena ${s.n}`);
 });
 test('cada actuación tiene recurso y sus imágenes están en el catálogo',()=>{
- for(let n=1;n<=21;n++){
+ for(let n=1;n<=11;n++){
   const r=ctx.R[n];assert.ok(r,`Escena ${n} sin recurso`);assert.ok(r.parts>=1);
   for(const id of [r.asset,r.side?.asset,...(r.items||[]).map(i=>i.asset)].filter(Boolean))assert.ok(manifest.assets[id],`${n}: ${id}`);
  }
 });
-test('la recopilación recorre las 21 actuaciones una sola vez',()=>{
+test('la recopilación recorre las 11 actuaciones una sola vez',()=>{
  const seen=[...ctx.REC].flatMap(([a,z])=>Array.from({length:z-a+1},(_,i)=>a+i));
- assert.deepEqual([...seen],Array.from({length:21},(_,i)=>i+1));
+ assert.deepEqual([...seen],Array.from({length:11},(_,i)=>i+1));
+});
+test('la reserva recoge las 47 recomendaciones del DT XIV en sus seis apartados',()=>{
+ const g=guion.reserve.groups;
+ assert.deepEqual(g.map(x=>x.items.length),[2,13,6,9,9,8]);
+ const items=g.flatMap(x=>x.items);
+ assert.ok(items.every(x=>x.page>=15&&x.page<=33&&['Alta','Moderada','Baja'].includes(x.strength)&&x.text));
+ // Las páginas siguen el orden de la guía.
+ assert.deepEqual(items.map(x=>x.page),[...items.map(x=>x.page)].sort((a,b)=>a-b));
+ // Cada recomendación marcada «En la charla» se cita en el respaldo de su escena.
+ const pagesOf=support=>{const seg=support.match(/\[1\], ([^;]+)/)?.[1]||'';return seg.match(/\d+(?:–\d+)?/g)?.flatMap(r=>{const [a,z=a]=r.split('–').map(Number);return Array.from({length:z-a+1},(_,i)=>a+i);})||[];};
+ for(const x of items.filter(x=>x.tag==='charla'))assert.ok(pagesOf(guion.scenes[x.scene-1].support).includes(x.page),`Escena ${x.scene} no cita la p. ${x.page} del DT XIV`);
+});
+test('el cierre trae dónde seguir para cada guía de la bibliografía',()=>{
+ const deeper=guion.scenes.at(-1).steps.find(x=>x.deeper).deeper;
+ assert.deepEqual(deeper.map(d=>d.ref),guion.references.map(r=>r.n));
 });
