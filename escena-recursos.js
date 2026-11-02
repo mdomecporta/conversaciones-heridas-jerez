@@ -13,7 +13,7 @@ const ESCENA_RECURSOS={
  3:{type:'imagen',asset:'shared-care',parts:2,ask:'¿Cómo se organiza el cuidado fuera de la consulta?',
   historia:{type:'momentos',label:'Ficha docente · supuesto',title:'Un día entre cura y cura',items:[['Por la mañana','El apósito y la ducha'],['Durante el día','Quién ayuda y cómo se mueve'],['Por la noche','El dolor y el descanso']]}},
  4:{type:'registro',label:'Notas ficticias · propuesta docente',title:'Notas de las últimas curas',parts:2,
-  rows:[['Visita 1','Limpieza · apósito · próxima cita'],['Visita 2','Limpieza · apósito · próxima cita'],['Visita 3','Limpieza · apósito · próxima cita']],absence:['Cómo ha respondido la herida','No consta'],
+  rows:[['Plan','Limpieza y apósito · 3 veces por semana'],['Visita 1','Limpieza · apósito · próxima cita'],['Visita 2','Limpieza · apósito · próxima cita'],['Visita 3','Limpieza · apósito · próxima cita']],absence:['Cómo ha respondido la herida','No consta'],
   historia:{type:'opciones',label:'Supuesto docente',title:'La misma herida, tres notas',items:['«Parece que va mejor»','«Yo la veo igual»','«Ha mejorado algo»'],supuesto:'Ninguna dice respecto a qué'}},
  5:{type:'registro',label:'Seguimiento · datos ficticios',title:'Cuatro semanas igual',parts:2,
   rows:[['Inicio','5 × 4 cm'],['Semana 2','5 × 4 cm'],['Semana 4','5 × 4 cm']],absence:['Propuesta para la próxima cura','Añadir pomada con antibiótico'],
@@ -26,8 +26,8 @@ const ESCENA_RECURSOS={
   fields:[['Inicio',true,'Hace 5 semanas'],['Motivo',false,'Por si acaso'],['Revisión',false,'No consta']],questions:['Qué tratamos','Qué esperamos que cambie','Cuándo lo revisamos'],
   historia:{type:'registro',label:'GNEAUPP DT VIII · plata en heridas infectadas',title:'La referencia de la guía',parts:2,rows:[['Plata','Hasta 14 días'],['Después','Revaloración crítica']],absence:['Esta pauta','5 semanas, sin revisar']}},
  8:{type:'registro',label:'Pauta ficticia · supuesto',title:'Pauta de limpieza',parts:2,
-  rows:[['Con qué','Lo de siempre'],['Cómo','Como siempre'],['Cuándo','En cada cura']],absence:['Dolor en la última cura','No consta'],
-  historia:{type:'momentos',label:'Ficha docente',title:'El dolor en la cura',calm:true,items:[['Antes','Cómo fue la cura anterior y qué dolor hay hoy'],['Durante','Qué está ocurriendo y si hay que parar'],['Después','Qué ajustamos para la próxima']]}},
+  rows:[['Con qué','Lo de siempre'],['Dónde','El lecho'],['Cuándo','En cada cura']],absence:['Borde y piel perilesional','No constan'],
+  historia:{type:'imagen',asset:'wound-zones',walk:true,auto:true,parts:2,tag:'Modelo conceptual',then:{head:'Según valoración y tolerancia',items:['Con qué','Cómo','Con qué fuerza']}}},
  9:{type:'imagen-campos',asset:'heel',parts:2,thumb:true,title:'Antes de decidir',datum:'Escara seca y propuesta de desbridamiento cortante',
   fields:['Perfusión','Estabilidad y complicaciones','Situación y objetivos'],
   historia:{type:'esquema',label:'Esquema docente · supuesto del GNEAUPP',title:'Una escara que a veces se deja',cols:[{head:'Sin signos de complicación',items:['Escara seca y estable','No es preciso el desbridamiento cortante']},{head:'Con signos',items:['Infección, edema, eritema, fluctuación o drenaje','Cambia la prioridad: valorar antes de actuar']}],link:'¿Qué vemos?'}},
@@ -36,7 +36,7 @@ const ESCENA_RECURSOS={
   historia:{type:'opciones',label:'Esquema docente',title:'Objetivos que pueden convivir',items:['Cicatrizar','Prevenir la infección','Aliviar lo que más pesa'],supuesto:'Lo que más le pesa: no poder dormir'}},
  // Las mismas notas de la escena 4: vuelven con la nota de relevo y, en «Nos preguntamos», completadas.
  11:{type:'registro',label:'Las notas de la escena 4 · ficticias',title:'Notas de las últimas curas',parts:2,
-  rows:[['Visita 1','Limpieza · apósito · próxima cita'],['Visita 2','Limpieza · apósito · próxima cita'],['Visita 3','Limpieza · apósito · próxima cita'],['Para mañana','Seguir igual']],absence:['Por qué seguimos así','No consta'],
+  rows:[['Plan','Limpieza y apósito · 3 veces por semana'],['Visita 1','Limpieza · apósito · próxima cita'],['Visita 2','Limpieza · apósito · próxima cita'],['Visita 3','Limpieza · apósito · próxima cita'],['Para mañana','Seguir igual']],absence:['Por qué seguimos así','No consta'],
   // La misma herida en el módulo Heridas de Diraya: campos y pestañas tomados del material de formación del SAS
   // (DIRAYAbierto, 2026). La descripción es obligatoria en cada evolución; el porqué va en Observaciones.
   historia:{type:'diraya',label:'Recreación docente basada en Diraya · módulo Heridas · datos ficticios',title:'La misma herida, en el módulo Heridas',

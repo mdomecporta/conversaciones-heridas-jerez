@@ -28,7 +28,7 @@ El DT XIV es el punto de partida de la charla, pero no todas las escenas se apoy
 | 5 · No vemos el cambio | Si no avanza, reevaluar antes de añadir. | DT XIV p. 29 | EWMA 2022 §§2–3 | Hecho |
 | 6 · La muestra | Sin signos de infección, no cultivar: un positivo no diagnostica. | DT XIV p. 30 | DT VIII pp. 17, 23–24 | Hecho |
 | 7 · El antimicrobiano | Ningún antimicrobiano sin motivo escrito ni fecha de revisión. | — | DT VIII pp. 27–30, 38 · EWMA 2022 §6 | Hecho |
-| 8 · La limpieza | Preguntar por el dolor antes, durante y después de limpiar. | — | IWII rec. 13 | Hecho: hilo del dolor |
+| 8 · La limpieza | Limpieza terapéutica, no rutinaria: lecho, borde y piel, según la valoración y el dolor. | — | IWII rec. 1, 3, 11 y 13 · DT XIV pp. 26–27 | Hecho: limpieza terapéutica |
 | 9 · El talón con escara | Una escara seca y estable de talón no se quita sin valorar antes. | DT XIV pp. 21, 28 | Ficha de isquemia amenazante | Funciona |
 | 10 · Lo que podemos conseguir | No prometer el cierre: acordar qué se busca hoy. | — | IWII p. 26, rec. 13 · EWMA 2022 §4 | Hecho: fuente corregida |
 | 11 · Quien venga mañana | Dejar escrito el porqué del plan, no solo el plan. | — | EWMA 2022 §§4–6 | Funciona |
@@ -82,7 +82,10 @@ El DT XIV es el punto de partida de la charla, pero no todas las escenas se apoy
 - **Sale de la pantalla:** la clasificación antibiótico, antiséptico y apósito. Pasa a lo que dice María del Mar con sus palabras.
 - **Confirmar:** si la plata «por si acaso» y durante semanas es una situación que reconoce.
 
-### 8 · La limpieza de hoy · hecho (hilo del dolor)
+### 8 · La limpieza de hoy · hecho (limpieza terapéutica, por nota de María del Mar)
+
+- **Decisión final:** María del Mar pidió en sus notas distinguir limpieza rutinaria y terapéutica y no olvidar borde y piel perilesional. La escena se rehízo con ese hilo (IWII rec. 3, p. 10). Lo que sigue más abajo es la propuesta anterior, centrada en el dolor.
+
 
 - **Problema:** junta tres temas: la limpieza adaptada a cada zona (lecho, borde y piel), el dolor, y los antisépticos y jabones de rutina. Además se apoya en una regla de desbridamiento.
 - **Recomendación:** el hilo lo marca la herida, que habla todo el rato del dolor («puede doler», «lo que más miedo me da», «del dolor no ponía nada», «se agradece que alguien pregunte»). La recomendación sería preguntar por el dolor antes, durante y después de limpiar.

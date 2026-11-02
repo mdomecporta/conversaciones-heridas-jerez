@@ -180,17 +180,17 @@ Estas son indicaciones del montaje previsto; actualizar el guion no aplica por s
 
 **María del Mar, con sus palabras:** cuenta qué pasaría con la misma pauta: en el ejemplo venoso, la cura local acompaña a la compresión, que necesita su propia valoración e indicación; en el arterial, la guía desaconseja la cura en ambiente húmedo sobre escara seca o gangrena mientras no esté revascularizada.
 
-**En pantalla · evidencia científica:** el apoyo anterior se recoge. Aparece «La etiología cambia las prioridades», con esta idea: «El diagnóstico debe explicar la causa y los factores que mantienen la lesión. El abordaje causal y la situación vascular condicionan el plan». Fuente visible: GNEAUPP DT XIV · pp. 15, 20–21 / EWMA · fichas. También se muestra la condición: «La etiología viene establecida en estos ejemplos. La imagen no permite diagnosticar». María del Mar relaciona este fundamento con lo que acaba de señalar la herida.
+**En pantalla · evidencia científica:** el apoyo anterior se recoge. Aparece «La etiología cambia las prioridades», con esta idea: «El diagnóstico debe explicar la causa y los factores que mantienen la lesión. El abordaje etiológico y la situación vascular condicionan el plan». Fuente visible: GNEAUPP DT XIV · pp. 15, 20–21 / EWMA · fichas. También se muestra la condición: «La etiología viene establecida en estos ejemplos. La imagen no permite diagnosticar». María del Mar relaciona este fundamento con lo que acaba de señalar la herida.
 
 **María del Mar, con sus palabras:** la causa y la perfusión condicionan el abordaje y la seguridad de lo que hacemos. En el ejemplo venoso, la cura local va junto a la compresión, que necesita su propia valoración e indicación. En el arterial, la guía desaconseja la cura en ambiente húmedo sobre escara seca o gangrena mientras no esté revascularizada. Cambiar de apósito puede tener sentido, pero no sustituye al abordaje de la causa, y sumar varios apósitos en la misma cura no suma sus beneficios.
 
-**La herida:** «Pobre apósito. Tanto cambiarlo, y la culpa no siempre era suya».
+**La herida:** «Tanto y tanto cambiar, y la culpa no siempre era suya. ¡Pobre apósito!».
 
 **María del Mar:** «Puede ayudar, claro. Pero solo si atendemos también la causa».
 
 **En pantalla · el aprendizaje:** se completa «Nos llevamos» en el hilo; la evidencia sigue a la vista como su fundamento. María del Mar responde a la pregunta antes de enlazar.
 
-**La herida:** «Pues la próxima vez, que me pregunten de dónde vengo».
+**La herida:** «La próxima vez, que me pregunten de dónde vengo».
 
 **María del Mar cierra:** «Cada pauta sale de su propia historia: primero el porqué, después el apósito».
 
@@ -214,13 +214,13 @@ Estas son indicaciones del montaje previsto; actualizar el guion no aplica por s
 
 **María del Mar, con sus palabras:** abre la conversación sobre lo que pasa fuera de la consulta: qué ha entendido la persona, cómo encaja el cuidado en su rutina y qué ayuda necesita.
 
-**La herida:** «El plan está escrito. Lo que no pone es si se puede seguir en casa».
+**La herida:** «La planificación de cuidados está escrita, pero en ningún momento pone si se puede seguir en casa o cómo hacerlo».
 
 **En pantalla · la pregunta:** se tacha la actuación y se revela la pregunta de esta escena. En el mismo paso, la herida cuenta la historia que hace necesaria la pregunta.
 
 **En pantalla · la historia:** una ficha docente «Un día entre cura y cura», como supuesto: «Por la mañana» (el apósito y la ducha), «Durante el día» (quién ayuda y cómo se mueve) y «Por la noche» (el dolor y el descanso). Son preguntas posibles, no dificultades que se atribuyan a nadie.
 
-**La herida:** «Entre cura y cura pasan muchas cosas que no salen en las notas».
+**La herida:** «Entre cura y cura pasan muchas horas que no salen en el plan de cuidados».
 
 **María del Mar:** «Cuéntame un día cualquiera».
 
@@ -234,7 +234,7 @@ Estas son indicaciones del montaje previsto; actualizar el guion no aplica por s
 
 **En pantalla · el aprendizaje:** se completa «Nos llevamos» en el hilo; la evidencia sigue a la vista como su fundamento. María del Mar responde a la pregunta antes de enlazar.
 
-**La herida:** «Y la próxima visita, que alguien pregunte en casa qué tal va».
+**La herida:** «Y la próxima visita, que alguien pregunte: “Oye, ¿y en casa cómo os estáis apañando?”».
 
 **María del Mar cierra:** «El plan se acuerda con la persona: comprobamos lo que entiende y escuchamos lo que necesita».
 
@@ -250,7 +250,7 @@ Estas son indicaciones del montaje previsto; actualizar el guion no aplica por s
 
 **Qué queremos explicar en este bloque:** cada intervención necesita un motivo y una forma de comprobar su respuesta. Revisamos cómo registramos y medimos, cómo interpretamos la información y cómo adaptamos lo que hacemos a la herida y a la persona.
 
-**En pantalla · entrada de bloque:** se destaca el bloque II en el recorrido y aparece «¿Por qué lo hacemos y cómo sabremos si ayuda?». La entidad acompaña; los recursos de escena entran después.
+**En pantalla · entrada de bloque:** se destaca el bloque II en el recorrido y aparece «¿Por qué lo hacemos y cómo sabremos si mejora?». La entidad acompaña; los recursos de escena entran después.
 
 **María del Mar abre el bloque:** «Acordar un plan trae deberes: comprobar si ayuda».
 
@@ -262,9 +262,9 @@ Estas son indicaciones del montaje previsto; actualizar el guion no aplica por s
 **Nos preguntamos:** ¿Qué ha cambiado y cómo lo medimos?  
 **Nos llevamos:** Registrar la respuesta y compararla con instrumentos apropiados.
 
-**La herida:** «Mis notas de las últimas curas. Aviso: limpieza, apósito y próxima cita. Las tres veces».
+**La herida:** «Mi último plan de cuidados decía: limpieza y apósito tres veces por semana».
 
-**En pantalla · recurso de la herida:** una hoja de notas docente titulada «Notas de las últimas curas»: tres visitas con «Limpieza · apósito · próxima cita». Debajo, «Cómo ha respondido la herida: no consta». María del Mar mira esa ausencia y pide la respuesta al cuidado. Es un registro ficticio identificado, sin fechas ni medidas inventadas.
+**En pantalla · recurso de la herida:** una hoja de notas docente titulada «Notas de las últimas curas»: el plan de cuidados («Limpieza y apósito · 3 veces por semana») y tres visitas con «Limpieza · apósito · próxima cita». Debajo, «Cómo ha respondido la herida: no consta». María del Mar mira esa ausencia y pide la respuesta al cuidado. Es un registro ficticio identificado, sin fechas ni medidas inventadas.
 
 **María del Mar:** «Bien anotado. ¿Y tú cómo has respondido?».
 
@@ -302,7 +302,7 @@ Estas son indicaciones del montaje previsto; actualizar el guion no aplica por s
 **Nos preguntamos:** ¿Qué revisamos antes de añadir tratamiento?  
 **Nos llevamos:** Reabrir la valoración y justificar el siguiente paso.
 
-**La herida:** «Esta vez sí sabemos cómo estaba al principio. Y en cuatro semanas no he cambiado».
+**La herida:** «Ya saben de dónde vengo. Y no estoy mejorando…».
 
 **En pantalla · recurso de la herida:** el seguimiento de la herida, con datos ficticios: «Inicio: 5 × 4 cm», «Semana 2: 5 × 4 cm», «Semana 4: 5 × 4 cm». Después aparece, recuadrada, la propuesta para la próxima cura: «Añadir pomada con antibiótico». Es la rutina que vamos a revisar.
 
@@ -392,11 +392,11 @@ Estas son indicaciones del montaje previsto; actualizar el guion no aplica por s
 **Nos preguntamos:** ¿Para qué es y cuándo lo revisamos?  
 **Nos llevamos:** Cada antimicrobiano, con su motivo y su fecha de revisión.
 
-**La herida:** «En la pauta de la plata pone cuándo se empezó. Por qué y hasta cuándo, no».
+**La herida:** «Me pusieron la plata, llevo más de un mes y aún no me la han quitado…».
 
 **En pantalla · recurso de la herida:** una pauta docente, «Pauta con apósito de plata», con datos del supuesto: «Inicio: hace 5 semanas», «Motivo: por si acaso» y «Revisión: no consta»; las dos últimas, señaladas. La acompaña una recreación 3D del apósito de espuma con plata del carro, identificada como material docente e inspirada visualmente en Mepilex Ag, sin atribuir su uso a la consulta fotografiada. Después se destacan «Qué tratamos», «Qué esperamos que cambie» y «Cuándo lo revisamos».
 
-**María del Mar:** «Pues vamos a ponerlo. Empezando por qué queremos tratar».
+**María del Mar:** «¿Y por qué se puso? Vamos a mirar la pauta».
 
 **La herida:** «Yo solo sé que a veces me la ponen “por si acaso”».
 
@@ -404,7 +404,7 @@ Estas son indicaciones del montaje previsto; actualizar el guion no aplica por s
 
 **En pantalla · la historia:** la referencia del GNEAUPP (DT VIII) para la plata en heridas infectadas: «Plata: hasta 14 días» y «Después: revaloración crítica». Debajo, recuadrado: «Esta pauta: 5 semanas, sin revisar».
 
-**La herida:** «Llevo cinco semanas con ella. ¿Cuánto se supone que dura?».
+**La herida:** «¿Y cuánto se supone que dura?».
 
 **María del Mar:** «La guía da una referencia: catorce días, y entonces se revisa».
 
@@ -430,33 +430,33 @@ Estas son indicaciones del montaje previsto; actualizar el guion no aplica por s
 
 ### Escena 8 · La limpieza de hoy
 
-**Qué queremos explicar:** el dolor también se valora. Antes de limpiar se pregunta cómo fue la última vez; durante, se atiende a lo que pasa; después, se anota qué ajustar.
+**Qué queremos explicar:** limpiar no es un trámite antes del apósito, es parte del tratamiento. Se limpian el lecho, el borde, la piel perilesional y la piel de alrededor, con la técnica que pida cada zona y que la persona pueda tolerar.
 
-**A revisar:** Limpiar como siempre sin preguntar por el dolor.  
-**Nos preguntamos:** ¿Cómo está viviendo la limpieza?  
-**Nos llevamos:** Preguntar por el dolor antes, durante y después de limpiar.
+**A revisar:** Limpiar por rutina, y solo el lecho.  
+**Nos preguntamos:** ¿Qué necesita hoy cada zona?  
+**Nos llevamos:** Limpieza terapéutica: lecho, borde y piel, según la valoración y el dolor.
 
 **La herida:** «Hoy también toca limpieza. ¿Como siempre? Aviso de que puede doler».
 
-**En pantalla · recurso de la herida:** una pauta ficticia, «Pauta de limpieza»: «Con qué: lo de siempre», «Cómo: como siempre», «Cuándo: en cada cura». Después aparece, recuadrado: «Dolor en la última cura: no consta».
+**En pantalla · recurso de la herida:** una pauta ficticia, «Pauta de limpieza»: «Con qué: lo de siempre», «Dónde: el lecho», «Cuándo: en cada cura». Después aparece, recuadrado: «Borde y piel perilesional: no constan».
 
-**María del Mar:** «Depende. Antes, cuéntame cómo fue la última vez».
+**María del Mar:** «Depende. ¿Qué necesitas hoy?».
 
-**La herida:** «En la pauta pone “como siempre”. Del dolor, nada».
+**La herida:** «No solo el lecho es importante, el borde y la piel perilesional, se os olvida a veces».
 
 **En pantalla · la pregunta:** se tacha la actuación y se revela la pregunta de esta escena. En el mismo paso, la herida cuenta la historia que hace necesaria la pregunta.
 
-**En pantalla · la historia:** una ficha docente «El dolor en la cura», sin imagen clínica: «Antes» (cómo fue la cura anterior y qué dolor hay hoy), «Durante» (qué está ocurriendo y si hay que parar) y «Después» (qué ajustamos para la próxima).
+**En pantalla · la historia:** la ilustración «Lecho, borde y piel», identificada como modelo conceptual. Se recorren las zonas y después aparece «Según valoración y tolerancia: con qué, cómo, con qué fuerza». Sin simular una técnica en una imagen fija ni diagnosticar por color.
 
-**La herida:** «Lo que más miedo me da de la limpieza es el dolor».
+**La herida:** «¿Limpiar no era solo quitar lo de encima antes del apósito?».
 
-**María del Mar:** «Pues vamos a hablar de él antes de empezar».
+**María del Mar:** «No: limpiar ya es parte del tratamiento».
 
-**María del Mar, con sus palabras:** pregunta cómo fue la cura anterior, atiende a lo que ocurre durante y anota qué ajustar. El dolor cambia cómo limpiamos, no solo cómo lo registramos.
+**María del Mar, con sus palabras:** la IWII habla de limpieza terapéutica: en cada cambio de apósito se limpian el lecho, el borde, la piel perilesional y la piel de alrededor. Cada zona pide algo distinto, y la técnica (con qué, cómo, con qué fuerza) se elige según cómo esté cada una.
 
-**En pantalla · evidencia científica:** el apoyo anterior se recoge. Aparece «El dolor también se valora», con esta idea: «La forma de limpiar se adapta a la experiencia de dolor de la persona: se pregunta antes, se atiende durante y se ajusta para la próxima». Fuente visible: IWII 2025 · rec. 13. María del Mar relaciona este fundamento con lo que acaba de señalar la herida.
+**En pantalla · evidencia científica:** el apoyo anterior se recoge. Aparece «Limpieza terapéutica, no rutinaria», con esta idea: «En cada cambio de apósito se limpian el lecho, el borde, la piel perilesional y la circundante. La técnica se elige según cómo está cada zona y se ajusta al dolor de la persona». Fuente visible: IWII 2025 · rec. 1, 3, 11 y 13 / GNEAUPP DT XIV · pp. 26–27. También se muestra la condición: «Sin antisépticos ni jabones por rutina». María del Mar relaciona este fundamento con lo que acaba de señalar la herida.
 
-**María del Mar, con sus palabras:** la IWII recomienda adaptar la limpieza a la experiencia de dolor: preguntar cómo fue la cura anterior, estar atentas durante y anotar qué ajustar. Si además hay que desbridar, el GNEAUPP pide una pauta analgésica antes. Y de paso: lo de siempre tampoco debería ser un antiséptico o un jabón por rutina; la guía no los recomienda para limpiar de forma habitual.
+**María del Mar, con sus palabras:** lo rutinario es limpiar siempre igual y con lo de siempre; lo terapéutico es limpiar lo que hace falta, como hace falta. El GNEAUPP desaconseja los antisépticos y los jabones de forma rutinaria. Y la técnica también se ajusta al dolor: preguntamos cómo fue la cura anterior, estamos atentas durante y anotamos qué cambiar. Si además hay que desbridar, el GNEAUPP pide una pauta analgésica antes.
 
 **La herida:** «¿Y si a mitad de la cura duele?».
 
@@ -466,13 +466,13 @@ Estas son indicaciones del montaje previsto; actualizar el guion no aplica por s
 
 **La herida:** «Se agradece que alguien pregunte antes de empezar».
 
-**María del Mar cierra:** «Antes de limpiar, preguntamos cómo lo está viviendo».
+**María del Mar cierra:** «Antes de limpiar, miramos qué necesita hoy cada zona y cómo lo está viviendo».
 
 Se deja una pausa. Esta escena no necesita un remate humorístico ni una imagen que compita con lo que se dice.
 
 **Para seguir:** «Ahora, un talón que pide calma».
 
-**Respaldo:** [6], recomendación 13 (pp. 39–40); [1], pp. 26–28 (antisépticos y jabones de rutina, y analgesia en el desbridamiento, solo de palabra); [3]. No se proponen presiones, temperaturas ni tiempos analgésicos universales.
+**Respaldo:** [6], recomendaciones 1 y 3 (pp. 9–10), 11 (p. 31) y 13 (pp. 39–40); [1], pp. 26–28; [3]. No se proponen presiones, temperaturas ni tiempos analgésicos universales.
 
 **María del Mar cierra el bloque:** «Hemos preguntado qué hacemos, para qué y cómo lo vive la persona. A veces, la respuesta es cambiar de camino».
 
@@ -588,7 +588,7 @@ Se deja una pausa. Esta escena no necesita un remate humorístico ni una imagen 
 
 **La herida:** «Mañana quizá me cure otra enfermera. En mis notas de siempre, esto es lo que le dejaron».
 
-**En pantalla · recurso de la herida:** vuelven las notas de la escena 4, el mismo documento: las tres visitas («Limpieza · apósito · próxima cita») y, al final, la nota para mañana: «Seguir igual». Debajo, «Por qué seguimos así: no consta». Es un registro ficticio identificado, sin fechas ni nombres.
+**En pantalla · recurso de la herida:** vuelven las notas de la escena 4, el mismo documento: el plan de cuidados, las tres visitas («Limpieza · apósito · próxima cita») y, al final, la nota para mañana: «Seguir igual». Debajo, «Por qué seguimos así: no consta». Es un registro ficticio identificado, sin fechas ni nombres.
 
 **María del Mar:** «“Seguir igual”. ¿Igual por qué?».
 
