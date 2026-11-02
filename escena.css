@@ -677,6 +677,36 @@ html[data-speaking="1"] #herida .orb-zone{animation-duration:9s}
 #carro iframe{display:block;width:100%;height:100%;border:0;background:transparent}
 .carro-marca{width:100%;height:58cqh}
 /* Respaldo si el ordenador no puede dibujar el carro en 3D: un recuadro sobrio con el carro dicho en texto. */
+/* El carro, personaje mudo: abajo a la izquierda en cada actuación, en diagonal con la herida (arriba a la derecha).
+   El hilo se acorta para dejarle sitio. El rótulo dice qué hace en cada paso; quieto, en las escenas de la persona. */
+.slide-practice .side{bottom:34cqh;padding-bottom:2.4cqh}
+.slide-practice .side-foot{display:none}
+.slide-practice .thread{margin-top:2.6cqh}
+.slide-practice .hilo{margin-top:3cqh}
+.slide-practice .node{padding-bottom:2.4cqh}
+.slide-practice .node:last-child{padding-bottom:0}
+.slide-practice .scene-title{font-size:1.8cqw}
+.slide-practice .node-habit .node-text,.slide-practice .node-ask .node-text{font-size:1.62cqw}
+.slide-practice .node-take .node-text{font-size:1.3cqw;padding:.9cqw 1.1cqw 1cqw}
+.slide-practice[data-habit="struck"] .node-habit .node-text{font-size:1.12cqw}
+.slide-practice[data-take="on"] .node-ask .node-text{font-size:1.25cqw}
+.carro-sitio{position:absolute;left:1.6cqw;bottom:1.2cqh;width:25cqw;height:31.5cqh;z-index:2;pointer-events:none}
+.carro-rotulo{position:absolute;left:1.2cqw;top:-1.2cqh;z-index:4;font:650 .82cqw/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);transition:color .5s var(--ease)}
+.carro-rotulo::before{content:"";display:inline-block;width:.55cqw;height:.55cqw;margin-right:.5cqw;border-radius:50%;background:currentColor;vertical-align:.08cqw}
+.slide-practice[data-plane="habit"] .carro-rotulo{color:var(--blood)}
+.slide-practice[data-plane="habit"] .carro-rotulo::after{content:"El carro propone"}
+.slide-practice[data-plane="habit"] .insiste .carro-rotulo::after{content:"El carro insiste"}
+.slide-practice[data-plane="ask"] .carro-rotulo::after{content:"El carro espera"}
+.slide-practice[data-plane="take"] .carro-rotulo::after{content:"De vuelta a la bandeja"}
+.slide-practice .carro-sitio.is-quieto .carro-rotulo::after{content:"Esto no está en el carro"}
+.slide-practice .carro-sitio.is-quieto .carro-rotulo{color:var(--muted)}
+#carro.is-quieto{opacity:.42;filter:saturate(.4)}
+.carro-respaldo{display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+#stage.sin-3d .carro-respaldo.en-reposo{display:block}
+#stage.sin-3d .slide-practice:is([data-plane="habit"],[data-plane="ask"]) .carro-sitio:has(.en-gesto) .en-reposo{display:none}
+#stage.sin-3d .slide-practice:is([data-plane="habit"],[data-plane="ask"]) .carro-respaldo.en-gesto{display:block}
+#stage.sin-3d .carro-sitio.is-quieto .carro-respaldo{opacity:.42;filter:saturate(.4)}
+#stage.sin-3d .carro-sitio{display:block;border:0;background:none}
 #stage.sin-3d #carro{display:none}
 #stage.sin-3d .carro-marca{display:grid;place-items:center;border-radius:1.4cqw;border:.14cqw dashed var(--line-strong);background:color-mix(in srgb,var(--blush) 45%,transparent)}
 #stage.sin-3d .carro-marca::after{content:"El carro de curas, preparado";font:480 2.2cqw/1.2 var(--display);color:var(--blood-deep)}

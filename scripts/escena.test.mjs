@@ -38,7 +38,7 @@ test('cada actuación tiene recurso e historia, y sus imágenes están en el cat
 test('los objetos que la herida trae del carro existen en el modelo 3D',async()=>{
  const carro=await readFile(new URL('carro/carro.js',root),'utf8');
  const objetos=new Set([...carro.matchAll(/objeto\('([\w-]+)'\)/g)].map(m=>m[1]));
- const pedidos=Object.values(ctx.R).flatMap(r=>[...(r.ids||[]),r.producto].filter(Boolean));
+ const pedidos=Object.values(ctx.R).flatMap(r=>[...(r.ids||[]),...(r.carro||[]),r.producto].filter(Boolean));
  assert.ok(pedidos.length,'Alguna escena usa el carro');
  for(const id of pedidos)assert.ok(objetos.has(id),`El carro no tiene «${id}»`);
 });
