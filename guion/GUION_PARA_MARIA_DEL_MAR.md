@@ -50,7 +50,7 @@ Durante todas ellas permanece el hilo de la escena: la actuación se tacha al ap
 
 Al entrar la evidencia, el recurso anterior se recoge. Puede quedar una miniatura si es necesaria para entender la explicación, sin abrir otra lectura simultánea. Al cerrar, el aprendizaje toma el foco. El hilo acumulativo sigue visible en ambos momentos.
 
-En la proyección cada actuación tiene tres pasos, y la conversación de cada paso habla de lo que se ve en él: **A revisar**, con lo que trae la herida y la reacción a ese recurso; **Nos preguntamos**, con la pregunta, la evidencia y lo que la herida pregunta sobre ella; **Nos llevamos**, con el aprendizaje en el hilo y el cierre. Entre escena y escena, la herida abre la siguiente en grande.
+En la proyección cada actuación tiene tres pasos, y la conversación de cada paso habla de lo que se ve en él: **A revisar**, con lo que trae la herida y la reacción a ese recurso; **Nos preguntamos**, con la pregunta y la historia, anécdota o curiosidad que la hace necesaria; **Nos llevamos**, con la evidencia que sostiene el aprendizaje, el aprendizaje en el hilo y el cierre. Entre escena y escena, la herida abre la siguiente en grande.
 
 Estas son indicaciones del montaje previsto; actualizar el guion no aplica por sí solo esos cambios a la presentación.
 
@@ -124,7 +124,15 @@ Estas son indicaciones del montaje previsto; actualizar el guion no aplica por s
 
 **La herida:** «Menos mal. Con el carro tan preparado, me estaba poniendo nerviosa».
 
-**En pantalla · la pregunta:** se tacha la actuación y se revela la pregunta de esta escena. En el mismo paso entra la evidencia.
+**En pantalla · la pregunta:** se tacha la actuación y se revela la pregunta de esta escena. En el mismo paso, la herida cuenta la historia que hace necesaria la pregunta.
+
+**En pantalla · la historia:** la ficha «La historia y sus huecos»: «Lo que sabemos» (lleva tiempo abierta, se han hecho curas, el apósito ya está elegido) y «Lo que falta» (causa, antecedentes relevantes, factores que la mantienen, cómo vive la persona con ella). María del Mar distingue lo documentado de lo que falta.
+
+**La herida:** «Pues mi historia tiene más huecos que notas».
+
+**María del Mar:** «Vamos a ver qué falta antes de tocar nada».
+
+**María del Mar, con sus palabras:** recorre los huecos: sin la causa, los antecedentes y lo que mantiene abierta la lesión, el apósito es una apuesta. Distingue lo que está documentado de lo que suponemos.
 
 **En pantalla · evidencia científica:** el apoyo anterior se recoge. Aparece «La valoración orienta la elección», con esta idea: «El diagnóstico identifica la causa, las enfermedades concomitantes y las complicaciones que condicionan el tratamiento». Fuente visible: GNEAUPP DT XIV · p. 15. También se muestra la condición: «La valoración no demora cuidados necesarios ni medidas urgentes». María del Mar relaciona este fundamento con lo que acaba de señalar la herida.
 
@@ -134,9 +142,9 @@ Estas son indicaciones del montaje previsto; actualizar el guion no aplica por s
 
 **María del Mar:** «Trato hecho».
 
-**En pantalla · el aprendizaje:** se completa «Nos llevamos» con el texto de la ficha. La actuación tachada y la pregunta permanecen. El fundamento se recoge y María del Mar responde a la pregunta antes de enlazar.
+**En pantalla · el aprendizaje:** se completa «Nos llevamos» en el hilo; la evidencia sigue a la vista como su fundamento. María del Mar responde a la pregunta antes de enlazar.
 
-**La herida:** «Me gusta empezar así: que me pregunten antes de taparme.».
+**La herida:** «Me gusta empezar así: que me pregunten antes de taparme».
 
 **María del Mar cierra:** «Primero, qué sabemos y qué nos falta. Después, el apósito».
 
@@ -162,7 +170,15 @@ Estas son indicaciones del montaje previsto; actualizar el guion no aplica por s
 
 **La herida:** «Pues con la historia delante, ya no me parecen tan iguales».
 
-**En pantalla · la pregunta:** se tacha la actuación y se revela la pregunta de esta escena. En el mismo paso entra la evidencia.
+**En pantalla · la pregunta:** se tacha la actuación y se revela la pregunta de esta escena. En el mismo paso, la herida cuenta la historia que hace necesaria la pregunta.
+
+**En pantalla · la historia:** un esquema docente «Misma pauta, dos historias»: a un lado, la úlcera venosa, donde la cura húmeda encaja junto a la compresión indicada; al otro, la isquemia sin revascularizar con escara seca, donde la misma pauta no está indicada y antes va la valoración vascular. Son los dos ejemplos del paso anterior, con su etiología establecida.
+
+**La herida:** «¿Y si a las dos les pones lo mismo?».
+
+**María del Mar:** «En una puede ayudar. En la otra, no».
+
+**María del Mar, con sus palabras:** cuenta qué pasaría con la misma pauta: en el ejemplo venoso, la cura local acompaña a la compresión, que necesita su propia valoración e indicación; en el arterial, la guía desaconseja la cura en ambiente húmedo sobre escara seca o gangrena mientras no esté revascularizada.
 
 **En pantalla · evidencia científica:** el apoyo anterior se recoge. Aparece «La etiología cambia las prioridades», con esta idea: «El diagnóstico debe explicar la causa y los factores que mantienen la lesión. El abordaje causal y la situación vascular condicionan el plan». Fuente visible: GNEAUPP DT XIV · pp. 15, 20–21 / EWMA · fichas. También se muestra la condición: «La etiología viene establecida en estos ejemplos. La imagen no permite diagnosticar». María del Mar relaciona este fundamento con lo que acaba de señalar la herida.
 
@@ -172,9 +188,9 @@ Estas son indicaciones del montaje previsto; actualizar el guion no aplica por s
 
 **María del Mar:** «Puede ayudar, claro. Pero solo si atendemos también la causa».
 
-**En pantalla · el aprendizaje:** se completa «Nos llevamos» con el texto de la ficha. La actuación tachada y la pregunta permanecen. El fundamento se recoge y María del Mar responde a la pregunta antes de enlazar.
+**En pantalla · el aprendizaje:** se completa «Nos llevamos» en el hilo; la evidencia sigue a la vista como su fundamento. María del Mar responde a la pregunta antes de enlazar.
 
-**La herida:** «Pues la próxima vez, que me pregunten de dónde vengo.».
+**La herida:** «Pues la próxima vez, que me pregunten de dónde vengo».
 
 **María del Mar cierra:** «Cada pauta sale de su propia historia: primero el porqué, después el apósito».
 
@@ -200,7 +216,15 @@ Estas son indicaciones del montaje previsto; actualizar el guion no aplica por s
 
 **La herida:** «El plan está escrito. Lo que no pone es si se puede seguir en casa».
 
-**En pantalla · la pregunta:** se tacha la actuación y se revela la pregunta de esta escena. En el mismo paso entra la evidencia.
+**En pantalla · la pregunta:** se tacha la actuación y se revela la pregunta de esta escena. En el mismo paso, la herida cuenta la historia que hace necesaria la pregunta.
+
+**En pantalla · la historia:** una ficha docente «Un día entre cura y cura», como supuesto: «Por la mañana» (el apósito y la ducha), «Durante el día» (quién ayuda y cómo se mueve) y «Por la noche» (el dolor y el descanso). Son preguntas posibles, no dificultades que se atribuyan a nadie.
+
+**La herida:** «Entre cura y cura pasan muchas cosas que no salen en las notas».
+
+**María del Mar:** «Cuéntame un día cualquiera».
+
+**María del Mar, con sus palabras:** recorre el día como supuesto: cómo se cuida el apósito al ducharse, quién ayuda, si el dolor deja descansar. No damos por hecho ninguna dificultad: son las preguntas que abren la conversación.
 
 **En pantalla · evidencia científica:** el apoyo anterior se recoge. Aparece «El plan se acuerda con la persona», con esta idea: «Comprensión, preferencias, dolor, apoyo y dificultades cotidianas forman parte de las decisiones y de la viabilidad del cuidado». Fuente visible: EWMA 2022 · §4 / IWII · rec. 11. También se muestra la condición: «Las preferencias y dificultades se preguntan a la persona». María del Mar relaciona este fundamento con lo que acaba de señalar la herida.
 
@@ -208,9 +232,9 @@ Estas son indicaciones del montaje previsto; actualizar el guion no aplica por s
 
 **La herida:** «Yo puedo chivarme de algunas cosas. Pero cómo le va, solo lo sabe la persona».
 
-**En pantalla · el aprendizaje:** se completa «Nos llevamos» con el texto de la ficha. La actuación tachada y la pregunta permanecen. El fundamento se recoge y María del Mar responde a la pregunta antes de enlazar.
+**En pantalla · el aprendizaje:** se completa «Nos llevamos» en el hilo; la evidencia sigue a la vista como su fundamento. María del Mar responde a la pregunta antes de enlazar.
 
-**La herida:** «Y la próxima visita, que alguien pregunte en casa qué tal va.».
+**La herida:** «Y la próxima visita, que alguien pregunte en casa qué tal va».
 
 **María del Mar cierra:** «El plan se acuerda con la persona: comprobamos lo que entiende y escuchamos lo que necesita».
 
@@ -246,7 +270,15 @@ Estas son indicaciones del montaje previsto; actualizar el guion no aplica por s
 
 **La herida:** «Eso no lo pone. Dicen que “parece que voy mejor”, pero cómo estaba al principio no quedó anotado».
 
-**En pantalla · la pregunta:** se tacha la actuación y se revela la pregunta de esta escena. En el mismo paso entra la evidencia.
+**En pantalla · la pregunta:** se tacha la actuación y se revela la pregunta de esta escena. En el mismo paso, la herida cuenta la historia que hace necesaria la pregunta.
+
+**En pantalla · la historia:** un supuesto docente «La misma herida, tres notas»: «Parece que va mejor», «Yo la veo igual» y «Ha mejorado algo». Debajo, «Ninguna dice respecto a qué».
+
+**La herida:** «Cada una que me cura dice una cosa distinta».
+
+**María del Mar:** «Porque cada una compara con lo que recuerda».
+
+**María del Mar, con sus palabras:** sin una referencia inicial ni un método común, la impresión depende de quién mira. Tres notas sinceras pueden contar tres evoluciones distintas de la misma herida.
 
 **En pantalla · evidencia científica:** el apoyo anterior se recoge. Aparece «Comparar requiere registro y medida», con esta idea: «Repetir la valoración permite comparar la evolución y ajustar el plan. Los instrumentos deben ser válidos, fiables e indicados para el contexto y el tipo de lesión». Fuente visible: GNEAUPP DT XIV · p. 15. María del Mar relaciona este fundamento con lo que acaba de señalar la herida.
 
@@ -254,9 +286,7 @@ Estas son indicaciones del montaje previsto; actualizar el guion no aplica por s
 
 **La herida:** «Pues apunta cómo estoy hoy. Así, la próxima vez, “mejor” querrá decir algo».
 
-**En pantalla · el aprendizaje:** se completa «Nos llevamos» con el texto de la ficha. La actuación tachada y la pregunta permanecen. El fundamento se recoge y María del Mar responde a la pregunta antes de enlazar.
-
-**La herida:** «Hoy queda apuntado. La próxima vez quiero ver cuánto he cambiado.».
+**En pantalla · el aprendizaje:** se completa «Nos llevamos» en el hilo; la evidencia sigue a la vista como su fundamento. María del Mar responde a la pregunta antes de enlazar.
 
 **María del Mar cierra:** «Anotamos lo que hacemos, cómo responde y con qué lo medimos».
 
@@ -282,19 +312,27 @@ Estas son indicaciones del montaje previsto; actualizar el guion no aplica por s
 
 **La herida:** «Te traigo varias sospechas. Culpable, todavía ninguna».
 
-**En pantalla · la pregunta:** se tacha la actuación y se revela la pregunta de esta escena. En el mismo paso entra la evidencia.
+**En pantalla · la pregunta:** se tacha la actuación y se revela la pregunta de esta escena. En el mismo paso, la herida cuenta la historia que hace necesaria la pregunta.
+
+**En pantalla · la historia:** la ilustración del biofilm, rotulada «Modelo conceptual, no hallazgo de esta herida»: se recorren superficie, matriz y microorganismos. Debajo, lo que sigue abierto: perfusión, carga y respuesta al plan.
+
+**La herida:** «Alguien ha dicho “será biofilm” y ya nadie pregunta nada más».
+
+**María del Mar:** «A ver qué es, y qué podemos afirmar aquí».
+
+**María del Mar, con sus palabras:** explica el modelo: el biofilm puede contribuir a que una herida no avance, pero una ilustración o un aspecto no demuestran que esté en esta herida. Siguen abiertas la perfusión, la carga y la respuesta al plan.
 
 **En pantalla · evidencia científica:** el apoyo anterior se recoge. Aparece «La falta de progreso reabre la valoración», con esta idea: «Reevaluar permite revisar la explicación, detectar complicaciones y decidir si hacen falta otras pruebas o un ajuste del plan». Fuente visible: GNEAUPP DT XIV · pp. 15, 29 / EWMA 2022 · §§2–3. También se muestra la condición: «El biofilm es una hipótesis posible, no una explicación demostrada en esta herida». María del Mar relaciona este fundamento con lo que acaba de señalar la herida.
 
 **María del Mar, con sus palabras:** revisamos si el diagnóstico sigue explicando la evolución, si hay complicaciones y cómo se ha podido realizar y tolerar el plan. Añadir tratamiento requiere un motivo: la guía desaconseja las pomadas con antibiótico como primera elección en lesiones que no progresan. Tampoco cerramos la duda con una palabra. El biofilm puede contribuir a la dificultad de cicatrización, pero sin comprobarlo no explica esta lesión, y siguen abiertas la perfusión, la carga y la respuesta al plan. Si lo que vemos no encaja, puede tocar revisar el diagnóstico y pedir valoración.
 
-**La herida:** «Y si alguien dice “será biofilm”, ¿dejamos de buscar?».
+**La herida:** «Entonces, antes de añadir nada, ¿miramos todo lo demás?».
 
-**María del Mar:** «No. Es una hipótesis, y hay que seguir comprobando».
+**María del Mar:** «Eso es: reabrimos la valoración».
 
-**En pantalla · el aprendizaje:** se completa «Nos llevamos» con el texto de la ficha. La actuación tachada y la pregunta permanecen. El fundamento se recoge y María del Mar responde a la pregunta antes de enlazar.
+**En pantalla · el aprendizaje:** se completa «Nos llevamos» en el hilo; la evidencia sigue a la vista como su fundamento. María del Mar responde a la pregunta antes de enlazar.
 
-**La herida:** «Me quedo más tranquila: nadie me añade nada sin un motivo.».
+**La herida:** «Me quedo más tranquila: nadie me añade nada sin un motivo».
 
 **María del Mar cierra:** «Antes de añadir nada, buscamos qué información nos falta para decidir».
 
@@ -312,25 +350,33 @@ Estas son indicaciones del montaje previsto; actualizar el guion no aplica por s
 
 **La herida:** «He traído una torunda. ¿Hoy toca cultivo?».
 
-**En pantalla · recurso de la herida:** la fotografía disponible de la torunda y el medio de transporte, identificada como material. Junto a ella, una ficha textual: «Qué sospechamos», «Qué necesitamos aclarar» y «Qué decisión podría cambiar». María del Mar mira la pregunta aún sin concretar. La foto no se presenta como una demostración de técnica de muestreo.
+**En pantalla · recurso de la herida:** una recreación 3D de la torunda y el medio de transporte que hay en el carro, identificada como material docente e inspirada visualmente en Deltalab Amies. Junto a ella, una ficha textual: «Qué sospechamos», «Qué necesitamos aclarar» y «Qué decisión podría cambiar». María del Mar mira la pregunta aún sin concretar. No se presenta como una demostración de técnica de muestreo ni se afirma que sea el producto de la consulta fotografiada. La fotografía del catálogo se conserva como alternativa si el ordenador no puede mostrar el 3D.
 
 **María del Mar:** «¿Y qué queremos saber con él?».
 
 **La herida:** «Pues la torunda la tengo clara. La pregunta, no tanto».
 
-**En pantalla · la pregunta:** se tacha la actuación y se revela la pregunta de esta escena. En el mismo paso entra la evidencia.
+**En pantalla · la pregunta:** se tacha la actuación y se revela la pregunta de esta escena. En el mismo paso, la herida cuenta la historia que hace necesaria la pregunta.
+
+**En pantalla · la historia:** un informe docente de microbiología, identificado como supuesto, que solo dice «Cultivo positivo». A su lado quedan por completar «Signos», «Evolución» y «Situación de la persona». No se inventan microorganismos, antibiogramas ni datos de gravedad.
+
+**La herida:** «Imagina que la pedimos y llega el informe: “cultivo positivo”».
+
+**María del Mar:** «¿Y eso qué nos dice de ti?».
+
+**María del Mar, con sus palabras:** en una herida crónica casi siempre crece algo: el informe dice qué ha crecido, no si hay infección. Para interpretarlo faltan los signos, la evolución y la situación de la persona.
 
 **En pantalla · evidencia científica:** el apoyo anterior se recoge. Aparece «La muestra responde una pregunta clínica», con esta idea: «La indicación, la preparación y la técnica condicionan su utilidad. Un cultivo positivo no demuestra por sí solo infección: se interpreta con signos, evolución y situación de la persona». Fuente visible: GNEAUPP DT VIII · pp. 17, 23–24 / DT XIV · p. 30. También se muestra la condición: «Ante infección extendida o grave, no demorar la atención indicada». María del Mar relaciona este fundamento con lo que acaba de señalar la herida.
 
 **María del Mar, con sus palabras:** antes de pedirla, necesitamos una sospecha que valorar y una decisión a la que pueda ayudar. La guía desaconseja los métodos tradicionales de toma de muestras en heridas sin signos clínicos evidentes de infección, y la falta de progreso, por sí sola, no obliga a cultivar. Cuando llega el informe, la presencia de microorganismos no demuestra infección: miramos signos, evolución y contexto. Si la valoración indica infección extendida o grave, la atención necesaria no se demora.
 
-**La herida:** «Y si llega “cultivo positivo”, ¿ya está todo dicho?».
+**La herida:** «O sea, que el informe solo no me diagnostica».
 
-**María del Mar:** «Entonces miramos cómo estás tú y cómo está la persona».
+**María del Mar:** «Se lee junto a lo que vemos en ti».
 
-**En pantalla · el aprendizaje:** se completa «Nos llevamos» con el texto de la ficha. La actuación tachada y la pregunta permanecen. El fundamento se recoge y María del Mar responde a la pregunta antes de enlazar.
+**En pantalla · el aprendizaje:** se completa «Nos llevamos» en el hilo; la evidencia sigue a la vista como su fundamento. María del Mar responde a la pregunta antes de enlazar.
 
-**La herida:** «Vale. La torunda, cuando haya una pregunta.».
+**La herida:** «Vale. La torunda, cuando haya una pregunta».
 
 **María del Mar cierra:** «Primero la pregunta. Luego, si hace falta, la torunda. Y el informe, junto a todo lo demás».
 
@@ -348,21 +394,29 @@ Estas son indicaciones del montaje previsto; actualizar el guion no aplica por s
 
 **La herida:** «En la pauta de la plata pone cuándo empezamos. Por qué y hasta cuándo, no».
 
-**En pantalla · recurso de la herida:** una pauta docente, «Pauta con apósito de plata», con «Inicio», «Indicación» y «Revisión»; las dos últimas aparecen sin completar. María del Mar reacciona a esas casillas pendientes. Después se destacan «Qué problema tratamos», «Qué esperamos que cambie» y «Qué justifica continuar». No se añade una fecha de paciente ni se convierte la escena en un calendario universal.
+**En pantalla · recurso de la herida:** una pauta docente, «Pauta con apósito de plata», con «Inicio», «Indicación» y «Revisión»; las dos últimas aparecen sin completar. La acompaña una recreación 3D del apósito de espuma con plata del carro, identificada como material docente e inspirada visualmente en Mepilex Ag, sin atribuir su uso a la consulta fotografiada. María del Mar reacciona a esas casillas pendientes. Después se destacan «Qué problema tratamos», «Qué esperamos que cambie» y «Qué justifica continuar». No se añade una fecha de paciente ni se convierte la escena en un calendario universal.
 
 **María del Mar:** «Pues vamos a ponerlo. Empezando por qué queremos tratar».
 
 **La herida:** «Yo solo sé que a veces me la ponen “por si acaso”».
 
-**En pantalla · la pregunta:** se tacha la actuación y se revela la pregunta de esta escena. En el mismo paso entra la evidencia.
+**En pantalla · la pregunta:** se tacha la actuación y se revela la pregunta de esta escena. En el mismo paso, la herida cuenta la historia que hace necesaria la pregunta.
 
-**La herida:** «He oído hablar de catorce días. ¿Eso vale para todo?».
+**En pantalla · la historia:** un esquema docente «Lo que cabe en “antimicrobiano”», sin orden de potencia: antibiótico, antiséptico y apósito antimicrobiano. Encima, «¿Está indicada una intervención antimicrobiana?».
+
+**La herida:** «Antibiótico, antiséptico, apósito con plata… ¿Es todo lo mismo?».
+
+**María del Mar:** «No. Vamos por partes».
+
+**María del Mar, con sus palabras:** cada opción tiene una función y un alcance distintos. Antes de elegir, la pregunta es si hay infección y de qué gravedad; si es extendida o grave, el cuidado local no retrasa la atención indicada.
 
 **En pantalla · evidencia científica:** el apoyo anterior se recoge. Aparece «La indicación precede a la elección», con esta idea: «Antibiótico, antiséptico y apósito antimicrobiano tienen funciones y alcances diferentes. La elección requiere valoración clínica y de la gravedad, y su utilidad se revalora». Fuente visible: GNEAUPP DT VIII · pp. 27–30, 38 / EWMA 2022 · §6. También se muestra la condición: «Plata en heridas infectadas: máximo inicial de 14 días y revaloración crítica. El plazo no se extrapola». María del Mar relaciona este fundamento con lo que acaba de señalar la herida.
 
 **María del Mar, con sus palabras:** antibiótico, antiséptico y apósito antimicrobiano no son lo mismo: hay que justificar qué problema tratamos y qué intervención corresponde. Si hay infección extendida o grave, el cuidado local no debe retrasar la atención indicada. Para la plata en heridas infectadas, el GNEAUPP fija un máximo inicial de catorce días y después una revaloración crítica de su utilidad. Ese plazo no se extiende a todos los antimicrobianos.
 
-**En pantalla · el aprendizaje:** se completa «Nos llevamos» con el texto de la ficha. La actuación tachada y la pregunta permanecen. El fundamento se recoge y María del Mar responde a la pregunta antes de enlazar.
+**La herida:** «He oído hablar de catorce días. ¿Eso vale para todo?».
+
+**En pantalla · el aprendizaje:** se completa «Nos llevamos» en el hilo; la evidencia sigue a la vista como su fundamento. María del Mar responde a la pregunta antes de enlazar.
 
 **La herida:** «Vamos, que la fecha avisa, pero no decide por nosotras».
 
@@ -390,7 +444,15 @@ Estas son indicaciones del montaje previsto; actualizar el guion no aplica por s
 
 **La herida:** «Mira también el borde y la piel de alrededor, que a veces se nos olvidan».
 
-**En pantalla · la pregunta:** se tacha la actuación y se revela la pregunta de esta escena. En el mismo paso entra la evidencia.
+**En pantalla · la pregunta:** se tacha la actuación y se revela la pregunta de esta escena. En el mismo paso, la herida cuenta la historia que hace necesaria la pregunta.
+
+**En pantalla · la historia:** una ficha docente «El dolor en la cura», sin imagen clínica: «Antes» (cómo fue la cura anterior y qué dolor hay hoy), «Durante» (qué está ocurriendo y si hay que parar) y «Después» (qué ajustamos para la próxima).
+
+**La herida:** «Lo que más miedo me da de la limpieza es el dolor».
+
+**María del Mar:** «Pues vamos a hablar de él antes de empezar».
+
+**María del Mar, con sus palabras:** pregunta cómo fue la cura anterior, atiende a lo que ocurre durante y anota qué ajustar. El dolor cambia cómo limpiamos, no solo cómo lo registramos.
 
 **En pantalla · evidencia científica:** el apoyo anterior se recoge. Aparece «La técnica depende de la valoración», con esta idea: «La selección se relaciona con la herida y sus bordes, la piel, los objetivos, la experiencia de dolor y los recursos. Antisépticos y jabones no se usan de forma rutinaria». Fuente visible: IWII · rec. 3, 11 y 13 / GNEAUPP DT XVII / DT XIV · pp. 26–28. También se muestra la condición: «Limpieza y desbridamiento son intervenciones diferentes». María del Mar relaciona este fundamento con lo que acaba de señalar la herida.
 
@@ -400,9 +462,9 @@ Estas son indicaciones del montaje previsto; actualizar el guion no aplica por s
 
 **María del Mar:** «Esta vez lo apuntamos, para quien venga mañana».
 
-**En pantalla · el aprendizaje:** se completa «Nos llevamos» con el texto de la ficha. La actuación tachada y la pregunta permanecen. El fundamento se recoge y María del Mar responde a la pregunta antes de enlazar.
+**En pantalla · el aprendizaje:** se completa «Nos llevamos» en el hilo; la evidencia sigue a la vista como su fundamento. María del Mar responde a la pregunta antes de enlazar.
 
-**La herida:** «Gracias por preguntar antes de empezar.».
+**La herida:** «Gracias por preguntar antes de empezar».
 
 **María del Mar cierra:** «Antes de limpiar, miramos qué necesita hoy y cómo lo está viviendo».
 
@@ -440,7 +502,15 @@ Se deja una pausa. Esta escena no necesita un remate humorístico ni una imagen 
 
 **La herida:** «Sé que está seca. Lo demás, todavía no lo sabemos».
 
-**En pantalla · la pregunta:** se tacha la actuación y se revela la pregunta de esta escena. En el mismo paso entra la evidencia.
+**En pantalla · la pregunta:** se tacha la actuación y se revela la pregunta de esta escena. En el mismo paso, la herida cuenta la historia que hace necesaria la pregunta.
+
+**En pantalla · la historia:** un esquema docente «Una escara que a veces se deja»: a un lado, «Escara seca, sin signos de complicación», donde no es preciso el desbridamiento cortante; al otro, «Infección, edema, eritema, fluctuación o drenaje», donde cambia la prioridad y hay que valorar antes de actuar.
+
+**La herida:** «¿Y si la escara se queda donde está?».
+
+**María del Mar:** «A veces es lo más sensato. Depende de lo que veamos».
+
+**María del Mar, con sus palabras:** cuenta la curiosidad: ver tejido que podría retirarse no obliga a retirarlo. En el talón, una escara seca sin signos de complicación no pide desbridamiento cortante; si aparecen signos, la situación cambia.
 
 **En pantalla · evidencia científica:** el apoyo anterior se recoge. Aparece «La escara necesita contexto», con esta idea: «GNEAUPP no considera preciso el desbridamiento cortante de la escara seca de talón sin infección, edema, eritema, fluctuación ni drenaje». Fuente visible: GNEAUPP DT XIV · pp. 21, 28 / EWMA · fichas. También se muestra la condición: «Antes del desbridamiento cortante en extremidades inferiores se necesita valoración vascular. Los signos de complicación cambian la prioridad». María del Mar relaciona este fundamento con lo que acaba de señalar la herida.
 
@@ -448,9 +518,7 @@ Se deja una pausa. Esta escena no necesita un remate humorístico ni una imagen 
 
 **La herida:** «Pues antes de quitarla, quiero saber si es seguro».
 
-**En pantalla · el aprendizaje:** se completa «Nos llevamos» con el texto de la ficha. La actuación tachada y la pregunta permanecen. El fundamento se recoge y María del Mar responde a la pregunta antes de enlazar.
-
-**La herida:** «Prefiero que me miren bien antes de que me toquen.».
+**En pantalla · el aprendizaje:** se completa «Nos llevamos» en el hilo; la evidencia sigue a la vista como su fundamento. María del Mar responde a la pregunta antes de enlazar.
 
 **María del Mar cierra:** «Primero comprobamos la seguridad. La recomendación tiene un ámbito concreto».
 
@@ -474,17 +542,21 @@ Se deja una pausa. Esta escena no necesita un remate humorístico ni una imagen 
 
 **La herida:** «Pues mientras decidimos si cierro, hay una persona que tiene que seguir con su día».
 
-**En pantalla · la pregunta:** se tacha la actuación y se revela la pregunta de esta escena. En el mismo paso entra la evidencia.
+**En pantalla · la pregunta:** se tacha la actuación y se revela la pregunta de esta escena. En el mismo paso, la herida cuenta la historia que hace necesaria la pregunta.
 
-**En pantalla · evidencia científica:** el apoyo anterior se recoge. Aparece «Los objetivos se valoran y se acuerdan», con esta idea: «IWII contempla objetivos de cicatrización, prevención de infección o manejo paliativo. Los síntomas y la carga del cuidado afectan a la vida cotidiana y se preguntan». Fuente visible: IWII · p. 26, rec. 13 / EWMA 2022 · §4. También se muestra la condición: «Los objetivos se revisan. Una etiqueta diagnóstica no determina por sí sola la posibilidad de cierre». María del Mar relaciona este fundamento con lo que acaba de señalar la herida.
-
-**María del Mar, con sus palabras:** hay que valorar cada situación y lo que puede cambiar. IWII contempla objetivos de cicatrización, prevención de infección o manejo paliativo, y la perspectiva de la persona forma parte de la decisión. El dolor, las fugas, el olor o la carga del cuidado pueden pesar mucho en el día: preguntamos qué pesa más y qué mejora buscamos, sin atribuírselo a la mujer de la imagen. En heridas neoplásicas, la guía pide además apósitos que no se adhieran al lecho. Esta forma de ordenar los objetivos es una síntesis docente, no una clasificación del pronóstico.
+**En pantalla · la historia:** un esquema docente «Tres objetivos posibles»: «Cicatrizar», «Prevenir la infección» y «Aliviar». Encima, «¿Qué podemos conseguir hoy?»; debajo, el supuesto «Hoy buscamos aliviar». No se adjudica un objetivo a una etiología.
 
 **La herida:** «¿Y si lo que podemos hacer ahora es aliviar?».
 
 **María del Mar:** «Entonces también hay plan: un objetivo acordado y cuándo revisarlo».
 
-**En pantalla · el aprendizaje:** se completa «Nos llevamos» con el texto de la ficha. La actuación tachada y la pregunta permanecen. El fundamento se recoge y María del Mar responde a la pregunta antes de enlazar.
+**María del Mar, con sus palabras:** los objetivos se valoran para la situación de hoy y se acuerdan con la persona: a veces es cicatrizar, a veces prevenir la infección y a veces aliviar lo que más pesa. Ninguno es un fracaso si es el que toca.
+
+**En pantalla · evidencia científica:** el apoyo anterior se recoge. Aparece «Los objetivos se valoran y se acuerdan», con esta idea: «IWII contempla objetivos de cicatrización, prevención de infección o manejo paliativo. Los síntomas y la carga del cuidado afectan a la vida cotidiana y se preguntan». Fuente visible: IWII · p. 26, rec. 13 / EWMA 2022 · §4. También se muestra la condición: «Los objetivos se revisan. Una etiqueta diagnóstica no determina por sí sola la posibilidad de cierre». María del Mar relaciona este fundamento con lo que acaba de señalar la herida.
+
+**María del Mar, con sus palabras:** hay que valorar cada situación y lo que puede cambiar. IWII contempla objetivos de cicatrización, prevención de infección o manejo paliativo, y la perspectiva de la persona forma parte de la decisión. El dolor, las fugas, el olor o la carga del cuidado pueden pesar mucho en el día: preguntamos qué pesa más y qué mejora buscamos, sin atribuírselo a la mujer de la imagen. En heridas neoplásicas, la guía pide además apósitos que no se adhieran al lecho. Esta forma de ordenar los objetivos es una síntesis docente, no una clasificación del pronóstico.
+
+**En pantalla · el aprendizaje:** se completa «Nos llevamos» en el hilo; la evidencia sigue a la vista como su fundamento. María del Mar responde a la pregunta antes de enlazar.
 
 **La herida:** «Me parece honesto. Un poco decepcionante, pero honesto».
 
@@ -514,15 +586,23 @@ Se deja una pausa. Esta escena no necesita un remate humorístico ni una imagen 
 **Nos preguntamos:** ¿Qué necesita saber quien venga mañana?  
 **Nos llevamos:** Compartir objetivo, motivo, respuesta, revisión y vía de consulta.
 
-**La herida:** «Mañana quizá me cure otra compañera. ¿Qué le vamos a contar?».
+**La herida:** «Mañana quizá me cure otra compañera. Mira la nota que le dejaron la última vez».
 
-**En pantalla · recurso de la herida:** una ficha de relevo docente: «Objetivo», «Qué hacemos y por qué», «Respuesta», «Próxima revisión» y «Vía de consulta». María del Mar la recorre pensando en la siguiente profesional y en la persona. Se distingue «Revisión prevista» de «Cambios que requieren valorar antes». No se rellena con teléfonos ni plazos locales ficticios.
+**En pantalla · recurso de la herida:** las notas de relevo docentes de las últimas visitas: «Seguir igual», dos veces. Debajo, «Por qué seguimos así: no consta». Es un registro ficticio identificado, sin fechas ni nombres.
+
+**María del Mar:** «“Seguir igual”. ¿Igual por qué?».
+
+**La herida:** «Eso no lo pone. Y así nadie sabe si seguir o cambiar».
+
+**En pantalla · la pregunta:** se tacha la actuación y se revela la pregunta de esta escena. En el mismo paso, la herida cuenta la historia que hace necesaria la pregunta.
+
+**En pantalla · la historia:** la ficha de relevo docente: «Objetivo», «Qué hacemos y por qué», «Respuesta», «Próxima revisión» y «Vía de consulta». Se distingue «Revisión prevista» de «Cambios que requieren valorar antes». No se rellena con teléfonos ni plazos locales ficticios.
+
+**La herida:** «¿Y qué le contamos esta vez?».
 
 **María del Mar:** «Lo justo para que no empiece de cero».
 
 **La herida:** «Déjale el plan y por qué lo hacemos. Los productos ya los encontrará en el carro».
-
-**En pantalla · la pregunta:** se tacha la actuación y se revela la pregunta de esta escena. En el mismo paso entra la evidencia.
 
 **En pantalla · evidencia científica:** el apoyo anterior se recoge. Aparece «Compartir el razonamiento permite continuar», con esta idea: «La comunicación y la coordinación sostienen el seguimiento. El formato de relevo que proponemos reúne objetivo, intervención, respuesta, revisión y consulta». Fuente visible: EWMA 2022 · §§4–6 / fichas clínicas. También se muestra la condición: «Adaptar la vía de consulta al circuito real del área. El deterioro puede exigir valorar antes». María del Mar relaciona este fundamento con lo que acaba de señalar la herida.
 
@@ -530,9 +610,7 @@ Se deja una pausa. Esta escena no necesita un remate humorístico ni una imagen 
 
 **La herida:** «Y que la persona sepa también cómo seguimos y a quién preguntar».
 
-**En pantalla · el aprendizaje:** se completa «Nos llevamos» con el texto de la ficha. La actuación tachada y la pregunta permanecen. El fundamento se recoge y María del Mar responde a la pregunta antes de enlazar.
-
-**La herida:** «Así nadie empieza de cero conmigo.».
+**En pantalla · el aprendizaje:** se completa «Nos llevamos» en el hilo; la evidencia sigue a la vista como su fundamento. María del Mar responde a la pregunta antes de enlazar.
 
 **María del Mar cierra:** «Dejamos un plan que se pueda seguir y una forma de pedir ayuda».
 

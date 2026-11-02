@@ -1,6 +1,7 @@
 // Genera dist/index.html: la presentación proyectada a partir del guion para María del Mar.
 // Autónoma (fuentes, imágenes y entidad incluidas). El guion es la fuente de los textos.
 import {readFile,writeFile,mkdir,cp} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
 import {parseGuion,validate} from './guion.mjs';
 const root=new URL('../',import.meta.url);
 const read=name=>readFile(new URL(name,root),'utf8');
@@ -38,6 +39,9 @@ await writeFile(new URL('dist/ver/index.html',root),page.replace(data,()=>public
 // El carro 3D (carro/) se publica aparte, en /carro/, con la parte de Three.js que usa: solo los módulos
 // a los que llega desde sus importaciones, para que funcione sin conexión.
 await cp(new URL('carro/',root),new URL('dist/carro/',root),{recursive:true});
+// El visor se reutiliza entre escenas: una versión de módulo evita conservar un modelo antiguo en caché.
+const carroVersion=createHash('sha256').update(await read('carro/carro.js')).digest('hex').slice(0,12);
+await writeFile(new URL('dist/carro/index.html',root),(await read('carro/index.html')).replace('src="./carro.js"',`src="./carro.js?v=${carroVersion}"`));
 const three=new URL('node_modules/three/',root);
 const copied=new Set();
 async function vendor(rel){

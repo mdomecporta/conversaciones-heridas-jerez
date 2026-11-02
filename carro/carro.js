@@ -22,7 +22,10 @@ const TRANSPARENTE=parametros.has('transparente');
 // Vista de revisión de una pieza; la presentación sigue usando la API habitual.
 const PRODUCTO=parametros.get('producto');
 if(TRANSPARENTE)document.documentElement.classList.add('transparente');
-const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:TRANSPARENTE});
+let renderer;
+try{renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:TRANSPARENTE});}
+catch(error){parent.postMessage({carroFallo:true},'*');throw error;}
+canvas.addEventListener('webglcontextlost',()=>parent.postMessage({carroFallo:true},'*'));
 renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));
 renderer.toneMapping=THREE.NeutralToneMapping;
 renderer.shadowMap.enabled=true;
@@ -98,7 +101,9 @@ const ENVASES={guantes:etiquetaProducto('GUANTES','EXAMEN · 100 uds'),
  suero:etiquetaProducto('SUERO','FISIOLÓGICO'),solucion:etiquetaProducto('SOLUCIÓN','USO EXTERNO','#7fae9e')};
 const REFERENCIAS={flex:etiquetaProducto('Mepilex Border Flex','10 × 10 cm · REFERENCIA VISUAL','#7fae9e'),
  ag:etiquetaProducto('Mepilex Ag','10 × 10 cm · ESPUMA CON PLATA','#7fae9e'),
- amies:etiquetaProducto('deltalab · AMIES','300287 · SIN CARBÓN')};
+ amies:etiquetaProducto('deltalab · AMIES','300287 · SIN CARBÓN'),
+ suero:etiquetaProducto('Fresenius Kabi','NaCl 0,9 % · IRRIGACIÓN · 250 ml','#7fae9e'),
+ gasas:etiquetaProducto('Medicomp','COMPRESAS · 10 × 10 cm','#7fae9e')};
 const FILM_FLEX=lienzo(512,512,(x,w,h)=>{
  x.fillStyle='#eadfcd';x.fillRect(0,0,w,h);x.strokeStyle='rgba(120,110,100,.12)';x.lineWidth=1;
  for(let i=32;i<w;i+=48)for(let j=32;j<h;j+=48){x.beginPath();x.moveTo(i-3,j);x.lineTo(i+3,j);x.moveTo(i,j-3);x.lineTo(i,j+3);x.stroke();}
@@ -323,17 +328,23 @@ const contenedor=new THREE.Group();carro.add(contenedor);contenedor.position.set
  for(let i=0;i<15;i++)caja(g,'tinta',[.009,.001,.0006],[-.095+i*.0135,.229,.103],[0,0,0],.0002);
 }
 
-// Gasas: sobres apilados, cada uno con la gasa doblada dentro (escena 15).
+// Compresas tipo Medicomp: sobres finos sellados y una muestra plegada sobre la pila.
 {const g=objeto('gasas');g.position.set(-.015,YS,-.105);
- for(let i=0;i<9;i++)sobre(g,[.13,.105],[(i%2)*.003,.0005+i*.0085,(i%3)*.002],[0,(i%2?.025:-.02),0],{centro:'gasa',tex:i===8?ENVASES.gasas:null});
- for(let i=0;i<6;i++)sobre(g,[.105,.10],[.125,.0005+i*.0085,.002],[0,(i%2?-.03:.02),0],{centro:'gasa',tex:i===5?ENVASES.gasas:null});}
+ for(let i=0;i<12;i++)sobre(g,[.13,.105],[(i%2)*.002,.0005+i*.0032,(i%3)*.001],[0,(i%2?.018:-.016),0],{tex:i===11?REFERENCIAS.gasas:null,relieve:.0008});
+ for(let i=0;i<8;i++)sobre(g,[.105,.10],[.125,.0005+i*.0032,.002],[0,(i%2?-.02:.015),0],{tex:i===7?REFERENCIAS.gasas:null,relieve:.0008});
+ for(let i=0;i<4;i++)lamina(g,'gasa',.05,.05,.00055,.0015,[-.025+i*.0005,.040+i*.0008,.008],{bumpScale:.00018});
+}
 
-// Suero fisiológico: frasco con hombro y tapón estriado, y una tira de monodosis (escena 15).
+// Frasco de 250 ml inspirado en Fresenius Versylène: hombro curvo, tapón verde y precinto.
 {const g=objeto('suero');g.position.set(.215,YS,-.12);
- torno(g,'blanco',[[0,0],[.031,0],[.034,.004],[.034,.112],[.031,.128],[.02,.142],[.012,.148],[.012,.16],[0,.16]],[0,0,0]);
- torno(g,'azul',[[0,0],[.0135,0],[.0135,.022],[.011,.025],[0,.025]],[0,.158,0]);
- for(let i=0;i<18;i++){const a=i/18*Math.PI*2;caja(g,'azul',[.0025,.018,.003],[Math.cos(a)*.0136,.169,Math.sin(a)*.0136],[0,-a,0],.0008);}
- rotulo(g,ENVASES.suero,.049,.047,[0,.065,.0342],[0,0,0]);
+ const frasco=torno(g,'blanco',[[0,0],[.027,0],[.031,.003],[.032,.01],[.032,.102],[.030,.115],[.024,.125],[.014,.133],[.014,.145],[0,.145]],[0,0,0]);
+ Object.assign(frasco.material,{transparent:true,opacity:.82,depthWrite:false,roughness:.28});
+ cilindro(g,'verdeAgua',.0165,.020,[0,.148,0]);
+ cilindro(g,'verdeAgua',.016,.004,[0,.136,0]);
+ for(let i=0;i<32;i++){const a=i/32*Math.PI*2;cilindro(g,'verdeAgua',.00045,.017,[Math.cos(a)*.0165,.148,Math.sin(a)*.0165],undefined,6);}
+ // Etiqueta que sigue la curvatura del frasco; sin lotes ni fechas ficticios.
+ malla(new THREE.CylinderGeometry(.0323,.0323,.063,64,1,true,-1,2),'etiqueta',g,[0,.064,0],[0,0,0],{map:REFERENCIAS.suero});
+ for(let i=0;i<4;i++)caja(g,'blanco',[.009,.0007,.001],[.027,.025+i*.018,-.016],[0,0,0],.0003);
  for(let i=0;i<4;i++){const x=-.065+i*.022;
   caja(g,'transparente',[.018,.06,.011],[x,.03,.085],[0,0,0],.0052);
   cilindro(g,'transparente',.0035,.008,[x,.064,.085]);
@@ -398,14 +409,26 @@ dispensador(guantes,ENVASES.guantes);
  lamina(g,'beige',.099,.099,.0003,.004,[0,.0030,0],{roughness:.6,bumpMap:null});
 }
 
-// Jeringa de irrigación sin aguja (escena 15).
+// Referencia de jeringa Omnifix de tres cuerpos, sin aguja; no simula una técnica de irrigación.
 {const g=objeto('jeringa');g.position.set(.30,YS+.0125,.09);g.rotation.y=Math.PI/2;
  const p=new THREE.Group();p.rotation.z=-Math.PI/2;g.add(p); // el eje y del torno pasa a ser el largo de la jeringa
- torno(p,'transparente',[[.0035,-.07],[.004,-.062],[.011,-.055],[.0115,.05],[.011,.052],[.0,.052]],[0,0,0]);
- caja(p,'transparente',[.034,.012,.003],[0,.05,0],[Math.PI/2,0,0],.0015); // aletas
- cilindro(p,'blanco',.0035,.06,[0,.075,0]);torno(p,'goma',[[0,0],[.0105,0],[.0105,.006],[0,.006]],[0,.018,0]);
- cilindro(p,'blanco',.012,.003,[0,.106,0]);
- for(let i=0;i<8;i++)caja(p,'tinta',[.0006,.0006,i%2?.005:.008],[.0115,-.04+i*.011,0],[0,0,0],.0002);}
+ torno(p,'transparente',[[.002,-.071],[.0032,-.071],[.004,-.057],[.0105,-.051],[.0105,.040],[.0097,.040],[.0097,-.049],[.002,-.058],[.002,-.071]],[0,0,0]);
+ caja(p,'transparente',[.033,.004,.013],[0,.040,0],[0,0,0],.0015);
+ for(const r of [0,Math.PI/2])caja(p,'blanco',[.009,.071,.0017],[0,.055,0],[0,r,0],.0006);
+ torno(p,'goma',[[0,0],[.0096,0],[.0096,.006],[.009,.008],[0,.008]],[0,.018,0]);
+ cilindro(p,'blanco',.013,.003,[0,.091,0]);
+ const escala=lienzo(1024,256,(x)=>{
+  x.fillStyle='#302b2a';x.font='28px Arial';
+  for(let i=0;i<=20;i++){const a=35+i*39;x.fillRect(a,15,3,i%2?30:52);if(i%2===0)x.fillText(String(i),a-9,103);}
+  x.font='38px Arial';x.fillText('Omnifix · 20 ml',180,196);
+ });escala.colorSpace=THREE.SRGBColorSpace;
+ // Impresión sobre la cara superior del cilindro, sin una segunda pared opaca.
+ const impresion=malla(new THREE.PlaneGeometry(.084,.018),'etiqueta',p,[-.0108,-.005,0],[0,0,0],{map:escala,transparent:true,alphaTest:.05,depthWrite:false,side:THREE.DoubleSide});
+ impresion.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(new THREE.Vector3(0,1,0),new THREE.Vector3(0,0,-1),new THREE.Vector3(-1,0,0)));
+ impresion.castShadow=false;
+ impresion.renderOrder=10;
+ sobre(g,[.183,.033],[.009,-.0125,0],[0,0,0],{nombre:'sobre',centro:'transparente',relieve:.0006});
+}
 
 // Regla de papel para medir (escena 8).
 {const g=objeto('regla');g.position.set(-.04,YS,.195);g.rotation.y=.03;
@@ -536,14 +559,6 @@ sustituir(piezaBisturi,'modelos/bisturi/scene.gltf',{id:'bisturi',medida:['x',.1
  // Su textura es casi blanca y se pierde sobre el carro: acero como el resto, con su relieve.
  for(const p of piezas){if(/^(11|12|15)_/.test(p.name))p.visible=false;p.material=mat('hoja',{normalMap:p.material.normalMap,side:THREE.DoubleSide});} // es una lámina: dos caras
 }}).then(ok=>{if(ok)piezaBisturi.position.y=.002;}); // encima del sobre, que si no lo tapa
-const piezaJeringa=objetos.jeringa.children[0];
-sustituir(piezaJeringa,'modelos/jeringa/scene.gltf',{id:'jeringa',medida:['x',.17],tumbado:true,apoyar:false,materiales:piezas=>{
- for(const p of piezas){
-  p.geometry.computeBoundingBox();const s=p.geometry.boundingBox.getSize(new THREE.Vector3()),d=[s.x,s.y,s.z].sort((a,b)=>a-b);
-  if(d[2]/Math.max(d[0],1e-6)>30){p.visible=false;continue;} // la aguja: larga y finísima
-  p.material=mat(p.material?.transparent||p.material?.opacity<1?'transparente':'blanco');
- }
-}}).then(ok=>{if(ok)piezaJeringa.rotation.set(0,0,0);}); // el modelo ya llega tumbado
 
 // Un halo coral sobre la bandeja, bajo cada objeto que se puede traer, para señalarlo sin flechas.
 const halo=lienzo(128,128,(x)=>{const g=x.createRadialGradient(64,64,0,64,64,64);
@@ -560,7 +575,7 @@ function ponerHalo(g){
 for(const g of Object.values(objetos))ponerHalo(g);
 function marcarGrupos(){carro.traverse(o=>{if(o.isMesh&&!o.userData.grupo)o.userData.grupo=(()=>{let p=o;while(p&&!p.userData.id)p=p.parent;return p?.userData.id;})();});}
 marcarGrupos();
-const piezaRevisada=objetos[PRODUCTO]?PRODUCTO:null;
+let piezaRevisada=objetos[PRODUCTO]?PRODUCTO:null;
 if(piezaRevisada)for(const g of carro.children)g.visible=g===objetos[piezaRevisada];
 
 // ---- Lo que pide la presentación ----
@@ -568,7 +583,12 @@ if(piezaRevisada)for(const g of carro.children)g.visible=g===objetos[piezaRevisa
 const VISTA_CARRO={pos:[1.85,1.60,2.65],mira:[.07,.52,0]};
 const destino={pos:new THREE.Vector3(),mira:new THREE.Vector3()};
 let ids=[],enVuelo=0,activo=true,vistaGeneral=true;
-function mostrar({ids:nuevos=[],vista}={}){
+function mostrar({ids:nuevos=[],vista,producto}={}){
+ if(producto!==undefined){
+  piezaRevisada=objetos[producto]?producto:null;
+  for(const g of carro.children)g.visible=!piezaRevisada||g===objetos[piezaRevisada];
+ }
+ canvas.dataset.producto=piezaRevisada||'';
  ids=nuevos.filter(id=>objetos[id]);
  vistaGeneral=vista==='carro'||!ids.length;
  if(vistaGeneral){
@@ -580,15 +600,27 @@ function mostrar({ids:nuevos=[],vista}={}){
   // Mirar al centro de lo que se trae, desde delante y algo por encima.
   const caja3=new THREE.Box3();ids.forEach(id=>caja3.expandByObject(objetos[id]));
   const c=caja3.getCenter(new THREE.Vector3()),t=caja3.getSize(new THREE.Vector3()).length();
-  const d=piezaRevisada?Math.max(.30,t*1.65,t*2.1/camera.aspect):Math.max(1.3,t*3);
-  destino.pos.set(c.x+d*.42,c.y+d*.62,c.z+d*.78);destino.mira.copy(c);
+  if(piezaRevisada){
+   // Ajustar las ocho esquinas proyectadas, no solo la longitud: también caben frascos y grupos.
+   const dir=new THREE.Vector3(.42,.62,.78).normalize();
+   const derecha=new THREE.Vector3(0,1,0).cross(dir).normalize(),arriba=dir.clone().cross(derecha);
+   const tan=Math.tan(THREE.MathUtils.degToRad(camera.fov/2));let d=.20;
+   for(const x of [caja3.min.x,caja3.max.x])for(const y of [caja3.min.y,caja3.max.y])for(const z of [caja3.min.z,caja3.max.z]){
+    const p=new THREE.Vector3(x,y,z).sub(c);
+    d=Math.max(d,p.dot(dir)+1.18*Math.max(Math.abs(p.dot(derecha))/(tan*camera.aspect),Math.abs(p.dot(arriba))/tan));
+   }
+   destino.pos.copy(c).addScaledVector(dir,d);
+  }else{
+   const d=Math.max(1.3,t*3);destino.pos.set(c.x+d*.42,c.y+d*.62,c.z+d*.78);
+  }
+  destino.mira.copy(c);
  }
  enVuelo=1;
 }
 addEventListener('message',e=>{
  const m=e.data?.carro;if(!m)return;
  if('activo' in m){activo=m.activo;renderer.setAnimationLoop(activo?bucle:null);}
- if(m.ids||m.vista)mostrar(m);
+ if(m.ids||m.vista||'producto' in m)mostrar(m);
 });
 
 function ajustar(){const w=innerWidth,h=innerHeight;renderer.setSize(w,h,false);composer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();if(vistaGeneral)mostrar({ids,vista:'carro'});else if(piezaRevisada)mostrar({ids});}

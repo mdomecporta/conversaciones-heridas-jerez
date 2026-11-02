@@ -16,6 +16,7 @@ En cada paso hay un solo foco. Hay tres mundos y cada uno tiene su propia superf
 - Cada momento tiene su pigmento sobre la noche: coral (I), ámbar (II), malva (III) y salvia (IV). Las escenas terminadas son puntadas; la actual, un anillo que respira. Al volver a una escena anterior (escena 12), su hilo conserva el pigmento de su momento.
 - Las entradas de bloque y la recopilación ocupan toda la pantalla en la misma noche: son la estructura de la charla.
 - **El carro 3D** (`carro/`) es el punto de partida: cierra la apertura entero, vuelve en la escena 1 con el apósito ya elegido elevado y resaltado, y entero en el regreso (escena 12). Es un solo visor que se coloca sobre la marca de cada diapositiva y deja de dibujar cuando no se ve.
+- **Piezas del carro:** en las escenas 6 y 7, el mismo visor muestra la torunda y el apósito de plata aislados junto a la ficha correspondiente. Se identifican como recreaciones docentes inspiradas en referencias comerciales. Se retiran al entrar la evidencia; la fotografía de la torunda queda como alternativa si falla el 3D.
 - **La guía de partida (apertura).** Cuando la herida trae el carro, aparece *Qué no hacer en heridas crónicas* con una marca por cada una de sus 47 recomendaciones, agrupadas en sus seis apartados. Después se iluminan en carmín las que salen en la charla, entran los cuatro momentos con su pigmento y el resto queda como «Guardadas, por si preguntáis».
 - **El regreso al carro (escena 12)** tiene tres pasos: el carro entero con el hilo de la escena 1, la pregunta a la sala y los cuatro asuntos que se recogen, que entran a la vez.
 - **El cierre (escena 13)** tiene siete pasos. Empieza en la noche con las tres páginas de recopilación y «Para seguir profundizando» (los apartados de la guía con lo que queda en la reserva y una línea por guía de la bibliografía). Después vuelve al marfil para la pregunta de la mesa (con la conversación en columna a su derecha), la pregunta final y el agradecimiento, que lleva el crédito de los modelos 3D.
@@ -23,11 +24,12 @@ En cada paso hay un solo foco. Hay tres mundos y cada uno tiene su propia superf
 
 ## Actuación en tres pasos
 
-- Cada escena son tres pasos: **A revisar** (el recurso que trae la herida, completo; las imágenes con zonas se recorren solas), **Nos preguntamos** (la hoja de evidencia) y **Nos llevamos** (el aprendizaje entra en el hilo y la evidencia se queda detrás, atenuada).
+- Cada escena son tres pasos: **A revisar** (el recurso que trae la herida, completo; las imágenes con zonas se recorren solas), **Nos preguntamos** (la historia, anécdota o curiosidad que hace necesaria la pregunta, con la etiqueta «La historia») y **Nos llevamos** (la hoja de evidencia, como fundamento del aprendizaje que entra a la vez en el hilo).
 - Composición a 16:9: hilo de 0 a 30 cqw, lo que acompaña al paso de 32,5 a 72,5 y la conversación de 74,5 a 97,5, con la herida arriba.
+- Tamaños pensados para proyectar a 1920 × 1080: la conversación no baja de 23 px (la herida, 26 px), los rótulos del hilo rondan los 20 px y solo los créditos y las fuentes quedan por debajo. La frase con la que María del Mar cierra cada momento está en su tarjeta, no en pantalla.
 - La conversación de la escena se escribe al ritmo de la herida (piensa con tres puntos y su frase entra palabra a palabra); las frases de los pasos anteriores quedan encima, atenuadas.
 - Antes de cada actuación (también después de la entrada de bloque), una **transición** con la herida en grande, el título de la escena y su primera frase.
-- La conversación de cada paso habla de lo que se ve en él: en «A revisar», lo que trae la herida y su reacción; en «Nos preguntamos», lo que pregunta sobre la evidencia; en «Nos llevamos», el cierre.
+- La conversación de cada paso habla de lo que se ve en él: en «A revisar», lo que trae la herida y su reacción; en «Nos preguntamos», la historia; en «Nos llevamos», lo que comenta de la evidencia y el cierre.
 
 ## Conversación: la herida
 
