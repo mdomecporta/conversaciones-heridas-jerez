@@ -72,7 +72,7 @@ Estas son indicaciones del montaje previsto; actualizar el guion no aplica por s
 
 **María del Mar, con sus palabras:** cuenta que la herida reúne situaciones que os sonarán de la consulta. Algunas están preparadas para la charla y otras se apoyan en ejemplos publicados, que veréis identificados. Es un personaje: su forma y su color no se diagnostican. Lo que diga es docente; las recomendaciones llevan su fuente.
 
-**La herida:** «Hoy vengo con preguntas sobre todo lo que se me hace en una cura.».
+**La herida:** «Hoy vengo con preguntas sobre todo lo que se me hace en una cura».
 
 **En pantalla · la guía de partida:** la referencia de *Qué no hacer en heridas crónicas* (GNEAUPP, Documento Técnico XIV, 2.ª ed., 2020), compuesta con tipografía. Debajo, 47 marcas pequeñas, una por recomendación, agrupadas en los seis apartados de la guía: diagnóstico; lesiones relacionadas con la dependencia; extremidad inferior; otras lesiones; carga bacteriana; tratamiento.
 
