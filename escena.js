@@ -172,9 +172,12 @@ function resource(n,r=R[n],from=r===R[n]?'La herida trae':'La historia'){
   case 'imagen-lista':
    body=`<div class="split">${figure(r.asset)}<div class="split-side"><h4 data-part="2">${esc(r.head)}</h4><ul class="chips">${r.items.map((x,i)=>`<li data-part="2" style="--d:${i*.12}s">${esc(x)}</li>`).join('')}</ul><p class="res-note" data-part="2">${esc(r.note)}</p></div></div>`;
    return `<div class="res res-split" data-type="split" data-n="${n}">${body}</div>`;
+  case 'diraya':
+   // Recreación docente del módulo Heridas: sus pestañas, la tabla de evoluciones con la escala Resvech y Observaciones.
+   body=`<div class="dy"><div class="dy-tabs">${r.tabs.map((t,i)=>`<span class="dy-tab dy-t${i}">${esc(t)}</span>`).join('')}</div><table class="dy-evo" data-part="1"><thead><tr>${r.cols.map(c=>`<th>${esc(c)}</th>`).join('')}</tr></thead><tbody>${r.rows.map(([a,b,c],i)=>`<tr style="--d:${i*.14}s"><td>${esc(a)}</td><td>${esc(b)}</td><td><b class="dy-resvech">${esc(c)}</b></td></tr>`).join('')}</tbody></table><p class="dy-int" data-part="1"><span>Intervenciones</span>${esc(r.intervenciones)}</p><div class="dy-obs" data-part="2"><span class="dy-k">${esc(r.obs.head)}</span>${r.obs.antes?`<s>${esc(r.obs.antes)}</s>`:''}<ul>${r.obs.items.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div><p class="dy-foot" data-part="2">${esc(r.foot)}</p></div>`;
+   break;
   case 'relevo':
-   // done: el mismo registro, ya completado; antes: la nota que sustituye, tachada.
-   body=`${r.antes?`<p class="antes" data-part="1"><span>Antes</span><s>${esc(r.antes)}</s></p>`:''}<ul class="fields is-grid">${r.fields.map((f,i)=>fieldRow(f,{state:r.done?'done':'empty'}).replace('data-part="1"',`data-part="1" style="--d:${i*.1}s"`)).join('')}</ul><div class="handover" data-part="2"><p>${esc(r.split[0])}</p><p class="is-alert">${esc(r.split[1])}</p></div>`;
+   body=`<ul class="fields is-grid">${r.fields.map((f,i)=>fieldRow(f).replace('data-part="1"',`data-part="1" style="--d:${i*.1}s"`)).join('')}</ul><div class="handover" data-part="2"><p>${esc(r.split[0])}</p><p class="is-alert">${esc(r.split[1])}</p></div>`;
    break;
  }
  return `<div class="res res-card ${r.calm?'is-calm':''}" data-type="${r.type}" data-n="${n}">${head(r.label,r.title)}${body}</div>`;

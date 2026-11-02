@@ -6,7 +6,7 @@ Tomadas sobre la propuesta de revisión visual y narrativa del mismo día, con l
 |---|---|---|
 | Ambroise Paré | Entra en la escena 12, antes de la pregunta a la sala: una rutina cambia cuando se mira su resultado. Es la idea de toda la charla, así que va al regreso al carro y no a la escena 8. | Hecho. Solo conversación; sin imagen. |
 | Caso de pioderma gangrenoso (Saffie y Shroff, 2018) | Encaja en la escena 5 como historia real de «reabrir la valoración». No entra hasta cotejar el artículo completo y que María del Mar decida qué detalles clínicos se dicen. | Pendiente, después de la revisión del 3 de noviembre. |
-| Diraya | Las notas de las escenas 4 y 11 siguen siendo un registro docente genérico. Antes de recrear una pantalla, María del Mar confirma qué ve el público y si le parece bien que aparezca en `/ver/`, que es público. Sin logos ni marca del SAS. | Pendiente de María del Mar. |
+| Diraya | Recreación docente del módulo Heridas en «Nos preguntamos» de la escena 11, con campos y pestañas tomados del material público de DIRAYAbierto (formación del módulo y preguntas frecuentes, 2026): evoluciones con medidas, tejido, exudado y Resvech, intervenciones y Observaciones. Datos ficticios, sin logos. En el módulo la descripción es obligatoria; por eso no se recrea con huecos, y el problema que mostramos es el porqué, que va en Observaciones y en el Informe de Continuidad de Cuidados. | Hecho. María del Mar confirma que se parece a lo que usa y que le parece bien en `/ver/`. |
 | Estudio cualitativo de 22 personas (Probst et al., 2025) | No entra por ahora. | Descartado para esta versión. |
 | Enrique VIII | A la reserva, no a la charla. | Descartado para esta versión. |
 | Garfield y *El paciente inglés* | No entran. | Descartados. |

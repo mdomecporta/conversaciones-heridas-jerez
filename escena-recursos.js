@@ -37,8 +37,15 @@ const ESCENA_RECURSOS={
  // Las mismas notas de la escena 4: vuelven con la nota de relevo y, en «Nos preguntamos», completadas.
  11:{type:'registro',label:'Las notas de la escena 4 · ficticias',title:'Notas de las últimas curas',parts:2,
   rows:[['Visita 1','Limpieza · apósito · próxima cita'],['Visita 2','Limpieza · apósito · próxima cita'],['Visita 3','Limpieza · apósito · próxima cita'],['Para mañana','Seguir igual']],absence:['Por qué seguimos así','No consta'],
-  historia:{type:'relevo',done:true,antes:'Seguir igual',label:'Las mismas notas, completadas · propuesta docente',title:'Notas de las últimas curas',
-   fields:['Objetivo','Qué hacemos y por qué','Respuesta','Próxima revisión','Vía de consulta'],split:['Revisión prevista','Cambios que requieren valorar antes']}}
+  // La misma herida en el módulo Heridas de Diraya: campos y pestañas tomados del material de formación del SAS
+  // (DIRAYAbierto, 2026). La descripción es obligatoria en cada evolución; el porqué va en Observaciones.
+  historia:{type:'diraya',label:'Recreación docente basada en Diraya · módulo Heridas · datos ficticios',title:'La misma herida, en el módulo Heridas',
+   tabs:['Clasificación','Descripción','Intervenciones','Derivación / Alta'],
+   cols:['Evolución','Alto × ancho · tejido · exudado','Resvech'],
+   rows:[['1','5 × 4 cm · granulación · moderado','14'],['2','4,5 × 3,5 cm · granulación · moderado','12'],['3','4 × 3 cm · granulación · escaso','10']],
+   intervenciones:'Limpieza · apósito de lecho · pauta',
+   obs:{head:'Observaciones',antes:'Seguir igual',items:['Objetivo','Motivo del plan','Respuesta','Próxima revisión','Vía de consulta']},
+   foot:'El informe de Heridas se puede adjuntar al Informe de Continuidad de Cuidados'}}
 };
 // Créditos de los modelos 3D del carro (licencia CC BY 4.0, se citan donde se ve el carro).
 const ESCENA_CARRO_CREDITO='Carro modelado para la presentación · modelos CC BY 4.0 de Sketchfab: Miguel Adão, cig3d, Medicz, Stakler';

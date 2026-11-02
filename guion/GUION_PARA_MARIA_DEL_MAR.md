@@ -596,7 +596,7 @@ Se deja una pausa. Esta escena no necesita un remate humorístico ni una imagen 
 
 **En pantalla · la pregunta:** se tacha la actuación y se revela la pregunta de esta escena. En el mismo paso, la herida cuenta la historia que hace necesaria la pregunta.
 
-**En pantalla · la historia:** las mismas notas, ahora completadas. «Seguir igual» queda tachado y en su lugar aparecen, anotados, «Objetivo», «Qué hacemos y por qué», «Respuesta», «Próxima revisión» y «Vía de consulta». Se distingue «Revisión prevista» de «Cambios que requieren valorar antes». Los campos se marcan como anotados sin rellenarlos con datos, teléfonos ni plazos locales ficticios.
+**En pantalla · la historia:** la misma herida registrada en el módulo Heridas de Diraya, en una recreación docente con datos ficticios y sin logos: sus pestañas (Clasificación, Descripción, Intervenciones, Derivación / Alta), tres evoluciones con alto × ancho, tejido, exudado y la escala Resvech (14, 12, 10), y las intervenciones. En «Observaciones», «Seguir igual» queda tachado y aparecen anotados «Objetivo», «Motivo del plan», «Respuesta», «Próxima revisión» y «Vía de consulta», sin rellenarlos con teléfonos ni plazos locales. Al pie: el informe de Heridas se puede adjuntar al Informe de Continuidad de Cuidados.
 
 **La herida:** «¿Y qué le contamos esta vez?».
 
@@ -606,7 +606,7 @@ Se deja una pausa. Esta escena no necesita un remate humorístico ni una imagen 
 
 **En pantalla · evidencia científica:** el apoyo anterior se recoge. Aparece «Compartir el razonamiento permite continuar», con esta idea: «La comunicación y la coordinación sostienen el seguimiento. El formato de relevo que proponemos reúne objetivo, intervención, respuesta, revisión y consulta». Fuente visible: EWMA 2022 · §§4–6 / fichas clínicas. También se muestra la condición: «Adaptar la vía de consulta al circuito real del área. El deterioro puede exigir valorar antes». María del Mar relaciona este fundamento con lo que acaba de señalar la herida.
 
-**María del Mar, con sus palabras:** la comunicación y la coordinación sostienen la continuidad. En el relevo dejamos qué queremos conseguir, por qué hacemos la intervención, cómo ha respondido y cuándo revisaremos. También qué cambios exigen valorar antes y cuál es la vía de consulta prevista en el área.
+**María del Mar, con sus palabras:** en el módulo Heridas la descripción de cada evolución es obligatoria (medidas, tejido, exudado, infección) y la escala Resvech permite ver si la herida responde: aquí baja de 14 a 10. Lo que el módulo no pide es por qué hacemos lo que hacemos; eso lo dejamos en Observaciones y en el Informe de Continuidad de Cuidados, al que se puede adjuntar el informe de Heridas. Comprueba que la pantalla se parece a la que usáis en tu centro. La comunicación y la coordinación sostienen la continuidad. En el relevo dejamos qué queremos conseguir, por qué hacemos la intervención, cómo ha respondido y cuándo revisaremos. También qué cambios exigen valorar antes y cuál es la vía de consulta prevista en el área.
 
 **La herida:** «Y que la persona sepa también cómo seguimos y a quién preguntar».
 
@@ -616,7 +616,7 @@ Se deja una pausa. Esta escena no necesita un remate humorístico ni una imagen 
 
 **Para seguir:** «Volvamos al carro del principio».
 
-**Respaldo:** [4], §§4–6; [5], fichas clínicas aplicables. El formato de relevo es una síntesis docente. Se utiliza el circuito real del área, sin inventar contactos ni plazos.
+**Respaldo:** [4], §§4–6; [5], fichas clínicas aplicables. El formato de relevo es una síntesis docente. Recreación del módulo Heridas a partir del material público de DIRAYAbierto (SAS, 2026: formación del módulo y preguntas frecuentes); datos ficticios. Se utiliza el circuito real del área, sin inventar contactos ni plazos.
 
 ### Escena 12 · Volvemos al carro
 
