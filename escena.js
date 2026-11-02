@@ -173,7 +173,8 @@ function resource(n,r=R[n],from=r===R[n]?'La herida trae':'La historia'){
    body=`<div class="split">${figure(r.asset)}<div class="split-side"><h4 data-part="2">${esc(r.head)}</h4><ul class="chips">${r.items.map((x,i)=>`<li data-part="2" style="--d:${i*.12}s">${esc(x)}</li>`).join('')}</ul><p class="res-note" data-part="2">${esc(r.note)}</p></div></div>`;
    return `<div class="res res-split" data-type="split" data-n="${n}">${body}</div>`;
   case 'relevo':
-   body=`<ul class="fields is-grid">${r.fields.map((f,i)=>fieldRow(f).replace('data-part="1"',`data-part="1" style="--d:${i*.1}s"`)).join('')}</ul><div class="handover" data-part="2"><p>${esc(r.split[0])}</p><p class="is-alert">${esc(r.split[1])}</p></div>`;
+   // done: el mismo registro, ya completado; antes: la nota que sustituye, tachada.
+   body=`${r.antes?`<p class="antes" data-part="1"><span>Antes</span><s>${esc(r.antes)}</s></p>`:''}<ul class="fields is-grid">${r.fields.map((f,i)=>fieldRow(f,{state:r.done?'done':'empty'}).replace('data-part="1"',`data-part="1" style="--d:${i*.1}s"`)).join('')}</ul><div class="handover" data-part="2"><p>${esc(r.split[0])}</p><p class="is-alert">${esc(r.split[1])}</p></div>`;
    break;
  }
  return `<div class="res res-card ${r.calm?'is-calm':''}" data-type="${r.type}" data-n="${n}">${head(r.label,r.title)}${body}</div>`;

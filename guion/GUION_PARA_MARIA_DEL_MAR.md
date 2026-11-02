@@ -586,9 +586,9 @@ Se deja una pausa. Esta escena no necesita un remate humorístico ni una imagen 
 **Nos preguntamos:** ¿Qué necesita saber quien venga mañana?  
 **Nos llevamos:** Compartir objetivo, motivo, respuesta, revisión y vía de consulta.
 
-**La herida:** «Mañana quizá me cure otra compañera. Mira la nota que le dejaron la última vez».
+**La herida:** «Mañana quizá me cure otra compañera. ¿Te acuerdas de mis notas? Mira lo que le dejaron».
 
-**En pantalla · recurso de la herida:** las notas de relevo docentes de las últimas visitas: «Seguir igual», dos veces. Debajo, «Por qué seguimos así: no consta». Es un registro ficticio identificado, sin fechas ni nombres.
+**En pantalla · recurso de la herida:** vuelven las notas de la escena 4, el mismo documento: las tres visitas («Limpieza · apósito · próxima cita») y, al final, la nota para mañana: «Seguir igual». Debajo, «Por qué seguimos así: no consta». Es un registro ficticio identificado, sin fechas ni nombres.
 
 **María del Mar:** «“Seguir igual”. ¿Igual por qué?».
 
@@ -596,7 +596,7 @@ Se deja una pausa. Esta escena no necesita un remate humorístico ni una imagen 
 
 **En pantalla · la pregunta:** se tacha la actuación y se revela la pregunta de esta escena. En el mismo paso, la herida cuenta la historia que hace necesaria la pregunta.
 
-**En pantalla · la historia:** la ficha de relevo docente: «Objetivo», «Qué hacemos y por qué», «Respuesta», «Próxima revisión» y «Vía de consulta». Se distingue «Revisión prevista» de «Cambios que requieren valorar antes». No se rellena con teléfonos ni plazos locales ficticios.
+**En pantalla · la historia:** las mismas notas, ahora completadas. «Seguir igual» queda tachado y en su lugar aparecen, anotados, «Objetivo», «Qué hacemos y por qué», «Respuesta», «Próxima revisión» y «Vía de consulta». Se distingue «Revisión prevista» de «Cambios que requieren valorar antes». Los campos se marcan como anotados sin rellenarlos con datos, teléfonos ni plazos locales ficticios.
 
 **La herida:** «¿Y qué le contamos esta vez?».
 

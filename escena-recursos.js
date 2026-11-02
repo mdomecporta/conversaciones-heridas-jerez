@@ -34,9 +34,10 @@ const ESCENA_RECURSOS={
  10:{type:'imagen-lista',asset:'daily-life',parts:2,head:'Aspectos que preguntar',items:['Dolor','Fugas','Olor','Carga de cuidados'],
   note:'Posibilidades de conversación, no síntomas atribuidos a una paciente.',
   historia:{type:'opciones',label:'Esquema docente',title:'Objetivos que pueden convivir',items:['Cicatrizar','Prevenir la infección','Aliviar lo que más pesa'],supuesto:'Lo que más le pesa: no poder dormir'}},
- 11:{type:'registro',label:'Notas ficticias · propuesta docente',title:'Notas de relevo',parts:2,
-  rows:[['Visita 1','Seguir igual'],['Visita 2','Seguir igual']],absence:['Por qué seguimos así','No consta'],
-  historia:{type:'relevo',label:'Ficha de relevo · propuesta docente',title:'Para quien venga mañana',
+ // Las mismas notas de la escena 4: vuelven con la nota de relevo y, en «Nos preguntamos», completadas.
+ 11:{type:'registro',label:'Las notas de la escena 4 · ficticias',title:'Notas de las últimas curas',parts:2,
+  rows:[['Visita 1','Limpieza · apósito · próxima cita'],['Visita 2','Limpieza · apósito · próxima cita'],['Visita 3','Limpieza · apósito · próxima cita'],['Para mañana','Seguir igual']],absence:['Por qué seguimos así','No consta'],
+  historia:{type:'relevo',done:true,antes:'Seguir igual',label:'Las mismas notas, completadas · propuesta docente',title:'Notas de las últimas curas',
    fields:['Objetivo','Qué hacemos y por qué','Respuesta','Próxima revisión','Vía de consulta'],split:['Revisión prevista','Cambios que requieren valorar antes']}}
 };
 // Créditos de los modelos 3D del carro (licencia CC BY 4.0, se citan donde se ve el carro).
