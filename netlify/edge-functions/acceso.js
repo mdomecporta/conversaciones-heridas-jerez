@@ -1,5 +1,5 @@
 // Protege todo el sitio con la contraseña de SITE_PASSWORD, salvo el enlace para compartir (/ver/),
-// que es público mientras COMPARTIR no valga "no".
+// que es público mientras COMPARTIR no valga "no", y el carro 3D (/carro/), que no tiene nada privado y lo usa /ver/.
 import {issue,valid,readCookie,samePassword,secretOf,sessionCookie,clearCookie,safeNext} from '../lib/acceso.mjs';
 import {loginPage} from '../lib/entrada.mjs';
 
@@ -9,6 +9,7 @@ const html=(body,status=200,extra={})=>new Response(body,{status,headers:{'conte
 export default async (req,context)=>{
  const url=new URL(req.url),path=url.pathname;
  if((path==='/ver'||path.startsWith('/ver/'))&&env('COMPARTIR')!=='no')return context.next();
+ if(path.startsWith('/carro/'))return context.next();
  // Los cambios de texto se aplican también en el enlace público: leerlos no pide contraseña.
  if(path==='/api/textos'&&req.method==='GET')return context.next();
  const password=env('SITE_PASSWORD'),secret=secretOf(env);

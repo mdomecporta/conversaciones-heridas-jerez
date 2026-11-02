@@ -20,6 +20,13 @@ http.createServer(async (req,res)=>{
  const send=async response=>{res.writeHead(response.status,Object.fromEntries([...response.headers].map(([k,v])=>[k,k==='set-cookie'?local(v):v])));res.end(Buffer.from(await response.arrayBuffer()));};
  const file=async name=>{try{return send(new Response(await readFile(new URL(name,dist)),{headers:{'content-type':'text/html; charset=utf-8'}}));}catch{return send(new Response('No encontrado',{status:404}));}};
  if(path==='/ver'||path.startsWith('/ver/'))return file('ver/index.html');
+ // El carro 3D: archivos estáticos, sin contraseña (como en Netlify).
+ if(path.startsWith('/carro/')){
+  const tipos={html:'text/html; charset=utf-8',js:'text/javascript',gltf:'model/gltf+json',bin:'application/octet-stream',png:'image/png',jpg:'image/jpeg',jpeg:'image/jpeg',txt:'text/plain'};
+  const name=path.endsWith('/')?path.slice(1)+'index.html':path.slice(1);
+  if(name.includes('..'))return send(new Response('No encontrado',{status:404}));
+  try{return send(new Response(await readFile(new URL(decodeURIComponent(name),dist)),{headers:{'content-type':tipos[name.split('.').pop()]||'application/octet-stream'}}));}catch{return send(new Response('No encontrado',{status:404}));}
+ }
  if(path==='/api/textos'&&req.method==='GET')return send(await handle(request,stores));
  if(path==='/salir')return send(new Response(null,{status:303,headers:{location:'/','set-cookie':clearCookie()}}));
  if(path==='/entrar'&&req.method==='POST'){

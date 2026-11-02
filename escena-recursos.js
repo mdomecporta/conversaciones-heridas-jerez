@@ -3,9 +3,8 @@
 // parts: cuántos avances tiene el recurso antes de la pregunta. thumb: queda en miniatura durante la evidencia.
 // auto: las zonas de la imagen se recorren solas en lugar de una por avance.
 const ESCENA_RECURSOS={
- // Foto del carro: al añadirla a resources.json como 'carro', añadir aquí side con ese asset. La escena 12 reutiliza este recurso.
- 1:{type:'esquema',label:'Esquema docente',title:'Antes de acercar el carro',parts:2,
-  cols:[{head:'Material preparado',items:['El carro está listo','El apósito ya está elegido']},{head:'Historia por conocer',empty:3}],link:'¿Y antes?'},
+ // El carro 3D (carro/): ids son los objetos que la herida trae del carro. La escena 12 vuelve a él entero.
+ 1:{type:'carro',ids:['aposito-elegido'],parts:1,label:'El carro de curas',title:'El apósito ya está elegido',text:'Material preparado. La historia, todavía por conocer.'},
  2:{type:'comparar',parts:2,thumb:true,label:'Dos ejemplos publicados · la etiología viene con la historia',
   items:[{asset:'venous',tag:'Causa venosa conocida'},{asset:'arterial',tag:'Compromiso arterial conocido'}]},
  3:{type:'imagen',asset:'shared-care',parts:2,ask:'¿Cómo se organiza el cuidado fuera de la consulta?'},
@@ -27,6 +26,8 @@ const ESCENA_RECURSOS={
  11:{type:'relevo',label:'Ficha de relevo · propuesta docente',title:'Para quien venga mañana',parts:2,
   fields:['Objetivo','Qué hacemos y por qué','Respuesta','Próxima revisión','Vía de consulta'],split:['Revisión prevista','Cambios que requieren valorar antes']}
 };
+// Créditos de los modelos 3D del carro (licencia CC BY 4.0, se citan donde se ve el carro).
+const ESCENA_CARRO_CREDITO='Carro modelado para la presentación · modelos CC BY 4.0 de Sketchfab: Miguel Adão, cig3d, Medicz, Stakler';
 // Escena 12: lo que María del Mar recoge de la sala al volver al carro.
 const ESCENA_REGRESO=['Historia y causa','Evolución','Persona','Motivo de la intervención'];
 // Escena 13: tres páginas de recopilación de las 11 actuaciones.

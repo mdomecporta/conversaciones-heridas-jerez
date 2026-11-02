@@ -2,6 +2,10 @@
 
 Se han incorporado 11 imágenes al catálogo. Desde el recorte del 1 de noviembre (13 escenas), la presentación usa 7 en 6 escenas; el pioderma gangrenoso, el sistema de compresión y el modelo del biofilm siguen en el catálogo, sin uso. Las dos pantallas institucionales se mantienen.
 
+## Carro de curas en 3D
+
+El carro (`carro/carro.js`) está modelado para la presentación a partir de la foto del carro del centro de salud. Algunas piezas son modelos descargados de Sketchfab con licencia [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), con su licencia en `carro/modelos/*/license.txt`: guantes, espray, vendas y tiritas («Medical Supplies Collection», Miguel Adão), contenedor de punzantes (cig3d), bisturí (Medicz) y jeringa (Stakler). El crédito se ve en la pantalla final de agradecimiento.
+
 ## Fotografías externas
 
 | Recurso | Procedencia y licencia | Aplicación |

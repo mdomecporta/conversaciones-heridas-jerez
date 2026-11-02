@@ -1,6 +1,6 @@
 // Genera dist/index.html: la presentación proyectada a partir del guion para María del Mar.
 // Autónoma (fuentes, imágenes y entidad incluidas). El guion es la fuente de los textos.
-import {readFile,writeFile,mkdir} from 'node:fs/promises';
+import {readFile,writeFile,mkdir,cp} from 'node:fs/promises';
 import {parseGuion,validate} from './guion.mjs';
 const root=new URL('../',import.meta.url);
 const read=name=>readFile(new URL(name,root),'utf8');
@@ -35,5 +35,19 @@ await writeFile(new URL('dist/index.html',root),page);
 const publicGuion=JSON.parse(JSON.stringify(guion),(k,v)=>['spoken','develop','notes','recuerda','close','screen','after'].includes(k)?undefined:v);
 const publicData=`const ESCENA=${safe({guion:publicGuion,assets,institutional,publico:true})};\n${recursos}`;
 await writeFile(new URL('dist/ver/index.html',root),page.replace(data,()=>publicData).replace('<title>Conversaciones con una herida · Escena</title>','<title>Conversaciones con una herida</title>'));
+// El carro 3D (carro/) se publica aparte, en /carro/, con la parte de Three.js que usa: solo los módulos
+// a los que llega desde sus importaciones, para que funcione sin conexión.
+await cp(new URL('carro/',root),new URL('dist/carro/',root),{recursive:true});
+const three=new URL('node_modules/three/',root);
+const copied=new Set();
+async function vendor(rel){
+ if(copied.has(rel))return;copied.add(rel);
+ const code=await readFile(new URL(rel,three),'utf8');
+ await mkdir(new URL('dist/carro/vendor/three/'+rel.replace(/[^/]+$/,''),root),{recursive:true});
+ await writeFile(new URL('dist/carro/vendor/three/'+rel,root),code);
+ for(const [,dep] of code.matchAll(/from\s*['"](\.{1,2}\/[^'"]+)['"]/g))await vendor(new URL(dep,new URL(rel,'https://x/')).pathname.slice(1));
+}
+await vendor('build/three.module.min.js');
+for(const [,mod] of (await read('carro/carro.js')).matchAll(/from\s*'three\/addons\/([^']+)'/g))await vendor('examples/jsm/'+mod);
 const steps=guion.scenes.reduce((n,s)=>n+s.steps.length,0);
 console.log(`Presentación generada en dist/index.html · ${guion.scenes.length} escenas, ${steps} pasos del guion, ${used.size} imágenes.`);

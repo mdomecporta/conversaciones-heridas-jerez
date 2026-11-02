@@ -18,6 +18,7 @@ escena.js                           motor: pasos, herida, ponente (?ponente), gu
 escena-recursos.js                  lo que trae la herida en cada escena
 entity.js                           API Presence (su renderizador de membrana no se usa)
 entity-liquid.js                    cuerpo de la herida: líquida, tinta «Sangre y piel»
+carro/                              carro de curas 3D (carro.js: modelo y API; modelos/: GLTF de Sketchfab, CC BY 4.0)
 resources.json, assets/             imágenes con créditos y zonas, fuentes, portadas institucionales
 scripts/guion.mjs, scripts/build.mjs  lector del guion y compilación a dist/index.html y dist/ver/ (pública)
 netlify/                            contraseña (función de borde), API de notas, adjuntos y cambios de texto (Netlify Blobs)
@@ -32,7 +33,9 @@ Fuera del repositorio, en la carpeta del proyecto: `bibliography/` (las seis gu�
 - `npm run build` genera `dist/index.html`, autónomo. Si el guion deja una escena sin hilo, sin evidencia o sin enlace, se detiene y lo dice. `npm test` comprueba guion, recursos y entidad. `npm run dev` sirve en http://127.0.0.1:4173/.
 - Los textos se cambian en el guion y se recompila. La composición de los recursos está en `escena-recursos.js`; los colores, solo en `tokens.css`.
 - En la presentación, **R** abre la reserva con las 47 recomendaciones por apartados (← → apartado, 1–6, Esc vuelve al mismo paso); también desde la ventana de ponente. Sus textos están en la sección «Reserva» del guion; las marcadas «En la charla: escena N» deben citarse en el respaldo de esa escena (`npm test` lo comprueba).
-- La dirección admite `#escena-6/3` (escena 6, paso 3). `?ponente` abre la ventana de ponente (diapositiva en vivo y la siguiente); `?guia`, la guía de María del Mar; `?notas`, todas las notas y cambios de texto.
+- Cada actuación tiene tres pasos (A revisar con su recurso, Nos preguntamos con la evidencia, Nos llevamos) y la conversación de la escena ya escrita a la derecha. Antes de cada actuación, también la primera de cada bloque, una transición (`#paso-N`) con la herida en grande. La conversación de cada paso habla de lo que se ve en ese paso. Las frases de María del Mar van en un bocadillo delineado, más discreto que el de la herida.
+- El carro 3D se mejora en `carro/carro.js` (el prototipo de `prototipos/` ya no es la fuente). La presentación le pide qué mirar con `postMessage` (`{carro:{ids,vista}}`); los objetos que trae cada escena se indican con `type:'carro', ids:[…]` en `escena-recursos.js`. Three.js va copiado desde `node_modules` al compilar; `/carro/` es público en Netlify.
+- La dirección admite `#escena-6/3` (escena 6, paso 3). `?ponente` abre la ventana de ponente: una tarjeta por paso hecha con el guion (la idea, lo que se ve, la condición de la evidencia, la conversación en orden y, plegado, lo que se desarrolla con sus palabras), la diapositiva en vivo y la siguiente, y el reloj con el tiempo previsto para 25 minutos (T lo pone a cero); `?guia`, la guía de María del Mar; `?notas`, todas las notas y cambios de texto.
 - En la presentación, **N** abre el panel flotante de preparación: notas por sección con imágenes y «Cambiar textos», que guarda «original → nuevo» y lo aplica al cargar (también en `/ver/`). Para consolidar: descargar desde `?notas`, aplicar los cambios al guion y borrarlos.
 - Publicado: `/` pide la contraseña de `SITE_PASSWORD` (variable de entorno de Netlify, nunca en el código); `/ver/` es el enlace público sin notas ni guion privado. Detalles en el README.
 
