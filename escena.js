@@ -88,16 +88,14 @@ function expand(s){
 // ───────────── Componentes ─────────────
 const wordsHtml=(t,offset=0)=>end(t).split(/(\s+)/).map(w=>/^\s+$/.test(w)?w:`<span class="w" style="--i:${offset++}">${esc(w)}</span>`).join('');
 // Un intercambio: frases en orden, con tiempos para escribirse y para que la herida «piense».
-// said: la primera frase de la herida ya se dijo en la transición; aparece escrita y no vuelve a teclearse.
+// said: la primera frase de la herida ya se dijo en la transición; no se repite y el intercambio sigue desde ahí.
 function exchange(lines,k,{size='',where='',said=''}={}){
  if(!lines?.length)return '';
  let t=.15;const parts=[];
  lines.forEach((l,i)=>{
   const n=words(end(l.text));
-  if(l.who==='herida'&&i===0&&said&&l.text===said){
-   parts.push(`<div class="line herida said" style="--t0:0s"><span class="who"><i class="spark"></i>La herida</span><div class="bubble"><span class="txt">${wordsHtml(l.text)}</span></div></div>`);
-   t=.35;
-  }else if(l.who==='herida'){
+  if(l.who==='herida'&&i===0&&said&&l.text===said)return;
+  if(l.who==='herida'){
    const think=i===0?.75:.6;const t0=t+(i?.35:0);
    parts.push(`<div class="line herida" style="--think-at:${t0}s;--think:${think}s;--t0:${t0+think}s" data-words="${n}" data-at="${t0}" data-think="${think}"><span class="who"><i class="spark"></i>La herida</span><div class="bubble"><span class="think" aria-hidden="true"><i></i><i></i><i></i></span><span class="txt">${wordsHtml(l.text)}</span></div></div>`);
    t=t0+think+n*.06+.2;
@@ -371,7 +369,7 @@ function apply(dir=1,newSlide=false){
  // La herida piensa y habla al ritmo de su frase.
  Presence.reset();
  zone.dataset.state=v.state;Presence.mount([zone],{motion:!reduced()});
- const h=current?.querySelector('.line.herida:not(.said)');
+ const h=current?.querySelector('.line.herida');
  if(h&&live)Presence.cue(v.state==='idle'?'responding':v.state,{delay:Number(h.dataset.at)*1000,think:Number(h.dataset.think)*1000,speak:Number(h.dataset.words)*60+400});
  document.documentElement.dataset.speaking=h?'1':'';
  hud();

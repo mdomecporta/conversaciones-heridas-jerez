@@ -136,8 +136,6 @@ html[data-speaking="1"] #herida .orb-zone{animation-duration:9s}
 .say.live .line{animation:bubbleIn .6s var(--ease) both;animation-delay:max(0s,calc(var(--t0) - .55s))}
 .say.live .line.herida{animation-delay:var(--think-at)}
 .say.static{animation:fadeIn .5s var(--ease) both}
-.say.live .line.said,.say.live .line.said .w,.say.live .line.said .think{animation:none}
-.line.said .think{display:none}
 @keyframes wIn{from{opacity:0;filter:blur(5px);transform:translateY(.25em)}}
 @keyframes think{0%{opacity:0}12%{opacity:1}88%{opacity:1}100%{opacity:0}}
 @keyframes fadeIn{from{opacity:0}}
