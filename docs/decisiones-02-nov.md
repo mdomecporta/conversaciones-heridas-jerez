@@ -14,11 +14,11 @@ Tomadas sobre la propuesta de revisión visual y narrativa del mismo día, con l
 | Primera frase de cada escena | Se dice en la transición y, al entrar en la actuación, aparece ya escrita, sin volver a teclearse. | Hecho. |
 | Composición | Hilo como panel flotante (25 % del ancho), centro al 48 %, conversación al 21 % bajo la herida. El regreso al carro usa las mismas zonas. | Hecho. |
 | Cuadrado vacío de los rótulos | Retirado. | Hecho. |
+| Escenas 4 y 11 | Las notas de la escena 4 vuelven en la 11 como el mismo documento, con la nota «Seguir igual»; en «Nos preguntamos» aparecen completadas: campos anotados sin datos inventados. | Hecho. |
 | Escena 10 | Se quita la respuesta adelantada «Hoy buscamos aliviar» y la pregunta repetida del hilo. La historia es «Objetivos que pueden convivir», con un supuesto que hay que explorar: «Lo que más le pesa: no poder dormir». | Hecho. |
 
 ## Para después de la revisión del 3 de noviembre
 
-- El registro de la escena 4 que reaparece completado en la 11.
 - Continuidad entre escenas al estilo de Movimiento mágico (View Transitions), comprobando antes el navegador del proyector.
 - Dirección del carro por escenas e imágenes fijas de respaldo si falla el 3D.
 - Actualizar la tabla antigua de pasos de `docs/diseno.md`.
