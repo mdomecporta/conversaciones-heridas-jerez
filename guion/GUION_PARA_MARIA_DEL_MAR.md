@@ -544,13 +544,13 @@ Se deja una pausa. Esta escena no necesita un remate humorístico ni una imagen 
 
 **En pantalla · la pregunta:** se tacha la actuación y se revela la pregunta de esta escena. En el mismo paso, la herida cuenta la historia que hace necesaria la pregunta.
 
-**En pantalla · la historia:** un esquema docente «Tres objetivos posibles»: «Cicatrizar», «Prevenir la infección» y «Aliviar». Encima, «¿Qué podemos conseguir hoy?»; debajo, el supuesto «Hoy buscamos aliviar». No se adjudica un objetivo a una etiología.
+**En pantalla · la historia:** un esquema docente «Objetivos que pueden convivir»: «Cicatrizar», «Prevenir la infección» y «Aliviar lo que más pesa». Debajo, el supuesto «Lo que más le pesa: no poder dormir». No son opciones excluyentes ni se adjudica un objetivo a una etiología; la prioridad se pregunta y se acuerda.
 
-**La herida:** «¿Y si lo que podemos hacer ahora es aliviar?».
+**La herida:** «¿Y si lo que más le pesa hoy es no poder dormir?».
 
 **María del Mar:** «Entonces también hay plan: un objetivo acordado y cuándo revisarlo».
 
-**María del Mar, con sus palabras:** los objetivos se valoran para la situación de hoy y se acuerdan con la persona: a veces es cicatrizar, a veces prevenir la infección y a veces aliviar lo que más pesa. Ninguno es un fracaso si es el que toca.
+**María del Mar, con sus palabras:** los objetivos se valoran para la situación de hoy y se acuerdan con la persona: cicatrizar, prevenir la infección y aliviar lo que más pesa pueden convivir, y la prioridad puede cambiar. Si lo que más pesa es no poder dormir, eso también entra en el plan y se comprueba si mejora. Ninguno es un fracaso si es el que toca.
 
 **En pantalla · evidencia científica:** el apoyo anterior se recoge. Aparece «Los objetivos se valoran y se acuerdan», con esta idea: «IWII contempla objetivos de cicatrización, prevención de infección o manejo paliativo. Los síntomas y la carga del cuidado afectan a la vida cotidiana y se preguntan». Fuente visible: IWII · p. 26, rec. 13 / EWMA 2022 · §4. También se muestra la condición: «Los objetivos se revisan. Una etiqueta diagnóstica no determina por sí sola la posibilidad de cierre». María del Mar relaciona este fundamento con lo que acaba de señalar la herida.
 
@@ -586,9 +586,9 @@ Se deja una pausa. Esta escena no necesita un remate humorístico ni una imagen 
 **Nos preguntamos:** ¿Qué necesita saber quien venga mañana?  
 **Nos llevamos:** Compartir objetivo, motivo, respuesta, revisión y vía de consulta.
 
-**La herida:** «Mañana quizá me cure otra compañera. Mira la nota que le dejaron la última vez».
+**La herida:** «Mañana quizá me cure otra compañera. ¿Te acuerdas de mis notas? Mira lo que le dejaron».
 
-**En pantalla · recurso de la herida:** las notas de relevo docentes de las últimas visitas: «Seguir igual», dos veces. Debajo, «Por qué seguimos así: no consta». Es un registro ficticio identificado, sin fechas ni nombres.
+**En pantalla · recurso de la herida:** vuelven las notas de la escena 4, el mismo documento: las tres visitas («Limpieza · apósito · próxima cita») y, al final, la nota para mañana: «Seguir igual». Debajo, «Por qué seguimos así: no consta». Es un registro ficticio identificado, sin fechas ni nombres.
 
 **María del Mar:** «“Seguir igual”. ¿Igual por qué?».
 
@@ -596,7 +596,7 @@ Se deja una pausa. Esta escena no necesita un remate humorístico ni una imagen 
 
 **En pantalla · la pregunta:** se tacha la actuación y se revela la pregunta de esta escena. En el mismo paso, la herida cuenta la historia que hace necesaria la pregunta.
 
-**En pantalla · la historia:** la ficha de relevo docente: «Objetivo», «Qué hacemos y por qué», «Respuesta», «Próxima revisión» y «Vía de consulta». Se distingue «Revisión prevista» de «Cambios que requieren valorar antes». No se rellena con teléfonos ni plazos locales ficticios.
+**En pantalla · la historia:** la misma herida registrada en el módulo Heridas de Diraya, en una recreación docente con datos ficticios y sin logos: sus pestañas (Clasificación, Descripción, Intervenciones, Derivación / Alta), tres evoluciones con alto × ancho, tejido, exudado y la escala Resvech (14, 12, 10), y las intervenciones. En «Observaciones», «Seguir igual» queda tachado y aparecen anotados «Objetivo», «Motivo del plan», «Respuesta», «Próxima revisión» y «Vía de consulta», sin rellenarlos con teléfonos ni plazos locales. Al pie: el informe de Heridas se puede adjuntar al Informe de Continuidad de Cuidados.
 
 **La herida:** «¿Y qué le contamos esta vez?».
 
@@ -606,7 +606,7 @@ Se deja una pausa. Esta escena no necesita un remate humorístico ni una imagen 
 
 **En pantalla · evidencia científica:** el apoyo anterior se recoge. Aparece «Compartir el razonamiento permite continuar», con esta idea: «La comunicación y la coordinación sostienen el seguimiento. El formato de relevo que proponemos reúne objetivo, intervención, respuesta, revisión y consulta». Fuente visible: EWMA 2022 · §§4–6 / fichas clínicas. También se muestra la condición: «Adaptar la vía de consulta al circuito real del área. El deterioro puede exigir valorar antes». María del Mar relaciona este fundamento con lo que acaba de señalar la herida.
 
-**María del Mar, con sus palabras:** la comunicación y la coordinación sostienen la continuidad. En el relevo dejamos qué queremos conseguir, por qué hacemos la intervención, cómo ha respondido y cuándo revisaremos. También qué cambios exigen valorar antes y cuál es la vía de consulta prevista en el área.
+**María del Mar, con sus palabras:** en el módulo Heridas la descripción de cada evolución es obligatoria (medidas, tejido, exudado, infección) y la escala Resvech permite ver si la herida responde: aquí baja de 14 a 10. Lo que el módulo no pide es por qué hacemos lo que hacemos; eso lo dejamos en Observaciones y en el Informe de Continuidad de Cuidados, al que se puede adjuntar el informe de Heridas. Comprueba que la pantalla se parece a la que usáis en tu centro. La comunicación y la coordinación sostienen la continuidad. En el relevo dejamos qué queremos conseguir, por qué hacemos la intervención, cómo ha respondido y cuándo revisaremos. También qué cambios exigen valorar antes y cuál es la vía de consulta prevista en el área.
 
 **La herida:** «Y que la persona sepa también cómo seguimos y a quién preguntar».
 
@@ -616,7 +616,7 @@ Se deja una pausa. Esta escena no necesita un remate humorístico ni una imagen 
 
 **Para seguir:** «Volvamos al carro del principio».
 
-**Respaldo:** [4], §§4–6; [5], fichas clínicas aplicables. El formato de relevo es una síntesis docente. Se utiliza el circuito real del área, sin inventar contactos ni plazos.
+**Respaldo:** [4], §§4–6; [5], fichas clínicas aplicables. El formato de relevo es una síntesis docente. Recreación del módulo Heridas a partir del material público de DIRAYAbierto (SAS, 2026: formación del módulo y preguntas frecuentes); datos ficticios. Se utiliza el circuito real del área, sin inventar contactos ni plazos.
 
 ### Escena 12 · Volvemos al carro
 
@@ -627,6 +627,12 @@ Se recupera el material de la apertura. Aquí no se incorpora otra actuación ni
 **La herida:** «El carro sigue aquí. ¿Empezaríamos igual?».
 
 **En pantalla · lo que recuperamos:** el carro de la apertura, entero. Junto a ella vuelve el hilo de la escena 1 completo: actuación tachada, pregunta y aprendizaje. María del Mar reacciona al mismo punto de partida después de lo conversado; no se muestra una herida supuestamente curada.
+
+**La herida:** «En el siglo XVI, a Ambroise Paré se le acabó el aceite hirviendo para las heridas. Al día siguiente, los que no lo recibieron estaban mejor».
+
+**María del Mar:** «Cambió la rutina porque miró qué pasaba».
+
+**María del Mar, con sus palabras:** Paré era cirujano militar; tratar las heridas de arma de fuego con aceite hirviendo era lo habitual. Al quedarse sin aceite usó otra preparación y, al día siguiente, vio que esos heridos estaban mejor que los demás. No es un ensayo clínico ni una receta: es la idea de todo el recorrido, mirar qué produce lo que hacemos antes de repetirlo.
 
 **María del Mar, a la sala:** «Después de este recorrido, ¿qué preguntaríais antes de elegir un apósito?».
 
@@ -642,7 +648,7 @@ Se escuchan una o dos aportaciones.
 
 **María del Mar:** «Vamos a recogerlo todo».
 
-**Respaldo:** integración docente del recorrido.
+**Respaldo:** integración docente del recorrido. Ambroise Paré: Science Museum Group, ficha biográfica (collection.sciencemuseumgroup.org.uk/people/cp88872/ambroise-pare); curiosidad histórica, no evidencia de eficacia.
 
 ### Escena 13 · En la próxima cura
 

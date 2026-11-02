@@ -42,7 +42,7 @@ html[data-speaking="1"] #herida .orb-zone{animation-duration:9s}
 @keyframes halo{from{transform:scale(.94);opacity:.7}to{transform:scale(1.06);opacity:1}}
 
 /* ── Progreso: panel nocturno con el recorrido y el hilo ── */
-.side{position:absolute;left:0;top:0;bottom:0;width:30cqw;z-index:3;display:flex;flex-direction:column;padding:4.2cqh 3cqw 3.6cqh 3.2cqw;color:var(--night-ink);background:radial-gradient(120% 55% at 0% 0%,color-mix(in srgb,var(--tone) 22%,transparent),transparent 70%),linear-gradient(180deg,var(--night-2),var(--night));box-shadow:inset -1px 0 0 rgba(0,0,0,.25),1.6cqw 0 4cqw -2.4cqw rgba(34,23,26,.5)}
+.side{position:absolute;left:1.6cqw;top:2.8cqh;bottom:2.8cqh;width:25cqw;z-index:3;display:flex;flex-direction:column;padding:3.6cqh 2.2cqw 3cqh 2.4cqw;border-radius:1.4cqw;overflow:hidden;color:var(--night-ink);background:radial-gradient(120% 55% at 0% 0%,color-mix(in srgb,var(--tone) 22%,transparent),transparent 70%),linear-gradient(180deg,var(--night-2),var(--night));box-shadow:0 .3cqw .8cqw rgba(34,23,26,.12),0 2.4cqw 4.4cqw -2.2cqw rgba(74,36,34,.45)}
 .side::after{content:"";position:absolute;inset:0;background:var(--grain);opacity:.35;mix-blend-mode:soft-light;pointer-events:none}
 .side-foot{margin-top:auto;font:600 .8cqw/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--night-muted);opacity:.7}
 .rail{display:flex;flex-direction:column;gap:1.6cqh}
@@ -61,7 +61,7 @@ html[data-speaking="1"] #herida .orb-zone{animation-duration:9s}
 /* ── El hilo: A revisar · Nos preguntamos · Nos llevamos ── */
 .thread{position:relative;margin-top:6.5cqh;transition:opacity .8s var(--ease),filter .8s,transform .9s var(--ease)}
 .scene-n{display:block;font:650 1cqw/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--tone)}
-.scene-title{font:500 2.25cqw/1.12 var(--display);letter-spacing:-.012em;margin-top:1.4cqh;color:var(--night-ink);text-wrap:balance}
+.scene-title{font:500 2.1cqw/1.12 var(--display);letter-spacing:-.012em;margin-top:1.4cqh;color:var(--night-ink);text-wrap:balance}
 .hilo{position:relative;margin-top:5cqh;padding-left:2.5cqw}
 .node{position:relative;padding-bottom:3.4cqh}
 .node:last-child{padding-bottom:0}
@@ -78,9 +78,9 @@ html[data-speaking="1"] #herida .orb-zone{animation-duration:9s}
 .node.on .ph{opacity:0;height:0;margin:0}
 .node.on .node-label{opacity:1;color:var(--tone)}
 .node.on .mark{border-color:var(--tone);background:var(--tone)}
-.node-habit .node-text{font:520 2.05cqw/1.28 var(--sans);color:var(--night-ink);max-height:30cqh}
-.node-ask .node-text{font:600 2cqw/1.24 var(--sans);color:var(--skin);max-height:30cqh}
-.node-take .node-text{font:640 1.8cqw/1.3 var(--sans);color:var(--olive-ink);max-height:40cqh;padding:1.4cqw 1.5cqw 1.5cqw;border-radius:1cqw;background:var(--sheet);box-shadow:inset .3cqw 0 0 var(--olive),0 1.8cqw 3.4cqw -1.6cqw rgba(0,0,0,.7)}
+.node-habit .node-text{font:520 1.9cqw/1.28 var(--sans);color:var(--night-ink);max-height:30cqh}
+.node-ask .node-text{font:600 1.9cqw/1.24 var(--sans);color:var(--skin);max-height:30cqh}
+.node-take .node-text{font:640 1.7cqw/1.3 var(--sans);color:var(--olive-ink);max-height:40cqh;padding:1.4cqw 1.5cqw 1.5cqw;border-radius:1cqw;background:var(--sheet);box-shadow:inset .3cqw 0 0 var(--olive),0 1.8cqw 3.4cqw -1.6cqw rgba(0,0,0,.7)}
 .node-take.on .node-label{color:var(--ochre)}
 .node-take.on .mark{border-color:var(--ochre);background:var(--ochre)}
 .strike{background:linear-gradient(var(--coral),var(--coral)) no-repeat 0 60%/0% .1em;transition:background-size 1.1s cubic-bezier(.65,0,.35,1) .15s}
@@ -136,6 +136,8 @@ html[data-speaking="1"] #herida .orb-zone{animation-duration:9s}
 .say.live .line{animation:bubbleIn .6s var(--ease) both;animation-delay:max(0s,calc(var(--t0) - .55s))}
 .say.live .line.herida{animation-delay:var(--think-at)}
 .say.static{animation:fadeIn .5s var(--ease) both}
+.say.live .line.said,.say.live .line.said .w,.say.live .line.said .think{animation:none}
+.line.said .think{display:none}
 @keyframes wIn{from{opacity:0;filter:blur(5px);transform:translateY(.25em)}}
 @keyframes think{0%{opacity:0}12%{opacity:1}88%{opacity:1}100%{opacity:0}}
 @keyframes fadeIn{from{opacity:0}}
@@ -174,7 +176,6 @@ html[data-speaking="1"] #herida .orb-zone{animation-duration:9s}
 .res-comparar .res-head{flex-direction:row;align-items:center;gap:1.2cqw}
 .res-head{display:flex;flex-direction:column;gap:1.2cqh;margin-bottom:3cqh}
 .res-label{display:inline-flex;align-items:center;gap:.6cqw;font:650 .95cqw/1 var(--sans);letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
-.res-label::before{content:"";width:.9cqw;height:.9cqw;border-radius:.2cqw;border:.13cqw solid currentColor;opacity:.7}
 .res-title{font:650 1.85cqw/1.15 var(--sans);letter-spacing:-.01em;color:var(--ink)}
 .res [data-part]{opacity:0;transform:translateY(1.2cqh);transition:opacity .7s var(--ease) var(--d,0s),transform .8s var(--ease) var(--d,0s),filter .6s,background .6s,border-color .6s,box-shadow .6s}
 .res [data-part].shown{opacity:1;transform:none}
@@ -268,6 +269,25 @@ html[data-speaking="1"] #herida .orb-zone{animation-duration:9s}
 .moments li:not(.is-first){opacity:.7}
 .res-card.is-calm{transform:none}
 /* Relevo. */
+/* Recreación docente del módulo Heridas de Diraya: pestañas, evoluciones con Resvech y Observaciones. */
+.dy{border:1px solid color-mix(in srgb,var(--dy-blue) 22%,transparent);border-radius:.8cqw;overflow:hidden;background:#fff}
+.dy-tabs{display:flex;gap:.35cqw;padding:.7cqw .8cqw 0;background:#eceff2;border-bottom:.3cqw solid var(--dy-desc)}
+.dy-tab{padding:.55cqw .9cqw;border-radius:.35cqw .35cqw 0 0;font:700 .78cqw/1 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:#fff;opacity:.55}
+.dy-t0{background:var(--dy-clas)}.dy-t1{background:var(--dy-desc);opacity:1}.dy-t2{background:var(--dy-int);opacity:1}.dy-t3{background:var(--dy-alta)}
+.dy-evo{width:100%;border-collapse:collapse;margin:.4cqw 0 0}
+.dy-evo th{text-align:left;padding:.7cqw 1cqw .5cqw;font:650 .8cqw/1.1 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--dy-blue)}
+.dy-evo td{padding:.75cqw 1cqw;border-top:1px solid #e3e8ec;font:500 1.3cqw/1.2 var(--sans);color:var(--ink)}
+.dy-evo td:first-child{width:6cqw;color:var(--muted);font-size:1.1cqw}
+.dy-evo td:last-child{width:7cqw}
+.dy-resvech{display:inline-block;min-width:2.6cqw;padding:.3cqw .5cqw;border-radius:.3cqw;background:#5d8aa8;color:#fff;font:700 1.15cqw/1 var(--sans);text-align:center}
+.dy-int{display:flex;gap:1cqw;align-items:baseline;padding:.8cqw 1cqw;border-top:.25cqw solid var(--dy-int);font:500 1.2cqw/1.2 var(--sans);color:var(--ink-soft)}
+.dy-int span,.dy-k{font:650 .8cqw/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--dy-blue)}
+.dy-obs{margin:.2cqw .8cqw .8cqw;padding:.9cqw 1cqw;border:.13cqw solid var(--dy-field);border-radius:.5cqw;display:flex;flex-wrap:wrap;align-items:center;gap:.6cqw 1.2cqw}
+.dy-obs s{font:500 1.2cqw/1 var(--sans);color:var(--muted);text-decoration-color:var(--coral);text-decoration-thickness:.12em}
+.dy-obs ul{flex-basis:100%;display:flex;flex-wrap:wrap;gap:.5cqw .6cqw}
+.dy-obs li{display:inline-flex;align-items:center;gap:.5cqw;padding:.45cqw .8cqw;border-radius:2cqw;background:#e9f5ec;font:600 1.1cqw/1 var(--sans);color:#2f5a33}
+.dy-obs li::before{content:"";width:.35cqw;height:.7cqw;border:solid #476a45;border-width:0 .15cqw .15cqw 0;transform:rotate(45deg) translateY(-.1cqw)}
+.dy-foot{padding:.7cqw 1cqw;background:#f3f6f8;font:500 .95cqw/1.3 var(--sans);color:var(--dy-blue)}
 .handover{margin-top:3.4cqh;display:grid;grid-template-columns:1fr 1fr;gap:1.6cqw}
 .handover p{padding:1.6cqw 1.8cqw;border-radius:1cqw;background:color-mix(in srgb,var(--tone-soft) 60%,transparent);font:550 1.35cqw/1.3 var(--sans)}
 .handover p.is-alert{background:none;border:.14cqw solid var(--blood);color:var(--blood)}
@@ -588,11 +608,11 @@ html[data-speaking="1"] #herida .orb-zone{animation-duration:9s}
 :is(.slide-block,.slide-farewell[data-plane="recap"],.slide-farewell[data-plane="deeper"]) .line.mdm .txt{color:var(--night-ink);opacity:.75}
 :is(.slide-block,.slide-farewell[data-plane="recap"],.slide-farewell[data-plane="deeper"]) .line.mdm .bubble{border-color:var(--night-line)}
 
-/* ── Actuación en tres pasos: hilo (0–30), lo que acompaña al paso (32,5–72,5) y conversación (74,5–97,5) ── */
-.slide-practice :is(.res-wrap,.story-wrap){left:32.5cqw;width:40cqw;right:auto;top:6cqh;bottom:6cqh;display:flex;align-items:center}
-.slide-practice .evidence{left:32.5cqw;width:40cqw;top:6cqh;max-height:88cqh;padding:2.6cqw 2.6cqw 2cqw}
+/* ── Actuación en tres pasos: hilo flotante (1,6–26,6), lo que acompaña al paso (28,4–76,4) y conversación (78–98,2) ── */
+.slide-practice :is(.res-wrap,.story-wrap){left:28.4cqw;width:48cqw;right:auto;top:6cqh;bottom:6cqh;display:flex;align-items:center}
+.slide-practice .evidence{left:28.4cqw;width:48cqw;top:6cqh;max-height:88cqh;padding:2.6cqw 2.6cqw 2cqw}
 .slide-practice .ev-title{font-size:2.5cqw;margin:2.8cqh 0 2.2cqh}
-.slide-practice .ev-idea{font-size:1.4cqw}
+.slide-practice .ev-idea{font-size:1.5cqw}
 .slide-practice .ev-cond p{font-size:1.2cqw}
 .slide-practice[data-plane="habit"] .res-wrap,.slide-practice[data-plane="ask"] .story-wrap,.slide-practice[data-plane="take"] .evidence{opacity:1;visibility:visible;transform:none;filter:none;transition-delay:.2s,.2s,.2s,0s}
 /* «Nos llevamos»: la evidencia sostiene el aprendizaje, que entra a la vez en el hilo. */
@@ -617,15 +637,15 @@ html[data-speaking="1"] #herida .orb-zone{animation-duration:9s}
 .slide-practice .split{grid-template-columns:1fr;gap:2cqh}
 .slide-practice .split .fig-frame img{max-height:40cqh;width:100%;object-fit:cover}
 .slide-practice .split-side .fields,.slide-practice .split-side .chips{display:grid;grid-template-columns:1fr 1fr;column-gap:2cqw}
-.slide-practice .anchor[data-place="talk"]{left:79cqw;top:3cqh;width:13cqw}
-.chat{position:absolute;z-index:4;left:74.5cqw;right:2.5cqw;top:28cqh;bottom:5cqh;display:flex;flex-direction:column;justify-content:flex-end;gap:2.2cqh;overflow:hidden;pointer-events:none;-webkit-mask-image:linear-gradient(transparent,#000 14%);mask-image:linear-gradient(transparent,#000 14%)}
-.chat .say.is-past{display:flex;flex-direction:column;gap:1.2cqh;opacity:.5}
+.slide-practice .anchor[data-place="talk"]{left:81.6cqw;top:3cqh;width:13cqw}
+/* Arranca bajo la herida; si el intercambio no cabe, se ve lo más reciente y lo primero se desvanece arriba. */
+.chat{position:absolute;z-index:4;left:78cqw;right:1.8cqw;top:25cqh;max-height:70cqh;padding-top:3cqh;display:flex;flex-direction:column;justify-content:flex-end;gap:2.2cqh;overflow:hidden;pointer-events:none;-webkit-mask-image:linear-gradient(transparent,#000 3cqh);mask-image:linear-gradient(transparent,#000 3cqh)}
 .chat .say.is-on{gap:1.5cqh}
-.chat .herida .txt{--hs:1.38cqw}
+.chat .herida .txt{--hs:1.45cqw}
+.chat .mdm .txt{--ms:1.26cqw}
 .chat .bubble{padding:.75cqw 1.05cqw .8cqw;border-radius:1.15cqw}
 .chat .herida .bubble{border-bottom-left-radius:.35cqw}
 .chat .mdm .bubble{border-bottom-right-radius:.35cqw}
-.chat .say.is-past .herida .txt{--hs:1.2cqw}
 .chat .who{margin:0 .4cqw .6cqh}
 
 /* ── Transición entre escenas: la herida, en grande, abre la siguiente ── */
@@ -662,6 +682,16 @@ html[data-speaking="1"] #herida .orb-zone{animation-duration:9s}
 .slide-farewell[data-plane="pages"] .speech{display:none}
 .slide-return .res-wrap{top:8cqh}
 .slide-return .carro-marca{height:52cqh}
+/* Regreso al carro con las mismas tres zonas que una actuación: el carro, la sala y lo que recogemos en el centro; la herida y la conversación a la derecha. */
+.slide-return .res-wrap{left:28.4cqw;right:auto;width:48cqw;top:6cqh}
+.slide-return .carro-marca{height:56cqh}
+.slide-return .sala{top:auto;bottom:5cqh}
+.slide-return :is(.sala,.gather){left:28.4cqw;right:auto;width:48cqw}
+.slide-return .sala-q{max-width:none}
+.slide-return .anchor[data-place="dock"]{left:81.6cqw;top:3cqh;width:13cqw}
+.slide.slide-return:is([data-plane="resource"],[data-plane="sala"],[data-plane="gather"]) .speech{left:78cqw;right:1.8cqw;top:28cqh}
+.slide.slide-return:is([data-plane="resource"],[data-plane="sala"],[data-plane="gather"]) .herida .txt{--hs:1.45cqw}
+.slide.slide-return:is([data-plane="resource"],[data-plane="sala"],[data-plane="gather"]) .mdm .txt{--ms:1.26cqw}
 .res-carro{display:flex;flex-direction:column;gap:1.6cqh}
 .res-carro-card{padding:1.4cqw 1.8cqw;border-radius:1.2cqw;background:linear-gradient(180deg,#fffaf7,#fff6f1);box-shadow:0 2cqw 4cqw -2.6cqw rgba(116,53,54,.3),inset 0 0 0 1px rgba(198,50,62,.1)}
 .res-carro-card .res-head{margin-bottom:.6cqh}

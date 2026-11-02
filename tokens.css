@@ -38,6 +38,13 @@
  --olive:#666126;
  --olive-soft:#f1eed3;
  --olive-ink:#33321c;
+ /* Recreación docente del módulo Heridas de Diraya: los colores de sus cuatro pestañas y el azul de la aplicación. */
+ --dy-clas:#5bb5a8;
+ --dy-desc:#f6c27a;
+ --dy-int:#86d9e3;
+ --dy-alta:#ec9ce8;
+ --dy-blue:#2f6fa8;
+ --dy-field:#2a9fd8;
  /* Pigmento del momento: lo redefine [data-q] en escena.css. */
  --tone:#ef7d6b;
  --tone-ink:#a5333a;
