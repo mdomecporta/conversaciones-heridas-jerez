@@ -1,5 +1,7 @@
 # Revisión de las escenas: una idea, una fuente clara, una pantalla
 
+> **Después de esta revisión, la escena 4 se fusionó en la 11** y la charla quedó en 12 escenas. Aquí se conserva la numeración anterior: la 5 es ahora la 4, la 6 la 5, y así hasta la 11, que es la 10.
+
 2 de noviembre, para revisar con María del Mar. Aplicado el mismo día: escenas 5, 6, 7 y 8 rehechas y la fuente de la 10 corregida (PR #10). Quedan pendientes las confirmaciones de María del Mar.
 
 ## El criterio

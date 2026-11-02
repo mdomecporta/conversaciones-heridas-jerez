@@ -303,7 +303,7 @@ function view(slide,k){
   }
  }
  if(slide.type==='return'&&v.plane!=='talk'){v.ask=true;v.take=true;v.habit='struck';}
- if(slide.type==='practice'&&v.plane==='take'&&slide.scene.n===8)v.state='idle';
+ if(slide.type==='practice'&&v.plane==='take'&&slide.scene.n===7)v.state='idle';
  return v;
 }
 

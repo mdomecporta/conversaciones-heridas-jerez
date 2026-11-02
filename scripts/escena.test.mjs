@@ -15,7 +15,7 @@ test('el guion encaja con la escena',()=>{assert.deepEqual(validate(guion),[]);}
 test('las comillas anidadas se conservan',()=>{assert.equal(quote('«A veces nos ponen “crónica”». Sigue'),'A veces nos ponen “crónica”');assert.equal(quote('«Dar «crónica» por hecho»'),'Dar «crónica» por hecho');});
 test('cada actuación tiene hilo completo y evidencia con fuente',()=>{
  const practice=guion.scenes.filter(s=>s.kind==='practice');
- assert.equal(practice.length,11);
+ assert.equal(practice.length,10);
  for(const s of practice){
   const ev=s.steps.find(x=>x.kind==='evidence').evidence;
   assert.ok(ev.title&&ev.idea&&ev.source,`Escena ${s.n}`);
@@ -29,7 +29,7 @@ test('las explicaciones largas de María del Mar no se proyectan',()=>{
  for(const s of guion.scenes.filter(s=>s.kind==='practice'))assert.ok(!s.steps.find(x=>x.kind==='evidence').lines,`Escena ${s.n}`);
 });
 test('cada actuación tiene recurso e historia, y sus imágenes están en el catálogo',()=>{
- for(let n=1;n<=11;n++){
+ for(let n=1;n<=10;n++){
   const r=ctx.R[n];assert.ok(r,`Escena ${n} sin recurso`);assert.ok(r.parts>=1);
   const h=r.historia;assert.ok(h,`Escena ${n} sin historia para «Nos preguntamos»`);
   for(const x of [r,h])for(const id of [x.asset,x.side?.asset,...(x.items||[]).map(i=>i.asset)].filter(Boolean))assert.ok(manifest.assets[id],`${n}: ${id}`);
@@ -42,9 +42,9 @@ test('los objetos que la herida trae del carro existen en el modelo 3D',async()=
  assert.ok(pedidos.length,'Alguna escena usa el carro');
  for(const id of pedidos)assert.ok(objetos.has(id),`El carro no tiene «${id}»`);
 });
-test('la recopilación recorre las 11 actuaciones una sola vez',()=>{
+test('la recopilación recorre las 10 actuaciones una sola vez',()=>{
  const seen=[...ctx.REC].flatMap(([a,z])=>Array.from({length:z-a+1},(_,i)=>a+i));
- assert.deepEqual([...seen],Array.from({length:11},(_,i)=>i+1));
+ assert.deepEqual([...seen],Array.from({length:10},(_,i)=>i+1));
 });
 test('la reserva recoge las 47 recomendaciones del DT XIV en sus seis apartados',()=>{
  const g=guion.reserve.groups;

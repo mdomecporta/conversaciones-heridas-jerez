@@ -59,6 +59,6 @@ Cada evidencia proyecta un titular, una síntesis, la fuente con su localizador 
 ## Pendiente
 
 - Revisión clínica final y ensayo de duración con la ponente.
-- Documento para el público con las 11 actuaciones, la reserva de 47 recomendaciones y la bibliografía; los datos ya están en el guion.
+- Documento para el público con las 10 actuaciones, la reserva de 47 recomendaciones y la bibliografía; los datos ya están en el guion.
 - Conectar el sitio de Netlify y definir las variables de entorno (ver «Publicación en Netlify»).
 - Prueba en el proyector real.
