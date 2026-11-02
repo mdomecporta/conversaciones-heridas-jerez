@@ -114,7 +114,8 @@ function figure(id,{cls='',hot=null}={}){
  const a=asset(id);
  return `<figure class="fig ${cls}"><div class="fig-frame"><img src="${a.src}" alt="${esc(a.alt||a.title)}" draggable="false">${hot||''}<span class="spot" aria-hidden="true"></span></div><figcaption><span class="fig-label">${esc(a.label||'')}</span><span class="fig-credit">${esc(a.credit||'')}</span></figcaption></figure>`;
 }
-const fieldRow=(label,{part=1,state='empty',value=''}={})=>`<li class="field is-${state}" data-part="${part}"><span class="field-k">${esc(label)}</span><span class="field-v">${value?esc(value):'<i class="blank"></i>'}</span></li>`;
+// Un campo de ficha: vacío, pendiente o, con value, anotado (filled) o señalado como lo que falta (flag).
+const fieldRow=(label,{part=1,state='empty',value=''}={})=>`<li class="field is-${state}" data-part="${part}"><span class="field-k">${esc(label)}</span><span class="field-v">${value?`<span class="val">${esc(value)}</span>`:'<i class="blank"></i>'}</span></li>`;
 function productoFigure(r){
  const fallback=r.asset?`<img class="producto-fallback" src="${asset(r.asset).src}" alt="${esc(asset(r.asset).alt||r.productoNombre)}">`:'';
  return `<figure class="producto-fig"><div class="carro-marca producto-marca" data-carro role="img" aria-label="${esc(r.productoNombre)}">${fallback}</div><figcaption><span>Recreación 3D · material docente</span><span>${esc(r.productoReferencia)}</span></figcaption></figure>`;
@@ -122,7 +123,7 @@ function productoFigure(r){
 
 // Lo que trae la herida. Los elementos con data-part aparecen al llegar a ese avance.
 // Lo que trae la herida (A revisar) o la historia (Nos preguntamos): misma composición, distinta pieza.
-function resource(n,r=R[n],from=r===R[n]?'La herida trae':'La historia'){
+function resource(n,r=R[n],from=r===R[n]?(r.from||'La herida trae'):'La historia'){
  if(!r)return '';
  const head=(label,title)=>`<header class="res-head"><span class="res-from"><i class="spark"></i>${from}</span><span class="res-label">${esc(label)}</span>${title?`<h3 class="res-title">${esc(title)}</h3>`:''}</header>`;
  let body='';
@@ -152,7 +153,7 @@ function resource(n,r=R[n],from=r===R[n]?'La herida trae':'La historia'){
    body=`<ul class="fields">${r.fields.map((f,i)=>fieldRow(f).replace('data-part="1"',`data-part="1" style="--d:${i*.14}s"`)).join('')}</ul>${r.banner?`<p class="banner" data-part="2">${esc(r.banner)}</p><ol class="qs">${r.questions.map((q,i)=>`<li data-part="3" style="--d:${i*.18}s">${esc(q)}</li>`).join('')}</ol>`:''}`;
    break;
   case 'imagen-campos':
-   body=`<div class="split ${r.producto?'con-producto':''}">${r.producto?productoFigure(r):figure(r.asset)}<div class="split-side">${r.title?`<h4>${esc(r.title)}</h4>`:''}${r.datum?`<p class="datum" data-part="1">${esc(r.datum)}</p>`:''}<ul class="fields">${r.fields.map((f,i)=>fieldRow(f,{part:2,state:r.datum?'pending':'empty'}).replace('data-part="2"',`data-part="2" style="--d:${i*.16}s"`)).join('')}</ul></div></div>`;
+   body=`<div class="split ${r.producto?'con-producto':''}">${r.producto?productoFigure(r):figure(r.asset)}<div class="split-side">${r.from?head(r.productoNombre||r.label||''):''}${r.title?`<h4>${esc(r.title)}</h4>`:''}${r.datum?`<p class="datum" data-part="1">${esc(r.datum)}</p>`:''}<ul class="fields">${r.fields.map((f,i)=>(Array.isArray(f)?fieldRow(f[0],{part:2,state:f[2]?'flag':'filled',value:f[1]}):fieldRow(f,{part:2,state:r.datum?'pending':'empty'})).replace('data-part="2"',`data-part="2" style="--d:${i*.16}s"`)).join('')}</ul></div></div>`;
    return `<div class="res res-split" data-type="split" data-n="${n}">${body}</div>`;
   case 'informe':
    body=`<div class="report"><div class="report-doc" data-part="1"><span class="report-k">Resultado</span><p class="report-v">${esc(r.result)}</p><span class="report-lines"><i></i><i></i><i></i></span></div><ul class="fields" >${r.pending.map((f,i)=>fieldRow(f,{part:2,state:'pending'}).replace('data-part="2"',`data-part="2" style="--d:${i*.16}s"`)).join('')}</ul></div>`;
@@ -161,7 +162,7 @@ function resource(n,r=R[n],from=r===R[n]?'La herida trae':'La historia'){
    body=`${r.ask?`<p class="res-ask is-block" data-part="1">${esc(r.ask)}</p>`:''}<ul class="options">${r.items.map((x,i)=>`<li data-part="${r.ask?2:1}" style="--d:${i*.14}s">${esc(x)}</li>`).join('')}</ul>${r.supuesto?`<p class="supuesto" data-part="2"><span>Supuesto</span>${esc(r.supuesto)}</p>`:''}`;
    break;
   case 'pauta':
-   body=`${r.producto?`<div class="pauta-producto">${productoFigure(r)}`:''}<ul class="fields">${r.fields.map(([f,done])=>fieldRow(f,{state:done?'done':'due'})).join('')}</ul>${r.producto?'</div>':''}<ol class="qs is-row">${r.questions.map((q,i)=>`<li data-part="2" style="--d:${i*.16}s">${esc(q)}</li>`).join('')}</ol>`;
+   body=`${r.producto?`<div class="pauta-producto">${productoFigure(r)}`:''}<ul class="fields">${r.fields.map(([f,done,v])=>fieldRow(f,v?{state:done?'filled':'flag',value:v}:{state:done?'done':'due'})).join('')}</ul>${r.producto?'</div>':''}<ol class="qs is-row">${r.questions.map((q,i)=>`<li data-part="2" style="--d:${i*.16}s">${esc(q)}</li>`).join('')}</ol>`;
    break;
   case 'momentos':
    body=`<ol class="moments">${r.items.map(([k,v],i)=>`<li data-part="1" style="--d:${i*.25}s" ${i===0?'class="is-first"':''}><b>${esc(k)}</b><span>${esc(v)}</span></li>`).join('')}</ol>`;
@@ -180,7 +181,7 @@ function resource(n,r=R[n],from=r===R[n]?'La herida trae':'La historia'){
  return `<div class="res res-card ${r.calm?'is-calm':''}" data-type="${r.type}" data-n="${n}">${head(r.label,r.title)}${body}</div>`;
 }
 function carroCard(r,n){
- return `<div class="res res-carro" data-type="carro" data-n="${n}"><div class="carro-marca" data-carro></div><div class="res-carro-card"><header class="res-head"><span class="res-from"><i class="spark"></i>La herida trae</span><span class="res-label">${esc(r.label)}</span><h3 class="res-title">${esc(r.title)}</h3></header>${r.text?`<p class="res-carro-text">${esc(r.text)}</p>`:''}</div></div>`;
+ return `<div class="res res-carro" data-type="carro" data-n="${n}"><div class="carro-marca" data-carro></div><div class="res-carro-card"><header class="res-head"><span class="res-from"><i class="spark"></i>${r.from||'La herida trae'}</span><span class="res-label">${esc(r.label)}</span><h3 class="res-title">${esc(r.title)}</h3></header>${r.text?`<p class="res-carro-text">${esc(r.text)}</p>`:''}</div></div>`;
 }
 // Lo que queda del recurso mientras habla la evidencia.
 function residue(n){
@@ -302,7 +303,7 @@ function view(slide,k){
   }
  }
  if(slide.type==='return'&&v.plane!=='talk'){v.ask=true;v.take=true;v.habit='struck';}
- if(slide.type==='practice'&&v.plane==='take'&&slide.scene.n===8)v.state='idle';
+ if(slide.type==='practice'&&v.plane==='take'&&slide.scene.n===2)v.state='idle';
  return v;
 }
 
@@ -527,7 +528,7 @@ function cue(slide,st){
  if(slide.type==='practice'&&st.kind==='habit'){
   big('La idea',cap(s.purpose));
   row('Revisamos',`<s>${esc(s.habit)}</s>`);
-  if(r)row('La herida trae',brings(s.n));
+  if(r)row(r.from||'La herida trae',brings(s.n));
  }else if(slide.type==='practice'&&st.kind==='ask'){
   big('La pregunta',s.ask,'is-ask');
   if(R[s.n]?.historia)row('La historia',tells(s.n));
@@ -840,8 +841,8 @@ function whatHappens(slide,st){
   case 'still':return slide.id==='apertura'?'Portada institucional de las jornadas.':'Contraportada institucional.';
   case 'title':return `Entra el momento ${slide.block.roman}: «${esc(slide.block.name)}».`;
   case 'open':return `Empieza la escena. En el panel se ve lo que revisamos: «${esc(s.habit)}»`;
-  case 'resource':return st.part===1?`La herida trae ${brings(n)}.${R[n]?.walk&&!R[n].auto?' '+partText(n,1):''}`:partText(n,st.part);
-  case 'habit':return `Empieza la escena. En el panel, lo que revisamos: «${esc(s.habit)}». La herida trae ${brings(n)}.`;
+  case 'resource':return st.part===1?`${R[n]?.from||'La herida trae'} ${brings(n)}.${R[n]?.walk&&!R[n].auto?' '+partText(n,1):''}`:partText(n,st.part);
+  case 'habit':return `Empieza la escena. En el panel, lo que revisamos: «${esc(s.habit)}». ${R[n]?.from||'La herida trae'} ${brings(n)}.`;
   case 'transition':return `Transición: la herida, en grande, abre la escena ${pad(n)}.`;
   case 'ask':return `Se tacha lo que revisamos y aparece la pregunta: <strong>«${esc(s.ask)}»</strong>. La herida cuenta la historia: ${tells(n)}.`;
   case 'sala':return 'Preguntas a la sala y escuchas un par de respuestas.';

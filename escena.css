@@ -192,6 +192,9 @@ html[data-speaking="1"] #herida .orb-zone{animation-duration:9s}
 .field.is-due .field-k{color:var(--blood)}
 .field.is-due .blank{background:repeating-linear-gradient(90deg,var(--blood) 0 .55cqw,transparent .55cqw 1.1cqw);animation:due 2.2s ease-in-out infinite}
 .field.is-due .field-v::after{content:"Sin completar";position:absolute;right:0;bottom:1cqh;font:650 .85cqw/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--blood)}
+.field .val{font:500 1.5cqw/1.25 var(--sans);color:var(--ink)}
+.field.is-flag .field-k,.field.is-flag .val{color:var(--blood)}
+.field.is-flag .val{font-weight:600}
 @keyframes due{50%{opacity:.35}}
 .fields.is-grid{display:grid;grid-template-columns:1fr 1fr;column-gap:3cqw}
 .fields.is-grid .field{grid-template-columns:1fr;gap:1.8cqh;border-top:1px solid color-mix(in srgb,var(--line) 70%,transparent)}

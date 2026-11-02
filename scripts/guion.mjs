@@ -183,7 +183,7 @@ export function parseGuion(md){
 // Comprobaciones mínimas para que un cambio en el guion no rompa la escena en silencio.
 export function validate(g){
  const errors=[];
- if(g.scenes.length!==13)errors.push(`Se esperaban 13 escenas y hay ${g.scenes.length}.`);
+ if(g.scenes.length!==12)errors.push(`Se esperaban 12 escenas y hay ${g.scenes.length}.`);
  if(g.blocks.length!==4)errors.push(`Se esperaban 4 bloques y hay ${g.blocks.length}.`);
  for(const s of g.scenes.filter(s=>s.kind==='practice')){
   for(const k of ['habit','ask','take'])if(!s[k])errors.push(`Escena ${s.n}: falta ${k}.`);

@@ -1,6 +1,6 @@
 # Conversaciones con una herida
 
-Presentación de María del Mar Candil Ramón para las IV Jornadas Comisión Heridas Jerez (19 de noviembre de 2026): «¿Es posible cicatrizar todas las heridas?» · «Qué no hacer en heridas crónicas». Una herida (personaje abstracto) conversa con la ponente a lo largo de 13 escenas: 11 actuaciones, el regreso al carro y el cierre. La charla dura unos 25 minutos.
+Presentación de María del Mar Candil Ramón para las IV Jornadas Comisión Heridas Jerez (19 de noviembre de 2026): «¿Es posible cicatrizar todas las heridas?» · «Qué no hacer en heridas crónicas». Una herida (personaje abstracto) conversa con la ponente a lo largo de 12 escenas: 10 actuaciones, el regreso al carro y el cierre. La charla dura unos 25 minutos.
 
 El punto de partida son las 47 recomendaciones de *Qué no hacer en heridas crónicas* (GNEAUPP, DT XIV): la charla trae las rutinas que aparecen en cualquier visita de cura, ordenadas en los cuatro momentos de la visita, y las completa con las otras cinco guías. Las 47 están en la reserva «Por si preguntan», al final del guion.
 
@@ -47,7 +47,8 @@ Fuera del repositorio, en la carpeta del proyecto: `bibliography/` (las seis gu�
 
 ## Diseño en tres mundos
 
-- **Composición:** hilo flotante a la izquierda (25 % del ancho), lo que acompaña al paso en el centro (48 %) y la herida con la conversación a la derecha (21 %). El regreso al carro usa las mismas zonas. Decisiones del 2 de noviembre en `docs/decisiones-02-nov.md`.
+- **El carro:** es la rutina, un personaje mudo frente a la herida: «sabe lo que solemos hacer; la herida, lo que necesita». Donde trae el objeto de la rutina, el recurso lleva `from:'El carro propone'`. Cada escena tacha una rutina en «A revisar», la pregunta la rompe y «Nos llevamos» da la vuelta a la misma frase.
+- **Composición:** hilo flotante a la izquierda (25 % del ancho), lo que acompaña al paso en el centro (48 %) y la herida con la conversación a la derecha (21 %). El regreso al carro usa las mismas zonas. Decisiones del 2 de noviembre en `docs/decisiones-02-nov.md`; criterio de cada escena (una idea, una fuente clara, una pantalla) en `docs/revision-escenas-02-nov.md`.
 - **Progreso:** panel nocturno flotante con el recorrido y el hilo A revisar → Nos preguntamos → Nos llevamos. La actuación se tacha al aparecer la pregunta. El aprendizaje entra en el hilo y no se repite en el espacio principal. Cada momento tiene su pigmento (coral, ámbar, malva, salvia).
 - **Conversación:** burbujas en Figtree, en piel y coral, solo de la herida. Habla a enfermería en impersonal («¿se escucha mi historia…?»), sin tutear a la ponente. Las frases de María del Mar no se proyectan: están en la ventana de ponente y en la guía.
 - **Evidencia:** hoja ocre y oliva con titular en Fraunces, fuente y condición.
