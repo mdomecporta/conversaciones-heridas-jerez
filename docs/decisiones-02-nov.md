@@ -10,7 +10,7 @@ Tomadas sobre la propuesta de revisión visual y narrativa del mismo día, con l
 | Estudio cualitativo de 22 personas (Probst et al., 2025) | No entra por ahora. | Descartado para esta versión. |
 | Enrique VIII | A la reserva, no a la charla. | Descartado para esta versión. |
 | Garfield y *El paciente inglés* | No entran. | Descartados. |
-| Conversación | Solo se proyecta el intercambio del paso actual. El historial completo sigue en la ventana de ponente y en la guía. | Hecho. |
+| Conversación | Solo se proyecta el intercambio del paso actual y solo habla la herida, en tono impersonal dirigido a enfermería. Las frases de María del Mar no se proyectan; las dice en voz alta desde la ventana de ponente. El historial completo sigue en la ponente y en la guía. | Hecho. |
 | Primera frase de cada escena | Se dice en la transición y, al entrar en la actuación, aparece ya escrita, sin volver a teclearse. | Hecho. |
 | Composición | Hilo como panel flotante (25 % del ancho), centro al 48 %, conversación al 21 % bajo la herida. El regreso al carro usa las mismas zonas. | Hecho. |
 | Cuadrado vacío de los rótulos | Retirado. | Hecho. |

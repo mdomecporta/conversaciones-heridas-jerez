@@ -102,9 +102,8 @@ function exchange(lines,k,{size='',where='',said=''}={}){
    parts.push(`<div class="line herida" style="--think-at:${t0}s;--think:${think}s;--t0:${t0+think}s" data-words="${n}" data-at="${t0}" data-think="${think}"><span class="who"><i class="spark"></i>La herida</span><div class="bubble"><span class="think" aria-hidden="true"><i></i><i></i><i></i></span><span class="txt">${wordsHtml(l.text)}</span></div></div>`);
    t=t0+think+n*.06+.2;
   }else{
-   const t0=t+(i?.45:0);
-   parts.push(`<div class="line mdm" style="--t0:${t0}s"><span class="who"><i class="av">MM</i>María del Mar</span><div class="bubble"><span class="txt">${wordsHtml(l.text)}</span></div></div>`);
-   t=t0+n*.045+.15;
+   // María del Mar no se proyecta: lo dice en voz alta y la herida espera su turno.
+   t+=(i?.45:0)+n*.3+.4;
   }
  });
  return `<div class="say ${size}" data-k="${k}" data-where="${where}">${parts.join('')}</div>`;
