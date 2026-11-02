@@ -64,6 +64,7 @@ q,.say{font-style:italic}
 .rec .rule{font:560 1.15rem/1.35 var(--display)}
 .rec dl{margin:0;display:grid;grid-template-columns:7.5rem 1fr;gap:.35rem 1rem;font-size:.95rem}
 .rec dt{color:var(--muted);font-weight:500}
+.rec dd.was{text-decoration:line-through;text-decoration-color:var(--blood);color:var(--soft)}
 .rec dd{margin:0;min-width:0}
 .rec .src{display:inline-block;padding:.05rem .45rem;border-radius:.3rem;background:var(--olive-soft);color:var(--olive);font-size:.85rem;font-weight:500;margin:0 .25rem .25rem 0}
 .rec .wound{border-left:3px solid var(--blood);padding:.4rem 0 .4rem .8rem;background:var(--blush);border-radius:0 .35rem .35rem 0;color:var(--ink)}
@@ -87,14 +88,14 @@ q,.say{font-style:italic}
 <header class="head">
  <span class="kicker">Resumen para María del Mar · IV Jornadas Comisión Heridas Jerez · 19 de noviembre</span>
  <h1>Conversaciones con una herida</h1>
- <p class="lede">«¿Es posible cicatrizar todas las heridas?» · «Qué no hacer en heridas crónicas». Unos 25 minutos, 12 escenas: diez situaciones de una visita de cura, la vuelta al carro y el cierre.</p>
+ <p class="lede">«¿Es posible cicatrizar todas las heridas?» · «Qué no hacer en heridas crónicas». Unos 25 minutos, 12 escenas: diez momentos de una visita de cura (antes de tocar, durante la cura, cuando no avanza y antes de irnos), la vuelta al carro y el cierre.</p>
 </header>
 
 <section>
  <h2>De qué va la charla</h2>
  <p>Respondemos a la pregunta de la mesa desde algo de todos los días: <strong>una visita de cura cualquiera</strong>. Qué sabemos al empezar, por qué elegimos lo que elegimos y cómo comprobamos si está funcionando.</p>
  <p>Nos acompaña <strong>la herida</strong>, un personaje que conoce a enfermería de muchas curas y que, por primera vez, habla. Lo hace a enfermería en general, no a una persona: <span class="say">«Enfermería y yo nos conocemos de muchas curas. Lo que pasa es que hasta hoy no me tocaba hablar»</span>. Trae preguntas, se queja con humor y casi siempre señala lo importante antes que nadie.</p>
- <p>Al principio está <strong>el carro de curas, preparado</strong>, con el apósito ya elegido. El carro es <strong>la rutina</strong>: guarda respuestas preparadas antes de hacer las preguntas. Tener material a mano es bueno; el problema empieza cuando el orden del carro decide el orden del cuidado. A lo largo de la charla el carro vuelve a ofrecer algo (el apósito, la pomada, la torunda, la plata), la herida cuenta lo que obliga a detenerse y María del Mar decide con la evidencia. <span class="say">«Pues empecemos por el principio. El carro ya está preparado»</span>. «Tranquila, que hoy el carro espera».</p>
+ <p>Frente a ella está <strong>el carro de curas</strong>, un personaje que no habla. El carro es <strong>la rutina</strong>: sabe lo que solemos hacer. La herida sabe lo que necesita. Tener el material preparado es bueno; el problema empieza cuando el orden del carro decide el orden del cuidado. A lo largo de la charla el carro propone lo de siempre (el apósito ya elegido, la pomada, la torunda, la plata), la herida cuenta lo que obliga a detenerse y María del Mar decide con la evidencia. <span class="say">«Pues empecemos por el principio. El carro ya está preparado»</span>. «Tranquila, que hoy el carro espera».</p>
 </section>
 
 <section>
@@ -104,7 +105,7 @@ q,.say{font-style:italic}
  <ul class="method">
   <li><b>Una recomendación por escena</b><span>Una frase sencilla, fácil de recordar, que se pueda decir en voz alta.</span></li>
   <li><b>Fuentes que hablan de lo mismo</b><span>Una guía pone la regla, lo que no conviene hacer, y otra explica el porqué o el cómo. Si una fuente trae otro tema, se queda fuera de la pantalla.</span></li>
-  <li><b>Un mismo caso en los tres pasos</b><span>Lo que revisamos, la pregunta que nos hacemos y lo que nos llevamos, siempre con la misma herida.</span></li>
+  <li><b>La rutina, dada la vuelta</b><span>Cada escena tacha una rutina, hace la pregunta que la rompe y termina con la misma frase en el orden correcto.</span></li>
  </ul>
  <ul class="sources" aria-label="Las seis guías">
   <li><b>GNEAUPP DT XIV</b><span>Qué no hacer en heridas crónicas (2.ª ed.)</span></li>
@@ -118,29 +119,24 @@ q,.say{font-style:italic}
 
 <section>
  <h2>Las diez recomendaciones</h2>
- <p>Cada ficha dice la recomendación, la rutina que revisamos, de dónde sale y cómo lo cuenta la herida.</p>
+ <p>Cada ficha da la vuelta a una rutina: la frase tachada es lo que hacemos por costumbre, la pregunta es lo que la rompe y la recomendación dice lo mismo en el orden correcto. Debajo, de dónde sale y cómo lo cuenta la herida.</p>
 
  <div class="moment">
-  <div class="moment-head"><span class="roman">I</span><h3>Antes de empezar</h3></div>
+  <div class="moment-head"><span class="roman">I</span><h3>Antes de tocar</h3></div>
   <ol class="recs">
    <li class="rec"><span class="n">1</span><div class="body">
     <span class="scene">Antes de elegir</span>
-    <p class="rule">Antes de elegir el apósito, identificar y abordar la causa.</p>
-    <dl><dt>Revisamos</dt><dd>Elegir el apósito antes de conocer la causa.</dd>
+    <p class="rule">Conocer la causa antes de elegir el apósito.</p>
+    <dl><dt>Rutina</dt><dd class="was">Elegir el apósito antes de conocer la causa.</dd>
+    <dt>Pregunta</dt><dd>¿Qué la causó y qué la mantiene abierta?</dd>
     <dt>Fuentes</dt><dd><span class="src">GNEAUPP DT XIV · pp. 15, 20–21</span><span class="src">Fichas de infección local 2026</span></dd></dl>
     <p class="wound">El carro ya tiene el apósito elegido y la herida pregunta si alguien va a escuchar su historia. En sus notas solo pone «crónica», que dice cuánto tiempo lleva, no por qué. Trae dos heridas parecidas, una venosa y otra isquémica, y la misma cura no sirve para las dos. <span class="say">«Tanto y tanto cambiar, y la culpa no siempre era suya. ¡Pobre apósito!»</span></p>
    </div></li>
    <li class="rec"><span class="n">2</span><div class="body">
-    <span class="scene">El cuidado en casa</span>
-    <p class="rule">Acordar un plan que se entienda y se pueda seguir.</p>
-    <dl><dt>Revisamos</dt><dd>Dar por comprendido y viable el plan explicado.</dd>
-    <dt>Fuentes</dt><dd><span class="src">EWMA 2022 · §4</span><span class="src">IWII 2025 · rec. 11</span></dd></dl>
-    <p class="wound">Enfermería la ve un rato; el resto del tiempo lo pasa en casa. El plan está escrito, pero no dice si se puede seguir ni cómo. <span class="say">«Y la próxima visita, que alguien pregunte: “Oye, ¿y en casa cómo os estáis apañando?”»</span></p>
-   </div></li>
-   <li class="rec"><span class="n">3</span><div class="body">
     <span class="scene">Antes de tocar</span>
-    <p class="rule">Anticipar el dolor antes de empezar la cura.</p>
-    <dl><dt>Revisamos</dt><dd>Empezar la cura sin preguntar por el dolor.</dd>
+    <p class="rule">Preguntar por el dolor antes de empezar la cura.</p>
+    <dl><dt>Rutina</dt><dd class="was">Empezar la cura sin preguntar por el dolor.</dd>
+    <dt>Pregunta</dt><dd>¿Cómo fue la última cura?</dd>
     <dt>Fuentes</dt><dd><span class="src">GNEAUPP DT XIV · p. 28</span><span class="src">IWII 2025 · rec. 13</span></dd></dl>
     <p class="wound">La última cura dolió y en las notas no pone nada. Propone un pacto: <span class="say">«Si levanto la mano, se para»</span>. Pero parar llega tarde como única respuesta: antes de tocar se pregunta, y si hay que quitar tejido, la analgesia va pautada antes, no a mitad.</p>
    </div></li>
@@ -149,65 +145,80 @@ q,.say{font-style:italic}
 
  <div class="moment">
   <div class="moment-head"><span class="roman">II</span><h3>Durante la cura</h3></div>
-  <ol class="recs" start="4">
-   <li class="rec"><span class="n">4</span><div class="body">
-    <span class="scene">Cuando no vemos el cambio</span>
-    <p class="rule">Si no avanza, reevaluar antes de añadir.</p>
-    <dl><dt>Revisamos</dt><dd>Añadir tratamiento sin revisar por qué no avanza.</dd>
-    <dt>Fuentes</dt><dd><span class="src">GNEAUPP DT XIV · p. 29</span><span class="src">EWMA 2022 · §§2–3</span></dd></dl>
-    <p class="wound">Cuatro semanas igual, y del carro ya asoma la solución: una pomada con antibiótico. Otra respuesta rápida es «será biofilm». <span class="say">«Alguien ha dicho “será biofilm” y ya nadie pregunta nada más»</span>. Antes de añadir nada, se mira todo lo demás.</p>
-   </div></li>
-   <li class="rec"><span class="n">5</span><div class="body">
-    <span class="scene">Antes de pedir la muestra</span>
-    <p class="rule">Cultivar para responder una pregunta clínica, no por rutina.</p>
-    <dl><dt>Revisamos</dt><dd>Pedir un cultivo porque no avanza.</dd>
-    <dt>Fuentes</dt><dd><span class="src">GNEAUPP DT XIV · p. 30</span><span class="src">GNEAUPP DT VIII · pp. 17, 23–24</span><span class="src">EWMA 2022 · p. 26</span></dd></dl>
-    <p class="wound">Del carro sale una torunda. La torunda la tiene clara; la pregunta, no tanto. Si llega «cultivo positivo», casi siempre crece algo. <span class="say">«O sea, que el informe solo no me diagnostica»</span>. Puede haber motivos para cultivar sin signos evidentes, pero siempre con una pregunta.</p>
-   </div></li>
-   <li class="rec"><span class="n">6</span><div class="body">
-    <span class="scene">El motivo del antimicrobiano</span>
-    <p class="rule">Todo antimicrobiano necesita un motivo y una fecha de revisión.</p>
-    <dl><dt>Revisamos</dt><dd>Mantener un antimicrobiano «por si acaso».</dd>
-    <dt>Fuentes</dt><dd><span class="src">GNEAUPP DT VIII · pp. 27–30, 38</span><span class="src">EWMA 2022 · §6</span></dd></dl>
-    <p class="wound"><span class="say">«Me pusieron la plata, llevo más de un mes y aún no me la han quitado…»</span>. La guía da para la plata en heridas infectadas una referencia de 14 días y después una revisión, y esta pauta la ha superado de largo sin que nadie decidiera seguir. Revisar es decidir si sigue, cambia o se retira. <span class="say">«La fecha avisa, pero no decide por nosotras»</span>.</p>
-   </div></li>
-   <li class="rec"><span class="n">7</span><div class="body">
+  <ol class="recs" start="3">
+   <li class="rec"><span class="n">3</span><div class="body">
     <span class="scene">La limpieza de hoy</span>
-    <p class="rule">Limpiar también es tratar: lecho, borde y piel.</p>
-    <dl><dt>Revisamos</dt><dd>Limpiar por rutina, y solo el lecho.</dd>
+    <p class="rule">Limpiar lecho, borde y piel, como parte del tratamiento.</p>
+    <dl><dt>Rutina</dt><dd class="was">Limpiar solo el lecho, como siempre.</dd>
+    <dt>Pregunta</dt><dd>¿Qué necesita hoy cada zona?</dd>
     <dt>Fuentes</dt><dd><span class="src">IWII 2025 · rec. 1, 3 y 11</span><span class="src">GNEAUPP DT XVII · p. 41</span><span class="src">GNEAUPP DT XIV · pp. 26–27</span></dd></dl>
     <p class="wound"><span class="say">«No solo el lecho es importante, el borde y la piel perilesional, se os olvida a veces»</span>. Limpiar no es quitar lo de encima antes del apósito, es parte del tratamiento: en cada cura, con lo que pida cada zona y sin antisépticos ni jabones por rutina.</p>
+   </div></li>
+   <li class="rec"><span class="n">4</span><div class="body">
+    <span class="scene">El talón con escara</span>
+    <p class="rule">Proteger la escara seca y estable, aunque se vea necrosis.</p>
+    <dl><dt>Rutina</dt><dd class="was">Desbridar la escara del talón porque se ve necrosis.</dd>
+    <dt>Pregunta</dt><dd>¿Es estable y está bien irrigada?</dd>
+    <dt>Fuentes</dt><dd><span class="src">GNEAUPP DT XIV · pp. 21, 28</span><span class="src">Fichas de infección local 2026 · isquemia</span></dd></dl>
+    <p class="wound">Alguien ha propuesto quitar la escara. Si está seca y estable, sin signos de complicación, puede quedarse donde está. <span class="say">«Pues si estoy seca y estable, protegerme y vigilarme también es hacer algo»</span>. Si aparecen signos, la decisión cambia.</p>
    </div></li>
   </ol>
  </div>
 
  <div class="moment">
-  <div class="moment-head"><span class="roman">III</span><h3>Cuando algo no encaja</h3></div>
-  <ol class="recs" start="8">
-   <li class="rec"><span class="n">8</span><div class="body">
-    <span class="scene">El talón con escara</span>
-    <p class="rule">Proteger la escara seca y estable del talón; no desbridarla por rutina.</p>
-    <dl><dt>Revisamos</dt><dd>Decidir desbridar solo por ver necrosis.</dd>
-    <dt>Fuentes</dt><dd><span class="src">GNEAUPP DT XIV · pp. 21, 28</span><span class="src">Fichas de infección local 2026 · isquemia</span></dd></dl>
-    <p class="wound">Alguien ha propuesto quitar la escara. Si está seca y estable, sin signos de complicación, puede quedarse donde está. <span class="say">«Pues si estoy seca y estable, protegerme y vigilarme también es hacer algo»</span>. Si aparecen signos, la decisión cambia.</p>
+  <div class="moment-head"><span class="roman">III</span><h3>Cuando no avanza</h3></div>
+  <ol class="recs" start="5">
+   <li class="rec"><span class="n">5</span><div class="body">
+    <span class="scene">Cuando no vemos el cambio</span>
+    <p class="rule">Revisar por qué no avanza antes de añadir.</p>
+    <dl><dt>Rutina</dt><dd class="was">Añadir tratamiento porque no avanza.</dd>
+    <dt>Pregunta</dt><dd>¿Por qué no avanza?</dd>
+    <dt>Fuentes</dt><dd><span class="src">GNEAUPP DT XIV · p. 29</span><span class="src">EWMA 2022 · §§2–3</span></dd></dl>
+    <p class="wound">Cuatro semanas igual, y del carro ya asoma la solución: una pomada con antibiótico. Otra respuesta rápida es «será biofilm». <span class="say">«Alguien ha dicho “será biofilm” y ya nadie pregunta nada más»</span>. Antes de añadir nada, se mira todo lo demás.</p>
    </div></li>
-   <li class="rec"><span class="n">9</span><div class="body">
-    <span class="scene">Lo que podemos conseguir</span>
-    <p class="rule">Acordar qué queremos conseguir, además del cierre.</p>
-    <dl><dt>Revisamos</dt><dd>Prometer el cierre o medir el beneficio solo por cerrar.</dd>
-    <dt>Fuentes</dt><dd><span class="src">IWII 2025 · p. 26, rec. 13</span><span class="src">EWMA 2022 · §4</span></dd></dl>
-    <p class="wound">Nadie le ha prometido que todas las heridas vayan a cerrar. Mientras se decide, hay una persona que sigue con su día, y quizá lo que más le pesa es no poder dormir. <span class="say">«Me parece honesto. Un poco decepcionante, pero honesto»</span>.</p>
+   <li class="rec"><span class="n">6</span><div class="body">
+    <span class="scene">Antes de pedir la muestra</span>
+    <p class="rule">Cultivar porque hay una pregunta clínica.</p>
+    <dl><dt>Rutina</dt><dd class="was">Cultivar porque no avanza.</dd>
+    <dt>Pregunta</dt><dd>¿Qué pregunta responde el cultivo?</dd>
+    <dt>Fuentes</dt><dd><span class="src">GNEAUPP DT XIV · p. 30</span><span class="src">GNEAUPP DT VIII · pp. 17, 23–24</span><span class="src">EWMA 2022 · p. 26</span></dd></dl>
+    <p class="wound">Del carro sale una torunda. La torunda la tiene clara; la pregunta, no tanto. Si llega «cultivo positivo», casi siempre crece algo. <span class="say">«O sea, que el informe solo no me diagnostica»</span>. Puede haber motivos para cultivar sin signos evidentes, pero siempre con una pregunta.</p>
+   </div></li>
+   <li class="rec"><span class="n">7</span><div class="body">
+    <span class="scene">El motivo del antimicrobiano</span>
+    <p class="rule">Mantener un antimicrobiano solo con motivo y fecha de revisión.</p>
+    <dl><dt>Rutina</dt><dd class="was">Mantener un antimicrobiano «por si acaso».</dd>
+    <dt>Pregunta</dt><dd>¿Para qué es y hasta cuándo?</dd>
+    <dt>Fuentes</dt><dd><span class="src">GNEAUPP DT VIII · pp. 27–30, 38</span><span class="src">EWMA 2022 · §6</span></dd></dl>
+    <p class="wound"><span class="say">«Me pusieron la plata, llevo más de un mes y aún no me la han quitado…»</span>. La guía da para la plata en heridas infectadas una referencia de 14 días y después una revisión, y esta pauta la ha superado de largo sin que nadie decidiera seguir. Revisar es decidir si sigue, cambia o se retira. <span class="say">«La fecha avisa, pero no decide por nosotras»</span>.</p>
    </div></li>
   </ol>
  </div>
 
  <div class="moment">
   <div class="moment-head"><span class="roman">IV</span><h3>Antes de irnos</h3></div>
-  <ol class="recs" start="10">
+  <ol class="recs" start="8">
+   <li class="rec"><span class="n">8</span><div class="body">
+    <span class="scene">Lo que podemos conseguir</span>
+    <p class="rule">Acordar qué queremos conseguir, además de cerrar.</p>
+    <dl><dt>Rutina</dt><dd class="was">Medir el éxito solo por cerrar.</dd>
+    <dt>Pregunta</dt><dd>¿Qué le importa hoy a la persona?</dd>
+    <dt>Fuentes</dt><dd><span class="src">IWII 2025 · p. 26, rec. 13</span><span class="src">EWMA 2022 · §4</span></dd></dl>
+    <p class="wound">Nadie le ha prometido que todas las heridas vayan a cerrar. Mientras se decide, hay una persona que sigue con su día, y quizá lo que más le pesa es no poder dormir. <span class="say">«Me parece honesto. Un poco decepcionante, pero honesto»</span>.</p>
+   </div></li>
+   <li class="rec"><span class="n">9</span><div class="body">
+    <span class="scene">El cuidado en casa</span>
+    <p class="rule">Comprobar que el plan se entiende y se puede seguir en casa.</p>
+    <dl><dt>Rutina</dt><dd class="was">Dar por entendido el plan.</dd>
+    <dt>Pregunta</dt><dd>¿Cómo se apaña en casa?</dd>
+    <dt>Fuentes</dt><dd><span class="src">EWMA 2022 · §4</span><span class="src">IWII 2025 · rec. 11</span></dd></dl>
+    <p class="wound">Enfermería la ve un rato; el resto del tiempo lo pasa en casa. El plan está escrito, pero no dice si se puede seguir ni cómo. <span class="say">«Y la próxima visita, que alguien pregunte: “Oye, ¿y en casa cómo os estáis apañando?”»</span></p>
+   </div></li>
    <li class="rec"><span class="n">10</span><div class="body">
     <span class="scene">Quien venga mañana</span>
-    <p class="rule">Medir la respuesta y dejar escrita la decisión.</p>
-    <dl><dt>Revisamos</dt><dd>Anotar lo que hacemos, sin cómo responde ni por qué.</dd>
+    <p class="rule">Anotar cómo responde y por qué seguimos.</p>
+    <dl><dt>Rutina</dt><dd class="was">Anotar solo lo que hacemos.</dd>
+    <dt>Pregunta</dt><dd>¿Qué necesita saber quien venga mañana?</dd>
     <dt>Fuentes</dt><dd><span class="src">GNEAUPP DT XIV · p. 15</span><span class="src">EWMA 2022 · §§4–6</span></dd>
     <dt>Ejemplo</dt><dd>La misma herida en el módulo Heridas de Diraya (recreación docente)</dd></dl>
     <p class="wound">Mañana quizá la cure otra enfermera, y en las notas pone «Seguir igual». Dicen que va mejor: <span class="say">«¿Mejor que qué?»</span>. Con medidas y Resvech, «mejor» quiere decir algo, y en Observaciones queda por qué seguimos. Que la persona sepa también a quién preguntar.</p>

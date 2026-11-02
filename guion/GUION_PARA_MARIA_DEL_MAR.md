@@ -96,15 +96,15 @@ Estas son indicaciones del montaje previsto; actualizar el guion no aplica por s
 
 **María del Mar:** «Tranquila, que hoy el carro espera».
 
-**María del Mar, con sus palabras:** el recorrido sigue una visita de cura cualquiera, desde antes de acercar el carro hasta lo que dejamos preparado para la siguiente. El carro es nuestra rutina: tiene respuestas preparadas antes de hacer las preguntas. Tener material preparado es bueno; el problema empieza cuando el orden del carro decide el orden del cuidado.
+**María del Mar, con sus palabras:** el recorrido sigue una visita de cura cualquiera, desde antes de acercar el carro hasta lo que dejamos preparado para la siguiente. El carro es nuestra rutina, un personaje que no habla: sabe lo que solemos hacer. La herida sabe lo que necesita. Tener el material preparado es bueno; el problema empieza cuando el orden del carro decide el orden del cuidado.
 
 ---
 
-## Bloque I · Antes de empezar
+## Bloque I · Antes de tocar
 
-**Qué queremos explicar en este bloque:** elegir una cura requiere conocer qué estamos tratando y a quién. Vamos a ampliar la mirada desde el producto hasta la causa, la persona que lleva el cuidado a su vida cotidiana y cómo vive la propia cura.
+**Qué queremos explicar en este bloque:** antes de abrir el carro, de dónde viene la herida y cómo vive la persona la cura. El carro ya tiene algo preparado; la herida, una historia.
 
-**En pantalla · entrada de bloque:** se destaca el bloque I en el recorrido y aparece «¿Qué necesitamos saber antes de elegir?». La entidad acompaña; los recursos de escena entran después.
+**En pantalla · entrada de bloque:** se destaca el bloque I en el recorrido y aparece «¿Qué necesitamos saber antes de tocar?». La entidad acompaña; los recursos de escena entran después.
 
 **María del Mar abre el bloque:** «Antes de elegir qué ponemos, necesitamos saber qué tenemos delante. Vamos a empezar por la historia que nos has traído».
 
@@ -114,11 +114,11 @@ Estas son indicaciones del montaje previsto; actualizar el guion no aplica por s
 
 **A revisar:** Elegir el apósito antes de conocer la causa.  
 **Nos preguntamos:** ¿Qué la causó y qué la mantiene abierta?  
-**Nos llevamos:** Antes de elegir el apósito, identificar y abordar la causa.
+**Nos llevamos:** Conocer la causa antes de elegir el apósito.
 
 **La herida:** «Antes de nada: ¿se escucha mi historia o ya está elegido el apósito?».
 
-**En pantalla · recurso de la herida:** el carro de curas en 3D; el apósito ya elegido se eleva sobre la bandeja con «El apósito ya está elegido» y «Material preparado. La historia, todavía por conocer». Es la rutina: una respuesta preparada antes de la pregunta. El carro vuelve, entero, en la escena 11.
+**En pantalla · recurso de la herida:** el carro de curas en 3D; el apósito ya elegido se eleva sobre la bandeja con «El apósito ya está elegido» y «Material preparado. La historia, todavía por conocer». Es la rutina: el carro sabe lo que solemos hacer; la herida, lo que necesita. El carro vuelve, entero, en la escena 11.
 
 **María del Mar:** «Cuéntame. El apósito puede esperar».
 
@@ -152,61 +152,17 @@ Estas son indicaciones del montaje previsto; actualizar el guion no aplica por s
 
 **María del Mar cierra:** «Primero, de dónde viene. Después, el apósito».
 
-**Para seguir:** «Ya sabemos qué tenemos delante. ¿Y se puede cuidar así en casa?».
+**Para seguir:** «Ya sabemos de dónde viene. Antes de tocar, una pregunta más: ¿cómo fue la última cura?».
 
 **Respaldo:** [1], pp. 15, 20–21 y 32; [5], fichas de úlcera venosa e isquemia amenazante. El carro es un recurso docente. Los detalles de vendaje y de pie diabético quedan en la reserva.
 
-### Escena 2 · El cuidado en casa
-
-**Qué queremos explicar:** una pauta necesita comprensión, acuerdo y posibilidades reales de llevarla a cabo.
-
-**A revisar:** Dar por comprendido y viable el plan explicado.  
-**Nos preguntamos:** ¿Qué le cuesta y qué necesita aclarar?  
-**Nos llevamos:** Comprobar comprensión y acordar un plan viable con la persona.
-
-**La herida:** «En la consulta, enfermería me ve un rato. El resto del tiempo lo paso en casa, entre cura y cura».
-
-**En pantalla · recurso de la herida:** la recreación disponible «Escuchar y acordar el cuidado», con su identificación como imagen generada. La acompaña una sola pregunta: «¿Cómo se organiza el cuidado fuera de la consulta?». La herida señala lo que no aparece en las notas y María del Mar abre esa conversación. La imagen no representa a una paciente de la historia.
-
-**María del Mar:** «¿Y cómo encaja todo esto en su día?».
-
-**María del Mar, con sus palabras:** abre la conversación sobre lo que pasa fuera de la consulta: qué ha entendido la persona, cómo encaja el cuidado en su rutina y qué ayuda necesita.
-
-**La herida:** «La planificación de cuidados está escrita, pero en ningún momento pone si se puede seguir en casa o cómo hacerlo».
-
-**En pantalla · la pregunta:** se tacha la actuación y se revela la pregunta de esta escena. En el mismo paso, la herida cuenta la historia que hace necesaria la pregunta.
-
-**En pantalla · la historia:** una ficha docente «Un día entre cura y cura», como supuesto: «Por la mañana» (el apósito y la ducha), «Durante el día» (quién ayuda y cómo se mueve) y «Por la noche» (el dolor y el descanso). Son preguntas posibles, no dificultades que se atribuyan a nadie.
-
-**La herida:** «Entre cura y cura pasan muchas horas que no salen en el plan de cuidados».
-
-**María del Mar:** «Cuéntame un día cualquiera».
-
-**María del Mar, con sus palabras:** recorre el día como supuesto: cómo se cuida el apósito al ducharse, quién ayuda, si el dolor deja descansar. No damos por hecho ninguna dificultad: son las preguntas que abren la conversación.
-
-**En pantalla · evidencia científica:** el apoyo anterior se recoge. Aparece «El plan se acuerda con la persona», con esta idea: «Comprensión, preferencias, dolor, apoyo y dificultades cotidianas forman parte de las decisiones y de la viabilidad del cuidado». Fuente visible: EWMA 2022 · §4 / IWII · rec. 11. También se muestra la condición: «Las preferencias y dificultades se preguntan a la persona». María del Mar relaciona este fundamento con lo que acaba de señalar la herida.
-
-**María del Mar, con sus palabras:** EWMA incorpora la perspectiva y la participación de la persona. Dolor, apoyo, comprensión y dificultades pueden influir en el cuidado. Si algo cuesta, necesitamos saberlo para acordar una forma viable de seguir.
-
-**La herida:** «Yo puedo chivarme de algunas cosas. Pero cómo le va, solo lo sabe la persona».
-
-**En pantalla · el aprendizaje:** se completa «Nos llevamos» en el hilo; la evidencia sigue a la vista como su fundamento. María del Mar responde a la pregunta antes de enlazar.
-
-**La herida:** «Y la próxima visita, que alguien pregunte: “Oye, ¿y en casa cómo os estáis apañando?”».
-
-**María del Mar cierra:** «El plan se acuerda con la persona: comprobamos lo que entiende y escuchamos lo que necesita».
-
-**Para seguir:** «Antes de tocar nada, una pregunta más: ¿cómo fue la última cura?».
-
-**Respaldo:** [4], §4, pp. S15–S16; [6], recomendación 11. Las dificultades se exploran, no se atribuyen de antemano.
-
-### Escena 3 · Antes de tocar
+### Escena 2 · Antes de tocar
 
 **Qué queremos explicar:** el dolor de la cura se anticipa. Antes de empezar se pregunta cómo fue la anterior y se prepara la técnica y, cuando hace falta, la analgesia. «Paramos si duele» llega tarde como única respuesta.
 
 **A revisar:** Empezar la cura sin preguntar por el dolor.  
-**Nos preguntamos:** ¿Cómo fue la última cura y qué preparamos hoy?  
-**Nos llevamos:** Anticipar el dolor antes de empezar la cura.
+**Nos preguntamos:** ¿Cómo fue la última cura?  
+**Nos llevamos:** Preguntar por el dolor antes de empezar la cura.
 
 **La herida:** «Antes de que nadie me toque: la última cura dolió. Y en las notas no pone nada».
 
@@ -242,163 +198,29 @@ Estas son indicaciones del montaje previsto; actualizar el guion no aplica por s
 
 Se deja una pausa. Esta escena no necesita un remate humorístico.
 
-**Para seguir:** «Ya sabemos qué tenemos delante y cómo empezar. Pasemos a la cura».
+**Para seguir:** «Con el dolor previsto, empezamos. Primero, cómo limpiamos».
 
 **Respaldo:** [1], p. 28; [6], recomendación 13 (pp. 39–40). No se proponen pautas analgésicas universales.
 
-**María del Mar cierra el bloque:** «Hemos pasado del carro a la causa, la casa y el dolor. Ahora toca la cura».
+**María del Mar cierra el bloque:** «Ya sabemos de dónde viene y cómo vive la cura. Ahora sí, a curar».
 
 ---
 
 ## Bloque II · Durante la cura
 
-**Qué queremos explicar en este bloque:** cada intervención necesita un motivo y una forma de comprobar su respuesta. Revisamos qué hacemos cuando no avanza, cómo interpretamos la información y cómo adaptamos lo que hacemos a la herida y a la persona.
+**Qué queremos explicar en este bloque:** lo que hacemos con las manos también se decide: qué limpiamos, cómo, y qué dejamos donde está. El carro propone lo de siempre; la herida, lo que necesita hoy.
 
-**En pantalla · entrada de bloque:** se destaca el bloque II en el recorrido y aparece «¿Por qué lo hacemos y cómo sabremos si mejora?». La entidad acompaña; los recursos de escena entran después.
+**En pantalla · entrada de bloque:** se destaca el bloque II en el recorrido y aparece «¿Lo hacemos porque toca o porque hace falta?». La entidad acompaña; los recursos de escena entran después.
 
-**María del Mar abre el bloque:** «Acordar un plan trae deberes: comprobar si ayuda».
+**María del Mar abre el bloque:** «Ahora, las manos. Lo que hacemos en cada cura también se decide».
 
-### Escena 4 · Cuando no vemos el cambio
-
-**Qué queremos explicar:** cuando una herida no avanza, la tentación es añadir algo (una pomada con antibiótico) o ponerle nombre al problema («será biofilm»). Antes de eso, se vuelve a valorar: si el diagnóstico sigue explicando la evolución, si hay complicaciones y si el plan se ha podido seguir.
-
-**A revisar:** Añadir tratamiento sin revisar por qué no avanza.  
-**Nos preguntamos:** ¿Qué revisamos antes de añadir tratamiento?  
-**Nos llevamos:** Reabrir la valoración y justificar el siguiente paso.
-
-**La herida:** «Ya saben de dónde vengo. Y no estoy mejorando…».
-
-**En pantalla · recurso de la herida:** el seguimiento de la herida, con datos ficticios: «Inicio: 5 × 4 cm», «Semana 2: 5 × 4 cm», «Semana 4: 5 × 4 cm». Después aparece, recuadrada, la propuesta para la próxima cura: «Añadir pomada con antibiótico». Es la rutina, la respuesta que el carro ya tenía preparada.
-
-**María del Mar:** «Ahora sí podemos comparar. ¿Qué está pasando?».
-
-**María del Mar, con sus palabras:** aclara que es un supuesto: hay registro del inicio, y cuatro semanas después la herida mide lo mismo. La propuesta que aparece es añadir algo más. Antes de decidirlo, nos preguntamos por qué no avanza.
-
-**La herida:** «Y del carro ya asoma la solución: una pomada con antibiótico».
-
-**En pantalla · la pregunta:** se tacha la actuación y se revela la pregunta de esta escena. En el mismo paso, la herida cuenta la historia que hace necesaria la pregunta.
-
-**En pantalla · la historia:** la otra respuesta rápida, «será biofilm». La ilustración del biofilm, rotulada «Modelo conceptual, no hallazgo de esta herida»: se recorren superficie, matriz y microorganismos. Al lado, lo que sigue sin comprobar: causa y diagnóstico, perfusión, signos de infección y si el plan se ha podido seguir.
-
-**La herida:** «Alguien ha dicho “será biofilm” y ya nadie pregunta nada más».
-
-**María del Mar:** «A ver qué es, y qué podemos afirmar aquí».
-
-**María del Mar, con sus palabras:** la pomada y el biofilm son dos formas de dar la pregunta por cerrada: una añade tratamiento y la otra pone un nombre. El biofilm puede contribuir a que una herida no avance, pero una ilustración o un aspecto no demuestran que esté en esta herida. Lo que no avanza puede deberse a la causa (por ejemplo, la circulación), a una infección, a otra enfermedad o a que el plan no se ha podido seguir. Eso es lo que revisamos primero.
-
-**En pantalla · evidencia científica:** el apoyo anterior se recoge. Aparece «Si no avanza, reevaluar antes de añadir», con esta idea: «No usar pomadas con antibiótico como primera elección en lesiones que no progresan. Reevaluar permite revisar el diagnóstico, detectar complicaciones y ver si el plan se ha podido seguir». Fuente visible: GNEAUPP DT XIV · pp. 15, 29 / EWMA 2022 · §§2–3. También se muestra la condición: «El biofilm es una hipótesis posible, no una explicación demostrada en esta herida». María del Mar relaciona este fundamento con lo que acaba de señalar la herida.
-
-**María del Mar, con sus palabras:** la primera parte es del DT XIV del GNEAUPP: no usar pomadas con antibiótico como primera elección en lesiones que no progresan. La segunda, del documento de la EWMA sobre heridas que no cicatrizan: cuando no avanza, se reevalúa si el diagnóstico sigue explicando la evolución, si hay complicaciones y si el plan se ha podido realizar y tolerar. El biofilm puede contribuir, pero sin comprobarlo no explica esta lesión. Si lo que vemos no encaja, puede tocar revisar el diagnóstico y pedir valoración.
-
-**La herida:** «Entonces, antes de añadir nada, ¿se mira todo lo demás?».
-
-**María del Mar:** «Eso es: reabrimos la valoración».
-
-**En pantalla · el aprendizaje:** se completa «Nos llevamos» en el hilo; la evidencia sigue a la vista como su fundamento. María del Mar responde a la pregunta antes de enlazar.
-
-**La herida:** «Me quedo más tranquila: nadie me añade nada sin un motivo».
-
-**María del Mar cierra:** «Antes de añadir nada, buscamos qué información nos falta para decidir».
-
-**Para seguir:** «Ya no añadimos por inercia. Pero del carro sale algo más…».
-
-**Respaldo:** [1], pp. 15 y 29; [4], §§2–3 y 6; [5], ficha 1. Situación hipotética de progreso insuficiente.
-
-### Escena 5 · Antes de pedir la muestra
-
-**Qué queremos explicar:** la muestra se pide para responder una pregunta clínica, no por rutina. En una herida crónica casi siempre crece algo, así que un cultivo positivo no dice por sí solo si hay infección, y puede llevar a tratar un informe en lugar de a la persona.
-
-**A revisar:** Pedir un cultivo porque no avanza.  
-**Nos preguntamos:** ¿Qué pregunta clínica responde la muestra?  
-**Nos llevamos:** Cultivar para responder una pregunta clínica, no por rutina.
-
-**La herida:** «Como sigo igual, del carro ha salido una torunda. ¿Toca cultivo?».
-
-**En pantalla · recurso de la herida:** una recreación 3D de la torunda y el medio de transporte que hay en el carro, identificada como material docente e inspirada visualmente en Deltalab Amies. Junto a ella, la misma herida de la escena 4 y la propuesta «Pedir cultivo porque no avanza». La ficha dice «Evolución: cuatro semanas igual», «Signos de infección: no constan» y «Para qué el cultivo: no consta»; las dos últimas, señaladas. No se presenta como una demostración de técnica de muestreo ni se afirma que sea el producto de la consulta fotografiada. La fotografía del catálogo se conserva como alternativa si el ordenador no puede mostrar el 3D.
-
-**María del Mar:** «¿Y qué queremos saber con él?».
-
-**La herida:** «Pues la torunda la tengo clara. La pregunta, no tanto».
-
-**En pantalla · la pregunta:** se tacha la actuación y se revela la pregunta de esta escena. En el mismo paso, la herida cuenta la historia que hace necesaria la pregunta.
-
-**En pantalla · la historia:** lo que pasaría si se pide igualmente. Un informe docente de microbiología, identificado como supuesto, que solo dice «Cultivo positivo». A su lado quedan por completar «Signos», «Evolución» y «Situación de la persona»: sin ellos, el informe no decide nada. No se inventan microorganismos, antibiogramas ni datos de gravedad.
-
-**La herida:** «Supongamos que se pide y llega el informe: “cultivo positivo”».
-
-**María del Mar:** «¿Y eso qué nos dice de ti?».
-
-**María del Mar, con sus palabras:** en una herida crónica casi siempre crece algo: el informe dice qué ha crecido, no si hay infección. Sin signos, un positivo invita a tratar el papel. Por eso la pregunta va antes: ¿hay signos de infección?
-
-**En pantalla · evidencia científica:** el apoyo anterior se recoge. Aparece «Cultivar con una pregunta, no por rutina», con esta idea: «Sin signos clínicos evidentes de infección, no tomar muestras por los métodos tradicionales. Un cultivo positivo no demuestra por sí solo infección: se interpreta con signos, evolución y situación de la persona». Fuente visible: GNEAUPP DT XIV · p. 30 / DT VIII · pp. 17, 23–24 / EWMA 2022 · p. 26. También se muestra la condición: «Los signos pueden ser sutiles, y hay motivos clínicos o epidemiológicos para cultivar. Ante infección extendida o grave, no demorar la atención». María del Mar relaciona este fundamento con lo que acaba de señalar la herida.
-
-**María del Mar, con sus palabras:** la regla es del DT XIV del GNEAUPP: no usar los métodos tradicionales de muestra y cultivo en heridas sin signos clínicos evidentes de infección. La falta de progreso, por sí sola, no obliga a cultivar. La EWMA lo completa con su algoritmo: sin infección clínica, solo se cultiva si hay un motivo clínico (por ejemplo, una respuesta inmunitaria disminuida, que puede enmascarar los signos) o epidemiológico (sospecha de microorganismos resistentes). El porqué está en el DT VIII: la presencia de microorganismos no demuestra infección, así que el informe se lee con los signos, la evolución y el contexto. Cuando sí hay signos, la indicación, la preparación y la técnica de la muestra condicionan su utilidad. Si la valoración indica infección extendida o grave, la atención necesaria no se demora.
-
-**La herida:** «O sea, que el informe solo no me diagnostica».
-
-**María del Mar:** «Se lee junto a lo que vemos en ti».
-
-**En pantalla · el aprendizaje:** se completa «Nos llevamos» en el hilo; la evidencia sigue a la vista como su fundamento. María del Mar responde a la pregunta antes de enlazar.
-
-**La herida:** «Vale. La torunda, cuando haya una pregunta que responder».
-
-**María del Mar cierra:** «Primero la pregunta. Luego, si hace falta, la torunda. Y el informe, junto a todo lo demás».
-
-**Para seguir:** «Ya sabemos para qué pedimos una muestra. ¿Y lo que ya le estamos poniendo?».
-
-**Respaldo:** [2], pp. 17 y 23–24; [1], p. 30; [4], §3; [5], ficha de úlcera venosa, apartado de muestras. Sin microorganismos ni antibiogramas inventados.
-
-### Escena 6 · El motivo del antimicrobiano
-
-**Qué queremos explicar:** ningún antimicrobiano sin un motivo escrito y una fecha de revisión. La plata «por si acaso» se queda semanas porque nadie anotó para qué era ni cuándo mirarlo.
-
-**A revisar:** Mantener un antimicrobiano «por si acaso».  
-**Nos preguntamos:** ¿Para qué es y cuándo lo revisamos?  
-**Nos llevamos:** Todo antimicrobiano necesita un motivo y una fecha de revisión.
-
-**La herida:** «Me pusieron la plata, llevo más de un mes y aún no me la han quitado…».
-
-**En pantalla · recurso de la herida:** una pauta docente, «Pauta con apósito de plata», con datos del supuesto: «Inicio: hace 5 semanas», «Motivo: por si acaso» y «Revisión: no consta»; las dos últimas, señaladas. La acompaña una recreación 3D del apósito de espuma con plata del carro, identificada como material docente e inspirada visualmente en Mepilex Ag, sin atribuir su uso a la consulta fotografiada. Después se destacan «Qué tratamos», «Qué esperamos que cambie» y «Cuándo lo revisamos».
-
-**María del Mar:** «¿Y por qué se puso? Vamos a mirar la pauta».
-
-**La herida:** «Yo solo sé que a veces me la ponen “por si acaso”».
-
-**En pantalla · la pregunta:** se tacha la actuación y se revela la pregunta de esta escena. En el mismo paso, la herida cuenta la historia que hace necesaria la pregunta.
-
-**En pantalla · la historia:** la referencia del GNEAUPP (DT VIII) para la plata en heridas infectadas: «Plata: hasta 14 días» y «Después: revaloración crítica». Debajo, recuadrado: «Esta pauta: 5 semanas, sin revisar».
-
-**La herida:** «¿Y cuánto se supone que dura?».
-
-**María del Mar:** «La guía da una referencia: catorce días, y entonces se revisa».
-
-**María del Mar, con sus palabras:** la plata se empezó sin motivo escrito, y por eso nadie sabía cuándo revisarla. La guía pone para la plata en heridas infectadas un primer plazo de catorce días; pasado ese plazo, se mira si sigue haciendo falta. Esta pauta lo ha superado de largo sin que nadie decidiera seguir.
-
-**En pantalla · evidencia científica:** el apoyo anterior se recoge. Aparece «Motivo y revisión desde el principio», con esta idea: «Un antimicrobiano se indica tras valorar la infección y su gravedad, y su utilidad se revalora. Para la plata en heridas infectadas, el GNEAUPP fija un máximo inicial de 14 días y después una revaloración crítica». Fuente visible: GNEAUPP DT VIII · pp. 27–30, 38 / EWMA 2022 · §6. También se muestra la condición: «Los 14 días son para la plata en heridas infectadas; no se extienden a todos los antimicrobianos». María del Mar relaciona este fundamento con lo que acaba de señalar la herida.
-
-**María del Mar, con sus palabras:** la fuente es el DT VIII del GNEAUPP, sobre antimicrobianos, y la EWMA, que pide lo mismo para todos: una indicación justificada y una revisión prevista. Antibiótico, antiséptico y apósito antimicrobiano no son lo mismo y cada uno tiene su función; lo común es que ninguno se pone «por si acaso». Si hay infección extendida o grave, el cuidado local no retrasa la atención indicada. Los catorce días son de la plata en heridas infectadas y no se extienden a todos los antimicrobianos.
-
-**La herida:** «¿Y esos catorce días valen para todo?».
-
-**En pantalla · el aprendizaje:** se completa «Nos llevamos» en el hilo; la evidencia sigue a la vista como su fundamento. María del Mar responde a la pregunta antes de enlazar.
-
-**La herida:** «Vamos, que la fecha avisa, pero no decide por nosotras».
-
-**María del Mar:** «Exacto. Decidimos según cómo has respondido».
-
-**María del Mar cierra:** «Cada antimicrobiano nace con su motivo y su fecha de revisión. Revisar es decidir si sigue, cambia o se retira».
-
-**Para seguir:** «Ya sabemos qué ponemos y hasta cuándo. Ahora, cómo lo hacemos».
-
-**Respaldo:** [2], pp. 27–30 y 38; [4], §6.2. La referencia temporal pertenece al supuesto descrito.
-
-### Escena 7 · La limpieza de hoy
+### Escena 3 · La limpieza de hoy
 
 **Qué queremos explicar:** limpiar no es un trámite antes del apósito, es parte del tratamiento. Se limpian el lecho, el borde, la piel perilesional y la piel de alrededor, en cada cambio de apósito y con la técnica que pida cada zona.
 
-**A revisar:** Limpiar por rutina, y solo el lecho.  
+**A revisar:** Limpiar solo el lecho, como siempre.  
 **Nos preguntamos:** ¿Qué necesita hoy cada zona?  
-**Nos llevamos:** Limpiar también es tratar: lecho, borde y piel.
+**Nos llevamos:** Limpiar lecho, borde y piel, como parte del tratamiento.
 
 **La herida:** «Hoy también toca limpieza. ¿Como siempre?».
 
@@ -438,25 +260,13 @@ Se deja una pausa. Esta escena no necesita un remate humorístico ni una imagen 
 
 **Respaldo:** [6], recomendaciones 1 y 3 (pp. 9–10) y 11 (p. 31); [3], p. 41; [1], pp. 26–27. No se proponen presiones, temperaturas ni tiempos analgésicos universales.
 
-**María del Mar cierra el bloque:** «Hemos preguntado qué hacemos, para qué y cómo lo vive la persona. A veces, la respuesta es cambiar de camino».
-
----
-
-## Bloque III · Cuando algo no encaja
-
-**Qué queremos explicar en este bloque:** reconocer la incertidumbre permite decidir con más cuidado. A veces falta comprobar la seguridad de una actuación. Otras veces hay que acordar un objetivo diferente.
-
-**En pantalla · entrada de bloque:** se destaca el bloque III en el recorrido y aparece «¿Qué nos hace cambiar de camino o de objetivo?». La entidad acompaña; los recursos de escena entran después.
-
-**María del Mar abre el bloque:** «Aquí bajamos el ritmo: hay datos que piden parar y comprobar».
-
-### Escena 8 · El talón con escara
+### Escena 4 · El talón con escara
 
 **Qué queremos explicar:** una escara seca y estable del talón puede ser una protección. Ver tejido que podría retirarse no obliga a retirarlo: dejarla, protegerla y vigilarla también es una decisión.
 
-**A revisar:** Decidir desbridar solo por ver necrosis.  
-**Nos preguntamos:** ¿Qué sabemos de la perfusión, la estabilidad y las complicaciones?  
-**Nos llevamos:** Proteger la escara seca y estable del talón; no desbridarla por rutina.
+**A revisar:** Desbridar la escara del talón porque se ve necrosis.  
+**Nos preguntamos:** ¿Es estable y está bien irrigada?  
+**Nos llevamos:** Proteger la escara seca y estable, aunque se vea necrosis.
 
 **La herida:** «Este talón. Alguien ha propuesto quitar la escara».
 
@@ -486,17 +296,175 @@ Se deja una pausa. Esta escena no necesita un remate humorístico ni una imagen 
 
 **María del Mar cierra:** «Seca y estable, se protege y se vigila. Si cambia, cambiamos».
 
-**Para seguir:** «A veces la mejor decisión no es cerrar. Volvamos a la pregunta de la mesa».
+**Para seguir:** «A veces la mejor decisión es esperar. ¿Y si, esperando, no avanza?».
 
 **Respaldo:** [1], pp. 21 y 28; [5], ficha de isquemia amenazante. No se generaliza a todos los métodos de desbridamiento ni a toda necrosis.
 
-### Escena 9 · Lo que podemos conseguir
+**María del Mar cierra el bloque:** «Limpiar y quitar también son decisiones. ¿Y si, aun así, no avanza?».
+
+---
+
+## Bloque III · Cuando no avanza
+
+**Qué queremos explicar en este bloque:** cuando la herida se estanca, la rutina ofrece más: una pomada, una torunda, otro antimicrobiano. Antes de añadir, revisamos por qué no avanza, para qué pedimos una prueba y hasta cuándo mantenemos lo que ya ponemos.
+
+**En pantalla · entrada de bloque:** se destaca el bloque III en el recorrido y aparece «¿Añadimos o revisamos?». La entidad acompaña; los recursos de escena entran después.
+
+**María del Mar abre el bloque:** «Aquí es donde el carro más insiste».
+
+### Escena 5 · Cuando no vemos el cambio
+
+**Qué queremos explicar:** cuando una herida no avanza, la tentación es añadir algo (una pomada con antibiótico) o ponerle nombre al problema («será biofilm»). Antes de eso, se vuelve a valorar: si el diagnóstico sigue explicando la evolución, si hay complicaciones y si el plan se ha podido seguir.
+
+**A revisar:** Añadir tratamiento porque no avanza.  
+**Nos preguntamos:** ¿Por qué no avanza?  
+**Nos llevamos:** Revisar por qué no avanza antes de añadir.
+
+**La herida:** «Ya saben de dónde vengo. Y no estoy mejorando…».
+
+**En pantalla · recurso de la herida:** el seguimiento de la herida, con datos ficticios: «Inicio: 5 × 4 cm», «Semana 2: 5 × 4 cm», «Semana 4: 5 × 4 cm». Después aparece, recuadrada, la propuesta para la próxima cura: «Añadir pomada con antibiótico». Es la rutina: lo que el carro suele proponer cuando una herida no avanza.
+
+**María del Mar:** «Ahora sí podemos comparar. ¿Qué está pasando?».
+
+**María del Mar, con sus palabras:** aclara que es un supuesto: hay registro del inicio, y cuatro semanas después la herida mide lo mismo. La propuesta que aparece es añadir algo más. Antes de decidirlo, nos preguntamos por qué no avanza.
+
+**La herida:** «Y del carro ya asoma la solución: una pomada con antibiótico».
+
+**En pantalla · la pregunta:** se tacha la actuación y se revela la pregunta de esta escena. En el mismo paso, la herida cuenta la historia que hace necesaria la pregunta.
+
+**En pantalla · la historia:** la otra respuesta rápida, «será biofilm». La ilustración del biofilm, rotulada «Modelo conceptual, no hallazgo de esta herida»: se recorren superficie, matriz y microorganismos. Al lado, lo que sigue sin comprobar: causa y diagnóstico, perfusión, signos de infección y si el plan se ha podido seguir.
+
+**La herida:** «Alguien ha dicho “será biofilm” y ya nadie pregunta nada más».
+
+**María del Mar:** «A ver qué es, y qué podemos afirmar aquí».
+
+**María del Mar, con sus palabras:** la pomada y el biofilm son dos formas de dar la pregunta por cerrada: una añade tratamiento y la otra pone un nombre. El biofilm puede contribuir a que una herida no avance, pero una ilustración o un aspecto no demuestran que esté en esta herida. Lo que no avanza puede deberse a la causa (por ejemplo, la circulación), a una infección, a otra enfermedad o a que el plan no se ha podido seguir. Eso es lo que revisamos primero.
+
+**En pantalla · evidencia científica:** el apoyo anterior se recoge. Aparece «Si no avanza, reevaluar antes de añadir», con esta idea: «No usar pomadas con antibiótico como primera elección en lesiones que no progresan. Reevaluar permite revisar el diagnóstico, detectar complicaciones y ver si el plan se ha podido seguir». Fuente visible: GNEAUPP DT XIV · pp. 15, 29 / EWMA 2022 · §§2–3. También se muestra la condición: «El biofilm es una hipótesis posible, no una explicación demostrada en esta herida». María del Mar relaciona este fundamento con lo que acaba de señalar la herida.
+
+**María del Mar, con sus palabras:** la primera parte es del DT XIV del GNEAUPP: no usar pomadas con antibiótico como primera elección en lesiones que no progresan. La segunda, del documento de la EWMA sobre heridas que no cicatrizan: cuando no avanza, se reevalúa si el diagnóstico sigue explicando la evolución, si hay complicaciones y si el plan se ha podido realizar y tolerar. El biofilm puede contribuir, pero sin comprobarlo no explica esta lesión. Si lo que vemos no encaja, puede tocar revisar el diagnóstico y pedir valoración.
+
+**La herida:** «Entonces, antes de añadir nada, ¿se mira todo lo demás?».
+
+**María del Mar:** «Eso es: reabrimos la valoración».
+
+**En pantalla · el aprendizaje:** se completa «Nos llevamos» en el hilo; la evidencia sigue a la vista como su fundamento. María del Mar responde a la pregunta antes de enlazar.
+
+**La herida:** «Me quedo más tranquila: nadie me añade nada sin un motivo».
+
+**María del Mar cierra:** «Antes de añadir nada, buscamos qué información nos falta para decidir».
+
+**Para seguir:** «Ya no añadimos por inercia. Pero del carro sale algo más…».
+
+**Respaldo:** [1], pp. 15 y 29; [4], §§2–3 y 6; [5], ficha 1. Situación hipotética de progreso insuficiente.
+
+### Escena 6 · Antes de pedir la muestra
+
+**Qué queremos explicar:** la muestra se pide para responder una pregunta clínica, no por rutina. En una herida crónica casi siempre crece algo, así que un cultivo positivo no dice por sí solo si hay infección, y puede llevar a tratar un informe en lugar de a la persona.
+
+**A revisar:** Cultivar porque no avanza.  
+**Nos preguntamos:** ¿Qué pregunta responde el cultivo?  
+**Nos llevamos:** Cultivar porque hay una pregunta clínica.
+
+**La herida:** «Como sigo igual, del carro ha salido una torunda. ¿Toca cultivo?».
+
+**En pantalla · recurso de la herida:** una recreación 3D de la torunda y el medio de transporte que hay en el carro, identificada como material docente e inspirada visualmente en Deltalab Amies. Junto a ella, la misma herida de la escena 5 y la propuesta «Pedir cultivo porque no avanza». La ficha dice «Evolución: cuatro semanas igual», «Signos de infección: no constan» y «Para qué el cultivo: no consta»; las dos últimas, señaladas. No se presenta como una demostración de técnica de muestreo ni se afirma que sea el producto de la consulta fotografiada. La fotografía del catálogo se conserva como alternativa si el ordenador no puede mostrar el 3D.
+
+**María del Mar:** «¿Y qué queremos saber con él?».
+
+**La herida:** «Pues la torunda la tengo clara. La pregunta, no tanto».
+
+**En pantalla · la pregunta:** se tacha la actuación y se revela la pregunta de esta escena. En el mismo paso, la herida cuenta la historia que hace necesaria la pregunta.
+
+**En pantalla · la historia:** lo que pasaría si se pide igualmente. Un informe docente de microbiología, identificado como supuesto, que solo dice «Cultivo positivo». A su lado quedan por completar «Signos», «Evolución» y «Situación de la persona»: sin ellos, el informe no decide nada. No se inventan microorganismos, antibiogramas ni datos de gravedad.
+
+**La herida:** «Supongamos que se pide y llega el informe: “cultivo positivo”».
+
+**María del Mar:** «¿Y eso qué nos dice de ti?».
+
+**María del Mar, con sus palabras:** en una herida crónica casi siempre crece algo: el informe dice qué ha crecido, no si hay infección. Sin signos, un positivo invita a tratar el papel. Por eso la pregunta va antes: ¿hay signos de infección?
+
+**En pantalla · evidencia científica:** el apoyo anterior se recoge. Aparece «Cultivar con una pregunta, no por rutina», con esta idea: «Sin signos clínicos evidentes de infección, no tomar muestras por los métodos tradicionales. Un cultivo positivo no demuestra por sí solo infección: se interpreta con signos, evolución y situación de la persona». Fuente visible: GNEAUPP DT XIV · p. 30 / DT VIII · pp. 17, 23–24 / EWMA 2022 · p. 26. También se muestra la condición: «Los signos pueden ser sutiles, y hay motivos clínicos o epidemiológicos para cultivar. Ante infección extendida o grave, no demorar la atención». María del Mar relaciona este fundamento con lo que acaba de señalar la herida.
+
+**María del Mar, con sus palabras:** la regla es del DT XIV del GNEAUPP: no usar los métodos tradicionales de muestra y cultivo en heridas sin signos clínicos evidentes de infección. La falta de progreso, por sí sola, no obliga a cultivar. La EWMA lo completa con su algoritmo: sin infección clínica, solo se cultiva si hay un motivo clínico (por ejemplo, una respuesta inmunitaria disminuida, que puede enmascarar los signos) o epidemiológico (sospecha de microorganismos resistentes). El porqué está en el DT VIII: la presencia de microorganismos no demuestra infección, así que el informe se lee con los signos, la evolución y el contexto. Cuando sí hay signos, la indicación, la preparación y la técnica de la muestra condicionan su utilidad. Si la valoración indica infección extendida o grave, la atención necesaria no se demora.
+
+**La herida:** «O sea, que el informe solo no me diagnostica».
+
+**María del Mar:** «Se lee junto a lo que vemos en ti».
+
+**En pantalla · el aprendizaje:** se completa «Nos llevamos» en el hilo; la evidencia sigue a la vista como su fundamento. María del Mar responde a la pregunta antes de enlazar.
+
+**La herida:** «Vale. La torunda, cuando haya una pregunta que responder».
+
+**María del Mar cierra:** «Primero la pregunta. Luego, si hace falta, la torunda. Y el informe, junto a todo lo demás».
+
+**Para seguir:** «Ya sabemos para qué pedimos una muestra. ¿Y lo que ya le estamos poniendo?».
+
+**Respaldo:** [2], pp. 17 y 23–24; [1], p. 30; [4], §3; [5], ficha de úlcera venosa, apartado de muestras. Sin microorganismos ni antibiogramas inventados.
+
+### Escena 7 · El motivo del antimicrobiano
+
+**Qué queremos explicar:** ningún antimicrobiano sin un motivo escrito y una fecha de revisión. La plata «por si acaso» se queda semanas porque nadie anotó para qué era ni cuándo mirarlo.
+
+**A revisar:** Mantener un antimicrobiano «por si acaso».  
+**Nos preguntamos:** ¿Para qué es y hasta cuándo?  
+**Nos llevamos:** Mantener un antimicrobiano solo con motivo y fecha de revisión.
+
+**La herida:** «Me pusieron la plata, llevo más de un mes y aún no me la han quitado…».
+
+**En pantalla · recurso de la herida:** una pauta docente, «Pauta con apósito de plata», con datos del supuesto: «Inicio: hace 5 semanas», «Motivo: por si acaso» y «Revisión: no consta»; las dos últimas, señaladas. La acompaña una recreación 3D del apósito de espuma con plata del carro, identificada como material docente e inspirada visualmente en Mepilex Ag, sin atribuir su uso a la consulta fotografiada. Después se destacan «Qué tratamos», «Qué esperamos que cambie» y «Cuándo lo revisamos».
+
+**María del Mar:** «¿Y por qué se puso? Vamos a mirar la pauta».
+
+**La herida:** «Yo solo sé que a veces me la ponen “por si acaso”».
+
+**En pantalla · la pregunta:** se tacha la actuación y se revela la pregunta de esta escena. En el mismo paso, la herida cuenta la historia que hace necesaria la pregunta.
+
+**En pantalla · la historia:** la referencia del GNEAUPP (DT VIII) para la plata en heridas infectadas: «Plata: hasta 14 días» y «Después: revaloración crítica». Debajo, recuadrado: «Esta pauta: 5 semanas, sin revisar».
+
+**La herida:** «¿Y cuánto se supone que dura?».
+
+**María del Mar:** «La guía da una referencia: catorce días, y entonces se revisa».
+
+**María del Mar, con sus palabras:** la plata se empezó sin motivo escrito, y por eso nadie sabía cuándo revisarla. La guía pone para la plata en heridas infectadas un primer plazo de catorce días; pasado ese plazo, se mira si sigue haciendo falta. Esta pauta lo ha superado de largo sin que nadie decidiera seguir.
+
+**En pantalla · evidencia científica:** el apoyo anterior se recoge. Aparece «Motivo y revisión desde el principio», con esta idea: «Un antimicrobiano se indica tras valorar la infección y su gravedad, y su utilidad se revalora. Para la plata en heridas infectadas, el GNEAUPP fija un máximo inicial de 14 días y después una revaloración crítica». Fuente visible: GNEAUPP DT VIII · pp. 27–30, 38 / EWMA 2022 · §6. También se muestra la condición: «Los 14 días son para la plata en heridas infectadas; no se extienden a todos los antimicrobianos». María del Mar relaciona este fundamento con lo que acaba de señalar la herida.
+
+**María del Mar, con sus palabras:** la fuente es el DT VIII del GNEAUPP, sobre antimicrobianos, y la EWMA, que pide lo mismo para todos: una indicación justificada y una revisión prevista. Antibiótico, antiséptico y apósito antimicrobiano no son lo mismo y cada uno tiene su función; lo común es que ninguno se pone «por si acaso». Si hay infección extendida o grave, el cuidado local no retrasa la atención indicada. Los catorce días son de la plata en heridas infectadas y no se extienden a todos los antimicrobianos.
+
+**La herida:** «¿Y esos catorce días valen para todo?».
+
+**En pantalla · el aprendizaje:** se completa «Nos llevamos» en el hilo; la evidencia sigue a la vista como su fundamento. María del Mar responde a la pregunta antes de enlazar.
+
+**La herida:** «Vamos, que la fecha avisa, pero no decide por nosotras».
+
+**María del Mar:** «Exacto. Decidimos según cómo has respondido».
+
+**María del Mar cierra:** «Cada antimicrobiano nace con su motivo y su fecha de revisión. Revisar es decidir si sigue, cambia o se retira».
+
+**Para seguir:** «¿Y si, haciéndolo todo bien, no cierra?».
+
+**Respaldo:** [2], pp. 27–30 y 38; [4], §6.2. La referencia temporal pertenece al supuesto descrito.
+
+**María del Mar cierra el bloque:** «Ni pomada, ni torunda, ni plata sin un motivo. Y ahora, pensemos en la persona».
+
+---
+
+## Bloque IV · Antes de irnos
+
+**Qué queremos explicar en este bloque:** el cuidado continúa cuando termina nuestra visita. Acordamos qué buscamos, comprobamos que se puede seguir en casa y lo dejamos escrito; después recuperamos lo que hemos revisado y elegimos qué trasladar a la práctica.
+
+**En pantalla · entrada de bloque:** se destaca el bloque IV en el recorrido y aparece «¿Qué dejamos acordado para la próxima visita?». La entidad acompaña; los recursos de escena entran después.
+
+**María del Mar abre el bloque:** «Antes de irnos, pensemos en lo que pasa cuando nos vamos».
+
+### Escena 8 · Lo que podemos conseguir
 
 **Qué queremos explicar:** la posibilidad de cierre necesita valoración, y los objetivos y la mejora que importa se acuerdan con la persona para la situación actual.
 
-**A revisar:** Prometer el cierre o medir el beneficio solo por cerrar.  
-**Nos preguntamos:** ¿Qué podemos conseguir hoy y qué le importa a la persona?  
-**Nos llevamos:** Acordar qué queremos conseguir, además del cierre.
+**A revisar:** Medir el éxito solo por cerrar.  
+**Nos preguntamos:** ¿Qué le importa hoy a la persona?  
+**Nos llevamos:** Acordar qué queremos conseguir, además de cerrar.
 
 **La herida:** «Llevamos un rato hablando y nadie me ha prometido todavía que todas las heridas vayamos a cerrar».
 
@@ -526,29 +494,61 @@ Se deja una pausa. Esta escena no necesita un remate humorístico ni una imagen 
 
 **María del Mar cierra:** «Valoramos qué es posible, acordamos qué buscamos y comprobamos si llega».
 
-**Para seguir:** «Ya sabemos qué buscamos. Ahora hay que dejarlo escrito para quien siga».
+**Para seguir:** «Ya sabemos qué buscamos. ¿Se puede conseguir en casa?».
 
 **Respaldo:** [6], p. 26 y recomendación 13; [4], §4, pp. S15–S16; [1], p. 15. Sin atribuir un pronóstico universal a una etiología. El formato de seguimiento es una síntesis docente.
 
-**María del Mar cierra el bloque:** «Seguridad, explicación y objetivos: todo eso tiene que llegar a la siguiente visita».
+### Escena 9 · El cuidado en casa
 
----
+**Qué queremos explicar:** una pauta necesita comprensión, acuerdo y posibilidades reales de llevarla a cabo.
 
-## Bloque IV · Antes de irnos
+**A revisar:** Dar por entendido el plan.  
+**Nos preguntamos:** ¿Cómo se apaña en casa?  
+**Nos llevamos:** Comprobar que el plan se entiende y se puede seguir en casa.
 
-**Qué queremos explicar en este bloque:** el cuidado continúa cuando termina nuestra visita. Dejamos un plan comprensible, recuperamos lo que hemos revisado y elegimos qué trasladar a la práctica.
+**La herida:** «En la consulta, enfermería me ve un rato. El resto del tiempo lo paso en casa, entre cura y cura».
 
-**En pantalla · entrada de bloque:** se destaca el bloque IV en el recorrido y aparece «¿Qué dejamos acordado para la próxima visita?». La entidad acompaña; los recursos de escena entran después.
+**En pantalla · recurso de la herida:** la recreación disponible «Escuchar y acordar el cuidado», con su identificación como imagen generada. La acompaña una sola pregunta: «¿Cómo se organiza el cuidado fuera de la consulta?». La herida señala lo que no aparece en las notas y María del Mar abre esa conversación. La imagen no representa a una paciente de la historia.
 
-**María del Mar abre el bloque:** «Antes de irnos, pensemos en quien venga mañana».
+**María del Mar:** «¿Y cómo encaja todo esto en su día?».
+
+**María del Mar, con sus palabras:** abre la conversación sobre lo que pasa fuera de la consulta: qué ha entendido la persona, cómo encaja el cuidado en su rutina y qué ayuda necesita.
+
+**La herida:** «La planificación de cuidados está escrita, pero en ningún momento pone si se puede seguir en casa o cómo hacerlo».
+
+**En pantalla · la pregunta:** se tacha la actuación y se revela la pregunta de esta escena. En el mismo paso, la herida cuenta la historia que hace necesaria la pregunta.
+
+**En pantalla · la historia:** una ficha docente «Un día entre cura y cura», como supuesto: «Por la mañana» (el apósito y la ducha), «Durante el día» (quién ayuda y cómo se mueve) y «Por la noche» (el dolor y el descanso). Son preguntas posibles, no dificultades que se atribuyan a nadie.
+
+**La herida:** «Entre cura y cura pasan muchas horas que no salen en el plan de cuidados».
+
+**María del Mar:** «Cuéntame un día cualquiera».
+
+**María del Mar, con sus palabras:** recorre el día como supuesto: cómo se cuida el apósito al ducharse, quién ayuda, si el dolor deja descansar. No damos por hecho ninguna dificultad: son las preguntas que abren la conversación.
+
+**En pantalla · evidencia científica:** el apoyo anterior se recoge. Aparece «El plan se acuerda con la persona», con esta idea: «Comprensión, preferencias, dolor, apoyo y dificultades cotidianas forman parte de las decisiones y de la viabilidad del cuidado». Fuente visible: EWMA 2022 · §4 / IWII · rec. 11. También se muestra la condición: «Las preferencias y dificultades se preguntan a la persona». María del Mar relaciona este fundamento con lo que acaba de señalar la herida.
+
+**María del Mar, con sus palabras:** EWMA incorpora la perspectiva y la participación de la persona. Dolor, apoyo, comprensión y dificultades pueden influir en el cuidado. Si algo cuesta, necesitamos saberlo para acordar una forma viable de seguir.
+
+**La herida:** «Yo puedo chivarme de algunas cosas. Pero cómo le va, solo lo sabe la persona».
+
+**En pantalla · el aprendizaje:** se completa «Nos llevamos» en el hilo; la evidencia sigue a la vista como su fundamento. María del Mar responde a la pregunta antes de enlazar.
+
+**La herida:** «Y la próxima visita, que alguien pregunte: “Oye, ¿y en casa cómo os estáis apañando?”».
+
+**María del Mar cierra:** «El plan se acuerda con la persona: comprobamos lo que entiende y escuchamos lo que necesita».
+
+**Para seguir:** «Y para que siga, hay que dejarlo escrito para quien venga mañana».
+
+**Respaldo:** [4], §4, pp. S15–S16; [6], recomendación 11. Las dificultades se exploran, no se atribuyen de antemano.
 
 ### Escena 10 · Quien venga mañana
 
 **Qué queremos explicar:** para que quien venga mañana pueda seguir, no basta con anotar lo que hacemos. Hay que dejar cómo responde la herida, medido de forma que se pueda comparar, y por qué seguimos con el plan.
 
-**A revisar:** Anotar lo que hacemos, sin cómo responde ni por qué.  
+**A revisar:** Anotar solo lo que hacemos.  
 **Nos preguntamos:** ¿Qué necesita saber quien venga mañana?  
-**Nos llevamos:** Medir la respuesta y dejar escrita la decisión.
+**Nos llevamos:** Anotar cómo responde y por qué seguimos.
 
 **La herida:** «Mañana quizá me cure otra enfermera. Mi último plan de cuidados decía: limpieza y apósito tres veces por semana».
 
@@ -628,7 +628,7 @@ Se escuchan una o dos aportaciones.
 
 **María del Mar, con sus palabras:** hemos revisado diez actuaciones que aparecen en cualquier cura, y en cada una dejamos una pregunta y un aprendizaje. Ahora los vemos agrupados en los cuatro momentos de la visita.
 
-**En pantalla · recopilación:** tres páginas con tres columnas: «A revisar», «Nos preguntamos» y «Nos llevamos». La primera recoge las actuaciones 1–3; la segunda, 4–7; la tercera, 8–10. Cada fila conserva su número de escena. No aparecen imágenes nuevas.
+**En pantalla · recopilación:** tres páginas con tres columnas: «A revisar», «Nos preguntamos» y «Nos llevamos». La primera recoge las actuaciones 1–4 (antes de tocar y durante la cura); la segunda, 5–7 (cuando no avanza); la tercera, 8–10 (antes de irnos). Cada fila conserva su número de escena. No aparecen imágenes nuevas.
 
 **Antes de empezar, María del Mar recuerda:** «Conocer antes de elegir, preguntar por la causa y acordar un plan que encaje en la vida de la persona».
 
@@ -658,7 +658,7 @@ Se escuchan una o dos aportaciones.
 
 **María del Mar, con sus palabras:** la guía recoge 47 recomendaciones y hoy hemos traído las que aparecen en cualquier cura. Lo propio de cada tipo de lesión (prevención y lesiones por presión, vendajes, pie diabético, quemaduras, heridas neoplásicas y quirúrgicas, presión negativa o nutrición) está preparado por si alguien pregunta. Si te sobra tiempo, puedes contar aquí una o dos curiosidades de la reserva.
 
-**En pantalla · regreso a la pregunta de la mesa:** «¿Es posible cicatrizar todas las heridas?». Debajo, «Valorar cada situación y acordar objetivos revisables». Se conserva una referencia a las fuentes de las escenas 9 y 10. María del Mar cierra la cuestión que abrió la presentación.
+**En pantalla · regreso a la pregunta de la mesa:** «¿Es posible cicatrizar todas las heridas?». Debajo, «Valorar cada situación y acordar objetivos revisables». Se conserva una referencia a las fuentes de las escenas 8 y 10. María del Mar cierra la cuestión que abrió la presentación.
 
 **María del Mar:** «Volvamos a la pregunta del principio».
 
@@ -678,7 +678,7 @@ Se dejan unos segundos de silencio. No hace falta otra ronda de respuestas.
 
 **María del Mar:** «Gracias por acompañarnos».
 
-**Respaldo:** síntesis docente de las 10 escenas, con las referencias y los límites de cada una. La valoración y los objetivos se apoyan en las fuentes de las escenas 9 y 10.
+**Respaldo:** síntesis docente de las 10 escenas, con las referencias y los límites de cada una. La valoración y los objetivos se apoyan en las fuentes de las escenas 8 y 10.
 
 ---
 
@@ -732,15 +732,15 @@ Las marcadas «En la charla» aparecen en la escena indicada. «Relacionada» se
 
 ### 3.5 · Carga bacteriana
 
-- **p. 26 · Baja** · No utilizar antisépticos de forma rutinaria en la limpieza de heridas crónicas. — En la charla: escena 7
+- **p. 26 · Baja** · No utilizar antisépticos de forma rutinaria en la limpieza de heridas crónicas. — En la charla: escena 3
 - **p. 27 · Baja** · No usar antisépticos con fines preventivos en el cuidado local de la herida quirúrgica.
-- **p. 27 · Baja** · No utilizar jabones de forma rutinaria para limpiar heridas. — En la charla: escena 7
+- **p. 27 · Baja** · No utilizar jabones de forma rutinaria para limpiar heridas. — En la charla: escena 3
 - **p. 28 · Alta** · No realizar desbridamiento cortante sin estar entrenado para ello.
-- **p. 28 · Moderada** · No es preciso desbridar la escara seca de talón sin signos de infección, edema, eritema, fluctuación o drenaje; tampoco inicialmente al final de la vida. — En la charla: escena 8
-- **p. 28 · Alta** · No realizar un desbridamiento potencialmente doloroso sin una pauta analgésica adecuada. — En la charla: escena 3
+- **p. 28 · Moderada** · No es preciso desbridar la escara seca de talón sin signos de infección, edema, eritema, fluctuación o drenaje; tampoco inicialmente al final de la vida. — En la charla: escena 4
+- **p. 28 · Alta** · No realizar un desbridamiento potencialmente doloroso sin una pauta analgésica adecuada. — En la charla: escena 2
 - **p. 29 · Alta** · No utilizar antibióticos por una vía de administración que no sea la adecuada.
-- **p. 29 · Alta** · No utilizar pomadas con antibiótico como primera elección en lesiones que no progresan. — En la charla: escena 4
-- **p. 30 · Moderada** · No utilizar métodos tradicionales de toma de muestra y cultivo en heridas sin signos clínicos evidentes de infección. — En la charla: escena 5
+- **p. 29 · Alta** · No utilizar pomadas con antibiótico como primera elección en lesiones que no progresan. — En la charla: escena 5
+- **p. 30 · Moderada** · No utilizar métodos tradicionales de toma de muestra y cultivo en heridas sin signos clínicos evidentes de infección. — En la charla: escena 6
 
 ### 3.6 · Tratamiento
 
