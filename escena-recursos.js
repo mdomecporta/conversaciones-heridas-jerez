@@ -33,7 +33,7 @@ const ESCENA_RECURSOS={
   historia:{type:'esquema',label:'Esquema docente · supuesto del GNEAUPP',title:'Una escara que a veces se deja',cols:[{head:'Sin signos de complicación',items:['Escara seca y estable','No es preciso el desbridamiento cortante']},{head:'Con signos',items:['Infección, edema, eritema, fluctuación o drenaje','Cambia la prioridad: valorar antes de actuar']}],link:'¿Qué vemos?'}},
  10:{type:'imagen-lista',asset:'daily-life',parts:2,head:'Aspectos que preguntar',items:['Dolor','Fugas','Olor','Carga de cuidados'],
   note:'Posibilidades de conversación, no síntomas atribuidos a una paciente.',
-  historia:{type:'opciones',label:'Esquema docente',title:'Tres objetivos posibles',ask:'¿Qué podemos conseguir hoy?',items:['Cicatrizar','Prevenir la infección','Aliviar'],supuesto:'Hoy buscamos aliviar'}},
+  historia:{type:'opciones',label:'Esquema docente',title:'Objetivos que pueden convivir',items:['Cicatrizar','Prevenir la infección','Aliviar lo que más pesa'],supuesto:'Lo que más le pesa: no poder dormir'}},
  11:{type:'registro',label:'Notas ficticias · propuesta docente',title:'Notas de relevo',parts:2,
   rows:[['Visita 1','Seguir igual'],['Visita 2','Seguir igual']],absence:['Por qué seguimos así','No consta'],
   historia:{type:'relevo',label:'Ficha de relevo · propuesta docente',title:'Para quien venga mañana',

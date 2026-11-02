@@ -544,13 +544,13 @@ Se deja una pausa. Esta escena no necesita un remate humorístico ni una imagen 
 
 **En pantalla · la pregunta:** se tacha la actuación y se revela la pregunta de esta escena. En el mismo paso, la herida cuenta la historia que hace necesaria la pregunta.
 
-**En pantalla · la historia:** un esquema docente «Tres objetivos posibles»: «Cicatrizar», «Prevenir la infección» y «Aliviar». Encima, «¿Qué podemos conseguir hoy?»; debajo, el supuesto «Hoy buscamos aliviar». No se adjudica un objetivo a una etiología.
+**En pantalla · la historia:** un esquema docente «Objetivos que pueden convivir»: «Cicatrizar», «Prevenir la infección» y «Aliviar lo que más pesa». Debajo, el supuesto «Lo que más le pesa: no poder dormir». No son opciones excluyentes ni se adjudica un objetivo a una etiología; la prioridad se pregunta y se acuerda.
 
-**La herida:** «¿Y si lo que podemos hacer ahora es aliviar?».
+**La herida:** «¿Y si lo que más le pesa hoy es no poder dormir?».
 
 **María del Mar:** «Entonces también hay plan: un objetivo acordado y cuándo revisarlo».
 
-**María del Mar, con sus palabras:** los objetivos se valoran para la situación de hoy y se acuerdan con la persona: a veces es cicatrizar, a veces prevenir la infección y a veces aliviar lo que más pesa. Ninguno es un fracaso si es el que toca.
+**María del Mar, con sus palabras:** los objetivos se valoran para la situación de hoy y se acuerdan con la persona: cicatrizar, prevenir la infección y aliviar lo que más pesa pueden convivir, y la prioridad puede cambiar. Si lo que más pesa es no poder dormir, eso también entra en el plan y se comprueba si mejora. Ninguno es un fracaso si es el que toca.
 
 **En pantalla · evidencia científica:** el apoyo anterior se recoge. Aparece «Los objetivos se valoran y se acuerdan», con esta idea: «IWII contempla objetivos de cicatrización, prevención de infección o manejo paliativo. Los síntomas y la carga del cuidado afectan a la vida cotidiana y se preguntan». Fuente visible: IWII · p. 26, rec. 13 / EWMA 2022 · §4. También se muestra la condición: «Los objetivos se revisan. Una etiqueta diagnóstica no determina por sí sola la posibilidad de cierre». María del Mar relaciona este fundamento con lo que acaba de señalar la herida.
 
@@ -628,6 +628,12 @@ Se recupera el material de la apertura. Aquí no se incorpora otra actuación ni
 
 **En pantalla · lo que recuperamos:** el carro de la apertura, entero. Junto a ella vuelve el hilo de la escena 1 completo: actuación tachada, pregunta y aprendizaje. María del Mar reacciona al mismo punto de partida después de lo conversado; no se muestra una herida supuestamente curada.
 
+**La herida:** «En el siglo XVI, a Ambroise Paré se le acabó el aceite hirviendo para las heridas. Al día siguiente, los que no lo recibieron estaban mejor».
+
+**María del Mar:** «Cambió la rutina porque miró qué pasaba».
+
+**María del Mar, con sus palabras:** Paré era cirujano militar; tratar las heridas de arma de fuego con aceite hirviendo era lo habitual. Al quedarse sin aceite usó otra preparación y, al día siguiente, vio que esos heridos estaban mejor que los demás. No es un ensayo clínico ni una receta: es la idea de todo el recorrido, mirar qué produce lo que hacemos antes de repetirlo.
+
 **María del Mar, a la sala:** «Después de este recorrido, ¿qué preguntaríais antes de elegir un apósito?».
 
 Se escuchan una o dos aportaciones.
@@ -642,7 +648,7 @@ Se escuchan una o dos aportaciones.
 
 **María del Mar:** «Vamos a recogerlo todo».
 
-**Respaldo:** integración docente del recorrido.
+**Respaldo:** integración docente del recorrido. Ambroise Paré: Science Museum Group, ficha biográfica (collection.sciencemuseumgroup.org.uk/people/cp88872/ambroise-pare); curiosidad histórica, no evidencia de eficacia.
 
 ### Escena 13 · En la próxima cura
 

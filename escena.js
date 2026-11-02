@@ -88,12 +88,16 @@ function expand(s){
 // ───────────── Componentes ─────────────
 const wordsHtml=(t,offset=0)=>end(t).split(/(\s+)/).map(w=>/^\s+$/.test(w)?w:`<span class="w" style="--i:${offset++}">${esc(w)}</span>`).join('');
 // Un intercambio: frases en orden, con tiempos para escribirse y para que la herida «piense».
-function exchange(lines,k,{size='',where=''}={}){
+// said: la primera frase de la herida ya se dijo en la transición; aparece escrita y no vuelve a teclearse.
+function exchange(lines,k,{size='',where='',said=''}={}){
  if(!lines?.length)return '';
  let t=.15;const parts=[];
  lines.forEach((l,i)=>{
   const n=words(end(l.text));
-  if(l.who==='herida'){
+  if(l.who==='herida'&&i===0&&said&&l.text===said){
+   parts.push(`<div class="line herida said" style="--t0:0s"><span class="who"><i class="spark"></i>La herida</span><div class="bubble"><span class="txt">${wordsHtml(l.text)}</span></div></div>`);
+   t=.35;
+  }else if(l.who==='herida'){
    const think=i===0?.75:.6;const t0=t+(i?.35:0);
    parts.push(`<div class="line herida" style="--think-at:${t0}s;--think:${think}s;--t0:${t0+think}s" data-words="${n}" data-at="${t0}" data-think="${think}"><span class="who"><i class="spark"></i>La herida</span><div class="bubble"><span class="think" aria-hidden="true"><i></i><i></i><i></i></span><span class="txt">${wordsHtml(l.text)}</span></div></div>`);
    t=t0+think+n*.06+.2;
@@ -105,9 +109,9 @@ function exchange(lines,k,{size='',where=''}={}){
  });
  return `<div class="say ${size}" data-k="${k}" data-where="${where}">${parts.join('')}</div>`;
 }
-// La conversación de una actuación: todas sus frases, con el paso al que pertenecen; se ven las del paso actual
-// y las anteriores (atenuadas), ya escritas, para que la ponente vea de un vistazo dónde está.
-function chat(slide){return `<div class="chat">${slide.steps.map((st,k)=>exchange(st.lines,k)).join('')}</div>`;}
+// La conversación de una actuación: todas sus frases, con el paso al que pertenecen. Solo se ve el intercambio
+// del paso actual; el historial completo está en la ventana de ponente y en la guía.
+function chat(slide){const said=slide.scene&&openingLine(slide.scene)?.text;return `<div class="chat">${slide.steps.map((st,k)=>exchange(st.lines,k,{said:k===0&&said})).join('')}</div>`;}
 const asset=id=>A[id]||{};
 function figure(id,{cls='',hot=null}={}){
  const a=asset(id);
@@ -357,7 +361,6 @@ function apply(dir=1,newSlide=false){
  // Intercambio actual: se escribe solo al avanzar; al retroceder aparece entero.
  const live=dir>0&&!reduced()&&!QUIETO;
  $$('.say',el).forEach(s=>{const on=Number(s.dataset.k)===k;s.classList.toggle('is-on',on);s.classList.toggle('live',on&&live);s.classList.toggle('static',on&&!live);});
- $$('.chat .say',el).forEach(s=>s.classList.toggle('is-past',Number(s.dataset.k)<k));
  const current=$(`.say[data-k="${k}"]`,el);
  const speech=current?.closest('.speech');if(speech)speech.dataset.plane=v.plane;
  place(v,dir,newSlide);
@@ -365,7 +368,7 @@ function apply(dir=1,newSlide=false){
  // La herida piensa y habla al ritmo de su frase.
  Presence.reset();
  zone.dataset.state=v.state;Presence.mount([zone],{motion:!reduced()});
- const h=current?.querySelector('.line.herida');
+ const h=current?.querySelector('.line.herida:not(.said)');
  if(h&&live)Presence.cue(v.state==='idle'?'responding':v.state,{delay:Number(h.dataset.at)*1000,think:Number(h.dataset.think)*1000,speak:Number(h.dataset.words)*60+400});
  document.documentElement.dataset.speaking=h?'1':'';
  hud();
