@@ -33,8 +33,10 @@ identifican la inspiración visual, sin afirmar que se usen en el centro de la f
 
 ## Modelos descargados
 
-La jeringa y el bisturí conservan los GLTF con sus licencias en `modelos/`.
-Los antiguos modelos de guantes, contenedor, espray, vendas y tiritas se conservan en disco,
+El bisturí conserva el GLTF con su licencia en `modelos/`.
+Los antiguos modelos de jeringa, guantes, contenedor, espray, vendas y tiritas se conservan en disco,
 pero ya no se cargan: esas siluetas se han sustituido por geometría propia más próxima a la foto.
 
 La API de la presentación (`postMessage`, identificadores de objetos y resaltado) se conserva.
+El mensaje `producto` selecciona una pieza aislada para las escenas 6 y 7; `producto:null`
+restaura el carro. Se mantiene un solo visor y se pausa cuando entra la evidencia.

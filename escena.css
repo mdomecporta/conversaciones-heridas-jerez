@@ -48,7 +48,7 @@ html[data-speaking="1"] #herida .orb-zone{animation-duration:9s}
 .rail{display:flex;flex-direction:column;gap:1.6cqh}
 .rail-where{display:flex;align-items:baseline;gap:.8cqw;color:var(--tone)}
 .rail-roman{font:500 1.5cqw/1 var(--display)}
-.rail-name{font:650 .9cqw/1 var(--sans);letter-spacing:.16em;text-transform:uppercase}
+.rail-name{font:650 1cqw/1 var(--sans);letter-spacing:.16em;text-transform:uppercase}
 .rail-track{display:flex;gap:1.1cqw;align-items:center;flex-wrap:wrap}
 .rail-group{display:flex;gap:.42cqw;align-items:center}
 .tick{position:relative;width:.46cqw;height:.46cqw;border-radius:50%;background:var(--night-line);transition:all .6s var(--ease)}
@@ -60,7 +60,7 @@ html[data-speaking="1"] #herida .orb-zone{animation-duration:9s}
 
 /* ── El hilo: A revisar · Nos preguntamos · Nos llevamos ── */
 .thread{position:relative;margin-top:6.5cqh;transition:opacity .8s var(--ease),filter .8s,transform .9s var(--ease)}
-.scene-n{display:block;font:650 .9cqw/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--tone)}
+.scene-n{display:block;font:650 1cqw/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--tone)}
 .scene-title{font:500 2.25cqw/1.12 var(--display);letter-spacing:-.012em;margin-top:1.4cqh;color:var(--night-ink);text-wrap:balance}
 .hilo{position:relative;margin-top:5cqh;padding-left:2.5cqw}
 .node{position:relative;padding-bottom:3.4cqh}
@@ -71,7 +71,7 @@ html[data-speaking="1"] #herida .orb-zone{animation-duration:9s}
 .seg{position:absolute;left:calc(-2.5cqw + .43cqw);top:1.5cqw;bottom:.3cqw;width:.14cqw;background:repeating-linear-gradient(var(--night-line) 0 .35cqw,transparent .35cqw .8cqw)}
 .seg::after{content:"";position:absolute;inset:0;background:var(--tone);transform:scaleY(0);transform-origin:top;transition:transform 1s var(--ease) .1s}
 .node:last-child .seg{display:none}
-.node-label{display:block;font:650 .85cqw/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--night-muted);opacity:.7;transition:color .5s,opacity .5s}
+.node-label{display:block;font:650 1.05cqw/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--night-muted);opacity:.8;transition:color .5s,opacity .5s}
 .node-text{margin-top:1.2cqh;transition:font-size .8s var(--ease),color .6s,opacity .6s,max-height .9s var(--ease),margin .6s,padding .6s,background .8s;text-wrap:pretty}
 .ph{display:block;margin-top:1.4cqh;width:6cqw;height:.14cqw;background:repeating-linear-gradient(90deg,var(--night-line) 0 .45cqw,transparent .45cqw .9cqw);transition:opacity .4s}
 .node:not(.on) .node-text{max-height:0;opacity:0;margin-top:0;overflow:hidden}
@@ -116,7 +116,7 @@ html[data-speaking="1"] #herida .orb-zone{animation-duration:9s}
 .say.is-on{display:flex;flex-direction:column;gap:2cqh}
 .line{display:flex;flex-direction:column;align-items:flex-start;max-width:100%;margin:0}
 .line.mdm{align-items:flex-end}
-.who{display:flex;align-items:center;gap:.55cqw;font:650 .82cqw/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 .6cqw .9cqh}
+.who{display:flex;align-items:center;gap:.55cqw;font:650 .9cqw/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 .6cqw .9cqh}
 .herida .who{color:var(--blood)}
 .spark{width:.62cqw;height:.62cqw;border-radius:50%;background:radial-gradient(circle at 35% 35%,#ffd9cf,var(--coral) 55%,var(--blood));box-shadow:0 0 .8cqw rgba(228,106,90,.7)}
 .av{display:grid;place-items:center;width:1.45cqw;height:1.45cqw;border-radius:50%;background:var(--ink);color:var(--paper);font:700 .55cqw/1 var(--sans);font-style:normal;letter-spacing:.04em}
@@ -170,10 +170,10 @@ html[data-speaking="1"] #herida .orb-zone{animation-duration:9s}
 .res-wrap{left:36.5cqw;right:4cqw;top:23cqh;bottom:5cqh;display:flex;align-items:center}
 .res{position:relative;width:100%}
 .res-card{background:linear-gradient(180deg,#fffaf7,#fff6f1);border-radius:1.6cqw;padding:2.2cqw 2.6cqw 2.6cqw;box-shadow:0 .2cqw .6cqw rgba(116,53,54,.05),0 2.6cqw 5cqw -2.6cqw rgba(116,53,54,.3),inset 0 0 0 1px rgba(198,50,62,.1);transform:rotate(-.35deg)}
-.res-from{display:inline-flex;align-items:center;gap:.6cqw;align-self:flex-start;font:700 .78cqw/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--blood);padding:.55cqw .9cqw;border-radius:2cqw;background:var(--blush)}
+.res-from{display:inline-flex;align-items:center;gap:.6cqw;align-self:flex-start;font:700 .9cqw/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--blood);padding:.55cqw .9cqw;border-radius:2cqw;background:var(--blush)}
 .res-comparar .res-head{flex-direction:row;align-items:center;gap:1.2cqw}
 .res-head{display:flex;flex-direction:column;gap:1.2cqh;margin-bottom:3cqh}
-.res-label{display:inline-flex;align-items:center;gap:.6cqw;font:650 .9cqw/1 var(--sans);letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+.res-label{display:inline-flex;align-items:center;gap:.6cqw;font:650 .95cqw/1 var(--sans);letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
 .res-label::before{content:"";width:.9cqw;height:.9cqw;border-radius:.2cqw;border:.13cqw solid currentColor;opacity:.7}
 .res-title{font:650 1.85cqw/1.15 var(--sans);letter-spacing:-.01em;color:var(--ink)}
 .res [data-part]{opacity:0;transform:translateY(1.2cqh);transition:opacity .7s var(--ease) var(--d,0s),transform .8s var(--ease) var(--d,0s),filter .6s,background .6s,border-color .6s,box-shadow .6s}
@@ -329,7 +329,7 @@ html[data-speaking="1"] #herida .orb-zone{animation-duration:9s}
 .evidence::before{content:"";position:absolute;left:0;right:0;top:0;height:.5cqw;background:linear-gradient(90deg,var(--olive),var(--ochre) 70%,#efe4a2)}
 .evidence::after{content:"";position:absolute;right:-6cqw;bottom:-6cqw;width:22cqw;height:22cqw;border-radius:50%;background:radial-gradient(closest-side,rgba(212,197,112,.22),transparent);pointer-events:none}
 .ev-head{display:flex;align-items:center;justify-content:space-between;gap:1.5cqw;padding-bottom:2.2cqh;border-bottom:1px solid var(--sheet-line)}
-.ev-eyebrow{display:flex;align-items:center;gap:.8cqw;white-space:nowrap;flex:none;font:700 .88cqw/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--olive)}
+.ev-eyebrow{display:flex;align-items:center;gap:.8cqw;white-space:nowrap;flex:none;font:700 .98cqw/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--olive)}
 .ev-icon{position:relative;width:1.3cqw;height:1.05cqw;border:.14cqw solid var(--olive);border-radius:.15cqw .15cqw .3cqw .3cqw}
 .ev-icon::after{content:"";position:absolute;left:50%;top:-.1cqw;bottom:-.1cqw;width:.14cqw;background:var(--olive);transform:translateX(-50%)}
 .ev-source{font:650 .95cqw/1.25 var(--sans);font-variant-numeric:tabular-nums;color:var(--olive);padding:.65cqw 1cqw;border-radius:2cqw;background:var(--olive-soft);text-align:right}
@@ -581,28 +581,35 @@ html[data-speaking="1"] #herida .orb-zone{animation-duration:9s}
 /* ── María del Mar, discreta: sus frases quedan como apunte, para que reaccione de viva voz a la herida ── */
 /* Su texto, discreto, dentro de un bocadillo solo delineado. */
 .line.mdm .bubble{background:transparent;box-shadow:none;border:1px solid var(--line-strong);border-bottom-right-radius:.35cqw;padding:.75cqw 1.05cqw .8cqw}
-.line.mdm .txt{--ms:1.1cqw;font-style:italic;color:var(--ink-soft)}
-.line.mdm .who{font-size:.66cqw;margin-bottom:.35cqh;opacity:.8}
-.line.mdm .av{width:1.1cqw;height:1.1cqw;font-size:.45cqw}
+.line.mdm .txt{--ms:1.22cqw;font-style:italic;color:var(--ink-soft)}
+.line.mdm .who{font-size:.8cqw;margin-bottom:.35cqh;opacity:.85}
+/* Sin iniciales: el bocadillo delineado ya la distingue. */
+.line.mdm .av{display:none}
 :is(.slide-block,.slide-farewell[data-plane="recap"],.slide-farewell[data-plane="deeper"]) .line.mdm .txt{color:var(--night-ink);opacity:.75}
 :is(.slide-block,.slide-farewell[data-plane="recap"],.slide-farewell[data-plane="deeper"]) .line.mdm .bubble{border-color:var(--night-line)}
 
 /* ── Actuación en tres pasos: hilo (0–30), lo que acompaña al paso (32,5–72,5) y conversación (74,5–97,5) ── */
-.slide-practice .res-wrap{left:32.5cqw;width:40cqw;right:auto;top:6cqh;bottom:6cqh}
+.slide-practice :is(.res-wrap,.story-wrap){left:32.5cqw;width:40cqw;right:auto;top:6cqh;bottom:6cqh;display:flex;align-items:center}
 .slide-practice .evidence{left:32.5cqw;width:40cqw;top:6cqh;max-height:88cqh;padding:2.6cqw 2.6cqw 2cqw}
 .slide-practice .ev-title{font-size:2.5cqw;margin:2.8cqh 0 2.2cqh}
 .slide-practice .ev-idea{font-size:1.4cqw}
 .slide-practice .ev-cond p{font-size:1.2cqw}
-.slide-practice[data-plane="habit"] .res-wrap,.slide-practice:is([data-plane="ask"],[data-plane="take"]) .evidence{opacity:1;visibility:visible;transform:none;filter:none;transition-delay:.2s,.2s,.2s,0s}
-.slide-practice:is([data-plane="ask"],[data-plane="take"]) .evidence>*{opacity:1;transform:none}
-.slide-practice[data-plane="ask"] .ev-head{transition-delay:.15s}
-.slide-practice[data-plane="ask"] .ev-title{transition-delay:.3s}
-.slide-practice[data-plane="ask"] .ev-idea{transition-delay:.5s}
-.slide-practice[data-plane="ask"] .ev-cond{transition-delay:.8s}
-/* En «Nos llevamos» la evidencia se queda detrás y el foco pasa al aprendizaje, en el hilo. */
-.slide-practice[data-plane="take"] .evidence{opacity:.5;filter:saturate(.7);transform:scale(.97)}
+.slide-practice[data-plane="habit"] .res-wrap,.slide-practice[data-plane="ask"] .story-wrap,.slide-practice[data-plane="take"] .evidence{opacity:1;visibility:visible;transform:none;filter:none;transition-delay:.2s,.2s,.2s,0s}
+/* «Nos llevamos»: la evidencia sostiene el aprendizaje, que entra a la vez en el hilo. */
+.slide-practice[data-plane="take"] .evidence>*{opacity:1;transform:none}
+.slide-practice[data-plane="take"] .ev-head{transition-delay:.15s}
+.slide-practice[data-plane="take"] .ev-title{transition-delay:.3s}
+.slide-practice[data-plane="take"] .ev-idea{transition-delay:.5s}
+.slide-practice[data-plane="take"] .ev-cond{transition-delay:.8s}
 .slide-practice .res [data-part]{opacity:1;transform:none}
 .slide-practice .res-card{transform:none}
+/* En la columna central, el esquema de dos espacios lleva el enlace encima, sin montarse sobre el texto. */
+.slide-practice .scheme{grid-template-columns:1fr 1fr;gap:1.2cqw}
+.slide-practice .scheme-link{grid-column:1/-1;grid-row:1;width:auto;justify-self:center;margin-bottom:.4cqh}
+.slide-practice .scheme-link::before{display:none}
+.slide-practice .scheme-col{grid-row:2;min-height:0}
+.slide-practice .scheme-col li{font-size:1.3cqw}
+.slide-practice .scheme-col.shown:not(.current){opacity:1}
 /* Con todo a la vez, lo que antes entraba encima de la imagen va debajo de ella. */
 .slide-practice :is(.res-then,.res-open){position:relative;left:auto;right:auto;bottom:auto;margin-top:1.4cqh;width:100%;box-shadow:0 1.4cqw 3cqw -2cqw rgba(0,0,0,.3)}
 .slide-practice .res-imagen .fig-frame{max-height:56cqh}
@@ -612,13 +619,13 @@ html[data-speaking="1"] #herida .orb-zone{animation-duration:9s}
 .slide-practice .split-side .fields,.slide-practice .split-side .chips{display:grid;grid-template-columns:1fr 1fr;column-gap:2cqw}
 .slide-practice .anchor[data-place="talk"]{left:79cqw;top:3cqh;width:13cqw}
 .chat{position:absolute;z-index:4;left:74.5cqw;right:2.5cqw;top:28cqh;bottom:5cqh;display:flex;flex-direction:column;justify-content:flex-end;gap:2.2cqh;overflow:hidden;pointer-events:none;-webkit-mask-image:linear-gradient(transparent,#000 14%);mask-image:linear-gradient(transparent,#000 14%)}
-.chat .say.is-past{display:flex;flex-direction:column;gap:1.2cqh;opacity:.38}
+.chat .say.is-past{display:flex;flex-direction:column;gap:1.2cqh;opacity:.5}
 .chat .say.is-on{gap:1.5cqh}
-.chat .herida .txt{--hs:1.22cqw}
+.chat .herida .txt{--hs:1.38cqw}
 .chat .bubble{padding:.75cqw 1.05cqw .8cqw;border-radius:1.15cqw}
 .chat .herida .bubble{border-bottom-left-radius:.35cqw}
 .chat .mdm .bubble{border-bottom-right-radius:.35cqw}
-.chat .say.is-past .herida .txt{--hs:1.05cqw}
+.chat .say.is-past .herida .txt{--hs:1.2cqw}
 .chat .who{margin:0 .4cqw .6cqh}
 
 /* ── Transición entre escenas: la herida, en grande, abre la siguiente ── */
@@ -659,6 +666,19 @@ html[data-speaking="1"] #herida .orb-zone{animation-duration:9s}
 .res-carro-card{padding:1.4cqw 1.8cqw;border-radius:1.2cqw;background:linear-gradient(180deg,#fffaf7,#fff6f1);box-shadow:0 2cqw 4cqw -2.6cqw rgba(116,53,54,.3),inset 0 0 0 1px rgba(198,50,62,.1)}
 .res-carro-card .res-head{margin-bottom:.6cqh}
 .res-carro-text{font:500 1.3cqw/1.35 var(--sans);color:var(--ink-soft)}
+/* Las piezas del mismo carro acompañan la ficha; el visor único se coloca sobre su marca. */
+.producto-fig{margin:0;min-width:0;display:flex;flex-direction:column;align-self:center}
+.producto-marca.carro-marca{height:32cqh;position:relative}
+.producto-fig figcaption{display:flex;flex-direction:column;gap:.6cqh;font:500 .78cqw/1.35 var(--sans);color:var(--muted)}
+.producto-fallback{display:none;width:100%;height:100%;object-fit:contain}
+.pauta-producto{display:grid;grid-template-columns:1.1fr 1fr;gap:2cqw;align-items:center}
+.pauta-producto .field{grid-template-columns:1fr;gap:1.5cqh}
+.pauta-producto .field-k{font-size:1.35cqw}
+.pauta-producto .field-v{min-height:1.6cqh}
+.con-producto .split-side .field{grid-template-columns:1fr;gap:1.6cqh}
+#stage.sin-3d .producto-marca::after{content:attr(aria-label);font-size:1.4cqw;text-align:center}
+#stage.sin-3d .producto-marca:has(.producto-fallback)::after{display:none}
+#stage.sin-3d .producto-fallback{display:block}
 
 /* ── Controles (aparecen al mover el ratón) ── */
 #hud{position:fixed;left:50%;bottom:2.2vh;transform:translate(-50%,1.4vh);display:flex;align-items:center;gap:.5rem;padding:.4rem .5rem .4rem 1rem;border-radius:999px;background:rgba(48,43,42,.86);backdrop-filter:blur(10px);color:#f5f1eb;font:500 13px/1 var(--sans);opacity:0;transition:opacity .4s,transform .5s var(--ease);z-index:20;pointer-events:none}

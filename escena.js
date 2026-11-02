@@ -45,7 +45,8 @@ for(const b of G.blocks){
  });
  // La frase de cierre del bloque se dice al terminar su última actuación.
  const last=slides.at(-1);
- if(b.close&&last.type==='practice'){const st=last.steps.at(-1);st.lines=[...(st.lines||[]),{who:'mdm',text:b.close}];st.spoken=[...(st.spoken||[]),b.close];st.blockclose=b.close;}
+ // No se proyecta (la conversación ya es larga ahí): la ponente la tiene en su tarjeta.
+ if(b.close&&last.type==='practice'){const st=last.steps.at(-1);st.spoken=[...(st.spoken||[]),b.close];st.blockclose=b.close;}
 }
 slides.push({id:'cierre',type:'institutional',src:INST.close,steps:[{kind:'still',label:'Cierre institucional'}]});
 
@@ -53,8 +54,8 @@ slides.push({id:'cierre',type:'institutional',src:INST.close,steps:[{kind:'still
 function openingLine(s){return s.steps.find(x=>x.kind==='open')?.lines?.find(l=>l.who==='herida');}
 function expand(s){
  if(s.kind==='practice'){
-  // Agrupa los pasos del guion en tres: lo que traemos y revisamos; la pregunta y la evidencia; el aprendizaje.
-  const group={open:'habit',resource:'habit',ask:'ask',evidence:'ask',reply:'ask',say:null,sala:null,take:'take'};
+  // Agrupa los pasos del guion en tres: lo que traemos y revisamos; la pregunta y su historia; la evidencia y el aprendizaje.
+  const group={open:'habit',resource:'habit',ask:'ask',evidence:'take',reply:'take',say:null,sala:null,take:'take'};
   const out=[{kind:'habit'},{kind:'ask'},{kind:'take'}];let cur=out[0];
   for(const st of s.steps){
    if(st.kind==='bridge')continue;
@@ -113,11 +114,16 @@ function figure(id,{cls='',hot=null}={}){
  return `<figure class="fig ${cls}"><div class="fig-frame"><img src="${a.src}" alt="${esc(a.alt||a.title)}" draggable="false">${hot||''}<span class="spot" aria-hidden="true"></span></div><figcaption><span class="fig-label">${esc(a.label||'')}</span><span class="fig-credit">${esc(a.credit||'')}</span></figcaption></figure>`;
 }
 const fieldRow=(label,{part=1,state='empty',value=''}={})=>`<li class="field is-${state}" data-part="${part}"><span class="field-k">${esc(label)}</span><span class="field-v">${value?esc(value):'<i class="blank"></i>'}</span></li>`;
+function productoFigure(r){
+ const fallback=r.asset?`<img class="producto-fallback" src="${asset(r.asset).src}" alt="${esc(asset(r.asset).alt||r.productoNombre)}">`:'';
+ return `<figure class="producto-fig"><div class="carro-marca producto-marca" data-carro role="img" aria-label="${esc(r.productoNombre)}">${fallback}</div><figcaption><span>Recreación 3D · material docente</span><span>${esc(r.productoReferencia)}</span></figcaption></figure>`;
+}
 
 // Lo que trae la herida. Los elementos con data-part aparecen al llegar a ese avance.
-function resource(n){
- const r=R[n];if(!r)return '';
- const head=(label,title)=>`<header class="res-head"><span class="res-from"><i class="spark"></i>La herida trae</span><span class="res-label">${esc(label)}</span>${title?`<h3 class="res-title">${esc(title)}</h3>`:''}</header>`;
+// Lo que trae la herida (A revisar) o la historia (Nos preguntamos): misma composición, distinta pieza.
+function resource(n,r=R[n],from=r===R[n]?'La herida trae':'La historia'){
+ if(!r)return '';
+ const head=(label,title)=>`<header class="res-head"><span class="res-from"><i class="spark"></i>${from}</span><span class="res-label">${esc(label)}</span>${title?`<h3 class="res-title">${esc(title)}</h3>`:''}</header>`;
  let body='';
  switch(r.type){
   case 'carro':
@@ -145,7 +151,7 @@ function resource(n){
    body=`<ul class="fields">${r.fields.map((f,i)=>fieldRow(f).replace('data-part="1"',`data-part="1" style="--d:${i*.14}s"`)).join('')}</ul>${r.banner?`<p class="banner" data-part="2">${esc(r.banner)}</p><ol class="qs">${r.questions.map((q,i)=>`<li data-part="3" style="--d:${i*.18}s">${esc(q)}</li>`).join('')}</ol>`:''}`;
    break;
   case 'imagen-campos':
-   body=`<div class="split">${figure(r.asset)}<div class="split-side">${r.title?`<h4>${esc(r.title)}</h4>`:''}${r.datum?`<p class="datum" data-part="1">${esc(r.datum)}</p>`:''}<ul class="fields">${r.fields.map((f,i)=>fieldRow(f,{part:2,state:r.datum?'pending':'empty'}).replace('data-part="2"',`data-part="2" style="--d:${i*.16}s"`)).join('')}</ul></div></div>`;
+   body=`<div class="split ${r.producto?'con-producto':''}">${r.producto?productoFigure(r):figure(r.asset)}<div class="split-side">${r.title?`<h4>${esc(r.title)}</h4>`:''}${r.datum?`<p class="datum" data-part="1">${esc(r.datum)}</p>`:''}<ul class="fields">${r.fields.map((f,i)=>fieldRow(f,{part:2,state:r.datum?'pending':'empty'}).replace('data-part="2"',`data-part="2" style="--d:${i*.16}s"`)).join('')}</ul></div></div>`;
    return `<div class="res res-split" data-type="split" data-n="${n}">${body}</div>`;
   case 'informe':
    body=`<div class="report"><div class="report-doc" data-part="1"><span class="report-k">Resultado</span><p class="report-v">${esc(r.result)}</p><span class="report-lines"><i></i><i></i><i></i></span></div><ul class="fields" >${r.pending.map((f,i)=>fieldRow(f,{part:2,state:'pending'}).replace('data-part="2"',`data-part="2" style="--d:${i*.16}s"`)).join('')}</ul></div>`;
@@ -154,7 +160,7 @@ function resource(n){
    body=`${r.ask?`<p class="res-ask is-block" data-part="1">${esc(r.ask)}</p>`:''}<ul class="options">${r.items.map((x,i)=>`<li data-part="${r.ask?2:1}" style="--d:${i*.14}s">${esc(x)}</li>`).join('')}</ul>${r.supuesto?`<p class="supuesto" data-part="2"><span>Supuesto</span>${esc(r.supuesto)}</p>`:''}`;
    break;
   case 'pauta':
-   body=`<ul class="fields">${r.fields.map(([f,done])=>fieldRow(f,{state:done?'done':'due'})).join('')}</ul><ol class="qs is-row">${r.questions.map((q,i)=>`<li data-part="2" style="--d:${i*.16}s">${esc(q)}</li>`).join('')}</ol>`;
+   body=`${r.producto?`<div class="pauta-producto">${productoFigure(r)}`:''}<ul class="fields">${r.fields.map(([f,done])=>fieldRow(f,{state:done?'done':'due'})).join('')}</ul>${r.producto?'</div>':''}<ol class="qs is-row">${r.questions.map((q,i)=>`<li data-part="2" style="--d:${i*.16}s">${esc(q)}</li>`).join('')}</ol>`;
    break;
   case 'momentos':
    body=`<ol class="moments">${r.items.map(([k,v],i)=>`<li data-part="1" style="--d:${i*.25}s" ${i===0?'class="is-first"':''}><b>${esc(k)}</b><span>${esc(v)}</span></li>`).join('')}</ol>`;
@@ -219,10 +225,10 @@ function build(slide){
    break;
   }
   case 'practice':{
-   // Tres pasos: el recurso (A revisar), la evidencia (Nos preguntamos) y el aprendizaje en el hilo (Nos llevamos).
+   // Tres pasos: el recurso (A revisar), la historia (Nos preguntamos) y la evidencia con el aprendizaje en el hilo (Nos llevamos).
    // A la derecha, la herida y la conversación de la escena, ya escrita, que crece paso a paso.
    const s=slide.scene,ev=slide.steps.find(x=>x.evidence)?.evidence||{};
-   el.innerHTML=`${side(slide,threadHtml(s))}<section class="space"><div class="res-wrap">${resource(s.n)}</div><div class="evidence"><header class="ev-head"><span class="ev-eyebrow"><i class="ev-icon"></i>Evidencia científica</span><span class="ev-source">${esc(ev.source)}</span></header><h3 class="ev-title">${esc(ev.title)}</h3><p class="ev-idea">${esc(end(ev.idea||''))}</p>${ev.condition?`<div class="ev-cond"><span>Condición</span><p>${esc(end(ev.condition))}</p></div>`:''}<footer class="ev-foot">Síntesis del documento citado · no es cita literal</footer></div></section>${chat(slide)}${anchors(['talk'])}`;
+   el.innerHTML=`${side(slide,threadHtml(s))}<section class="space"><div class="res-wrap">${resource(s.n)}</div><div class="story-wrap">${resource(s.n,R[s.n]?.historia)}</div><div class="evidence"><header class="ev-head"><span class="ev-eyebrow"><i class="ev-icon"></i>Evidencia científica</span><span class="ev-source">${esc(ev.source)}</span></header><h3 class="ev-title">${esc(ev.title)}</h3><p class="ev-idea">${esc(end(ev.idea||''))}</p>${ev.condition?`<div class="ev-cond"><span>Condición</span><p>${esc(end(ev.condition))}</p></div>`:''}<footer class="ev-foot">Síntesis del documento citado · no es cita literal</footer></div></section>${chat(slide)}${anchors(['talk'])}`;
    break;
   }
   case 'transition':{
@@ -307,10 +313,11 @@ const channel='BroadcastChannel' in window?new BroadcastChannel('herida-escena')
 const Carro={
  el:null,frame:null,cargado:false,ultimo:'',
  want(slide,v){
-  if(slide.type==='intro'&&v.plane==='carro')return {vista:'carro'};
-  if(slide.type==='return'&&['resource','sala'].includes(v.plane))return {vista:'carro'};
+  if(slide.type==='intro'&&v.plane==='carro')return {vista:'carro',producto:null};
+  if(slide.type==='return'&&['resource','sala'].includes(v.plane))return {vista:'carro',producto:null};
   const r=slide.scene&&R[slide.scene.n];
-  if(slide.type==='practice'&&r?.type==='carro'&&v.plane==='habit')return {ids:r.ids};
+  if(slide.type==='practice'&&r?.type==='carro'&&v.plane==='habit')return {ids:r.ids,producto:null};
+  if(slide.type==='practice'&&r?.producto&&v.plane==='habit')return {ids:[r.producto],producto:r.producto};
   return null;
  },
  send(m){if(this.cargado)this.frame.contentWindow.postMessage({carro:m},'*');},
@@ -343,8 +350,9 @@ function apply(dir=1,newSlide=false){
  $('.node-ask',el)?.classList.toggle('on',v.ask);$('.node-take',el)?.classList.toggle('on',v.take);
  // Avances del recurso.
  $$('[data-part]',el).forEach(n=>{const p=Number(n.dataset.part);n.classList.toggle('shown',p<=v.part);n.classList.toggle('current',p===v.part);});
- const walk=$('.res-image.has-walk',el);
- if(walk)spot(walk,v);
+ const walks=$$('.res-image.has-walk',el),active=v.plane==='ask'?'.story-wrap':'.res-wrap';
+ clearInterval(autoTimer);
+ walks.forEach(w=>spot(w,w.closest(active)?v:{...v,plane:''}));
  $$('.page',el).forEach(p=>p.classList.toggle('is-on',Number(p.dataset.page)===v.page&&v.plane==='pages'));
  // Intercambio actual: se escribe solo al avanzar; al retroceder aparece entero.
  const live=dir>0&&!reduced()&&!QUIETO;
@@ -402,11 +410,10 @@ function place(v,dir,newSlide){
 // Foco de la imagen: un claro que recorre las zonas señaladas.
 let autoTimer=null;
 function spot(walk,v){
- clearInterval(autoTimer);
  const hots=$$('.hot',walk),frame=$('.fig-frame',walk);
  const show=i=>{hots.forEach((h,j)=>h.classList.toggle('is-lit',j===i));const h=hots[i];if(h){frame.style.setProperty('--sx',h.style.getPropertyValue('--x'));frame.style.setProperty('--sy',h.style.getPropertyValue('--y'));frame.classList.add('is-spot');}else frame.classList.remove('is-spot');};
- if(!['resource','habit'].includes(v.plane)){show(-1);return;}
- if(walk.dataset.auto||v.plane==='habit'){
+ if(!['resource','habit','ask'].includes(v.plane)){show(-1);return;}
+ if(walk.dataset.auto||['habit','ask'].includes(v.plane)){
   if(v.plane==='resource'&&v.part!==1){show(-1);return;}
   let i=0;show(0);if(!reduced())autoTimer=setInterval(()=>{i=(i+1)%hots.length;show(i);},3200);
   return;
@@ -502,7 +509,7 @@ function key(e){
 // ───────────── Ventana de ponente ─────────────
 // La diapositiva en vivo y el paso siguiente (dos espejos de la misma página), con lo que se dice ahora.
 const slideTitle=s=>s.type==='transition'?`Transición · escena ${pad(s.scene.n)}`:s.scene?`Escena ${pad(s.scene.n)} · ${s.scene.title}`:s.type==='block'?`Momento ${s.block.roman} · ${s.block.name}`:s.type==='intro'?'Apertura · Os presento a la herida':s.id==='apertura'?'Portada institucional':'Cierre institucional';
-const STEP_KIND={habit:'A revisar · lo que trae la herida',transition:'Transición · la herida abre la escena',open:'Apertura de escena',resource:'La herida trae su recurso',ask:'Nos preguntamos · la evidencia',sala:'A la sala',evidence:'Evidencia científica',reply:'Réplica',take:'Nos llevamos',bridge:'Para seguir',blockclose:'Cierre del momento',page:'Recopilación',chips:'Lo que recogemos',say:'Conversación',screen:'Pantalla',title:'Entrada del momento',still:'Pantalla institucional'};
+const STEP_KIND={habit:'A revisar · lo que trae la herida',transition:'Transición · la herida abre la escena',open:'Apertura de escena',resource:'La herida trae su recurso',ask:'Nos preguntamos · la historia',sala:'A la sala',evidence:'Evidencia científica',reply:'Réplica',take:'Nos llevamos · la evidencia',bridge:'Para seguir',blockclose:'Cierre del momento',page:'Recopilación',chips:'Lo que recogemos',say:'Conversación',screen:'Pantalla',title:'Entrada del momento',still:'Pantalla institucional'};
 const nextOf=(a,b)=>slides[a].steps[b+1]?[a,b+1]:slides[a+1]?[a+1,0]:[a,b];
 // Tarjeta de la ponente para cada paso: la idea en grande, lo que se ve, la condición que no debe olvidarse,
 // a qué reacciona de la herida y su pie. Lo que se desarrolla con sus palabras queda plegado.
@@ -519,11 +526,12 @@ function cue(slide,st){
   if(r)row('La herida trae',brings(s.n));
  }else if(slide.type==='practice'&&st.kind==='ask'){
   big('La pregunta',s.ask,'is-ask');
-  const ev=st.evidence;
-  if(ev)row('La evidencia',`<strong>${esc(ev.title)}.</strong> ${esc(end(ev.idea))} <span class="cu-src">${esc(ev.source)}</span>`);
-  if(ev?.condition)row('No olvides',esc(end(ev.condition)),'is-cond');
+  if(R[s.n]?.historia)row('La historia',tells(s.n));
  }else if(slide.type==='practice'&&st.kind==='take'){
   big('Nos llevamos',s.take,'is-take');
+  const ev=st.evidence;
+  if(ev)row('Por qué: la evidencia',`<strong>${esc(ev.title)}.</strong> ${esc(end(ev.idea))} <span class="cu-src">${esc(ev.source)}</span>`);
+  if(ev?.condition)row('No olvides',esc(end(ev.condition)),'is-cond');
   if(st.close)row('Cierras',`«${esc(end(st.close))}»`);
   if(st.blockclose)row('Cierras el momento',`«${esc(end(st.blockclose))}»`);
  }else if(slide.type==='transition'){
@@ -714,8 +722,9 @@ function editable(slide,k){
  if(slide.type==='block'){add('Nombre del momento',slide.block.name);add('Pregunta del momento',slide.block.question);}
  (st.lines||[]).forEach(l=>add(l.who==='herida'?'Lo que dice la herida':'Lo que dice María del Mar',l.text));
  if(st.kind==='sala')add('Pregunta a la sala',st.sala);
- if(['evidence','ask','take'].includes(v.plane)&&slide.type==='practice'){const ev=slide.steps.find(x=>x.evidence).evidence;add('Evidencia · titular',ev.title);add('Evidencia · idea',ev.idea);add('Evidencia · condición',ev.condition);}
+ if(v.plane==='take'&&slide.type==='practice'){const ev=slide.steps.find(x=>x.evidence).evidence;add('Evidencia · titular',ev.title);add('Evidencia · idea',ev.idea);add('Evidencia · condición',ev.condition);}
  if(st.kind==='habit'&&R[s?.n]?.title)add('Título de lo que trae la herida',R[s.n].title);
+ if(st.kind==='ask'&&R[s?.n]?.historia?.title)add('Título de la historia',R[s.n].historia.title);
  return out;
 }
 
@@ -813,6 +822,7 @@ function partText(n,p){
  if(r.type==='relevo')return `Se distingue «${esc(r.split[0])}» de «${esc(r.split[1])}».`;
  return 'Avanza lo que trae la herida.';
 }
+function tells(n){const h=R[n]?.historia;return !h?'su historia':h.asset?`la imagen «${esc(asset(h.asset).title)}»`:`«${esc(h.title)}»`;}
 function brings(n){
  const r=R[n];if(!r)return 'su recurso';
  if(r.type==='comparar')return 'dos ejemplos publicados';
@@ -829,11 +839,11 @@ function whatHappens(slide,st){
   case 'resource':return st.part===1?`La herida trae ${brings(n)}.${R[n]?.walk&&!R[n].auto?' '+partText(n,1):''}`:partText(n,st.part);
   case 'habit':return `Empieza la escena. En el panel, lo que revisamos: «${esc(s.habit)}». La herida trae ${brings(n)}.`;
   case 'transition':return `Transición: la herida, en grande, abre la escena ${pad(n)}.`;
-  case 'ask':{const ev=st.evidence;return `Se tacha lo que revisamos y aparece la pregunta: <strong>«${esc(s.ask)}»</strong>${ev?`. Entra la evidencia: <strong>«${esc(ev.title)}»</strong> (${esc(ev.source)}).${ev.condition?` Recuerda la condición: «${esc(end(ev.condition))}»`:''}`:''}`;}
+  case 'ask':return `Se tacha lo que revisamos y aparece la pregunta: <strong>«${esc(s.ask)}»</strong>. La herida cuenta la historia: ${tells(n)}.`;
   case 'sala':return 'Preguntas a la sala y escuchas un par de respuestas.';
   case 'evidence':{const ev=st.evidence;return `Entra la evidencia: <strong>«${esc(ev.title)}»</strong> (${esc(ev.source)}).${ev.condition?` Recuerda la condición: «${esc(end(ev.condition))}»`:''}`;}
   case 'reply':return 'La herida responde.';
-  case 'take':return `Entra lo que nos llevamos: <strong>«${esc(s.take)}»</strong>`;
+  case 'take':{const ev=st.evidence;return `Entra lo que nos llevamos: <strong>«${esc(s.take)}»</strong>${ev?`, con la evidencia <strong>«${esc(ev.title)}»</strong> (${esc(ev.source)}).${ev.condition?` Recuerda la condición: «${esc(end(ev.condition))}»`:''}`:''}`;}
   case 'bridge':{const nx=slides[slides.indexOf(slide)+1];return `Frase para pasar a ${nx?.scene?`la escena ${pad(nx.scene.n)}`:nx?.type==='block'?`el momento ${nx.block.roman}`:'lo siguiente'}.`;}
   case 'blockclose':return `Cierras el momento «${esc(slide.block.name)}».`;
   case 'page':{const [a,z]=ESCENA_RECOPILACION[st.page];return `Recopilación, página ${st.page+1} de ${ESCENA_RECOPILACION.length}: escenas ${a}${z>a?'–'+z:''}.`;}
