@@ -21,6 +21,7 @@ const parametros=new URLSearchParams(location.search);
 const TRANSPARENTE=parametros.has('transparente');
 // Vista de revisión de una pieza; la presentación sigue usando la API habitual.
 const PRODUCTO=parametros.get('producto');
+const REVISION=parametros.get('vista'); // planta, frontal o lateral para revisar apoyos y cruces
 if(TRANSPARENTE)document.documentElement.classList.add('transparente');
 let renderer;
 try{renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:TRANSPARENTE});}
@@ -37,6 +38,7 @@ scene.environment=new THREE.PMREMGenerator(renderer).fromScene(new RoomEnvironme
 scene.environmentIntensity=.85;
 
 const camera=new THREE.PerspectiveCamera(26,1,.05,20);
+if(REVISION==='planta')camera.up.set(0,0,-1);
 const mira=new THREE.Vector3(); // punto al que mira la cámara
 
 // Oclusión ambiental: oscurece donde las piezas se tocan, para que nada parezca flotar.
@@ -310,7 +312,7 @@ for(let i=0;i<4;i++){
 // ---- Bandeja superior ----
 const YS=ALTO_SUP+.004;
 // Contenedor de 10 L: cuerpo troncopiramidal, tapa amarilla y boca abatible, como en la foto.
-const contenedor=new THREE.Group();carro.add(contenedor);contenedor.position.set(-.232,YS,-.10);
+const contenedor=new THREE.Group();carro.add(contenedor);contenedor.position.set(-.218,YS,-.087);
 {const g=new THREE.Group();contenedor.add(g);
  const cuerpo=caja(g,'amarillo',[.225,.255,.205],[0,.1275,0],[0,0,0],.018);
  const a=cuerpo.geometry.attributes.position;
@@ -370,7 +372,7 @@ const piezaAntiseptico=new THREE.Group();
 }
 
 // Dos dispensadores bajos, blancos, como los de la fotografía; no la caja de guantes azules del GLTF.
-const guantes=new THREE.Group();carro.add(guantes);guantes.position.set(-.23,YS,.122);guantes.rotation.y=.025;
+const guantes=new THREE.Group();carro.add(guantes);guantes.position.set(-.24,YS,.110);guantes.rotation.y=.025;
 function dispensador(g,tex,w=.21){
  caja(g,'papel',[w,.052,.097],[0,.026,0],[0,0,0],.002);
  rotulo(g,tex,w-.008,.045,[0,.026,.049],[0,0,0]);
@@ -379,18 +381,17 @@ function dispensador(g,tex,w=.21){
  // Un pliegue blanco queda dentro de la abertura, sin dedos sobresaliendo.
  caja(g,'blanco',[.038,.004,.014],[-.009,.054,-.004],[.1,0,.08],.002);
 }
-dispensador(guantes,ENVASES.guantes);
-{const g=new THREE.Group();carro.add(g);g.position.set(-.005,YS,.047);g.rotation.y=-.025;dispensador(g,ENVASES.guantesVerdes,.19);}
+dispensador(guantes,ENVASES.guantes,.20);
 
 // Hoja de registro con unas líneas de notas (escenas 2 y 21).
-{const g=objeto('notas');g.position.set(-.045,YS,.150);g.rotation.y=-.12;
+{const g=objeto('notas');g.position.set(-.05,YS,.125);g.rotation.y=-.12;
  caja(g,'papel',[.15,.003,.11],[0,.0015,0],[0,0,0],.001);
  caja(g,'papel',[.15,.003,.11],[.004,.0045,-.002],[0,.03,0],.001);
  for(let i=0;i<4;i++)caja(g,'tinta',[i==3?.06:.11,.0006,.003],[-.01-(i==3?.025:0),.0063,-.035+i*.022],[0,0,0],.0003);}
 
 // Referencia Mepilex Border Flex: borde fino de silicona, espuma central y película exterior beige.
 // Muestra docente fuera del sobre, sin representar una técnica de aplicación.
-{const g=objeto('aposito-elegido');g.position.set(.082,YS,.142);g.rotation.y=.08;
+{const g=objeto('aposito-elegido');g.position.set(.105,YS,.123);g.rotation.y=.08;
  sobre(g,[.12,.125],[.002,0,-.012],[0,-.10,0],{tex:REFERENCIAS.flex,relieve:.0012});
  lamina(g,'blanco',.10,.10,.0006,.011,[0,.0032,0],{roughness:.50});
  lamina(g,'beige',.068,.068,.0036,.008,[0,.0039,0],{roughness:.88,bumpScale:.00008});
@@ -401,16 +402,16 @@ dispensador(guantes,ENVASES.guantes);
 }
 
 // Referencia Mepilex Ag: espuma gris sin borde adhesivo; la plata no es una lámina metálica.
-{const g=objeto('aposito-plata');g.position.set(.213,YS,.145);g.rotation.y=-.07;
- sobre(g,[.115,.145],[0,0,-.025],[0,0,0],{relieve:.0012});
- rotulo(g,REFERENCIAS.ag,.092,.036,[0,.003,-.075],[-Math.PI/2,0,0]);
+{const g=objeto('aposito-plata');g.position.set(.238,YS,.123);g.rotation.y=-.07;
+ sobre(g,[.115,.125],[0,0,-.012],[0,0,0],{relieve:.0012});
+ rotulo(g,REFERENCIAS.ag,.092,.019,[0,.003,-.063],[-Math.PI/2,0,0]);
  lamina(g,'rueda',.10,.10,.0038,.004,[0,.0033,0],{color:0x77736f,roughness:.94,metalness:0,bumpMap:TRAMA,bumpScale:.00012});
  // Cara de contacto apenas visible en el canto; película superior mate y flexible.
  lamina(g,'beige',.099,.099,.0003,.004,[0,.0030,0],{roughness:.6,bumpMap:null});
 }
 
 // Referencia de jeringa Omnifix de tres cuerpos, sin aguja; no simula una técnica de irrigación.
-{const g=objeto('jeringa');g.position.set(.30,YS+.0125,.09);g.rotation.y=Math.PI/2;
+{const g=objeto('jeringa');g.position.set(.32,YS+.014,.09);g.rotation.y=Math.PI/2;
  const p=new THREE.Group();p.rotation.z=-Math.PI/2;g.add(p); // el eje y del torno pasa a ser el largo de la jeringa
  torno(p,'transparente',[[.002,-.071],[.0032,-.071],[.004,-.057],[.0105,-.051],[.0105,.040],[.0097,.040],[.0097,-.049],[.002,-.058],[.002,-.071]],[0,0,0]);
  caja(p,'transparente',[.033,.004,.013],[0,.040,0],[0,0,0],.0015);
@@ -427,16 +428,16 @@ dispensador(guantes,ENVASES.guantes);
  impresion.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(new THREE.Vector3(0,1,0),new THREE.Vector3(0,0,-1),new THREE.Vector3(-1,0,0)));
  impresion.castShadow=false;
  impresion.renderOrder=10;
- sobre(g,[.183,.033],[.009,-.0125,0],[0,0,0],{nombre:'sobre',centro:'transparente',relieve:.0006});
+ sobre(g,[.183,.033],[.009,-.014,0],[0,0,0],{nombre:'sobre',centro:'transparente',relieve:.0006});
 }
 
 // Regla de papel para medir (escena 8).
-{const g=objeto('regla');g.position.set(-.04,YS,.195);g.rotation.y=.03;
+{const g=objeto('regla');g.position.set(-.24,YS,.181);g.rotation.y=.03;
  caja(g,'papel',[.18,.002,.03],[0,.001,0],[0,0,0],.0008);
  for(let i=0;i<=18;i++)caja(g,'tinta',[.0009,.0005,i%2?.006:.011],[-.08+i*.0089,.0023,-.009],[0,0,0],.0002);}
 
 // Deltalab Amies 300287: tubo estrecho de fondo redondo, gel claro sin carbón y tapón azul estriado.
-{const g=objeto('torunda');g.position.set(.175,YS+.0105,.015);g.rotation.y=-.05;
+{const g=objeto('torunda');g.position.set(-.005,YS+.0105,.010);g.rotation.y=-.05;
  const p=new THREE.Group();p.rotation.z=-Math.PI/2;g.add(p);
  const fondo=[...Array(9)].map((_,i)=>{const a=i/8*Math.PI/2;return [Math.sin(a)*.0065,-.085+.0065*(1-Math.cos(a))];});
  torno(p,'transparente',[...fondo,[.0065,.062],[.0059,.062],[.0059,-.078],[0,-.084]],[0,0,0],undefined,64);
@@ -460,11 +461,11 @@ dispensador(guantes,ENVASES.guantes);
 
 // Bisturí desechable dentro de su funda, sin sacar (escena 17). Si está el modelo descargado, lo sustituye.
 const piezaBisturi=new THREE.Group();
-{const g=objeto('bisturi');g.position.set(.21,YS+.005,.058);g.rotation.y=.1;
+{const g=objeto('bisturi');g.position.set(.205,YS+.008,.020);g.rotation.y=.025;
  g.add(piezaBisturi);
  caja(piezaBisturi,'azulClaro',[.10,.008,.014],[-.02,0,0],[0,0,0],.0035);
  caja(piezaBisturi,'hoja',[.032,.0015,.009],[.048,0,0],[0,0,0],.0007);
- sobre(g,[.17,.035],[.002,-.0055,0],[0,0,0],{nombre:'transparente',centro:'transparente'});}
+ sobre(g,[.17,.035],[.002,-.008,0],[0,0,0],{nombre:'transparente',centro:'transparente',relieve:.001});}
 
 // ---- Bandeja inferior ----
 const YI=ALTO_INF+.004;
@@ -478,7 +479,7 @@ const rollosVenda=new THREE.Group();
   for(let j=1;j<4;j++)rollo(rollosVenda,i<2?'beige':'gasa',.012+j*.004,.013+j*.004,.0007,[x,h+.0002,0]);
  }
  rollo(g,'piel',.013,.034,.075,[-.285,0,.04]);
- caja(g,'piel',[.035,.0015,.055],[-.28,.0008,.09],[0,.15,0],.0007);
+ caja(g,'piel',[.035,.0015,.035],[-.28,.0008,.079],[0,.15,0],.0007);
 }
 
 // Cesta blanca de rejilla con apósitos variados en sus sobres (escena 6).
@@ -505,7 +506,7 @@ for(const [x,z,h,tex] of [[.075,.04,.12,ENVASES.gasas],[.215,.065,.095,ENVASES.s
 
 // ---- Modelos descargados de Sketchfab (CC-BY, créditos al pie) ----
 // Si están en carro/modelos/, sustituyen la pieza dibujada; si no, se queda la nuestra.
-// Conservan sus texturas: es el material real de la consulta, con sus etiquetas.
+// Son referencias docentes; no identifican el material suministrado a la consulta.
 // Caja de las piezas visibles (Box3.setFromObject cuenta también las ocultas).
 function cajaVisible(obj){obj.updateMatrixWorld(true);const b=new THREE.Box3();obj.traverse(o=>{if(o.isMesh&&o.visible)b.expandByObject(o);});return b;}
 function tumbar(obj){
@@ -581,6 +582,8 @@ if(piezaRevisada)for(const g of carro.children)g.visible=g===objetos[piezaRevisa
 // ---- Lo que pide la presentación ----
 // vista 'carro': el carro entero. ids: los objetos que trae la herida, elevados y con halo; el resto se retira.
 const VISTA_CARRO={pos:[1.85,1.60,2.65],mira:[.07,.52,0]};
+const VISTAS_REVISION={planta:{pos:[.04,3.3,.001],mira:[.04,.52,0]},
+ frontal:{pos:[0,1,3.5],mira:[0,.52,0]},lateral:{pos:[3.5,1,0],mira:[0,.52,0]}};
 const destino={pos:new THREE.Vector3(),mira:new THREE.Vector3()};
 let ids=[],enVuelo=0,activo=true,vistaGeneral=true;
 function mostrar({ids:nuevos=[],vista,producto}={}){
@@ -592,15 +595,18 @@ function mostrar({ids:nuevos=[],vista,producto}={}){
  ids=nuevos.filter(id=>objetos[id]);
  vistaGeneral=vista==='carro'||!ids.length;
  if(vistaGeneral){
-  destino.mira.set(...VISTA_CARRO.mira);
+  const encuadre=VISTAS_REVISION[REVISION]||VISTA_CARRO;
+  destino.mira.set(...encuadre.mira);
   // El soporte sobresale a la derecha: en un panel vertical hace falta más distancia.
-  destino.pos.set(...VISTA_CARRO.pos).sub(destino.mira).multiplyScalar(Math.max(1,1/camera.aspect)).add(destino.mira);
+  destino.pos.set(...encuadre.pos).sub(destino.mira).multiplyScalar(Math.max(1,1/camera.aspect)).add(destino.mira);
  }
  else{
   // Mirar al centro de lo que se trae, desde delante y algo por encima.
-  const caja3=new THREE.Box3();ids.forEach(id=>caja3.expandByObject(objetos[id]));
-  const c=caja3.getCenter(new THREE.Vector3()),t=caja3.getSize(new THREE.Vector3()).length();
-  if(piezaRevisada){
+  const caja3=new THREE.Box3();
+  if(piezaRevisada)ids.forEach(id=>caja3.expandByObject(objetos[id]));
+  else caja3.setFromObject(carro).expandByScalar(.025);
+  const c=caja3.getCenter(new THREE.Vector3());
+  {
    // Ajustar las ocho esquinas proyectadas, no solo la longitud: también caben frascos y grupos.
    const dir=new THREE.Vector3(.42,.62,.78).normalize();
    const derecha=new THREE.Vector3(0,1,0).cross(dir).normalize(),arriba=dir.clone().cross(derecha);
@@ -610,8 +616,6 @@ function mostrar({ids:nuevos=[],vista,producto}={}){
     d=Math.max(d,p.dot(dir)+1.18*Math.max(Math.abs(p.dot(derecha))/(tan*camera.aspect),Math.abs(p.dot(arriba))/tan));
    }
    destino.pos.copy(c).addScaledVector(dir,d);
-  }else{
-   const d=Math.max(1.3,t*3);destino.pos.set(c.x+d*.42,c.y+d*.62,c.z+d*.78);
   }
   destino.mira.copy(c);
  }
@@ -623,7 +627,7 @@ addEventListener('message',e=>{
  if(m.ids||m.vista||'producto' in m)mostrar(m);
 });
 
-function ajustar(){const w=innerWidth,h=innerHeight;renderer.setSize(w,h,false);composer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();if(vistaGeneral)mostrar({ids,vista:'carro'});else if(piezaRevisada)mostrar({ids});}
+function ajustar(){const w=innerWidth,h=innerHeight;renderer.setSize(w,h,false);composer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();mostrar(vistaGeneral?{ids,vista:'carro'}:{ids});}
 addEventListener('resize',ajustar);ajustar();
 camera.position.set(...VISTA_CARRO.pos).multiplyScalar(1.25);mira.set(...VISTA_CARRO.mira);camera.lookAt(mira);
 mostrar(piezaRevisada?{ids:[piezaRevisada]}:{vista:'carro'});

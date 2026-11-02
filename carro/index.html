@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Carro de curas</title>
+<title>Carro de curas de María del Mar</title>
 <style>
 /* --fondo es el papel tal como sale del render (con su tono), para que la página y el lienzo no se distingan. */
 :root{--fondo:#f6f0e8}
@@ -13,7 +13,7 @@ html.transparente,html.transparente body{background:transparent}
 </style>
 </head>
 <body>
-<canvas id="escena"></canvas>
+<canvas id="escena" role="img" aria-label="Carro de curas de María del Mar, recreación docente en tres dimensiones"></canvas>
 <script>
 // Sin WebGL no hay carro: se avisa a la presentación, que muestra su respaldo.
 if(!document.createElement('canvas').getContext('webgl2'))parent.postMessage({carroFallo:true},'*');

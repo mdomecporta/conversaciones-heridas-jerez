@@ -703,6 +703,8 @@ html[data-speaking="1"] #herida .orb-zone{animation-duration:9s}
 .pauta-producto .field{grid-template-columns:1fr;gap:1.5cqh}
 .pauta-producto .field-k{font-size:1.35cqw}
 .pauta-producto .field-v{min-height:1.6cqh}
+.pauta-producto .field.is-due .field-v{display:flex;flex-direction:column;gap:.8cqh}
+.pauta-producto .field.is-due .field-v::after{position:static;align-self:flex-end}
 .con-producto .split-side .field{grid-template-columns:1fr;gap:1.6cqh}
 #stage.sin-3d .producto-marca::after{content:attr(aria-label);font-size:1.4cqw;text-align:center}
 #stage.sin-3d .producto-marca:has(.producto-fallback)::after{display:none}

@@ -244,7 +244,7 @@ function build(slide){
   }
   case 'return':{
    const s1=G.scenes[0];
-   el.innerHTML=`${side(slide,`<div class="return-title"><span class="scene-n">Escena ${pad(slide.scene.n)}</span><h2 class="scene-title">${esc(slide.scene.title)}</h2></div>${threadHtml(s1,{label:'Volvemos a la escena 01'})}`)}<section class="space"><div class="res-wrap">${carroCard({label:'El carro de curas',title:'El carro sigue aquí',text:'El mismo material del principio. ¿Empezaríamos igual?'},slide.scene.n)}</div><div class="sala"><span class="sala-k">A la sala</span><p class="sala-q">${esc(slide.steps.find(x=>x.kind==='sala').sala)}</p><span class="sala-after">${esc(slide.steps.find(x=>x.kind==='sala').notes?.[0]||'')}</span></div><div class="gather"><span class="gather-k">Lo que recogemos</span><ol>${ESCENA_REGRESO.map((c,i)=>`<li data-part="${i+1}"><i></i>${esc(c)}</li>`).join('')}</ol></div></section><div class="speech">${says}</div>${anchors(['talk','dock','close'])}`;
+   el.innerHTML=`${side(slide,`<div class="return-title"><span class="scene-n">Escena ${pad(slide.scene.n)}</span><h2 class="scene-title">${esc(slide.scene.title)}</h2></div>${threadHtml(s1,{label:'Volvemos a la escena 01'})}`)}<section class="space"><div class="res-wrap">${carroCard({label:'El carro de María del Mar',title:'El carro sigue aquí',text:'El mismo material del principio. ¿Empezaríamos igual?'},slide.scene.n)}</div><div class="sala"><span class="sala-k">A la sala</span><p class="sala-q">${esc(slide.steps.find(x=>x.kind==='sala').sala)}</p><span class="sala-after">${esc(slide.steps.find(x=>x.kind==='sala').notes?.[0]||'')}</span></div><div class="gather"><span class="gather-k">Lo que recogemos</span><ol>${ESCENA_REGRESO.map((c,i)=>`<li data-part="${i+1}"><i></i>${esc(c)}</li>`).join('')}</ol></div></section><div class="speech">${says}</div>${anchors(['talk','dock','close'])}`;
    break;
   }
   case 'farewell':{
@@ -328,7 +328,7 @@ const Carro={
  send(m){if(this.cargado)this.frame.contentWindow.postMessage({carro:m},'*');},
  crear(){
   this.el=document.createElement('div');this.el.id='carro';this.el.setAttribute('aria-hidden','true');
-  this.frame=document.createElement('iframe');this.frame.title='Carro de curas';this.frame.src=(PUBLICO?'../carro/':'carro/')+'?transparente';
+  this.frame=document.createElement('iframe');this.frame.title='Carro de curas de María del Mar';this.frame.src=(PUBLICO?'../carro/':'carro/')+'?transparente';
   this.frame.addEventListener('load',()=>{this.cargado=true;this.ultimo='';this.colocar();});
   addEventListener('message',e=>{if(e.source===this.frame.contentWindow&&e.data?.carroFallo)stage.classList.add('sin-3d');});
   this.el.append(this.frame);stage.append(this.el);

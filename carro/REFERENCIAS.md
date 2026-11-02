@@ -1,5 +1,12 @@
 # Referencias del carro 3D
 
+El modelo representa el **carro de curas de María del Mar**, una selección docente libre.
+Las fotografías orientan su construcción y ambiente; el inventario puede ampliarse para
+servir a la charla, sin atribuir los productos al centro de La Línea.
+
+Para revisar apoyos y superposiciones: `/carro/?vista=planta`, `?vista=frontal`
+y `?vista=lateral`. Son encuadres de revisión del mismo modelo.
+
 ## Referencia principal
 
 Fotografía aportada por la usuaria: `WhatsApp Image 2026-10-31 at 19.54.37.jpeg`.
