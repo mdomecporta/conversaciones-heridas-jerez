@@ -15,12 +15,23 @@ En cada paso hay un solo foco. Hay tres mundos y cada uno tiene su propia superf
   - **Nos llevamos** entra directamente en el hilo como una ficha de la hoja científica (papel, filo oliva, nudo ocre): lo que nos llevamos se apoya en la evidencia. Es lo más claro del panel y cierra la escena. No se repite en el espacio de la derecha.
 - Cada momento tiene su pigmento sobre la noche: coral (I), ámbar (II), malva (III) y salvia (IV). Las escenas terminadas son puntadas; la actual, un anillo que respira. Al volver a una escena anterior (escena 12), su hilo conserva el pigmento de su momento.
 - Las entradas de bloque y la recopilación ocupan toda la pantalla en la misma noche: son la estructura de la charla.
+- **El carro 3D** (`carro/`) es el punto de partida: cierra la apertura entero, vuelve en la escena 1 con el apósito ya elegido elevado y resaltado, y entero en el regreso (escena 12). Es un solo visor que se coloca sobre la marca de cada diapositiva y deja de dibujar cuando no se ve.
 - **La guía de partida (apertura).** Cuando la herida trae el carro, aparece *Qué no hacer en heridas crónicas* con una marca por cada una de sus 47 recomendaciones, agrupadas en sus seis apartados. Después se iluminan en carmín las que salen en la charla, entran los cuatro momentos con su pigmento y el resto queda como «Guardadas, por si preguntáis».
-- **El cierre (escena 13)** empieza en la noche: «Lo que nos llevamos», tres páginas de recopilación y «Para seguir profundizando» (los apartados de la guía con lo que queda en la reserva y una línea por guía de la bibliografía). Después vuelve al marfil para la pregunta de la mesa, la pregunta final y el agradecimiento.
+- **El regreso al carro (escena 12)** tiene tres pasos: el carro entero con el hilo de la escena 1, la pregunta a la sala y los cuatro asuntos que se recogen, que entran a la vez.
+- **El cierre (escena 13)** tiene siete pasos. Empieza en la noche con las tres páginas de recopilación y «Para seguir profundizando» (los apartados de la guía con lo que queda en la reserva y una línea por guía de la bibliografía). Después vuelve al marfil para la pregunta de la mesa (con la conversación en columna a su derecha), la pregunta final y el agradecimiento, que lleva el crédito de los modelos 3D.
+- Si el ordenador no puede dibujar 3D, el carro se sustituye por un recuadro con «El carro de curas, preparado». El carro se carga en pausa desde la portada.
+
+## Actuación en tres pasos
+
+- Cada escena son tres pasos: **A revisar** (el recurso que trae la herida, completo; las imágenes con zonas se recorren solas), **Nos preguntamos** (la hoja de evidencia) y **Nos llevamos** (el aprendizaje entra en el hilo y la evidencia se queda detrás, atenuada).
+- Composición a 16:9: hilo de 0 a 30 cqw, lo que acompaña al paso de 32,5 a 72,5 y la conversación de 74,5 a 97,5, con la herida arriba.
+- La conversación de la escena se escribe al ritmo de la herida (piensa con tres puntos y su frase entra palabra a palabra); las frases de los pasos anteriores quedan encima, atenuadas.
+- Antes de cada actuación (también después de la entrada de bloque), una **transición** con la herida en grande, el título de la escena y su primera frase.
+- La conversación de cada paso habla de lo que se ve en él: en «A revisar», lo que trae la herida y su reacción; en «Nos preguntamos», lo que pregunta sobre la evidencia; en «Nos llevamos», el cierre.
 
 ## Conversación: la herida
 
-- Burbujas de mensajería en Figtree. La herida, a la izquierda, en un degradado de piel a coral con su nombre en carmín; antes de hablar aparecen tres puntos y después su frase palabra a palabra. María del Mar, en blanco, alineada a la derecha y con sus iniciales.
+- Burbujas de mensajería en Figtree. La herida, a la izquierda, en un degradado de piel a coral con su nombre en carmín. María del Mar, discreta: su frase va en cursiva dentro de un bocadillo solo delineado, alineado a la derecha, para que reaccione de viva voz a lo que dice la herida. Los tamaños son contenidos para que la conversación acompañe sin dominar.
 - Se proyectan las frases cortas de María del Mar como disparador. Las de más de 32 palabras y la explicación que acompaña a la evidencia solo aparecen en la ventana de ponente.
 - «Para seguir» es la misma burbuja de María del Mar con la etiqueta «→ para seguir».
 - **La sala** tiene su color, azul pizarra (`--room`): la pregunta a la sala es una burbuja azul y lo que se recoge de la sala (escena 12) lleva sus puntos azules.
@@ -71,4 +82,4 @@ Entidad líquida con la tinta Sangre y piel (`entity-liquid.js`, variante 3, tin
 
 ## Comprobación
 
-Se recorren los 131 estados a 1280 × 720 sin errores ni burbujas fuera de la pantalla, y los seis apartados de la reserva caben sin desbordar. `npm test` comprueba que el guion encaja (11 actuaciones con hilo, evidencia y orden; la reserva con sus 47 recomendaciones, citadas en el respaldo de su escena cuando salen en la charla), que no se proyectan explicaciones largas, que cada recurso existe en el catálogo y el comportamiento de la entidad líquida.
+Se recorren los 69 estados a 1280 × 720 sin errores ni burbujas fuera de la pantalla, y los seis apartados de la reserva caben sin desbordar. `npm test` comprueba que el guion encaja (11 actuaciones con hilo, evidencia y orden; la reserva con sus 47 recomendaciones, citadas en el respaldo de su escena cuando salen en la charla), que no se proyectan explicaciones largas, que cada recurso existe en el catálogo y el comportamiento de la entidad líquida.

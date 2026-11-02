@@ -10,6 +10,7 @@
  },
  "description": "Presentación proyectada generada desde el guion para María del Mar",
  "dependencies": {
-  "@netlify/blobs": "^11.1.7"
+  "@netlify/blobs": "^11.1.7",
+  "three": "^0.169.0"
  }
 }

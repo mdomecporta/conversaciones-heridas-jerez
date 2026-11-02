@@ -34,6 +34,13 @@ test('cada actuación tiene recurso y sus imágenes están en el catálogo',()=>
   for(const id of [r.asset,r.side?.asset,...(r.items||[]).map(i=>i.asset)].filter(Boolean))assert.ok(manifest.assets[id],`${n}: ${id}`);
  }
 });
+test('los objetos que la herida trae del carro existen en el modelo 3D',async()=>{
+ const carro=await readFile(new URL('carro/carro.js',root),'utf8');
+ const objetos=new Set([...carro.matchAll(/objeto\('([\w-]+)'\)/g)].map(m=>m[1]));
+ const pedidos=Object.values(ctx.R).filter(r=>r.type==='carro').flatMap(r=>r.ids);
+ assert.ok(pedidos.length,'Alguna escena usa el carro');
+ for(const id of pedidos)assert.ok(objetos.has(id),`El carro no tiene «${id}»`);
+});
 test('la recopilación recorre las 11 actuaciones una sola vez',()=>{
  const seen=[...ctx.REC].flatMap(([a,z])=>Array.from({length:z-a+1},(_,i)=>a+i));
  assert.deepEqual([...seen],Array.from({length:11},(_,i)=>i+1));
