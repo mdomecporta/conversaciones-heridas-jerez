@@ -2,6 +2,19 @@
 
 Selección visual para recreación 3D, 2 de noviembre de 2026. No modifica el guion ni constituye una selección terapéutica.
 
+## Criterio vigente: el carro de María del Mar
+
+Por decisión de la usuaria, es el **carro de curas de María del Mar**: una selección docente
+de objetos útiles para la charla, con libertad para incorporar referencias ajenas a la consulta
+fotografiada. La imagen de La Línea orienta el ambiente y la estructura, no limita el inventario.
+La presencia de una casa comercial en el programa tampoco acredita su suministro al centro.
+
+La revisión de colocación separa el almacenaje posterior (contenedor, compresas y frascos),
+la franja central (torunda y bisturí) y las muestras delanteras (registro y apósitos).
+Una sola caja de guantes libera la superficie; la regla queda delante de ella y la jeringa
+ocupa el lateral derecho, con sus envoltorios apoyados y sin atravesar los apósitos.
+Las cestas y las reservas permanecen en la bandeja inferior.
+
 ## Qué sabemos
 
 - La usuaria sitúa la consulta en La Línea, Andalucía.

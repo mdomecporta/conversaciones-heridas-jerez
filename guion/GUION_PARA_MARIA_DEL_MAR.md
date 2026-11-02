@@ -90,7 +90,7 @@ Estas son indicaciones del montaje previsto; actualizar el guion no aplica por s
 
 **María del Mar, con sus palabras:** de esas recomendaciones hemos elegido las rutinas que pueden aparecer en cualquier visita y las hemos ordenado en los cuatro momentos de la cura. Algunos ejemplos, como el talón o la úlcera arterial, sirven para plantear una pregunta que vale para cualquier herida. Lo completamos con otras cinco guías, que veréis citadas en cada escena. Lo propio de cada tipo de lesión queda preparado para el final o para vuestras preguntas.
 
-**En pantalla · el carro:** la guía se recoge y aparece el carro de curas en 3D, entero y preparado, como punto de partida de la visita. La herida lo mira desde un lado.
+**En pantalla · el carro:** la guía se recoge y aparece el carro de curas de María del Mar en 3D, entero y preparado, como punto de partida de la visita. Es una selección docente de material para la charla. La herida lo mira desde un lado.
 
 **La herida:** «Pues empecemos por el principio. El carro ya está preparado».
 

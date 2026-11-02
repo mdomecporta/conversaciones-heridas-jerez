@@ -5,7 +5,7 @@
 // historia: lo que se ve en «Nos preguntamos», la historia, anécdota o curiosidad que hace necesaria la pregunta.
 const ESCENA_RECURSOS={
  // El carro 3D (carro/): ids son los objetos que la herida trae del carro. La escena 12 vuelve a él entero.
- 1:{type:'carro',ids:['aposito-elegido'],parts:1,label:'El carro de curas',title:'El apósito ya está elegido',text:'Material preparado. La historia, todavía por conocer.',
+ 1:{type:'carro',ids:['aposito-elegido'],parts:1,label:'El carro de María del Mar',title:'El apósito ya está elegido',text:'Material preparado. La historia, todavía por conocer.',
   historia:{type:'huecos',label:'Ficha docente',title:'La historia y sus huecos',known:{head:'Lo que sabemos',items:['Lleva tiempo abierta','Se han hecho curas','El apósito ya está elegido']},missing:{head:'Lo que falta',items:['Causa','Antecedentes relevantes','Factores que la mantienen','Cómo vive la persona con ella']}}},
  2:{type:'comparar',parts:2,thumb:true,label:'Dos ejemplos publicados · la etiología viene con la historia',
   items:[{asset:'venous',tag:'Causa venosa conocida'},{asset:'arterial',tag:'Compromiso arterial conocido'}],
