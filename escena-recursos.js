@@ -6,12 +6,13 @@
 const ESCENA_RECURSOS={
  // El carro 3D (carro/): ids son los objetos que la herida trae del carro. La escena 11 vuelve a él entero.
  1:{type:'carro',ids:['aposito-elegido'],parts:1,label:'El carro de María del Mar',title:'El apósito ya está elegido',text:'Material preparado. La historia, todavía por conocer.',
-  historia:{type:'huecos',label:'Ficha docente',title:'La historia y sus huecos',known:{head:'Lo que sabemos',items:['Lleva tiempo abierta','Se han hecho curas','El apósito ya está elegido']},missing:{head:'Lo que falta',items:['Causa','Antecedentes relevantes','Factores que la mantienen','Cómo vive la persona con ella']}}},
- 2:{type:'comparar',parts:2,thumb:true,label:'Dos ejemplos publicados · la etiología viene con la historia',
-  items:[{asset:'venous',tag:'Causa venosa conocida'},{asset:'arterial',tag:'Compromiso arterial conocido'}],
-  historia:{type:'esquema',label:'Esquema docente · ejemplos delimitados',title:'Misma pauta, dos historias',cols:[{head:'Úlcera venosa',items:['Cura húmeda','Junto a la compresión indicada']},{head:'Isquemia sin revascularizar',items:['Escara seca o gangrena','La cura húmeda no está indicada','Antes, valoración vascular']}],link:'¿La misma pauta?'}},
- 3:{type:'imagen',asset:'shared-care',parts:2,ask:'¿Cómo se organiza el cuidado fuera de la consulta?',
+  historia:{type:'comparar',parts:2,label:'Dos ejemplos publicados · la etiología viene con la historia',
+   items:[{asset:'venous',tag:'Venosa: cura húmeda, junto a la compresión indicada'},{asset:'arterial',tag:'Isquemia sin revascularizar: la cura húmeda no está indicada'}]}},
+ 2:{type:'imagen',asset:'shared-care',parts:2,ask:'¿Cómo se organiza el cuidado fuera de la consulta?',
   historia:{type:'momentos',label:'Ficha docente · supuesto',title:'Un día entre cura y cura',items:[['Por la mañana','El apósito y la ducha'],['Durante el día','Quién ayuda y cómo se mueve'],['Por la noche','El dolor y el descanso']]}},
+ 3:{type:'registro',label:'Pauta ficticia · supuesto',title:'Pauta de cura',parts:2,
+  rows:[['Limpieza','Como siempre'],['Retirar tejido','Si hace falta'],['Analgesia','No consta']],absence:['Dolor en la última cura','No consta'],
+  historia:{type:'momentos',label:'Ficha docente',title:'El pacto de la cura',calm:true,items:[['Antes','Cómo fue la anterior, qué dolor hay hoy y qué preparamos'],['Durante','Una señal acordada para parar'],['Después','Qué ajustamos para la próxima']]}},
  4:{type:'registro',label:'Seguimiento · datos ficticios',title:'Cuatro semanas igual',parts:2,
   rows:[['Inicio','5 × 4 cm'],['Semana 2','5 × 4 cm'],['Semana 4','5 × 4 cm']],absence:['Propuesta para la próxima cura','Añadir pomada con antibiótico'],
   historia:{type:'imagen',asset:'biofilm',walk:true,auto:true,tag:'«Será biofilm» · modelo conceptual, no hallazgo de esta herida',open:{head:'Sin comprobar todavía',items:['Causa y diagnóstico','Perfusión','Signos de infección','Si el plan se ha podido seguir']}}},

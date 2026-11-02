@@ -1,6 +1,6 @@
 # Revisión de las escenas: una idea, una fuente clara, una pantalla
 
-> **Después de esta revisión, la escena 4 se fusionó en la 11** y la charla quedó en 12 escenas. Aquí se conserva la numeración anterior: la 5 es ahora la 4, la 6 la 5, y así hasta la 11, que es la 10.
+> **Después de esta revisión hubo dos cambios de estructura:** la escena 4 se fusionó en la 11, y más tarde las escenas 1 y 2 se fusionaron y el dolor pasó a tener escena propia (la 3). La lista vigente de las diez está en `docs/resumen-maria-del-mar.html`. Antes del primer cambio, **la escena 4 se fusionó en la 11** y la charla quedó en 12 escenas. Aquí se conserva la numeración anterior: la 5 es ahora la 4, la 6 la 5, y así hasta la 11, que es la 10.
 
 2 de noviembre, para revisar con María del Mar. Aplicado el mismo día: escenas 5, 6, 7 y 8 rehechas y la fuente de la 10 corregida (PR #10). Quedan pendientes las confirmaciones de María del Mar.
 
