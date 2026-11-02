@@ -100,7 +100,7 @@ const ENVASES={guantes:etiquetaProducto('GUANTES','EXAMEN · 100 uds'),
  guantesVerdes:etiquetaProducto('GUANTES','EXAMEN · 100 uds','#7fae9e'),
  gasas:etiquetaProducto('COMPRESAS','10 × 10 cm · ESTÉRIL','#7fae9e'),
  sobres:etiquetaProducto('APÓSITOS','MATERIAL DE CURA','#7fae9e'),
- suero:etiquetaProducto('SUERO','FISIOLÓGICO'),solucion:etiquetaProducto('SOLUCIÓN','USO EXTERNO','#7fae9e')};
+ suero:etiquetaProducto('SUERO','FISIOLÓGICO'),pomada:etiquetaProducto('POMADA','ANTIBIÓTICO · USO TÓPICO','#e46a5a'),solucion:etiquetaProducto('SOLUCIÓN','USO EXTERNO','#7fae9e')};
 const REFERENCIAS={flex:etiquetaProducto('Mepilex Border Flex','10 × 10 cm · REFERENCIA VISUAL','#7fae9e'),
  ag:etiquetaProducto('Mepilex Ag','10 × 10 cm · ESPUMA CON PLATA','#7fae9e'),
  amies:etiquetaProducto('deltalab · AMIES','300287 · SIN CARBÓN'),
@@ -143,6 +143,7 @@ const PAL={
  goma:{color:0x5d5a57,roughness:.6},
  hoja:{color:0xd8d2c8,metalness:.95,roughness:.2},
  etiqueta:{color:0xffffff,roughness:.7},
+ coral:{color:0xe46a5a,roughness:.45},
 };
 function mat(nombre,extra){const m=new THREE.MeshStandardMaterial({...PAL[nombre],...extra});m.userData.base=m.color.clone();return m;}
 
@@ -371,6 +372,19 @@ const piezaAntiseptico=new THREE.Group();
  }
 }
 
+// Tubo de pomada con antibiótico, genérico y sin marca (escena 5): la respuesta habitual cuando no avanza.
+{const g=objeto('pomada');g.position.set(-.235,YS+.0125,.038);g.rotation.y=.04;
+ const p=new THREE.Group();p.rotation.z=-Math.PI/2;g.add(p); // el eje y del torno pasa a ser el largo del tubo
+ torno(p,'blanco',[[0,-.062],[.0105,-.058],[.0125,-.045],[.0125,.035],[.010,.044],[.0055,.048],[.0055,.052],[0,.052]],[0,0,0]);
+ caja(p,'blanco',[.027,.009,.0025],[0,-.064,0],[0,0,0],.0008); // pliegue del final
+ for(let i=0;i<5;i++)caja(p,'tinta',[.026,.0006,.0028],[0,-.0675+i*.0016,0],[0,0,0],.0002);
+ torno(p,'coral',[[0,0],[.0072,0],[.0076,.002],[.0076,.017],[.006,.019],[0,.019]],[0,.050,0]);
+ for(let i=0;i<20;i++){const a=i/20*Math.PI*2;cilindro(p,'coral',.0004,.014,[Math.cos(a)*.0076,.0595,Math.sin(a)*.0076],undefined,6);}
+ const banda=new THREE.CylinderGeometry(.01265,.01265,.05,48,1,true,-Math.PI*.7,Math.PI*1.4);
+ const tex=ENVASES.pomada.clone();tex.center.set(.5,.5);tex.rotation=Math.PI/2;tex.needsUpdate=true;
+ malla(banda,'etiqueta',p,[0,-.008,0],[0,0,0],{map:tex,side:THREE.DoubleSide});
+}
+
 // Dos dispensadores bajos, blancos, como los de la fotografía; no la caja de guantes azules del GLTF.
 const guantes=new THREE.Group();carro.add(guantes);guantes.position.set(-.24,YS,.110);guantes.rotation.y=.025;
 function dispensador(g,tex,w=.21){
@@ -582,10 +596,15 @@ if(piezaRevisada)for(const g of carro.children)g.visible=g===objetos[piezaRevisa
 // ---- Lo que pide la presentación ----
 // vista 'carro': el carro entero. ids: los objetos que trae la herida, elevados y con halo; el resto se retira.
 const VISTA_CARRO={pos:[1.85,1.60,2.65],mira:[.07,.52,0]};
+const VISTA_PERSONAJE={pos:[1.52,1.42,2.2],mira:[.06,.5,0]};
 const VISTAS_REVISION={planta:{pos:[.04,3.3,.001],mira:[.04,.52,0]},
  frontal:{pos:[0,1,3.5],mira:[0,.52,0]},lateral:{pos:[3.5,1,0],mira:[0,.52,0]}};
 const destino={pos:new THREE.Vector3(),mira:new THREE.Vector3()};
 let ids=[],enVuelo=0,activo=true,vistaGeneral=true;
+// Personaje: el carro entero, quieto, que propone un objeto de la rutina, espera, insiste o lo retira.
+// La cámara no se acerca; el objeto sube, crece un poco y se ilumina. estado: propone, insiste, espera, retira o reposo.
+let personaje=false,estado='reposo';
+const GESTO={propone:{alto:.16,escala:2.1,fondo:.55},insiste:{alto:.21,escala:2.5,fondo:.62},espera:{alto:.13,escala:1.7,fondo:.3},retira:{alto:0,escala:1,fondo:0},reposo:{alto:0,escala:1,fondo:0}};
 function mostrar({ids:nuevos=[],vista,producto}={}){
  if(producto!==undefined){
   piezaRevisada=objetos[producto]?producto:null;
@@ -593,9 +612,10 @@ function mostrar({ids:nuevos=[],vista,producto}={}){
  }
  canvas.dataset.producto=piezaRevisada||'';
  ids=nuevos.filter(id=>objetos[id]);
- vistaGeneral=vista==='carro'||!ids.length;
+ vistaGeneral=vista==='carro'||!ids.length||personaje;
  if(vistaGeneral){
-  const encuadre=VISTAS_REVISION[REVISION]||VISTA_CARRO;
+  // Como personaje, más cerca y mirando a la bandeja superior, donde están los objetos que propone.
+  const encuadre=VISTAS_REVISION[REVISION]||(personaje?VISTA_PERSONAJE:VISTA_CARRO);
   destino.mira.set(...encuadre.mira);
   // El soporte sobresale a la derecha: en un panel vertical hace falta más distancia.
   destino.pos.set(...encuadre.pos).sub(destino.mira).multiplyScalar(Math.max(1,1/camera.aspect)).add(destino.mira);
@@ -624,13 +644,16 @@ function mostrar({ids:nuevos=[],vista,producto}={}){
 addEventListener('message',e=>{
  const m=e.data?.carro;if(!m)return;
  if('activo' in m){activo=m.activo;renderer.setAnimationLoop(activo?bucle:null);}
- if(m.ids||m.vista||'producto' in m)mostrar(m);
+ if('personaje' in m){personaje=!!m.personaje;estado=GESTO[m.estado]?m.estado:'reposo';}
+ if(m.ids||m.vista||'producto' in m||'personaje' in m)mostrar(m);
 });
 
 function ajustar(){const w=innerWidth,h=innerHeight;renderer.setSize(w,h,false);composer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();mostrar(vistaGeneral?{ids,vista:'carro'}:{ids});}
 addEventListener('resize',ajustar);ajustar();
 camera.position.set(...VISTA_CARRO.pos).multiplyScalar(1.25);mira.set(...VISTA_CARRO.mira);camera.lookAt(mira);
-mostrar(piezaRevisada?{ids:[piezaRevisada]}:{vista:'carro'});
+// ?personaje&ids=a,b&estado=propone: el mismo estado que pide la presentación, para revisarlo o fotografiarlo.
+if(parametros.has('personaje')){personaje=true;estado=GESTO[parametros.get('estado')]?parametros.get('estado'):'reposo';}
+mostrar(piezaRevisada?{ids:[piezaRevisada]}:personaje?{ids:(parametros.get('ids')||'').split(',').filter(Boolean)}:{vista:'carro'});
 if(piezaRevisada){camera.position.copy(destino.pos);mira.copy(destino.mira);}
 
 // El papel sale del render con su tono: se lee una vez y la página toma ese mismo color.
@@ -649,22 +672,34 @@ function cuadro(dt){
  if(enVuelo){camera.position.lerp(destino.pos,k);mira.lerp(destino.mira,k);if(camera.position.distanceTo(destino.pos)<.002)enVuelo=0;}
  camera.lookAt(mira);
  // Lo que se trae se eleva un poco y respira; lo demás se retira hacia el papel.
+ const gesto=GESTO[estado];
  for(const [id,g] of Object.entries(objetos)){
   const on=ids.includes(id);
-  g.userData.y??=g.position.y;
-  const meta=g.userData.y+(on&&!piezaRevisada?.05+Math.sin(t*1.6)*.005:0);
+  g.userData.y??=g.position.y;g.userData.rz??=g.rotation.z;g.userData.x??=g.position.x;g.userData.z??=g.position.z;
+  let meta=g.userData.y+(on&&!piezaRevisada?.05+Math.sin(t*1.6)*.005:0),escala=1,giro=g.userData.rz,adelante=0;
+  if(personaje){
+   // Insistir: más alto, más grande y con un pequeño empujón cada poco.
+   const empujon=estado==='insiste'?Math.max(0,Math.sin(t*3.2))**8*.035:0;
+   meta=g.userData.y+(on?gesto.alto+Math.sin(t*1.6)*.006+empujon:0);
+   escala=on?gesto.escala:1;giro=g.userData.rz+(on&&estado==='insiste'?Math.sin(t*3.2)*.08:0);
+   adelante=on?gesto.alto/.16:0; // además de subir, se adelanta hacia quien mira, como si lo ofreciera
+  }
+  g.position.x+=(g.userData.x+adelante*.07-g.position.x)*k;
+  g.position.z+=(g.userData.z+adelante*.16-g.position.z)*k;
   g.position.y+=(meta-g.position.y)*k;
-  const h=g.userData.halo.material;h.opacity+=((on&&!piezaRevisada?.9:0)-h.opacity)*k;
+  g.scale.setScalar(g.scale.x+(escala-g.scale.x)*k);
+  g.rotation.z+=(giro-g.rotation.z)*k;
+  const h=g.userData.halo.material;h.opacity+=((on&&!piezaRevisada&&(!personaje||gesto.alto)?.9:0)-h.opacity)*k;
  }
  carro.traverse(o=>{
   if(!o.isMesh)return;const m=o.material,on=!ids.length||ids.includes(o.userData.grupo);
   if(!m.userData.base)m.userData.base=m.color.clone();
-  const fondo=on?0:.72,f=m.userData.f=(m.userData.f??0)+(fondo-(m.userData.f??0))*k;
+  const fondo=on?0:personaje?gesto.fondo:.72,f=m.userData.f=(m.userData.f??0)+(fondo-(m.userData.f??0))*k;
   // Con textura, teñir el color no basta (multiplica): se oscurece y se le suma papel como luz propia.
   if(m.map)m.color.copy(m.userData.base).multiplyScalar(1-f);else m.color.copy(m.userData.base).lerp(PAPEL,f);
   m.envMapIntensity=(m.metalness>.7?1.35:1)*(1-f*.7);
   // Lo que se trae se tiñe levemente de coral, para que lo blanco no se pierda sobre el carro.
-  const brillo=ids.length&&on&&!piezaRevisada?.2+Math.sin(t*1.6)*.05:0;
+  const brillo=ids.length&&on&&!piezaRevisada&&(!personaje||gesto.alto)?.2+Math.sin(t*1.6)*.05:0;
   m.userData.e=(m.userData.e??0)+(brillo-(m.userData.e??0))*k;
   m.emissive.copy(CORAL).multiplyScalar(m.userData.e);
   if(m.map)m.emissive.add(luzPapel.copy(PAPEL).multiplyScalar(f*.8));
@@ -675,5 +710,5 @@ function cuadro(dt){
 const bucle=()=>cuadro(Math.min(reloj.getDelta(),.05));
 renderer.setAnimationLoop(bucle);
 // Para comprobar sin pantalla visible: avanza n cuadros de golpe.
-window.avanzar=(n=120)=>{for(let i=0;i<n;i++)cuadro(1/60);};
+window.avanzar=(n=120,dt=1/60)=>{for(let i=0;i<n;i++)cuadro(dt);};
 window.carro={mostrar,objetos,estado:()=>({ids,activo,enVuelo})};

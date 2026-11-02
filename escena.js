@@ -130,7 +130,7 @@ function resource(n,r=R[n],from=r===R[n]?(r.from||'La herida trae'):'La historia
  switch(r.type){
   case 'carro':
    // El carro 3D se coloca encima de la marca (ver Carro); la tarjeta dice qué trae la herida.
-   return carroCard(r,n);
+   return carroCard(r,n,{marca:false});
   case 'esquema':
    body=`<div class="scheme">${r.cols.map((c,i)=>`<div class="scheme-col ${c.empty?'is-empty':''}" data-part="${i+1}"><h4>${esc(c.head)}</h4><ul>${c.items?c.items.map(x=>`<li>${esc(x)}</li>`).join(''):Array.from({length:c.empty},()=>'<li class="blank-row"><i class="blank"></i></li>').join('')}</ul></div>${i<r.cols.length-1?`<div class="scheme-link" data-part="2"><span>${esc(r.link||'')}</span></div>`:''}`).join('')}</div>${r.side?`<div class="res-side" data-part="2">${figure(r.side.asset,{cls:'fig-mini'})}</div>`:''}`;
    break;
@@ -180,8 +180,8 @@ function resource(n,r=R[n],from=r===R[n]?(r.from||'La herida trae'):'La historia
  }
  return `<div class="res res-card ${r.calm?'is-calm':''}" data-type="${r.type}" data-n="${n}">${head(r.label,r.title)}${body}</div>`;
 }
-function carroCard(r,n){
- return `<div class="res res-carro" data-type="carro" data-n="${n}"><div class="carro-marca" data-carro></div><div class="res-carro-card"><header class="res-head"><span class="res-from"><i class="spark"></i>${r.from||'La herida trae'}</span><span class="res-label">${esc(r.label)}</span><h3 class="res-title">${esc(r.title)}</h3></header>${r.text?`<p class="res-carro-text">${esc(r.text)}</p>`:''}</div></div>`;
+function carroCard(r,n,{marca=true}={}){
+ return `<div class="res res-carro ${marca?'':'sin-marca'}" data-type="carro" data-n="${n}">${marca?'<div class="carro-marca" data-carro></div>':''}<div class="res-carro-card"><header class="res-head"><span class="res-from"><i class="spark"></i>${r.from||'La herida trae'}</span><span class="res-label">${esc(r.label)}</span><h3 class="res-title">${esc(r.title)}</h3></header>${r.text?`<p class="res-carro-text">${esc(r.text)}</p>`:''}</div></div>`;
 }
 // Lo que queda del recurso mientras habla la evidencia.
 function residue(n){
@@ -234,7 +234,11 @@ function build(slide){
    // Tres pasos: el recurso (A revisar), la historia (Nos preguntamos) y la evidencia con el aprendizaje en el hilo (Nos llevamos).
    // A la derecha, la herida y la conversación de la escena, ya escrita, que crece paso a paso.
    const s=slide.scene,ev=slide.steps.find(x=>x.evidence)?.evidence||{};
-   el.innerHTML=`${side(slide,threadHtml(s))}<section class="space"><div class="res-wrap">${resource(s.n)}</div><div class="story-wrap">${resource(s.n,R[s.n]?.historia)}</div><div class="evidence"><header class="ev-head"><span class="ev-eyebrow"><i class="ev-icon"></i>Evidencia científica</span><span class="ev-source">${esc(ev.source)}</span></header><h3 class="ev-title">${esc(ev.title)}</h3><p class="ev-idea">${esc(end(ev.idea||''))}</p>${ev.condition?`<div class="ev-cond"><span>Condición</span><p>${esc(end(ev.condition))}</p></div>`:''}<footer class="ev-foot">Síntesis del documento citado · no es cita literal</footer></div></section>${chat(slide)}${anchors(['talk'])}`;
+   const rc=R[s.n]||{},quieto=!rc.carro?.length;
+   // Si el ordenador no puede con el 3D, el carro sigue en su sitio como imagen fija: en reposo o con su gesto.
+   const fija=(PUBLICO?'../carro/':'carro/')+'respaldo/';
+   const respaldo=`<img class="carro-respaldo en-reposo" src="${fija}reposo.png" alt="" loading="lazy">${quieto?'':`<img class="carro-respaldo en-gesto" src="${fija}escena-${s.n}.png" alt="" loading="lazy">`}`;
+   el.innerHTML=`${side(slide,threadHtml(s))}<div class="carro-sitio ${quieto?'is-quieto':''} ${rc.insiste?'insiste':''}" data-carro>${respaldo}<span class="carro-rotulo" aria-hidden="true"></span></div><section class="space"><div class="res-wrap">${resource(s.n)}</div><div class="story-wrap">${resource(s.n,R[s.n]?.historia)}</div><div class="evidence"><header class="ev-head"><span class="ev-eyebrow"><i class="ev-icon"></i>Evidencia científica</span><span class="ev-source">${esc(ev.source)}</span></header><h3 class="ev-title">${esc(ev.title)}</h3><p class="ev-idea">${esc(end(ev.idea||''))}</p>${ev.condition?`<div class="ev-cond"><span>Condición</span><p>${esc(end(ev.condition))}</p></div>`:''}<footer class="ev-foot">Síntesis del documento citado · no es cita literal</footer></div></section>${chat(slide)}${anchors(['talk'])}`;
    break;
   }
   case 'transition':{
@@ -319,11 +323,16 @@ const channel='BroadcastChannel' in window?new BroadcastChannel('herida-escena')
 const Carro={
  el:null,frame:null,cargado:false,ultimo:'',
  want(slide,v){
-  if(slide.type==='intro'&&v.plane==='carro')return {vista:'carro',producto:null};
-  if(slide.type==='return'&&['resource','sala'].includes(v.plane))return {vista:'carro',producto:null};
+  if(slide.type==='intro'&&v.plane==='carro')return {personaje:false,vista:'carro',producto:null};
+  if(slide.type==='return'&&['resource','sala'].includes(v.plane))return {personaje:false,vista:'carro',producto:null};
   const r=slide.scene&&R[slide.scene.n];
-  if(slide.type==='practice'&&r?.type==='carro'&&v.plane==='habit')return {ids:r.ids,producto:null};
-  if(slide.type==='practice'&&r?.producto&&v.plane==='habit')return {ids:[r.producto],producto:r.producto};
+  // En las actuaciones, el carro es un personaje mudo: propone el objeto de la rutina (o insiste),
+  // espera mientras habla la herida y lo retira cuando nos llevamos la práctica revisada.
+  if(slide.type==='practice'){
+   const ids=r?.carro||[];
+   const estado=!ids.length?'reposo':v.plane==='habit'?(r.insiste?'insiste':'propone'):v.plane==='ask'?'espera':'retira';
+   return {personaje:true,ids,estado,producto:null};
+  }
   return null;
  },
  send(m){if(this.cargado)this.frame.contentWindow.postMessage({carro:m},'*');},
@@ -343,6 +352,7 @@ const Carro={
   const medir=()=>{const sr=stage.getBoundingClientRect(),r=marca.getBoundingClientRect();Object.assign(this.el.style,{left:(r.left-sr.left)/sr.width*100+'%',top:(r.top-sr.top)/sr.height*100+'%',width:r.width/sr.width*100+'%',height:r.height/sr.height*100+'%'});};
   medir();clearTimeout(this.ajuste);this.ajuste=setTimeout(medir,1000);
   this.el.classList.add('is-on');
+  this.el.classList.toggle('is-quieto',!!want.personaje&&!want.ids?.length);
   const clave=JSON.stringify(want);
   if(clave!==this.ultimo){this.send({activo:true});this.send(want);if(this.cargado)this.ultimo=clave;}
  }
