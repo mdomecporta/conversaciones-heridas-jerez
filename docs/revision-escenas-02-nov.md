@@ -1,6 +1,6 @@
 # Revisión de las escenas: una idea, una fuente clara, una pantalla
 
-2 de noviembre, para revisar con María del Mar. Ningún cambio de este documento está aplicado salvo la escena 5 (PR #10, sin publicar).
+2 de noviembre, para revisar con María del Mar. Aplicado el mismo día: escenas 5, 6, 7 y 8 rehechas y la fuente de la 10 corregida (PR #10). Quedan pendientes las confirmaciones de María del Mar.
 
 ## El criterio
 
@@ -25,12 +25,12 @@ El DT XIV es el punto de partida de la charla, pero no todas las escenas se apoy
 | 2 · Dos historias parecidas | La causa decide la cura, no el aspecto. | DT XIV pp. 15, 21 | Fichas de infección local 2026 | Funciona (detalle menor) |
 | 3 · El cuidado en casa | Preguntar si el plan se puede seguir en casa. | — | EWMA 2022 §4 · IWII rec. 11 | Funciona |
 | 4 · Las notas | Anotar cómo está hoy para que «mejor» signifique algo. | DT XIV p. 15 | — | Funciona |
-| 5 · No vemos el cambio | Si no avanza, reevaluar antes de añadir. | DT XIV p. 29 | EWMA 2022 §§2–3 | Rehecha (PR #10) |
-| 6 · La muestra | Sin signos de infección, no cultivar: un positivo no diagnostica. | DT XIV p. 30 | DT VIII pp. 17, 23–24 | Rehacer |
-| 7 · El antimicrobiano | Ningún antimicrobiano sin motivo escrito ni fecha de revisión. | — | DT VIII pp. 27–30, 38 · EWMA 2022 §6 | Rehacer |
-| 8 · La limpieza | Preguntar por el dolor antes, durante y después de limpiar. | — | IWII rec. 13 | Rehacer: hoy mezcla tres temas |
+| 5 · No vemos el cambio | Si no avanza, reevaluar antes de añadir. | DT XIV p. 29 | EWMA 2022 §§2–3 | Hecho |
+| 6 · La muestra | Sin signos de infección, no cultivar: un positivo no diagnostica. | DT XIV p. 30 | DT VIII pp. 17, 23–24 | Hecho |
+| 7 · El antimicrobiano | Ningún antimicrobiano sin motivo escrito ni fecha de revisión. | — | DT VIII pp. 27–30, 38 · EWMA 2022 §6 | Hecho |
+| 8 · La limpieza | Preguntar por el dolor antes, durante y después de limpiar. | — | IWII rec. 13 | Hecho: hilo del dolor |
 | 9 · El talón con escara | Una escara seca y estable de talón no se quita sin valorar antes. | DT XIV pp. 21, 28 | Ficha de isquemia amenazante | Funciona |
-| 10 · Lo que podemos conseguir | No prometer el cierre: acordar qué se busca hoy. | — | IWII p. 26, rec. 13 · EWMA 2022 §4 | Ajustar la fuente |
+| 10 · Lo que podemos conseguir | No prometer el cierre: acordar qué se busca hoy. | — | IWII p. 26, rec. 13 · EWMA 2022 §4 | Hecho: fuente corregida |
 | 11 · Quien venga mañana | Dejar escrito el porqué del plan, no solo el plan. | — | EWMA 2022 §§4–6 | Funciona |
 | 12 y 13 | Integración y cierre. | — | — | Funcionan |
 
@@ -48,7 +48,7 @@ El DT XIV es el punto de partida de la charla, pero no todas las escenas se apoy
 - **Por qué funciona:** las tres pantallas hablan de lo mismo. Las notas no dicen cómo ha respondido; tres compañeras dicen tres cosas distintas, y la regla pide medir con instrumentos apropiados.
 - **Ajuste menor:** la primera frase de la herida en el panel, «Eso no lo pone…», responde a una pregunta de María del Mar que ya no se proyecta. Funciona si ella la dice en voz alta.
 
-### 5 · Cuando no vemos el cambio · rehecha (PR #10)
+### 5 · Cuando no vemos el cambio · hecho
 
 - **Recomendación:** si no avanza, reevaluar antes de añadir.
 - **Fuentes:** el DT XIV (p. 29) pone la regla: no usar pomadas con antibiótico como primera elección en lesiones que no progresan. La EWMA 2022 explica qué revisar: el diagnóstico, las complicaciones y si el plan se ha podido seguir.
@@ -58,7 +58,7 @@ El DT XIV es el punto de partida de la charla, pero no todas las escenas se apoy
   - *Nos llevamos:* la regla escrita.
 - **Confirmar:** que la pomada con antibiótico sea la tentación real en su consulta.
 
-### 6 · Antes de pedir la muestra · rehacer
+### 6 · Antes de pedir la muestra · hecho
 
 - **Problema:** mezcla dos ideas. Una es antes de pedir (para qué); otra es después (cómo se lee el resultado). Además, el paso 1 es una ficha vacía y la regla del DT XIV no sale en pantalla.
 - **Recomendación:** sin signos de infección, no cultivar, porque un positivo no diagnostica.
@@ -70,7 +70,7 @@ El DT XIV es el punto de partida de la charla, pero no todas las escenas se apoy
 - **Sale de la pantalla:** la indicación, la preparación y la técnica de la muestra. Pasa a lo que dice María del Mar con sus palabras.
 - **Confirmar:** si en su consulta se pide cultivo cuando la herida no avanza.
 
-### 7 · El motivo del antimicrobiano · rehacer
+### 7 · El motivo del antimicrobiano · hecho
 
 - **Problema:** mezcla tres ideas: por qué y hasta cuándo, una clasificación (antibiótico, antiséptico, apósito) y los 14 días de la plata. La pregunta es doble y los 14 días llegan tarde y en letra pequeña.
 - **Recomendación:** ningún antimicrobiano sin motivo escrito ni fecha de revisión.
@@ -82,7 +82,7 @@ El DT XIV es el punto de partida de la charla, pero no todas las escenas se apoy
 - **Sale de la pantalla:** la clasificación antibiótico, antiséptico y apósito. Pasa a lo que dice María del Mar con sus palabras.
 - **Confirmar:** si la plata «por si acaso» y durante semanas es una situación que reconoce.
 
-### 8 · La limpieza de hoy · rehacer
+### 8 · La limpieza de hoy · hecho (hilo del dolor)
 
 - **Problema:** junta tres temas: la limpieza adaptada a cada zona (lecho, borde y piel), el dolor, y los antisépticos y jabones de rutina. Además se apoya en una regla de desbridamiento.
 - **Recomendación:** el hilo lo marca la herida, que habla todo el rato del dolor («puede doler», «lo que más miedo me da», «del dolor no ponía nada», «se agradece que alguien pregunte»). La recomendación sería preguntar por el dolor antes, durante y después de limpiar.
@@ -100,7 +100,7 @@ El DT XIV es el punto de partida de la charla, pero no todas las escenas se apoy
 - **Recomendación:** una escara seca y estable de talón no se quita sin valorar antes.
 - **Por qué funciona:** el caso (alguien propone quitarla), la historia («una escara que a veces se deja») y la regla del DT XIV p. 28, junto con la valoración vascular de la p. 21, hablan de lo mismo.
 
-### 10 · Lo que podemos conseguir · ajustar la fuente
+### 10 · Lo que podemos conseguir · fuente corregida
 
 - **Recomendación:** no prometer el cierre: acordar qué se busca hoy.
 - **Problema:** solo de fuente. La reserva la enlaza con el DT XIV p. 24 (apósitos en lesiones neoplásicas), que es otro tema.
@@ -118,6 +118,6 @@ Funcionan. Un detalle menor de la 2: en la reserva se le asigna también el DT X
 
 ## Orden de trabajo
 
-1. María del Mar confirma los puntos marcados «Confirmar», sobre todo los hilos de las escenas 6, 7 y 8.
-2. Aplicar las escenas 6, 7 y 8 con el mismo patrón que la 5 y corregir el enlace de la 10.
+1. ~~Aplicar las escenas 5 a 8 con el mismo patrón y corregir el enlace de la 10.~~ Hecho.
+2. María del Mar confirma los puntos marcados «Confirmar», sobre todo el hilo de la escena 8 (dolor o antisépticos de rutina).
 3. Publicar y ensayar en voz alta, para comprobar que cada escena se puede contar en una frase.

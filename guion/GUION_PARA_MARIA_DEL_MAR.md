@@ -342,15 +342,15 @@ Estas son indicaciones del montaje previsto; actualizar el guion no aplica por s
 
 ### Escena 6 · Antes de pedir la muestra
 
-**Qué queremos explicar:** pedir una prueba responde a una duda clínica, y su resultado se interpreta con la situación clínica.
+**Qué queremos explicar:** sin signos de infección, no se cultiva. En una herida crónica casi siempre crece algo, así que un cultivo positivo no dice si hay infección, y puede llevar a tratar un informe en lugar de a la persona.
 
-**A revisar:** Pedir un cultivo porque toca.  
-**Nos preguntamos:** ¿Qué decisión podría cambiar con el resultado?  
-**Nos llevamos:** Pedir la muestra con una pregunta clínica e interpretar el resultado con la clínica.
+**A revisar:** Pedir un cultivo porque no avanza.  
+**Nos preguntamos:** ¿Hay signos que justifiquen la muestra?  
+**Nos llevamos:** Cultivar cuando hay signos de infección y leer el resultado con la clínica.
 
-**La herida:** «He traído una torunda. ¿Hoy toca cultivo?».
+**La herida:** «Como sigo igual, alguien ha traído una torunda. ¿Toca cultivo?».
 
-**En pantalla · recurso de la herida:** una recreación 3D de la torunda y el medio de transporte que hay en el carro, identificada como material docente e inspirada visualmente en Deltalab Amies. Junto a ella, una ficha textual: «Qué sospechamos», «Qué necesitamos aclarar» y «Qué decisión podría cambiar». María del Mar mira la pregunta aún sin concretar. No se presenta como una demostración de técnica de muestreo ni se afirma que sea el producto de la consulta fotografiada. La fotografía del catálogo se conserva como alternativa si el ordenador no puede mostrar el 3D.
+**En pantalla · recurso de la herida:** una recreación 3D de la torunda y el medio de transporte que hay en el carro, identificada como material docente e inspirada visualmente en Deltalab Amies. Junto a ella, la misma herida de la escena 5 y la propuesta «Pedir cultivo porque no avanza». La ficha dice «Evolución: cuatro semanas igual», «Signos de infección: no constan» y «Para qué el cultivo: no consta»; las dos últimas, señaladas. No se presenta como una demostración de técnica de muestreo ni se afirma que sea el producto de la consulta fotografiada. La fotografía del catálogo se conserva como alternativa si el ordenador no puede mostrar el 3D.
 
 **María del Mar:** «¿Y qué queremos saber con él?».
 
@@ -358,17 +358,17 @@ Estas son indicaciones del montaje previsto; actualizar el guion no aplica por s
 
 **En pantalla · la pregunta:** se tacha la actuación y se revela la pregunta de esta escena. En el mismo paso, la herida cuenta la historia que hace necesaria la pregunta.
 
-**En pantalla · la historia:** un informe docente de microbiología, identificado como supuesto, que solo dice «Cultivo positivo». A su lado quedan por completar «Signos», «Evolución» y «Situación de la persona». No se inventan microorganismos, antibiogramas ni datos de gravedad.
+**En pantalla · la historia:** lo que pasaría si se pide igualmente. Un informe docente de microbiología, identificado como supuesto, que solo dice «Cultivo positivo». A su lado quedan por completar «Signos», «Evolución» y «Situación de la persona»: sin ellos, el informe no decide nada. No se inventan microorganismos, antibiogramas ni datos de gravedad.
 
 **La herida:** «Supongamos que se pide y llega el informe: “cultivo positivo”».
 
 **María del Mar:** «¿Y eso qué nos dice de ti?».
 
-**María del Mar, con sus palabras:** en una herida crónica casi siempre crece algo: el informe dice qué ha crecido, no si hay infección. Para interpretarlo faltan los signos, la evolución y la situación de la persona.
+**María del Mar, con sus palabras:** en una herida crónica casi siempre crece algo: el informe dice qué ha crecido, no si hay infección. Sin signos, un positivo invita a tratar el papel. Por eso la pregunta va antes: ¿hay signos de infección?
 
-**En pantalla · evidencia científica:** el apoyo anterior se recoge. Aparece «La muestra responde una pregunta clínica», con esta idea: «La indicación, la preparación y la técnica condicionan su utilidad. Un cultivo positivo no demuestra por sí solo infección: se interpreta con signos, evolución y situación de la persona». Fuente visible: GNEAUPP DT VIII · pp. 17, 23–24 / DT XIV · p. 30. También se muestra la condición: «Ante infección extendida o grave, no demorar la atención indicada». María del Mar relaciona este fundamento con lo que acaba de señalar la herida.
+**En pantalla · evidencia científica:** el apoyo anterior se recoge. Aparece «Sin signos de infección, no cultivar», con esta idea: «No tomar muestra para cultivo en heridas sin signos clínicos evidentes de infección. Un cultivo positivo no demuestra por sí solo infección: se interpreta con signos, evolución y situación de la persona». Fuente visible: GNEAUPP DT XIV · p. 30 / DT VIII · pp. 17, 23–24. También se muestra la condición: «Ante infección extendida o grave, no demorar la atención indicada». María del Mar relaciona este fundamento con lo que acaba de señalar la herida.
 
-**María del Mar, con sus palabras:** antes de pedirla, necesitamos una sospecha que valorar y una decisión a la que pueda ayudar. La guía desaconseja los métodos tradicionales de toma de muestras en heridas sin signos clínicos evidentes de infección, y la falta de progreso, por sí sola, no obliga a cultivar. Cuando llega el informe, la presencia de microorganismos no demuestra infección: miramos signos, evolución y contexto. Si la valoración indica infección extendida o grave, la atención necesaria no se demora.
+**María del Mar, con sus palabras:** la regla es del DT XIV del GNEAUPP: no tomar muestra y cultivo en heridas sin signos clínicos evidentes de infección. La falta de progreso, por sí sola, no obliga a cultivar. El porqué está en el DT VIII: la presencia de microorganismos no demuestra infección, así que el informe se lee con los signos, la evolución y el contexto. Cuando sí hay signos, la indicación, la preparación y la técnica de la muestra condicionan su utilidad. Si la valoración indica infección extendida o grave, la atención necesaria no se demora.
 
 **La herida:** «O sea, que el informe solo no me diagnostica».
 
@@ -376,9 +376,9 @@ Estas son indicaciones del montaje previsto; actualizar el guion no aplica por s
 
 **En pantalla · el aprendizaje:** se completa «Nos llevamos» en el hilo; la evidencia sigue a la vista como su fundamento. María del Mar responde a la pregunta antes de enlazar.
 
-**La herida:** «Vale. La torunda, cuando haya una pregunta».
+**La herida:** «Vale. La torunda, cuando haya signos que la pidan».
 
-**María del Mar cierra:** «Primero la pregunta. Luego, si hace falta, la torunda. Y el informe, junto a todo lo demás».
+**María del Mar cierra:** «Primero los signos. Luego, si hace falta, la torunda. Y el informe, junto a todo lo demás».
 
 **Para seguir:** «Antes de tratar, ¿qué queremos tratar?».
 
@@ -386,15 +386,15 @@ Estas son indicaciones del montaje previsto; actualizar el guion no aplica por s
 
 ### Escena 7 · El motivo del antimicrobiano
 
-**Qué queremos explicar:** la elección depende de la indicación y de la gravedad, y cada pauta nace con su revisión.
+**Qué queremos explicar:** ningún antimicrobiano sin un motivo escrito y una fecha de revisión. La plata «por si acaso» se queda semanas porque nadie anotó para qué era ni cuándo mirarlo.
 
-**A revisar:** Añadir o renovar un antimicrobiano «por si acaso».  
-**Nos preguntamos:** ¿Qué queremos tratar y cuándo revisamos si sigue haciendo falta?  
-**Nos llevamos:** Justificar la indicación y dejar prevista su revisión.
+**A revisar:** Mantener un antimicrobiano «por si acaso».  
+**Nos preguntamos:** ¿Para qué es y cuándo lo revisamos?  
+**Nos llevamos:** Cada antimicrobiano, con su motivo y su fecha de revisión.
 
 **La herida:** «En la pauta de la plata pone cuándo se empezó. Por qué y hasta cuándo, no».
 
-**En pantalla · recurso de la herida:** una pauta docente, «Pauta con apósito de plata», con «Inicio», «Indicación» y «Revisión»; las dos últimas aparecen sin completar. La acompaña una recreación 3D del apósito de espuma con plata del carro, identificada como material docente e inspirada visualmente en Mepilex Ag, sin atribuir su uso a la consulta fotografiada. María del Mar reacciona a esas casillas pendientes. Después se destacan «Qué problema tratamos», «Qué esperamos que cambie» y «Qué justifica continuar». No se añade una fecha de paciente ni se convierte la escena en un calendario universal.
+**En pantalla · recurso de la herida:** una pauta docente, «Pauta con apósito de plata», con datos del supuesto: «Inicio: hace 5 semanas», «Motivo: por si acaso» y «Revisión: no consta»; las dos últimas, señaladas. La acompaña una recreación 3D del apósito de espuma con plata del carro, identificada como material docente e inspirada visualmente en Mepilex Ag, sin atribuir su uso a la consulta fotografiada. Después se destacan «Qué tratamos», «Qué esperamos que cambie» y «Cuándo lo revisamos».
 
 **María del Mar:** «Pues vamos a ponerlo. Empezando por qué queremos tratar».
 
@@ -402,19 +402,19 @@ Estas son indicaciones del montaje previsto; actualizar el guion no aplica por s
 
 **En pantalla · la pregunta:** se tacha la actuación y se revela la pregunta de esta escena. En el mismo paso, la herida cuenta la historia que hace necesaria la pregunta.
 
-**En pantalla · la historia:** un esquema docente «Lo que cabe en “antimicrobiano”», sin orden de potencia: antibiótico, antiséptico y apósito antimicrobiano. Encima, «¿Está indicada una intervención antimicrobiana?».
+**En pantalla · la historia:** la referencia del GNEAUPP (DT VIII) para la plata en heridas infectadas: «Plata: hasta 14 días» y «Después: revaloración crítica». Debajo, recuadrado: «Esta pauta: 5 semanas, sin revisar».
 
-**La herida:** «Antibiótico, antiséptico, apósito con plata… ¿Es todo lo mismo?».
+**La herida:** «Llevo cinco semanas con ella. ¿Cuánto se supone que dura?».
 
-**María del Mar:** «No. Vamos por partes».
+**María del Mar:** «La guía da una referencia: catorce días, y entonces se revisa».
 
-**María del Mar, con sus palabras:** cada opción tiene una función y un alcance distintos. Antes de elegir, la pregunta es si hay infección y de qué gravedad; si es extendida o grave, el cuidado local no retrasa la atención indicada.
+**María del Mar, con sus palabras:** la plata se empezó sin motivo escrito, y por eso nadie sabía cuándo revisarla. La guía pone para la plata en heridas infectadas un primer plazo de catorce días; pasado ese plazo, se mira si sigue haciendo falta. Esta pauta lo ha triplicado sin que nadie lo decidiera.
 
-**En pantalla · evidencia científica:** el apoyo anterior se recoge. Aparece «La indicación precede a la elección», con esta idea: «Antibiótico, antiséptico y apósito antimicrobiano tienen funciones y alcances diferentes. La elección requiere valoración clínica y de la gravedad, y su utilidad se revalora». Fuente visible: GNEAUPP DT VIII · pp. 27–30, 38 / EWMA 2022 · §6. También se muestra la condición: «Plata en heridas infectadas: máximo inicial de 14 días y revaloración crítica. El plazo no se extrapola». María del Mar relaciona este fundamento con lo que acaba de señalar la herida.
+**En pantalla · evidencia científica:** el apoyo anterior se recoge. Aparece «Motivo y revisión desde el principio», con esta idea: «Un antimicrobiano se indica tras valorar la infección y su gravedad, y su utilidad se revalora. Para la plata en heridas infectadas, el GNEAUPP fija un máximo inicial de 14 días y después una revaloración crítica». Fuente visible: GNEAUPP DT VIII · pp. 27–30, 38 / EWMA 2022 · §6. También se muestra la condición: «Los 14 días son para la plata en heridas infectadas; no se extienden a todos los antimicrobianos». María del Mar relaciona este fundamento con lo que acaba de señalar la herida.
 
-**María del Mar, con sus palabras:** antibiótico, antiséptico y apósito antimicrobiano no son lo mismo: hay que justificar qué problema tratamos y qué intervención corresponde. Si hay infección extendida o grave, el cuidado local no debe retrasar la atención indicada. Para la plata en heridas infectadas, el GNEAUPP fija un máximo inicial de catorce días y después una revaloración crítica de su utilidad. Ese plazo no se extiende a todos los antimicrobianos.
+**María del Mar, con sus palabras:** la fuente es el DT VIII del GNEAUPP, sobre antimicrobianos, y la EWMA, que pide lo mismo para todos: una indicación justificada y una revisión prevista. Antibiótico, antiséptico y apósito antimicrobiano no son lo mismo y cada uno tiene su función; lo común es que ninguno se pone «por si acaso». Si hay infección extendida o grave, el cuidado local no retrasa la atención indicada. Los catorce días son de la plata en heridas infectadas y no se extienden a todos los antimicrobianos.
 
-**La herida:** «He oído hablar de catorce días. ¿Eso vale para todo?».
+**La herida:** «¿Y esos catorce días valen para todo?».
 
 **En pantalla · el aprendizaje:** se completa «Nos llevamos» en el hilo; la evidencia sigue a la vista como su fundamento. María del Mar responde a la pregunta antes de enlazar.
 
@@ -430,19 +430,19 @@ Estas son indicaciones del montaje previsto; actualizar el guion no aplica por s
 
 ### Escena 8 · La limpieza de hoy
 
-**Qué queremos explicar:** la limpieza se adapta a la valoración, al objetivo y a cómo vive la cura la persona.
+**Qué queremos explicar:** el dolor también se valora. Antes de limpiar se pregunta cómo fue la última vez; durante, se atiende a lo que pasa; después, se anota qué ajustar.
 
-**A revisar:** Limpiar siempre igual y dar el dolor por inevitable.  
-**Nos preguntamos:** ¿Qué necesita hoy cada zona y cómo lo está viviendo?  
-**Nos llevamos:** Adaptar la limpieza a la valoración y revisar el dolor antes, durante y después.
+**A revisar:** Limpiar como siempre sin preguntar por el dolor.  
+**Nos preguntamos:** ¿Cómo está viviendo la limpieza?  
+**Nos llevamos:** Preguntar por el dolor antes, durante y después de limpiar.
 
 **La herida:** «Hoy también toca limpieza. ¿Como siempre? Aviso de que puede doler».
 
-**En pantalla · recurso de la herida:** la ilustración «Lecho, borde y piel», identificada como modelo conceptual. Se recorren las zonas y la pregunta de observación es «¿Qué necesita la limpieza hoy?». Después se muestra el esquema «Con qué / Cómo / Con qué fuerza», relacionado con valoración y tolerancia. María del Mar explica la selección, sin simular una técnica en una imagen fija ni diagnosticar por color.
+**En pantalla · recurso de la herida:** una pauta ficticia, «Pauta de limpieza»: «Con qué: lo de siempre», «Cómo: como siempre», «Cuándo: en cada cura». Después aparece, recuadrado: «Dolor en la última cura: no consta».
 
-**María del Mar:** «Depende. ¿Qué necesitas hoy? Del centro hacia fuera».
+**María del Mar:** «Depende. Antes, cuéntame cómo fue la última vez».
 
-**La herida:** «Que se mire también el borde y la piel de alrededor, que a veces se olvidan».
+**La herida:** «En la pauta pone “como siempre”. Del dolor, nada».
 
 **En pantalla · la pregunta:** se tacha la actuación y se revela la pregunta de esta escena. En el mismo paso, la herida cuenta la historia que hace necesaria la pregunta.
 
@@ -454,25 +454,25 @@ Estas son indicaciones del montaje previsto; actualizar el guion no aplica por s
 
 **María del Mar, con sus palabras:** pregunta cómo fue la cura anterior, atiende a lo que ocurre durante y anota qué ajustar. El dolor cambia cómo limpiamos, no solo cómo lo registramos.
 
-**En pantalla · evidencia científica:** el apoyo anterior se recoge. Aparece «La técnica depende de la valoración», con esta idea: «La selección se relaciona con la herida y sus bordes, la piel, los objetivos, la experiencia de dolor y los recursos. Antisépticos y jabones no se usan de forma rutinaria». Fuente visible: IWII · rec. 3, 11 y 13 / GNEAUPP DT XVII / DT XIV · pp. 26–28. También se muestra la condición: «Limpieza y desbridamiento son intervenciones diferentes». María del Mar relaciona este fundamento con lo que acaba de señalar la herida.
+**En pantalla · evidencia científica:** el apoyo anterior se recoge. Aparece «El dolor también se valora», con esta idea: «La forma de limpiar se adapta a la experiencia de dolor de la persona: se pregunta antes, se atiende durante y se ajusta para la próxima». Fuente visible: IWII 2025 · rec. 13. María del Mar relaciona este fundamento con lo que acaba de señalar la herida.
 
-**María del Mar, con sus palabras:** lecho, borde, piel perilesional y piel circundante forman parte de la valoración y de la limpieza. La solución, la técnica y la fuerza dependen de esa valoración y de cómo se tolera; la guía desaconseja antisépticos y jabones de forma rutinaria. Con el dolor, preguntamos cómo fue la cura anterior, estamos atentas durante y anotamos qué ajustar. IWII recomienda adaptar la técnica según la experiencia de dolor, y el GNEAUPP no admite un desbridamiento potencialmente doloroso sin pauta analgésica.
+**María del Mar, con sus palabras:** la IWII recomienda adaptar la limpieza a la experiencia de dolor: preguntar cómo fue la cura anterior, estar atentas durante y anotar qué ajustar. Si además hay que desbridar, el GNEAUPP pide una pauta analgésica antes. Y de paso: lo de siempre tampoco debería ser un antiséptico o un jabón por rutina; la guía no los recomienda para limpiar de forma habitual.
 
-**La herida:** «En aquellas notas del principio, del dolor no ponía nada».
+**La herida:** «¿Y si a mitad de la cura duele?».
 
-**María del Mar:** «Esta vez lo apuntamos, para quien venga mañana».
+**María del Mar:** «Paramos, ajustamos y lo apuntamos para quien venga mañana».
 
 **En pantalla · el aprendizaje:** se completa «Nos llevamos» en el hilo; la evidencia sigue a la vista como su fundamento. María del Mar responde a la pregunta antes de enlazar.
 
 **La herida:** «Se agradece que alguien pregunte antes de empezar».
 
-**María del Mar cierra:** «Antes de limpiar, miramos qué necesita hoy y cómo lo está viviendo».
+**María del Mar cierra:** «Antes de limpiar, preguntamos cómo lo está viviendo».
 
 Se deja una pausa. Esta escena no necesita un remate humorístico ni una imagen que compita con lo que se dice.
 
 **Para seguir:** «Ahora, un talón que pide calma».
 
-**Respaldo:** [3]; [6], recomendaciones 3, 11 (p. 31) y 13 (pp. 39–40); [1], pp. 26–28. No se proponen presiones, temperaturas ni tiempos analgésicos universales.
+**Respaldo:** [6], recomendación 13 (pp. 39–40); [1], pp. 26–28 (antisépticos y jabones de rutina, y analgesia en el desbridamiento, solo de palabra); [3]. No se proponen presiones, temperaturas ni tiempos analgésicos universales.
 
 **María del Mar cierra el bloque:** «Hemos preguntado qué hacemos, para qué y cómo lo vive la persona. A veces, la respuesta es cambiar de camino».
 
@@ -554,7 +554,7 @@ Se deja una pausa. Esta escena no necesita un remate humorístico ni una imagen 
 
 **En pantalla · evidencia científica:** el apoyo anterior se recoge. Aparece «Los objetivos se valoran y se acuerdan», con esta idea: «IWII contempla objetivos de cicatrización, prevención de infección o manejo paliativo. Los síntomas y la carga del cuidado afectan a la vida cotidiana y se preguntan». Fuente visible: IWII · p. 26, rec. 13 / EWMA 2022 · §4. También se muestra la condición: «Los objetivos se revisan. Una etiqueta diagnóstica no determina por sí sola la posibilidad de cierre». María del Mar relaciona este fundamento con lo que acaba de señalar la herida.
 
-**María del Mar, con sus palabras:** hay que valorar cada situación y lo que puede cambiar. IWII contempla objetivos de cicatrización, prevención de infección o manejo paliativo, y la perspectiva de la persona forma parte de la decisión. El dolor, las fugas, el olor o la carga del cuidado pueden pesar mucho en el día: preguntamos qué pesa más y qué mejora buscamos, sin atribuírselo a la mujer de la imagen. En heridas neoplásicas, la guía pide además apósitos que no se adhieran al lecho. Esta forma de ordenar los objetivos es una síntesis docente, no una clasificación del pronóstico.
+**María del Mar, con sus palabras:** hay que valorar cada situación y lo que puede cambiar. IWII contempla objetivos de cicatrización, prevención de infección o manejo paliativo, y la perspectiva de la persona forma parte de la decisión. El dolor, las fugas, el olor o la carga del cuidado pueden pesar mucho en el día: preguntamos qué pesa más y qué mejora buscamos, sin atribuírselo a la mujer de la imagen. Esta forma de ordenar los objetivos es una síntesis docente, no una clasificación del pronóstico.
 
 **En pantalla · el aprendizaje:** se completa «Nos llevamos» en el hilo; la evidencia sigue a la vista como su fundamento. María del Mar responde a la pregunta antes de enlazar.
 
@@ -564,7 +564,7 @@ Se deja una pausa. Esta escena no necesita un remate humorístico ni una imagen 
 
 **Para seguir:** «Vamos a dejarlo escrito para quien siga».
 
-**Respaldo:** [6], p. 26 y recomendación 13; [4], §4, pp. S15–S16; [1], pp. 15 y 24, esta última en el ámbito de las heridas neoplásicas. Sin atribuir un pronóstico universal a una etiología. El formato de seguimiento es una síntesis docente.
+**Respaldo:** [6], p. 26 y recomendación 13; [4], §4, pp. S15–S16; [1], p. 15. Sin atribuir un pronóstico universal a una etiología. El formato de seguimiento es una síntesis docente.
 
 **María del Mar cierra el bloque:** «Seguridad, explicación y objetivos: todo eso tiene que llegar a la siguiente visita».
 
@@ -753,7 +753,7 @@ Las marcadas «En la charla» aparecen en la escena indicada. «Relacionada» se
 - **p. 22 · Moderada** · No utilizar antibióticos tópicos en quemaduras de primer grado o sin signos clínicos de infección.
 - **p. 23 · Alta** · No aplicar agua muy fría o helada tras una quemadura. — Curiosidad
 - **p. 23 · Baja** · No mantener íntegra una ampolla o flictena. — Curiosidad
-- **p. 24 · Alta** · No utilizar apósitos que puedan adherirse al lecho en lesiones neoplásicas. — En la charla: escena 10
+- **p. 24 · Alta** · No utilizar apósitos que puedan adherirse al lecho en lesiones neoplásicas.
 - **p. 24 · Alta** · No realizar desbridamiento cortante en heridas tumorales, por el riesgo de sangrado y la dificultad de hemostasia.
 - **p. 25 · Alta** · No administrar antibióticos tópicos para prevenir la infección de la herida quirúrgica.
 - **p. 25 · Moderada** · No cambiar el apósito de la herida quirúrgica antes de 48 horas, salvo fuga de sangre o exudado.
