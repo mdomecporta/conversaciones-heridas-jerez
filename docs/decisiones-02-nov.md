@@ -16,6 +16,7 @@ Tomadas sobre la propuesta de revisión visual y narrativa del mismo día, con l
 | Cuadrado vacío de los rótulos | Retirado. | Hecho. |
 | Escenas 4 y 11 | Las notas de la escena 4 vuelven en la 11 como el mismo documento, con la nota «Seguir igual»; en «Nos preguntamos» aparecen completadas: campos anotados sin datos inventados. | Hecho. |
 | Escena 10 | Se quita la respuesta adelantada «Hoy buscamos aliviar» y la pregunta repetida del hilo. La historia es «Objetivos que pueden convivir», con un supuesto que hay que explorar: «Lo que más le pesa: no poder dormir». | Hecho. |
+| Escena 5 | Un caso concreto en los tres pasos: seguimiento ficticio de cuatro semanas sin cambio y la propuesta «Añadir pomada con antibiótico» (A revisar); «será biofilm» como la otra respuesta rápida, con lo que sigue sin comprobar (Nos preguntamos); la regla del DT XIV (p. 29) en pantalla y la reevaluación de la EWMA 2022 como fundamento (Nos llevamos). | Hecho. María del Mar confirma que la pomada con antibiótico es la tentación realista en su consulta. |
 
 ## Para después de la revisión del 3 de noviembre
 

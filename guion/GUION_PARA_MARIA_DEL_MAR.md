@@ -296,35 +296,35 @@ Estas son indicaciones del montaje previsto; actualizar el guion no aplica por s
 
 ### Escena 5 · Cuando no vemos el cambio
 
-**Qué queremos explicar:** la falta de progreso exige revisar la explicación y el plan antes de intensificar por inercia o de cerrar la duda con una palabra.
+**Qué queremos explicar:** cuando una herida no avanza, la tentación es añadir algo (una pomada con antibiótico) o ponerle nombre al problema («será biofilm»). Antes de eso, se vuelve a valorar: si el diagnóstico sigue explicando la evolución, si hay complicaciones y si el plan se ha podido seguir.
 
-**A revisar:** Intensificar sin revisar por qué no avanza.  
+**A revisar:** Añadir tratamiento sin revisar por qué no avanza.  
 **Nos preguntamos:** ¿Qué revisamos antes de añadir tratamiento?  
 **Nos llevamos:** Reabrir la valoración y justificar el siguiente paso.
 
-**La herida:** «Esta vez sí sabemos cómo estaba al principio. Y no voy como esperábamos».
+**La herida:** «Esta vez sí sabemos cómo estaba al principio. Y en cuatro semanas no he cambiado».
 
-**En pantalla · recurso de la herida:** una ficha de seguimiento sin valores: «Situación inicial», «Qué queremos comparar» y «Con qué método». Aparece el rótulo «No vemos el cambio esperado». Después se abren tres cuestiones: «¿La explicación sigue siendo suficiente?», «¿Hay complicaciones?» y «¿Cómo se pudo realizar y tolerar el plan?». María del Mar reacciona a una evolución hipotética insuficiente, sin escoger una causa antes de comprobarla.
+**En pantalla · recurso de la herida:** el seguimiento de la herida, con datos ficticios: «Inicio: 5 × 4 cm», «Semana 2: 5 × 4 cm», «Semana 4: 5 × 4 cm». Después aparece, recuadrada, la propuesta para la próxima cura: «Añadir pomada con antibiótico». Es la rutina que vamos a revisar.
 
 **María del Mar:** «Ahora sí podemos comparar. ¿Qué está pasando?».
 
-**María del Mar, con sus palabras:** aclara que es otro supuesto: ahora imaginamos que sí hay registro del inicio y que la evolución no es la esperada. No elegimos una causa antes de comprobarla.
+**María del Mar, con sus palabras:** aclara que es otro supuesto: ahora sí hay registro del inicio, y cuatro semanas después la herida mide lo mismo. La propuesta que aparece es añadir algo más. Antes de decidirlo, nos preguntamos por qué no avanza.
 
-**La herida:** «Traigo varias sospechas. Culpable, todavía ninguna».
+**La herida:** «Y la propuesta ya está: añadirme una pomada con antibiótico».
 
 **En pantalla · la pregunta:** se tacha la actuación y se revela la pregunta de esta escena. En el mismo paso, la herida cuenta la historia que hace necesaria la pregunta.
 
-**En pantalla · la historia:** la ilustración del biofilm, rotulada «Modelo conceptual, no hallazgo de esta herida»: se recorren superficie, matriz y microorganismos. Debajo, lo que sigue abierto: perfusión, carga y respuesta al plan.
+**En pantalla · la historia:** la otra respuesta rápida, «será biofilm». La ilustración del biofilm, rotulada «Modelo conceptual, no hallazgo de esta herida»: se recorren superficie, matriz y microorganismos. Al lado, lo que sigue sin comprobar: causa y diagnóstico, perfusión, signos de infección y si el plan se ha podido seguir.
 
 **La herida:** «Alguien ha dicho “será biofilm” y ya nadie pregunta nada más».
 
 **María del Mar:** «A ver qué es, y qué podemos afirmar aquí».
 
-**María del Mar, con sus palabras:** explica el modelo: el biofilm puede contribuir a que una herida no avance, pero una ilustración o un aspecto no demuestran que esté en esta herida. Siguen abiertas la perfusión, la carga y la respuesta al plan.
+**María del Mar, con sus palabras:** la pomada y el biofilm son dos formas de dar la pregunta por cerrada: una añade tratamiento y la otra pone un nombre. El biofilm puede contribuir a que una herida no avance, pero una ilustración o un aspecto no demuestran que esté en esta herida. Lo que no avanza puede deberse a la causa (por ejemplo, la circulación), a una infección, a otra enfermedad o a que el plan no se ha podido seguir. Eso es lo que revisamos primero.
 
-**En pantalla · evidencia científica:** el apoyo anterior se recoge. Aparece «La falta de progreso reabre la valoración», con esta idea: «Reevaluar permite revisar la explicación, detectar complicaciones y decidir si hacen falta otras pruebas o un ajuste del plan». Fuente visible: GNEAUPP DT XIV · pp. 15, 29 / EWMA 2022 · §§2–3. También se muestra la condición: «El biofilm es una hipótesis posible, no una explicación demostrada en esta herida». María del Mar relaciona este fundamento con lo que acaba de señalar la herida.
+**En pantalla · evidencia científica:** el apoyo anterior se recoge. Aparece «Si no avanza, reevaluar antes de añadir», con esta idea: «No usar pomadas con antibiótico como primera elección en lesiones que no progresan. Reevaluar permite revisar el diagnóstico, detectar complicaciones y ver si el plan se ha podido seguir». Fuente visible: GNEAUPP DT XIV · pp. 15, 29 / EWMA 2022 · §§2–3. También se muestra la condición: «El biofilm es una hipótesis posible, no una explicación demostrada en esta herida». María del Mar relaciona este fundamento con lo que acaba de señalar la herida.
 
-**María del Mar, con sus palabras:** revisamos si el diagnóstico sigue explicando la evolución, si hay complicaciones y cómo se ha podido realizar y tolerar el plan. Añadir tratamiento requiere un motivo: la guía desaconseja las pomadas con antibiótico como primera elección en lesiones que no progresan. Tampoco cerramos la duda con una palabra. El biofilm puede contribuir a la dificultad de cicatrización, pero sin comprobarlo no explica esta lesión, y siguen abiertas la perfusión, la carga y la respuesta al plan. Si lo que vemos no encaja, puede tocar revisar el diagnóstico y pedir valoración.
+**María del Mar, con sus palabras:** la primera parte es del DT XIV del GNEAUPP: no usar pomadas con antibiótico como primera elección en lesiones que no progresan. La segunda, del documento de la EWMA sobre heridas que no cicatrizan: cuando no avanza, se reevalúa si el diagnóstico sigue explicando la evolución, si hay complicaciones y si el plan se ha podido realizar y tolerar. El biofilm puede contribuir, pero sin comprobarlo no explica esta lesión. Si lo que vemos no encaja, puede tocar revisar el diagnóstico y pedir valoración.
 
 **La herida:** «Entonces, antes de añadir nada, ¿se mira todo lo demás?».
 
