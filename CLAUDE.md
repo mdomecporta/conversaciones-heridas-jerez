@@ -18,7 +18,7 @@ escena.js                           motor: pasos, herida, ponente (?ponente), gu
 escena-recursos.js                  lo que trae la herida en cada escena
 entity.js                           API Presence (su renderizador de membrana no se usa)
 entity-liquid.js                    cuerpo de la herida: líquida, tinta «Sangre y piel»
-carro/                              carro de curas 3D (carro.js: modelo y API; modelos/: GLTF de Sketchfab, CC BY 4.0)
+carro/                              carro de curas 3D (carro.js: objetos y API; estructura.glb: el carro vacío, generado con blender/carro.py; modelos/: GLTF de Sketchfab, CC BY 4.0)
 resources.json, assets/             imágenes con créditos y zonas, fuentes, portadas institucionales
 scripts/guion.mjs, scripts/build.mjs  lector del guion y compilación a dist/index.html y dist/ver/ (pública)
 netlify/                            contraseña (función de borde), API de notas, adjuntos y cambios de texto (Netlify Blobs)

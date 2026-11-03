@@ -10,9 +10,9 @@ import {RenderPass} from 'three/addons/postprocessing/RenderPass.js';
 import {GTAOPass} from 'three/addons/postprocessing/GTAOPass.js';
 import {OutputPass} from 'three/addons/postprocessing/OutputPass.js';
 
-// Medidas en metros, tomadas a ojo de la foto del carro del centro de salud:
-// dos bandejas embutidas, asa lateral continua y soporte lateral de varilla.
-const ANCHO=.74, FONDO=.44, ALTO_SUP=.80, ALTO_INF=.30, R_TUBO=.0115;
+// Medidas en metros del modelo de Blender (carro/blender/carro.py): ancho y fondo entre montantes,
+// altura del fondo de cada bandeja y de la baranda delantera.
+const ANCHO=.64, FONDO=.42, ALTO_SUP=.825, ALTO_INF=.315, ALTO_BARANDA=.805;
 const PAPEL=new THREE.Color(0xf6f0e8),CORAL=new THREE.Color(0xe46a5a);
 
 const canvas=document.getElementById('escena');
@@ -124,7 +124,6 @@ const PAL={
  acero:{color:0xd2ccc6,metalness:1,roughness:.26,roughnessMap:CEPILLADO,bumpMap:CEPILLADO,bumpScale:.00006},
  tubo:{color:0xd6d0ca,metalness:1,roughness:.16},
  rueda:{color:0x77736f,roughness:.72},
- horquilla:{color:0xd6d0ca,metalness:.9,roughness:.22},
  blanco:{color:0xf7f3ee,roughness:.6},
  papel:{color:0xfffdf6,roughness:.9},
  gasa:{color:0xf4f2ed,roughness:.95,bumpMap:TRAMA,bumpScale:.00035},
@@ -158,12 +157,6 @@ function torno(padre,nombre,perfil,pos,rot,seg=48){return malla(new THREE.LatheG
 // Rollo con agujero central (venda, esparadrapo), con los cantos redondeados.
 function rollo(padre,nombre,ri,ro,h,pos,rot){const c=.003;
  return torno(padre,nombre,[[ri,0],[ro-c,0],[ro,c],[ro,h-c],[ro-c,h],[ri,h],[ri,0]],pos,rot);}
-function tubo(padre,a,b,r=R_TUBO,nombre='tubo'){
- const A=new THREE.Vector3(...a),B=new THREE.Vector3(...b),largo=A.distanceTo(B);
- const m=malla(new THREE.CylinderGeometry(r,r,largo,24),nombre,padre);
- m.position.copy(A).add(B).multiplyScalar(.5);
- m.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),B.clone().sub(A).normalize());return m;
-}
 function rectanguloRedondo(w,h,r,cx=0,cy=0,Tipo=THREE.Shape){
  const s=new Tipo(),a=cx-w/2,b=cy-h/2;
  s.moveTo(a+r,b);s.lineTo(a+w-r,b);s.quadraticCurveTo(a+w,b,a+w,b+r);
@@ -213,97 +206,18 @@ const carro=new THREE.Group();scene.add(carro);
 const objetos={};
 function objeto(id){const g=new THREE.Group();g.userData.id=id;carro.add(g);objetos[id]=g;return g;}
 
-// ---- Estructura ----
-const ex=ANCHO/2,ez=FONDO/2,Y0=.108;
-function rueda(x,z,freno){
- const g=new THREE.Group();g.position.set(x,0,z);carro.add(g);
- g.rotation.y=x<0?(z<0?-.3:.18):(z<0?.25:-.18);
- cilindro(g,'tubo',.022,.009,[0,Y0-.002,0]);                    // collarín del montante
- cilindro(g,'tubo',.012,.016,[0,Y0-.014,0]);                    // pivote de acero
- caja(g,'horquilla',[.044,.006,.03],[0,Y0-.024,.012],[0,0,0],.002); // puente de la horquilla
- for(const s of [-1,1])caja(g,'horquilla',[.004,.062,.034],[s*.02,Y0-.056,.02],[0,0,0],.0015);
- const r=new THREE.Group();r.position.set(0,.04,.024);r.rotation.z=Math.PI/2;g.add(r);
- torno(r,'rueda',[[.023,-.014],[.035,-.014],[.04,-.008],[.04,.008],[.035,.014],[.023,.014]],[0,0,0]);
- cilindro(r,'horquilla',.032,.024,[0,0,0]);cilindro(r,'tubo',.006,.044,[0,0,0]);
- // Tapas del eje y aros del cubo: separan la goma de la horquilla sin recargar la rueda.
- for(const s of [-1,1]){
-  cilindro(r,'horquilla',.019,.002,[0,s*.013,0]);
-  cilindro(r,'tubo',.007,.0025,[0,s*.023,0]);
- }
- if(freno)caja(g,'goma',[.026,.008,.03],[0,Y0-.03,-.028],[.35,0,0],.003);
-}
-for(const [x,z] of [[-ex,-ez],[ex,-ez],[-ex,ez],[ex,ez]]){
- tubo(carro,[x,Y0,z],[x,ALTO_SUP+.035,z]);
- if(x>0)torno(carro,'goma',[[0,0],[R_TUBO*1.08,0],[R_TUBO*1.1,.008],[R_TUBO*.9,.014],[0,.015]],[x,ALTO_SUP+.033,z]);
- for(const y of [ALTO_SUP,ALTO_INF])cilindro(carro,'tubo',R_TUBO*1.4,.03,[x,y+.006,z]); // abrazadera de la bandeja
- rueda(x,z,z>0);
-}
-function bandeja(y){
- const w=ANCHO-.006,d=FONDO-.006;
- // Fondo plano y transición cóncava a las paredes inclinadas de la chapa embutida.
- const fondo=new THREE.ExtrudeGeometry(rectanguloRedondo(w-.035,d-.035,.022),{depth:.004,bevelEnabled:false,curveSegments:8});
- malla(fondo,'acero',carro,[0,y-.002,0],[-Math.PI/2,0,0]);
- const perfiles=[[w-.035,d-.035,.022,0],[w-.025,d-.025,.025,.004],
-  [w-.012,d-.012,.030,.025],[w-.004,d-.004,.034,.033],[w,d,.035,.035]];
- const puntos=perfiles.map(([a,b,r])=>rectanguloRedondo(a,b,r).getPoints(8)),n=puntos[0].length-1;
- const vertices=[],indices=[],uv=[];
- for(let j=0;j<perfiles.length;j++)for(let i=0;i<n;i++){
-  vertices.push(puntos[j][i].x,perfiles[j][3],-puntos[j][i].y);uv.push(i/n,j/(perfiles.length-1));
- }
- for(let j=0;j<perfiles.length-1;j++)for(let i=0;i<n;i++){
-  const a=j*n+i,b=j*n+(i+1)%n,c=(j+1)*n+i,d=(j+1)*n+(i+1)%n;
-  indices.push(a,b,c,b,d,c);
- }
- const pared=new THREE.BufferGeometry();pared.setAttribute('position',new THREE.Float32BufferAttribute(vertices,3));
- pared.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));
- pared.setIndex(indices);pared.computeVertexNormals();
- malla(pared,'acero',carro,[0,y,0],[0,0,0],{side:THREE.DoubleSide});
- // Labio enrollado continuo, con esquinas suaves, y aro de apoyo bajo la bandeja.
- for(const [ancho,fondo,radio,alto,grosor] of [[w,d,.035,y+.035,.003],[w-.008,d-.008,.03,y-.008,.006]]){
-  const contorno=rectanguloRedondo(ancho,fondo,radio).getPoints(12);
-  const curva=new THREE.CurvePath();
-  for(let i=0;i<contorno.length-1;i++){
-   const a=contorno[i],b=contorno[i+1];
-   curva.add(new THREE.LineCurve3(new THREE.Vector3(a.x,alto,-a.y),new THREE.Vector3(b.x,alto,-b.y)));
-  }
-  malla(new THREE.TubeGeometry(curva,160,grosor,8,true),'tubo',carro);
- }
- // Soportes bajo la chapa, soldados a los montantes.
- for(const z of [-ez+.025,ez-.025])tubo(carro,[-ex,y-.014,z],[ex,y-.014,z],.008);
-}
-bandeja(ALTO_SUP);bandeja(ALTO_INF);
+// ---- Estructura: modelada en Blender (carro/blender/carro.py) a partir de las fotos de catálogo ----
+const ex=ANCHO/2;
+// El nombre de cada material del GLB elige su acabado en la paleta; la geometría no se toca.
+const ACABADO={acero:()=>mat('tubo'),chapa:()=>mat('acero',{roughnessMap:null,bumpMap:null}),
+ goma:()=>mat('rueda',{color:0x4a4846}),buje:()=>mat('blanco',{color:0xc9c7c3,roughness:.45}),tapon:()=>mat('goma',{color:0x2b2827})};
+const estructura=await cargar('estructura.glb');
+if(!estructura){parent.postMessage({carroFallo:true},'*');throw new Error('No se pudo cargar estructura.glb');}
+estructura.traverse(o=>{if(!o.isMesh)return;o.material=ACABADO[o.material.name]?.()??o.material;o.castShadow=o.receiveShadow=true;});
+carro.add(estructura);
 
-// Asa de empuje doblada de una sola pieza, en el lado izquierdo de la fotografía.
-{const x=-ex,r=.035,y=ALTO_SUP+.10,p=new THREE.CurvePath(),v=(a,b)=>new THREE.Vector3(x,a,b);
- p.add(new THREE.LineCurve3(v(ALTO_SUP+.035,-ez),v(y-r,-ez)));
- p.add(new THREE.QuadraticBezierCurve3(v(y-r,-ez),v(y,-ez),v(y,-ez+r)));
- p.add(new THREE.LineCurve3(v(y,-ez+r),v(y,ez-r)));
- p.add(new THREE.QuadraticBezierCurve3(v(y,ez-r),v(y,ez),v(y-r,ez)));
- p.add(new THREE.LineCurve3(v(y-r,ez),v(ALTO_SUP+.035,ez)));
- malla(new THREE.TubeGeometry(p,48,R_TUBO,16,false),'tubo',carro);
-}
-
-// Soporte de varilla del carro vacío: prolonga la barandilla frontal hacia el lado derecho.
-{const y=ALTO_SUP-.045,z=ez+.018,x=ex+.24,r=.04,p=new THREE.CurvePath();
- const v=(a,b)=>new THREE.Vector3(a,y,b);
- p.add(new THREE.LineCurve3(v(-ex-.012,z),v(x-r,z)));
- p.add(new THREE.QuadraticBezierCurve3(v(x-r,z),v(x,z),v(x,z-r)));
- p.add(new THREE.LineCurve3(v(x,z-r),v(x,-z+r)));
- p.add(new THREE.QuadraticBezierCurve3(v(x,-z+r),v(x,-z),v(x-r,-z)));
- p.add(new THREE.LineCurve3(v(x-r,-z),v(ex,-z)));
- malla(new THREE.TubeGeometry(p,80,.009,12,false),'tubo',carro);
- for(const x of [ex+.065,ex+.17]){
-  const a=[x,y,-z+.012],b=[x,y-.075,-z+.065],c=[x,y-.075,z-.065],d=[x,y,z-.012];
-  tubo(carro,a,b,.0035);tubo(carro,b,c,.0035);tubo(carro,c,d,.0035);
- }
-}
-
-// Cesta blanca de rejilla colgada en el lateral derecho, con rollos de esparadrapo.
-const cesta=cestillo(carro,[.10,.065,.26]);cesta.position.set(ex+.06,ALTO_SUP-.065,.015);
-for(const s of [-1,1]){
- caja(cesta,'blanco',[.018,.035,.012],[-.054,.065,s*.085],[0,0,0],.003);
- caja(cesta,'blanco',[.035,.008,.012],[-.064,.08,s*.085],[0,0,0],.003);
-}
+// Cesta blanca de rejilla apoyada en los colgadores del soporte lateral, con rollos de esparadrapo.
+const cesta=cestillo(carro,[.10,.065,.26]);cesta.position.set(ex+.125,ALTO_BARANDA-.058,0);
 for(let i=0;i<4;i++){
  const z=-.091+i*.060;
  rollo(cesta,'papel',.013,.026,.025,[-.012,.029,z],[0,0,Math.PI/2]);
@@ -311,7 +225,7 @@ for(let i=0;i<4;i++){
 }
 
 // ---- Bandeja superior ----
-const YS=ALTO_SUP+.004;
+const YS=ALTO_SUP+.0005;
 // Contenedor de 10 L: cuerpo troncopiramidal, tapa amarilla y boca abatible, como en la foto.
 const contenedor=new THREE.Group();carro.add(contenedor);contenedor.position.set(-.218,YS,-.087);
 {const g=new THREE.Group();contenedor.add(g);
@@ -482,7 +396,7 @@ const piezaBisturi=new THREE.Group();
  sobre(g,[.17,.035],[.002,-.008,0],[0,0,0],{nombre:'transparente',centro:'transparente',relieve:.001});}
 
 // ---- Bandeja inferior ----
-const YI=ALTO_INF+.004;
+const YI=ALTO_INF+.0005;
 // Rollos blancos al fondo y dos vendas de compresión, con el mandril hueco y los bordes del tejido.
 const rollosVenda=new THREE.Group();
 {const g=objeto('compresion');g.position.set(-.015,YI,-.125);g.add(rollosVenda);
@@ -517,6 +431,10 @@ for(const [x,z,h,tex] of [[.075,.04,.12,ENVASES.gasas],[.215,.065,.095,ENVASES.s
  caja(g,'papel',[.055,.20,.13],[0,.1,0],[0,0,0],.002);
  rotulo(g,ENVASES.sobres,.12,.12,[.028,.115,0],[0,Math.PI/2,0]);
 }
+
+// El inventario se colocó para el carro anterior, de 74 × 44 cm: se acerca a las bandejas nuevas sin cambiar
+// su tamaño. Es provisional, hasta que se rehagan los objetos.
+for(const o of carro.children)if(o!==estructura&&o!==cesta){o.position.x*=ANCHO/.74;o.position.z*=FONDO/.44;}
 
 // ---- Modelos descargados de Sketchfab (CC-BY, créditos al pie) ----
 // Si están en carro/modelos/, sustituyen la pieza dibujada; si no, se queda la nuestra.
@@ -595,7 +513,7 @@ if(piezaRevisada)for(const g of carro.children)g.visible=g===objetos[piezaRevisa
 
 // ---- Lo que pide la presentación ----
 // vista 'carro': el carro entero. ids: los objetos que trae la herida, elevados y con halo; el resto se retira.
-const VISTA_CARRO={pos:[1.85,1.60,2.65],mira:[.07,.52,0]};
+const VISTA_CARRO={pos:[1.85,1.60,2.65],mira:[.1,.52,0]};
 const VISTA_PERSONAJE={pos:[1.52,1.42,2.2],mira:[.06,.5,0]};
 const VISTAS_REVISION={planta:{pos:[.04,3.3,.001],mira:[.04,.52,0]},
  frontal:{pos:[0,1,3.5],mira:[0,.52,0]},lateral:{pos:[3.5,1,0],mira:[0,.52,0]}};
