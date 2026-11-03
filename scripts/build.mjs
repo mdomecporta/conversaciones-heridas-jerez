@@ -53,5 +53,12 @@ async function vendor(rel){
 }
 await vendor('build/three.module.min.js');
 for(const [,mod] of (await read('carro/carro.js')).matchAll(/from\s*'three\/addons\/([^']+)'/g))await vendor('examples/jsm/'+mod);
+// Prueba aparte (/original/, con contraseña): la presentación de partida de María del Mar con el estilo vigente.
+// La página de prototipos/ se vuelve autónoma: tokens, fuentes y herida dentro; el carro, desde /carro/respaldo/.
+let original=await read('prototipos/original-adaptada/index.html');
+for(const f of ['fraunces-latin-wght-normal','fraunces-latin-wght-italic','figtree-latin-wght-normal'])original=original.replace(`../../assets/fonts/${f}.woff2`,await b64(`assets/fonts/${f}.woff2`,'font/woff2'));
+original=original.replace('<link rel="stylesheet" href="../../tokens.css">',()=>`<style>${tokens}</style>`).replace('<script src="../../entity-liquid.js"></script>',()=>`<script>${liquid}</script>`).replace('<script src="../../entity.js"></script>',()=>`<script>${entity}</script>`).replaceAll('../../carro/respaldo/','../carro/respaldo/');
+await mkdir(new URL('dist/original/',root),{recursive:true});
+await writeFile(new URL('dist/original/index.html',root),original);
 const steps=guion.scenes.reduce((n,s)=>n+s.steps.length,0);
 console.log(`Presentación generada en dist/index.html · ${guion.scenes.length} escenas, ${steps} pasos del guion, ${used.size} imágenes.`);
