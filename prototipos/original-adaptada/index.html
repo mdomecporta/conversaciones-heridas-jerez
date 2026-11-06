@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Confesiones de una úlcera</title>
+<!-- Prueba: el contenido de la presentación original (28 diapositivas) con el estilo de la vigente.
+     Úrsula es la herida líquida con cara (prototipos/herida-amable); Doña Rutina es la enfermera 3D (personajes/rutina); Doña Evidencia, la enfermera 3D de la tableta (personajes/evidencia), junto a su hoja. No sustituye a nada. -->
+<link rel="stylesheet" href="../../tokens.css">
+<link rel="stylesheet" href="editor.css">
+<style>
+@font-face{font-family:"Fraunces";src:url(../../assets/fonts/fraunces-latin-wght-normal.woff2) format("woff2");font-weight:100 900}
+@font-face{font-family:"Fraunces";font-style:italic;src:url(../../assets/fonts/fraunces-latin-wght-italic.woff2) format("woff2");font-weight:100 900}
+@font-face{font-family:"Figtree";src:url(../../assets/fonts/figtree-latin-wght-normal.woff2) format("woff2");font-weight:300 900}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;background:#151012;overflow:hidden}
+#wrap{position:fixed;inset:0;display:grid;place-items:center}
+#stage{position:relative;width:min(100vw,177.78vh);aspect-ratio:16/9;container-type:size;background:var(--paper);overflow:hidden}
+#stage::after{content:"";position:absolute;inset:0;background:var(--grain);opacity:.05;pointer-events:none;z-index:9}
+/* Pigmento por acto. */
+[data-a="0"]{--tone:#e46a5a;--tone-ink:#a5333a;--tone-soft:#fbe1da}
+[data-a="1"]{--tone:#e46a5a;--tone-ink:#a5333a;--tone-soft:#fbe1da}
+[data-a="2"]{--tone:#e3a24a;--tone-ink:#8a5a17;--tone-soft:#f8e8cf}
+[data-a="3"]{--tone:#b58bb0;--tone-ink:#6e4669;--tone-soft:#efe2ee}
+[data-a="4"]{--tone:#8fae8b;--tone-ink:#4a6a47;--tone-soft:#e2eddf}
+[data-a="5"]{--tone:#d98a7a;--tone-ink:#743536;--tone-soft:#f6e1da}
+/* La herida lleva el hilo: panel nocturno flotante a la izquierda, con su cara, su voz y el recorrido. */
+#hilo{position:absolute;left:1.4cqw;top:2.6cqh;bottom:2.6cqh;width:23.5cqw;background:var(--night);color:var(--night-ink);border-radius:1.6cqw;padding:3.4cqh 1.8cqw 3cqh;display:flex;flex-direction:column;z-index:4;box-shadow:0 2cqh 5cqh -2.5cqh rgba(34,23,26,.55)}
+#hilo .acto{font:600 .95cqw/1.2 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--tone)}
+#hilo .cab{display:flex;gap:1cqw;align-items:baseline;margin-top:1.2cqh}
+#hilo .num{font:300 3.6cqw/1 var(--display);color:var(--tone);font-variation-settings:"opsz" 144;flex:none}
+#hilo h1{font:500 1.7cqw/1.12 var(--display);letter-spacing:-.01em;text-wrap:balance}
+#sitio{position:relative;height:27cqh;flex:none;margin:.6cqh -1.8cqw 0}
+#herida{position:absolute;inset:-5cqh -1cqw -3cqh;transition:opacity .9s var(--ease),filter .9s var(--ease)}
+#herida .orb-zone{position:absolute;inset:0}
+#herida .orb-canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+#stage[data-who="v"] #herida{filter:hue-rotate(-25deg) saturate(.7)}
+.quien{font:700 .9cqw var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--skin);margin:.4cqh 0 .8cqh}
+.burbuja{font:500 1.45cqw/1.35 var(--sans);color:var(--herida-ink);background:var(--bubble-herida);border-radius:.3cqw 1.4cqw 1.4cqw 1.4cqw;padding:1.5cqh 1.2cqw;text-wrap:pretty}
+.burbuja.entra{animation:entra .8s .2s var(--ease) both}
+.burbuja.escucha{background:none;border:1px dashed var(--night-line);color:var(--night-muted);font-style:italic;font-size:1.15cqw}
+#ruta{margin-top:auto;display:flex;flex-wrap:wrap;gap:.5cqh .9cqw;padding-top:1.4cqh;border-top:1px dashed var(--night-line)}
+#ruta div{font:500 .85cqw/1.2 var(--sans);color:var(--night-muted);display:flex;align-items:center;gap:.4cqw}
+#ruta div::before{content:"×";color:var(--night-muted)}
+#ruta div.on{color:var(--night-ink)}
+#ruta div.on::before{content:"";width:.6cqw;height:.6cqw;border-radius:50%;border:2px solid var(--tone);animation:respira 2.4s var(--ease) infinite}
+#ruta div.next{opacity:.55}#ruta div.next::before{content:"·"}
+@keyframes respira{50%{box-shadow:0 0 0 .4cqw color-mix(in srgb,var(--tone) 25%,transparent)}}
+/* Centro: ocupa lo que dejan libre los personajes; si no cabe, se reduce entero (fit()). */
+#centro{position:absolute;left:27cqw;right:var(--hueco-r,2.6cqw);top:4.5cqh;bottom:var(--hueco-b,4.5cqh);z-index:2;transition:right .9s var(--ease),bottom .9s var(--ease)}
+#contenido{display:flex;flex-direction:column;gap:2.2cqh;transform-origin:top left;transition:transform .5s var(--ease)}
+#contenido>*{animation:entra .7s var(--ease) both}
+#contenido>*:nth-child(2){animation-delay:.12s}#contenido>*:nth-child(3){animation-delay:.24s}#contenido>*:nth-child(4){animation-delay:.36s}
+#stage.con-r{--hueco-r:25cqw}
+#stage.con-ev{--hueco-b:40cqh}
+#stage.con-r .cols:is([style*="--n:3"],[style*="--n:4"]),#stage.con-r .lista[style*="--n:2"]{grid-template-columns:repeat(2,1fr)}
+#stage.con-r .decalogo{grid-template-columns:repeat(4,1fr)}
+#stage.con-r .flujo{flex-wrap:wrap}
+@keyframes entra{from{opacity:0;transform:translateY(1.5cqh)}}
+.rot{font:700 .95cqw/1.2 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--tone-ink);margin-bottom:1.1cqh}
+.chips{display:flex;flex-wrap:wrap;gap:.7cqw}
+.chips span{font:600 1.25cqw/1 var(--sans);padding:.85cqw 1.15cqw;border-radius:99px;background:var(--tone-soft);color:var(--tone-ink)}
+.chips.claro span{background:#fff;border:1px solid var(--line);color:var(--ink-soft)}
+.cols{display:grid;gap:1cqw;grid-template-columns:repeat(var(--n,2),1fr)}
+.col{background:#fff;border:1px solid var(--line);border-radius:1cqw;padding:1.5cqh 1.1cqw;position:relative;overflow:hidden}
+.col::before{content:"";position:absolute;left:0;top:0;bottom:0;width:.35cqw;background:var(--c,var(--tone))}
+.col h3{font:600 1.35cqw/1.15 var(--sans);color:var(--c-ink,var(--ink));margin-bottom:.6cqh}
+.col p{font:400 1.1cqw/1.35 var(--sans);color:var(--ink-soft)}
+.col .big{font:300 4.2cqw/1 var(--display);color:var(--tone-ink)}
+.col.no{--c:var(--blood);--c-ink:var(--blood-deep);background:var(--blush)}
+.col.si{--c:var(--olive);--c-ink:var(--olive-ink);background:var(--olive-soft)}
+.col.am{--c:#e3a24a;--c-ink:#8a5a17;background:#fbf0dc}
+.col.museo{text-align:center;background:var(--serum);border-style:dashed}
+.col.museo::before{display:none}
+.col.museo small{font:700 .8cqw var(--sans);letter-spacing:.12em;color:var(--muted)}
+.col.museo b{display:inline-block;margin-top:.8cqh;font:700 .85cqw var(--sans);text-transform:uppercase;letter-spacing:.1em;padding:.3cqw .7cqw;border-radius:99px;background:var(--blood);color:#fff}
+.col.museo b.rev{background:#e3a24a}
+.lista{list-style:none;padding:0;display:grid;gap:1cqh;grid-template-columns:repeat(var(--n,1),1fr)}
+.lista li{font:500 1.3cqw/1.3 var(--sans);display:flex;gap:.9cqw;align-items:baseline;background:#fff;border:1px solid var(--line);border-radius:.8cqw;padding:1.1cqh 1cqw}
+.lista li i{font:500 1.5cqw/1 var(--display);font-style:normal;color:var(--tone-ink);min-width:1.4cqw}
+.lista li span small{display:block;font-weight:400;font-size:1.05cqw;color:var(--muted);margin-top:.3cqh}
+.flujo{display:flex;align-items:stretch;gap:.6cqw}
+.flujo>div{flex:1;background:var(--tone-soft);border-radius:.8cqw;padding:1.3cqh .8cqw;font:600 1.15cqw/1.2 var(--sans);color:var(--tone-ink);text-align:center;display:grid;place-items:center}
+.flujo>i{align-self:center;color:var(--line-strong);font-style:normal;font-size:1.4cqw}
+.nota{font:italic 400 1.35cqw/1.35 var(--display);color:var(--room-ink);border-left:3px solid var(--room);padding:.4cqh 0 .4cqh 1cqw}
+.nota.sala::before{content:"A la sala · ";font:700 .9cqw var(--sans);letter-spacing:.1em;text-transform:uppercase;font-style:normal}
+.balanza{display:grid;grid-template-columns:1fr 1fr;gap:1cqw}
+.decalogo{display:grid;grid-template-columns:repeat(5,1fr);gap:.7cqw}
+.decalogo div{background:#fff;border:1px solid var(--line);border-radius:.8cqw;padding:1.2cqh .8cqw;font:600 1.1cqw/1.25 var(--sans)}
+.decalogo div i{display:block;font:300 2.2cqw/1 var(--display);font-style:normal;color:var(--blood);margin-bottom:.6cqh;text-decoration:line-through;text-decoration-thickness:2px;text-decoration-color:var(--coral)}
+/* Doña Rutina: se asoma por la derecha con su frase. */
+#rutina{position:absolute;right:-3cqw;bottom:-4cqh;width:24cqw;height:78cqh;z-index:3;pointer-events:none;background:center bottom/contain no-repeat url(../../personajes/rutina/render/reposo.png);transform:translateX(110%) rotate(6deg);transform-origin:bottom right;transition:transform 1s var(--ease)}
+#stage.con-r #rutina{transform:none}
+#rutina-dice{position:absolute;right:3cqw;top:5cqh;width:20cqw;z-index:4;opacity:0;transform:translateX(4cqw);transition:opacity .6s var(--ease),transform .8s var(--ease)}
+#stage.con-r #rutina-dice{opacity:1;transform:none;transition-delay:.45s}
+#rutina-dice .quien{color:var(--ink-soft)}
+#rutina-dice p{font:italic 500 1.45cqw/1.35 var(--sans);color:var(--ink-soft);background:#fff;border:1px solid var(--line-strong);border-radius:1.4cqw .3cqw 1.4cqw 1.4cqw;padding:1.5cqh 1.2cqw;box-shadow:0 1cqh 3cqh -2cqh rgba(48,43,42,.35);text-wrap:pretty}
+/* Doña Evidencia: sube desde abajo con la tableta y despliega la evidencia en pantalla. */
+#evid{position:absolute;left:26cqw;bottom:-2cqh;width:12cqw;height:42cqh;z-index:5;pointer-events:none;background:center bottom/contain no-repeat url(../../personajes/evidencia/render/reposo.png);transform:translateY(105%);transition:transform .9s var(--ease)}
+#rutina canvas,#evid canvas{position:absolute;inset:0;width:100%!important;height:100%!important;display:block}
+#tableta{position:absolute;left:37cqw;right:var(--hueco-r,2.6cqw);bottom:3cqh;height:34cqh;z-index:4;background:#1d1a1c;border-radius:1.6cqw;padding:1.1cqw;box-shadow:0 2cqh 5cqh -2cqh rgba(34,23,26,.6);transform:translateY(120%);transition:transform .9s .15s var(--ease),right .9s var(--ease)}
+#stage.con-ev #evid{transform:none}
+#stage.con-ev #tableta{transform:none}
+.pantalla{height:100%;border-radius:.7cqw;background:var(--sheet);overflow:hidden;display:flex;flex-direction:column}
+.barra{display:flex;align-items:center;gap:.5cqw;padding:.9cqh 1cqw;background:var(--olive);color:var(--olive-soft);font:600 .85cqw/1 var(--sans);letter-spacing:.08em;text-transform:uppercase}
+.barra i{width:.55cqw;height:.55cqw;border-radius:50%;background:var(--ochre);opacity:.8}
+.barra b{margin-left:.6cqw;font-weight:700}
+.barra span{margin-left:auto;font-weight:500;letter-spacing:.04em;text-transform:none;opacity:.8}
+.consulta{flex:1;padding:2cqh 1.6cqw 1.6cqh;display:flex;flex-direction:column;gap:1.4cqh}
+.consulta .campo{font:600 .8cqw var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--olive)}
+.consulta p{font:500 1.75cqw/1.3 var(--display);color:var(--olive-ink);text-wrap:pretty;min-height:4.6cqw}
+.consulta p.escribe::after{content:"▍";color:var(--ochre);animation:cursor 1s steps(2) infinite}
+@keyframes cursor{50%{opacity:0}}
+.consulta .f{margin-top:auto;display:flex;gap:.6cqw;align-items:center;font:600 .85cqw/1.3 var(--sans);color:var(--olive)}
+.consulta .f b{background:var(--olive-soft);color:var(--olive-ink);border:1px solid var(--sheet-line);border-radius:.4cqw;padding:.35cqw .7cqw;font-weight:600}
+.consulta .f small{margin-left:auto;font-weight:400;color:var(--muted)}
+#pie{position:absolute;right:2.6cqw;bottom:1.2cqh;font:400 .8cqw var(--sans);color:var(--muted);z-index:2}
+/* Portada. */
+#stage.portada #hilo{left:0;top:0;bottom:0;width:100cqw;border-radius:0;padding:9cqh 8cqw;justify-content:center}
+#stage.portada #hilo .cab{display:block;margin-top:2cqh}
+#stage.portada #hilo h1{font-size:6.5cqw;max-width:56cqw;line-height:1}
+#stage.portada #hilo .num{display:none}
+#stage.portada #hilo .sub{font:italic 300 3cqw var(--display);color:var(--skin);margin-top:2cqh}
+#stage.portada #hilo .autora{font:400 1.2cqw var(--sans);color:var(--night-muted);margin-top:5cqh}
+#stage.portada #sitio{position:absolute;right:6cqw;top:10cqh;width:28cqw;height:40cqh;margin:0}
+#stage.portada #hilo .quien,#stage.portada #hilo .burbuja{position:absolute;right:6cqw;width:28cqw}
+#stage.portada #hilo .quien{top:52cqh}#stage.portada #hilo .burbuja{top:56cqh;font-size:1.7cqw}
+#stage.portada #ruta{margin-top:5cqh;border:0;gap:2.5cqw}
+#stage.portada #ruta div::before{display:none}
+#stage.portada #ruta div{color:var(--night-ink);font-size:1cqw}
+#stage.portada :is(#centro,#pie,#tableta,#evid,#rutina,#rutina-dice){display:none}
+#nav{position:fixed;right:12px;bottom:10px;font:500 12px var(--sans);color:rgba(255,255,255,.5);z-index:20}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div id="wrap"><main id="stage">
+ <aside id="hilo"><div class="acto"></div><div class="cab"><div class="num"></div><h1></h1></div><div class="extra"></div>
+  <div id="sitio"><div id="herida" aria-hidden="true"><div class="orb-zone" data-renderer="liquid" data-variant="3" data-ink="3" data-eyes="true" data-voice="principal" data-state="idle"></div></div></div>
+  <div class="quien"></div><div class="burbuja"></div><div id="ruta"></div></aside>
+ <section id="centro"><div id="contenido"></div></section>
+ <div id="rutina" role="img" aria-label="Doña Rutina"></div>
+ <div id="rutina-dice"><div class="quien">Doña Rutina</div><p></p></div>
+ <div id="evid" role="img" aria-label="Doña Evidencia, con su tableta"></div>
+ <div id="tableta"><div class="pantalla"><div class="barra"><i></i><i></i><i></i><b>Doña Evidencia</b><span>consulta · guías de práctica clínica</span></div><div class="consulta"><div class="campo">Recomendación</div><p></p><div class="f"><b></b><small>Síntesis del documento citado, no cita literal</small></div></div></div></div>
+ <div id="pie"></div>
+</main></div>
+<div id="nav"></div>
+<script>globalThis.ENTITY_RENDERER="liquid";globalThis.ENTITY_VARIANT=3;globalThis.ENTITY_INK=3;</script>
+<script src="../herida-amable/entity-liquid-amable.js"></script>
+<script src="../../entity.js"></script>
+<script>
+// Contenido literal de «Confesiones de una úlcera» (referencias/). u = Úrsula (la herida), r = Doña Rutina (la enfermera 3D), v = las vecinas.
+const ACTOS=['Apertura','Diagnóstico','Infección','Limpieza','Situaciones especiales y circuitos','Humanizar la cura'];
+const S=[
+{a:0,acto:'Jornadas de Comisiones de Heridas · Jerez',t:'Qué no hacer en heridas crónicas',portada:1,who:'u',q:'Hola, soy Úrsula. Hoy vengo a contar todo lo que me han hecho… con la mejor intención.'},
+{a:0,acto:'Apertura',t:'Les presento a Doña Rutina',who:'r',q:'Llevo 30 años haciéndolo así y nunca se ha quejado nadie.',re:'Yo sí, pero nadie me pregunta.',
+ b:[{k:'balanza',l:{h:'Hoy pesa demasiado',items:['Rutina','Variabilidad','Coste','Dolor','Resistencias']},r:{h:'Debería pesar más',items:['Seguridad','Reevaluación','Evidencia','Criterio clínico']}},{k:'flujo',items:['Identificar','Cuestionar','Sustituir']}],
+ ev:'No hacer por rutina, hacer por indicación. Cada «no hacer» trae su alternativa.',f:'GNEAUPP DT XIV · EWMA 2022 · IWII 2025'},
+{a:1,t:'Me llaman crónica, pero tengo apellido',who:'u',q:'¿Crónica? Eso no es un diagnóstico, es mi antigüedad. ¡Preguntadme de dónde vengo!',
+ b:[{k:'chips',h:'Puedo ser…',items:['Venosa','Arterial','Pie diabético','Por presión','Por humedad','Tumoral','Quirúrgica','Atípica']},{k:'chips',claro:1,h:'El diagnóstico debe determinar',items:['Etiología','Perfusión','Infección','Dolor','Presión','Paciente','Objetivos del plan']}],
+ ev:'Diagnóstico etiológico y valoración integral antes de cualquier tratamiento tópico.',f:'GNEAUPP Documento Técnico Nº XIV · EWMA Fact Sheets 2026'},
+{a:1,t:'Cada uno me mide como quiere',who:'u',q:'Por la mañana mido 4 cm. Por la tarde, «media palma». Por la noche, «como una moneda de dos euros».',
+ b:[{k:'cols',items:[{c:'no',h:'Así no: medición no reproducible',p:'Instrumentos no validados para el tipo de lesión. Cada profesional mide distinto y la evolución real queda oculta.'},{c:'si',h:'Así sí: estructurada y comparable',p:'Medida con instrumentos validados, igual para todo el equipo.'}]},{k:'chips',items:['Longitud','Anchura','Profundidad','Tejido','Exudado','Borde','Piel perilesional','Dolor']}],
+ ev:'Medición estructurada, con instrumentos validados y comparable entre profesionales.',f:'GNEAUPP Documento Técnico Nº XIV'},
+{a:1,t:'El día de la marmota',who:'u',q:'Cada lunes, la misma cura, el mismo apósito… y yo, del mismo tamaño.',
+ b:[{k:'flujo',items:['Día 0 · Valoración inicial','Semana 2–4 · Punto de control']},{k:'cols',items:[{c:'si',h:'Si mejora',p:'Continuar el plan y mantener el seguimiento.'},{c:'no',h:'Si no mejora',p:'Replantear diagnóstico, tratamiento o derivación.'}]}],
+ ev:'Una herida que no avanza no es «normal». Reevaluar causas y reformular el plan.',f:'GNEAUPP DT XIV · EWMA 2022'},
+{a:1,t:'La talla única no existe',who:'r',q:'El mismo apósito para todas, que así no hay confusión.',
+ b:[{k:'cols',n:4,items:[{h:'Presión',p:'Descarga'},{h:'Venosa',p:'Compresión'},{h:'Arterial',p:'Valoración vascular'},{h:'Pie diabético',p:'Descarga, infección, isquemia'},{h:'Tumoral',p:'Confort'},{h:'Atípica',p:'Sospecha y derivación'},{h:'Quirúrgica',p:'Vigilancia por fases'},{h:'Humedad',p:'Control y protección cutánea'}]}],
+ ev:'Adaptar el plan al tipo de herida. Estandarizar sin etiología da tratamientos ineficaces.',f:'GNEAUPP DT XIV · EWMA Fact Sheets 2026'},
+{a:2,t:'Mis vecinas no son delincuentes',who:'v',quien:'Las vecinas',q:'Nosotras solo vivimos aquí. El problema es cuando alguien monta una fiesta.',
+ b:[{k:'flujo',items:['Contaminación','Colonización','Infección local','Infección extendida','Infección sistémica'],arrow:1},{k:'chips',h:'Signos clínicos a valorar',items:['Aumento de dolor','Eritema y calor','Edema','Mal olor nuevo','Exudado purulento','Deterioro del lecho']}],
+ ev:'Se trata la infección clínica, no la presencia de bacterias. Valorar signos y evolución.',f:'EWMA 2022 · GNEAUPP DT VIII · EWMA FS 2026'},
+{a:2,t:'El cultivo «por si acaso»',who:'u',q:'¿Otro hisopo? Si ya me conocen en microbiología por mi nombre…',
+ b:[{k:'lista',h:'Antes de cultivar, pregúntate',num:1,items:['¿Hay signos clínicos de infección?','¿No responde al tratamiento empírico?','¿Empeora o aumenta de tamaño?','¿Sospecha de microorganismos resistentes?']},{k:'cols',items:[{c:'am',h:'Si alguna es sí',p:'Tomar muestra.'},{c:'si',h:'Si todas son no',p:'No cultivar por rutina.'}]}],
+ ev:'Cultivar ante indicación clínica. El cultivo rutinario da resultados irrelevantes y antibióticos innecesarios.',f:'GNEAUPP DT VIII · EWMA 2022'},
+{a:2,t:'La pomada de toda la vida',who:'r',q:'Un poquito de antibiótico en pomada nunca hace daño.',
+ b:[{k:'nota',t:'Sin evidencia suficiente de eficacia como uso rutinario.'},{k:'cols',n:3,items:[{c:'no',h:'Resistencias'},{c:'no',h:'Sensibilización'},{c:'no',h:'Falsa sensación de tratamiento'}]}],
+ ev:'Nada de antibiótico tópico rutinario. Antimicrobianos solo con indicación y reevaluación.',f:'GNEAUPP DT VIII · EWMA 2022'},
+{a:2,t:'El interrogatorio: cuatro preguntas',who:'r',q:'Me acojo a mi derecho a no contestar.',
+ b:[{k:'lista',num:1,n:2,items:['¿Por qué?','¿Cuál?','¿Durante cuánto?','¿Cuándo reevaluar?']},{k:'chips',h:'Estrategia AMS en heridas',items:['Indicación','Producto adecuado','Duración limitada','Reevaluación']}],
+ ev:'Ningún antimicrobiano «por si acaso». Indicación, objetivo y revisión definidos, con principios AMS.',f:'EWMA 2022 · EWMA FS 2026 · IWII 2025 · GNEAUPP DT VIII'},
+{a:2,t:'La plata que vino para quedarse',who:'u',q:'El apósito de plata llegó con maleta. Ya es inquilino indefinido.',
+ b:[{k:'cols',n:3,items:[{h:'Inicio con objetivo',p:'Indicación clara y respuesta esperada desde el primer día.'},{big:'14',p:'días · referencia'},{c:'si',h:'Reevaluar y decidir',p:'Continuar, retirar o escalar según la respuesta clínica.'}]}],
+ ev:'Ningún antimicrobiano indefinido. Reevaluar y decidir: continuar, retirar o escalar.',f:'GNEAUPP DT VIII · EWMA 2022'},
+{a:2,t:'El antiséptico no es champú',who:'r',q:'Antiséptico para que quede limpita… y un chorrito de alcohol para rematar.',
+ b:[{k:'rot',t:'¿Hay sospecha o riesgo de infección?'},{k:'cols',items:[{h:'No: limpieza básica',p:'Mantenimiento habitual de la herida.'},{c:'am',h:'Sí: antiséptico con indicación',p:'Elegido según tejido, dolor, alergias y objetivo.'}]},{k:'cols',n:1,items:[{c:'no',h:'Alcohol: solo en piel sana, nunca en el lecho',p:'Dolor · irritación · daño tisular · retraso en la cicatrización'}]}],
+ ev:'Antiséptico solo con indicación clínica. Alcohol, nunca sobre el lecho.',f:'GNEAUPP DT VIII · IWII 2025'},
+{a:2,t:'El Museo de Doña Rutina',who:'r',q:'Mis piezas de colección. Todas salieron alguna vez de mi bandeja.',adapt:1,
+ b:[{k:'cols',n:4,items:[{m:1,s:'Pieza nº 1',h:'Agua oxigenada',e:'Revisar'},{m:1,s:'Pieza nº 2',h:'Mercuriales',e:'Abandonar'},{m:1,s:'Pieza nº 3',h:'Nitrofural',e:'Revisar'},{m:1,s:'Pieza nº 4',h:'Mezclas caseras',e:'Abandonar'}]},{k:'nota',sala:1,t:'A mano alzada: ¿quién ha visto alguna de estas piezas en un carro de curas este año?'},{k:'nota',t:'En heridas quirúrgicas no es necesario el antiséptico tópico rutinario con fines preventivos.'}],
+ ev:'Los productos heredados se quedan en la vitrina. Elegir la solución según evidencia y objetivo.',f:'GNEAUPP DT VIII · GNEAUPP DT XIV'},
+{a:3,t:'Limpiar no es regar',who:'r',q:'Un buen riego en el centro, como a los geranios, y listo.',
+ b:[{k:'chips',h:'Limpieza terapéutica: para qué',items:['Retirar detritus','Retirar exudado','Retirar restos de apósito','Retirar microorganismos','Preparar el lecho']},{k:'cols',n:4,items:[{h:'Lecho',p:'Tejido y carga bacteriana'},{h:'Borde',p:'Avance epitelial'},{h:'Piel perilesional',p:'Maceración, dermatitis'},{h:'Piel circundante',p:'Integridad cutánea'}]}],
+ ev:'Limpieza terapéutica en cada cura, con lecho, borde, perilesión y piel circundante.',f:'GNEAUPP DT XVII · IWII 2025'},
+{a:3,t:'La carta de soluciones',who:'u',q:'¿Ni me enseñáis la carta? Siempre me ponéis «lo de siempre».',
+ b:[{k:'cols',n:3,items:[{h:'Suero fisiológico',p:'Opción habitual y segura'},{h:'Agua potable',p:'Alternativa válida en ciertos contextos'},{h:'Solución limpiadora',p:'Con surfactante, según indicación'}]},{k:'chips',claro:1,h:'Se elige según',items:['Tipo de herida','Infección o riesgo','Dolor','Alergias','pH','Citotoxicidad','Recursos','Objetivo']}],
+ ev:'Elegir la solución según herida, paciente, riesgo y objetivo. El suero no es un dogma.',f:'IWII 2025 · GNEAUPP DT XVII'},
+{a:3,t:'Ni caricia ni manguera, ni a traición',who:'u',q:'Y avisadme antes, que el suero frío duele.',
+ b:[{k:'cols',n:3,h:'Presión de limpieza',items:[{c:'am',h:'Insuficiente',p:'No arrastra detritus ni microorganismos.'},{c:'si',h:'4–15 psi: adecuada',p:'LPP y úlceras venosas. Traumáticas: presiones bajas.'},{c:'no',h:'Excesiva',p:'Traumatiza el tejido de granulación.'}]},{k:'cols',n:3,h:'Dolor planificado',items:[{h:'Antes',p:'Valorar dolor basal y planificar analgesia.'},{h:'Durante',p:'Técnica suave; solución a 33–42 ºC.'},{h:'Después',p:'Reevaluar la respuesta y ajustar el plan.'}]}],
+ ev:'Ajustar la presión al tipo de herida y valorar, prevenir y reevaluar el dolor.',f:'GNEAUPP DT XVII · IWII 2025'},
+{a:4,t:'El semáforo del desbridamiento',who:'r',q:'¿Semáforo? Yo con el bisturí voy siempre en verde.',
+ b:[{k:'cols',n:3,items:[{c:'si',h:'Verde: adelante',p:'Tejido desvitalizado con perfusión adecuada e indicación clara.'},{c:'am',h:'Ámbar: cuidado',p:'Anticoagulación, dolor no controlado, dudas etiológicas.'},{c:'no',h:'Rojo: no',p:'Isquemia crítica, escara seca estable en talón, herida tumoral sangrante, sospecha de pioderma.'}]},{k:'nota',sala:1,t:'Leo un caso y levantáis la tarjeta verde, ámbar o roja.'}],
+ ev:'No desbridar por reflejo. Valorar indicación, perfusión y tipo de herida.',f:'GNEAUPP DT XIV · EWMA Fact Sheets 2026'},
+{a:4,t:'Cuando no me voy a cerrar, o no encajo',who:'u',q:'Hay heridas que no van a cerrar, y no pasa nada. Y hay otras que no se parecen a nada. A esas, escuchadlas.',
+ b:[{k:'chips',h:'Herida paliativa: nuevo objetivo · cerrar no es realista',items:['Confort','Control de exudado','Control de olor','Prevención de sangrado','Calidad de vida']},{k:'chips',claro:1,h:'Señales de que no encaja',items:['Dolor desproporcionado','Bordes violáceos','Localización inusual','Empeora con el tratamiento habitual','Evolución tórpida']}],
+ ev:'Priorizar confort y calidad de vida. Ante lo atípico: sospechar, documentar y derivar.',f:'GNEAUPP DT XIV · EWMA Local Wound Infection Fact Sheets 2026'},
+{a:4,t:'No estoy sola',who:'u',q:'Tengo hasta grupo de WhatsApp. Lo raro es que Doña Rutina siga apañándose sola.',
+ b:[{k:'chips',h:'Grupo «Casos complejos»',items:['Atención primaria','Hospital','Vascular','Dermatología','Cirugía','Endocrino / pie diabético','Comisión de heridas']},{k:'lista',h:'Derivar o consultar si',n:2,items:['Sospecha de isquemia','Infección profunda u osteomielitis','Pie diabético complicado','Sospecha tumoral o atípica','Ausencia de progreso']}],
+ ev:'Nadie maneja la complejidad en solitario. Circuitos claros y derivación precoz.',f:'EWMA 2022 · EWMA Fact Sheets 2026'},
+{a:5,t:'Me curáis a mí, no solo a la herida',who:'u',q:'Detrás de mí hay una señora que no duerme, que ya no sale de casa y a la que le da vergüenza el olor.',
+ b:[{k:'chips',h:'Lo que la herida le quita',items:['Dolor','Sueño','Movilidad','Olor y exudado','Vida social','Ánimo: ansiedad, depresión','Intimidad']},{k:'lista',h:'Lo que hay que valorar',items:['Valoración integral: física, psicosocial, social y económica','Calidad de vida con instrumentos validados, como el Cardiff Wound Impact Schedule']}],
+ ev:'La persona no se reduce a su herida. Valorar y registrar también su calidad de vida.',f:'EWMA (Gethin et al., 2020) · Gerokomos 2010;21(3) · Gerokomos 2024;35(1) y 35(2)'},
+{a:5,t:'«Si levanto la mano, paráis»',who:'u',q:'Lo pactamos antes de empezar. Y si duele, no se sigue «un poquito más».',
+ b:[{k:'lista',h:'El pacto de la cura',num:1,n:2,items:[['Explicar','Qué se va a hacer y cuánto dura; pedir consentimiento.'],['Preparar','Entorno tranquilo y postura cómoda.'],['Analgesia a tiempo','Tópica, 30 min o más antes; oral, 1–2 h antes.'],['Pactar pausas','Y respetarlas cuando la persona las pida.'],['Preguntar a menudo','Cómo está, con una escala validada.'],['Cuidar el gesto','Solución templada, poca exposición, apósito atraumático.']]}],
+ ev:'El dolor de la cura es el más intenso y el más prevenible. Pactar, prevenir y registrar.',f:'GNEAUPP Documento Técnico Nº VI, 2.ª ed. (2021) · IWII 2025'},
+{a:5,t:'Decidimos juntos',who:'r',q:'Usted no se preocupe, que yo ya sé lo que le conviene.',
+ b:[{k:'cols',items:[{c:'no',h:'Cumplimiento',p:'El profesional decide y espera que el paciente obedezca.'},{c:'si',h:'Concordancia',p:'El plan se construye en alianza con la persona.'}]},{k:'lista',h:'Lo que pide NICE',n:2,items:['Explicar las opciones y decidir juntos','Un plan de cuidados que recoja sus preferencias','Familia o cuidadores, solo si la persona quiere','Informar de causas, signos de alarma y prevención']},{k:'nota',t:'Los pacientes callan el 38 % de sus preocupaciones (estudio británico).'}],
+ ev:'El plan se pacta con la persona. Y hay que preguntarle qué le preocupa, porque no siempre lo dice.',f:'NICE CG179 (2014) · EWMA (Gethin et al., 2020)'},
+{a:5,t:'La familia y el equipo también curan',who:'u',q:'Mi cuidadora sabe de mí más que nadie. Contad con ella… y cuidaos vosotras también.',
+ b:[{k:'cols',n:3,items:[{h:'Paciente y familia',p:'Enseñarles la cura y a detectar complicaciones. Lenguaje claro, sin jerga.'},{h:'Continuidad',p:'La misma enfermera siempre que se pueda. Cura en domicilio si hace falta.'},{h:'Quien cura',p:'Reconocer la frustración y el estrés del profesional. Apoyo de la enfermera consultora.'}]}],
+ ev:'Educar con lenguaje claro, dar continuidad y cuidar también a quien cuida.',f:'Gerokomos 2024;35(2):118-22 · Gerokomos 2024;35(1):30-8 · EWMA (Gethin et al., 2020)'},
+{a:5,t:'El olor no se comenta: se trata',who:'r',q:'¡Huy, cómo huele esto! Abra la ventana, hija.',
+ b:[{k:'cols',n:2,h:'Síntomas que quitan dignidad',items:[{h:'Olor',p:'Apósito de carbón, metronidazol tópico, ventilar la estancia.'},{h:'Exudado',p:'Apósitos absorbentes y piel perilesional protegida.'},{h:'Picor',p:'Emolientes, apósitos no adherentes, menos cambios.'},{h:'Sangrado',p:'Manipulación suave y apósitos hemostáticos.'}]},{k:'nota',t:'Y además: atender la imagen corporal y el aislamiento. Hablar con claridad y compasión. Explicar a la familia qué esperar.'}],
+ ev:'Aliviar sin juzgar, con apósitos cómodos y atraumáticos y las menores molestias posibles.',f:'EWMA, Palliative wound care (Gethin et al., J Wound Manag 2025;26(1 Sup1))'},
+{a:5,t:'¿Me lo dice en mi idioma?',who:'u',q:'«Lecho esfacelado con exudado seroso moderado»… ¿Y eso es bueno o es malo?',
+ b:[{k:'cols',n:2,items:[{h:'Oral y por escrito',p:'Con dibujos o imágenes cuando ayuden.'},{h:'Qué vigilar',p:'Los signos de alarma y a quién llamar si aparecen.'},{h:'Un nombre de contacto',p:'Una persona que coordine y a la que acudir.'},{h:'Adaptada',p:'A la discapacidad, al domicilio o a la residencia.'}]},{k:'nota',t:'«El paciente no siempre está listo para aprender cuando el profesional está listo para enseñar.»'}],
+ ev:'Informar claro, de palabra y por escrito, y dejar siempre dicho a quién llamar.',f:'NICE NG19, Diabetic foot problems (2015) · EWMA (Gethin et al., 2020) · Gerokomos 2024;35(2)'},
+{a:5,t:'¿Qué es lo que más le importa a usted?',who:'r',q:'¿Y qué más da lo que quiera ella? Lo importante es que cierre.',
+ b:[{k:'chips',h:'Respuestas que cambian el plan',items:['«Dormir sin dolor»','«Poder ducharme»','«Salir sin miedo al olor»','«Ir a la boda de mi nieta con zapatos»']},{k:'cols',n:3,items:[{h:'Es subjetiva',p:'La calidad de vida depende de los valores y proyectos de cada persona.'},{h:'Sus preferencias cuentan',p:'Al elegir la técnica, el apósito o si se ducha.'},{h:'El cuidador también',p:'Su calidad de vida puede resentirse.'}]}],
+ ev:'Los objetivos del plan se fijan con la persona, empezando por lo que a ella le importa.',f:'Gerokomos 2010;21(4):144 · IWII 2025 · EWMA (Gethin et al., 2020) · NICE CG179'},
+{a:5,t:'Nada sobre mí sin mí',who:'u',q:'Hacéis comisiones, protocolos y jornadas sobre mí… ¿Y a mí cuándo me invitáis?',
+ b:[{k:'lista',h:'Lo que ya dicen las guías',items:[['EWMA','Fomentar la participación de pacientes y ciudadanía para medir lo que a ellos les importa.'],['EWMA Patient Voices','Las personas con heridas, «socios» en el futuro del cuidado.'],['NICE','Decisiones informadas, según sus valores y preferencias.']]},{k:'cols',n:1,items:[{c:'si',h:'Idea para nuestras comisiones',p:'Preguntar por la experiencia de la cura e invitar a pacientes y cuidadores cuando revisemos protocolos.'}]}],
+ ev:'La persona con herida es socia del cuidado, no solo destinataria.',f:'EWMA (Gethin et al., 2020) · EWMA Patient Voices Initiative · NICE NG19'},
+{a:0,acto:'Cierre',t:'Decálogo: Doña Rutina se jubila',who:'r',q:'Me jubilo. Os dejo el maletín.',re:'Por fin alguien me ha preguntado de dónde vengo.',
+ b:[{k:'decalogo',items:['No tratar sin diagnóstico','No medir con instrumentos no válidos','No normalizar que una herida no avance','No confundir colonización con infección','No cultivar por rutina','No usar antibióticos tópicos de forma sistemática','No usar antisépticos en todas las heridas','No limpiar como ritual','No olvidar borde y piel perilesional','No mantener tratamientos sin reevaluar']}],
+ ev:'Doña Evidencia se queda: menos rutina, más diagnóstico, reevaluación y seguridad.',f:'Síntesis GNEAUPP · EWMA · IWII'}
+];
+const $=s=>document.querySelector(s),esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'})[c]);
+const rot=h=>h?`<div class="rot">${esc(h)}</div>`:'';
+const R={
+ chips:b=>`<div>${rot(b.h)}<div class="chips${b.claro?' claro':''}">${b.items.map(i=>`<span>${esc(i)}</span>`).join('')}</div></div>`,
+ cols:b=>`<div>${rot(b.h)}<div class="cols" style="--n:${b.n||2}">${b.items.map(c=>c.m?`<div class="col museo"><small>${esc(c.s.toUpperCase())}</small><h3>${esc(c.h)}</h3><b class="${c.e==='Revisar'?'rev':''}">${c.e}</b></div>`:`<div class="col ${c.c||''}">${c.big?`<div class="big">${c.big}</div>`:''}${c.h?`<h3>${esc(c.h)}</h3>`:''}${c.p?`<p>${esc(c.p)}</p>`:''}</div>`).join('')}</div></div>`,
+ lista:b=>`<div>${rot(b.h)}<ol class="lista" style="--n:${b.n||1}">${b.items.map((i,k)=>{const [h,p]=Array.isArray(i)?i:[i];return `<li><i>${b.num?k+1:'·'}</i><span>${esc(h)}${p?`<small>${esc(p)}</small>`:''}</span></li>`}).join('')}</ol></div>`,
+ flujo:b=>`<div class="flujo">${b.items.map(i=>`<div>${esc(i)}</div>`).join('<i>→</i>')}</div>`,
+ nota:b=>`<div class="nota${b.sala?' sala':''}">${esc(b.t)}</div>`,
+ rot:b=>`<div class="rot" style="font-size:1.25cqw;margin:0">${esc(b.t)}</div>`,
+ balanza:b=>`<div class="cols"><div class="col no"><h3>${b.l.h}</h3><div class="chips claro" style="margin-top:1cqh">${b.l.items.map(i=>`<span>${i}</span>`).join('')}</div></div><div class="col si"><h3>${b.r.h}</h3><div class="chips claro" style="margin-top:1cqh">${b.r.items.map(i=>`<span>${i}</span>`).join('')}</div></div></div>`,
+ decalogo:b=>`<div class="decalogo">${b.items.map((i,k)=>`<div><i>${String(k+1).padStart(2,'0')}</i>${esc(i)}</div>`).join('')}</div>`
+};
+const zone=$('.orb-zone'),reduced=()=>matchMedia('(prefers-reduced-motion:reduce)').matches;
+const GESTOS_E=['presenta','consulta','presenta','asiente'];
+const GESTOS_R=['apunta','niega','duda','impaciente','asiente','sorpresa'];
+// Pasos de cada diapositiva: el contenido con la herida; Doña Rutina si habla; Doña Evidencia si hay evidencia.
+const pasos=s=>['base',...(s.who==='r'?['rutina']:[]),...(s.ev?['evidencia']:[])];
+let n=0,k=0,tecleo;
+// El contenido se reduce entero si no cabe en el hueco que dejan los personajes.
+function fit(){const c=$('#centro'),i=$('#contenido');i.style.transform='';const e=Math.min(1,c.clientHeight/i.scrollHeight,c.clientWidth/i.scrollWidth);if(e<1)i.style.transform=`scale(${e})`;}
+new ResizeObserver(fit).observe($('#centro'));
+function habla(texto,{escucha=false}={}){const bu=$('.burbuja');bu.className='burbuja'+(escucha?' escucha':'');bu.textContent=texto;bu.offsetWidth;bu.classList.add('entra');}
+function show(i,paso=0){
+ const nueva=i!==n||!$('#contenido').childElementCount;
+ n=Math.max(0,Math.min(S.length-1,i));const s=S[n],st=$('#stage'),P=pasos(s);
+ k=Math.max(0,Math.min(P.length-1,paso<0?P.length-1:paso));const p=P[k];
+ st.dataset.a=s.a;st.dataset.who=s.who;st.classList.toggle('portada',!!s.portada);
+ st.classList.toggle('con-r',p==='rutina');st.classList.toggle('con-ev',p==='evidencia');
+ if(nueva){
+  $('#hilo .acto').textContent=s.acto||`Acto ${s.a} · ${ACTOS[s.a]}`;
+  $('#hilo .num').textContent=String(n+1).padStart(2,'0');
+  $('#hilo h1').textContent=s.t;
+  $('#hilo .extra').innerHTML=s.portada?'<div class="sub">Confesiones de una úlcera</div><div class="autora">María del Mar Candil Ramón · EPA-HCC · AGS Campo de Gibraltar Este</div>':'';
+  $('#ruta').innerHTML=(s.portada?ACTOS.slice(1,5).map((a,k)=>`Acto ${k+1} · ${a}`):ACTOS).map((a,k)=>`<div class="${s.portada?'':k===s.a?'on':k>s.a?'next':''}">${a}</div>`).join('');
+  $('#contenido').innerHTML=(s.b||[]).map(b=>R[b.k](b)).join('');
+  $('#pie').textContent=`${String(n+1).padStart(2,'0')} / ${S.length}${s.adapt?' · frase de Doña Rutina añadida en la adaptación':''}`;
+  $('#rutina-dice p').textContent=`«${s.q}»`;
+  $('.consulta .f b').textContent=s.f||'';
+ }
+ // La herida habla en su panel: su frase, la réplica a Doña Rutina o escucha.
+ const deLaHerida=s.who!=='r';
+ $('#hilo .quien').textContent=s.quien||'Úrsula · la herida';
+ if(deLaHerida)habla(`«${s.q}»`);
+ else if(p==='base')habla('Se acerca Doña Rutina…',{escucha:true});
+ else if(s.re&&p!=='base')habla(`«${s.re}»`);
+ else habla(p==='evidencia'?'Escucha a Doña Evidencia.':'Escucha a Doña Rutina.',{escucha:true});
+ Presence.reset();zone.dataset.state=deLaHerida&&p==='base'?'speaking':'idle';Presence.mount([zone],{motion:!reduced()});
+ if(deLaHerida&&p==='base')Presence.cue('speaking',{delay:400,think:600,speak:s.q.split(' ').length*60+400});
+ if(s.re&&p==='rutina')Presence.cue('speaking',{delay:1600,think:500,speak:s.re.split(' ').length*60+400});
+ if(p==='rutina')window.rutinaGesto?.(s.gesto||GESTOS_R[n%GESTOS_R.length]);
+ // La evidencia se escribe en la tableta.
+ clearInterval(tecleo);const ev=$('.consulta p');
+ if(p==='evidencia'){
+  setTimeout(()=>window.evidenciaGesto?.(GESTOS_E[n%GESTOS_E.length]),500);
+  if(reduced()){ev.textContent=s.ev;ev.className='';}
+  else{ev.textContent='';ev.className='escribe';let c=0;setTimeout(()=>{tecleo=setInterval(()=>{ev.textContent=s.ev.slice(0,c+=2);if(c>=s.ev.length){clearInterval(tecleo);ev.className='';}},28);},900);}
+ }
+ requestAnimationFrame(fit);
+ $('#nav').textContent=`${n+1} / ${S.length} · paso ${k+1}/${P.length} · ← →`;
+ history.replaceState(null,'','#'+(n+1)+(k?'/'+(k+1):''));
+}
+const avanza=()=>k<pasos(S[n]).length-1?show(n,k+1):n<S.length-1&&show(n+1,0);
+const vuelve=()=>k>0?show(n,k-1):n>0&&show(n-1,-1);
+addEventListener('keydown',e=>{if(['ArrowRight',' ','PageDown'].includes(e.key))avanza();else if(['ArrowLeft','PageUp'].includes(e.key))vuelve();else if(e.key==='ArrowDown')show(n+1);else if(e.key==='ArrowUp')show(n-1);else if(e.key==='Home')show(0);else if(e.key==='End')show(S.length-1);else if(e.key==='f')document.documentElement.requestFullscreen?.();});
+$('#stage').addEventListener('click',e=>e.clientX>innerWidth/3?avanza():vuelve());
+{const [a,b]=location.hash.slice(1).split('/');n=-1;show((parseInt(a)||1)-1,(parseInt(b)||1)-1);}
+</script>
+<script src="editor.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+<script>
+// Personajes 3D hechos en Blender (personajes/<nombre>/<nombre>.py): reposo en bucle y un gesto por intervención.
+// Mientras carga, o si el 3D falla, queda su imagen render/reposo.png. Al publicar, cada modelo va dentro de #<nombre>-glb.
+function personaje(nombre,box,cam){
+ let pend=null,mixer,acts={},actual;
+ const gesto=name=>{
+  if(!mixer){pend=name;return;}const a=acts[name];if(!a||a===actual)return;
+  a.reset().play();actual.crossFadeTo(a,.3,false);actual=a;
+ };
+ if(!window.THREE?.GLTFLoader)return gesto;
+ const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
+ renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.outputEncoding=THREE.sRGBEncoding;
+ const scene=new THREE.Scene(),c=new THREE.PerspectiveCamera(24,1,.1,20);
+ c.position.set(...cam.pos);c.lookAt(...cam.mira);
+ scene.add(new THREE.HemisphereLight(0xfff4ea,0x8a7a72,1));
+ const key=new THREE.DirectionalLight(0xffffff,.9);key.position.set(2,3,3);scene.add(key);
+ const rim=new THREE.DirectionalLight(0xffe2d6,.4);rim.position.set(-2,2,-2);scene.add(rim);
+ const size=()=>{const w=box.clientWidth,h=box.clientHeight;if(!w||!h)return;renderer.setSize(w,h,false);c.aspect=w/h;c.updateProjectionMatrix();};
+ function ok(g){
+  box.style.backgroundImage='none';box.append(renderer.domElement);size();
+  scene.add(g.scene);mixer=new THREE.AnimationMixer(g.scene);
+  for(const clip of g.animations)acts[clip.name]=mixer.clipAction(clip);
+  for(const k in acts)if(k!=='reposo'){acts[k].setLoop(THREE.LoopOnce);acts[k].clampWhenFinished=true;}
+  actual=acts.reposo;actual.play();
+  mixer.addEventListener('finished',()=>{acts.reposo.reset().play();actual.crossFadeTo(acts.reposo,.4,false);actual=acts.reposo;});
+  if(pend)gesto(pend);
+  const clock=new THREE.Clock();
+  renderer.setAnimationLoop(()=>{mixer.update(clock.getDelta());renderer.render(scene,c);});
+ }
+ const fail=e=>console.warn(nombre+' sin 3D:',e);
+ const emb=document.getElementById(nombre+'-glb'),loader=new THREE.GLTFLoader();
+ if(emb)loader.parse(Uint8Array.from(atob(emb.textContent.trim()),ch=>ch.charCodeAt(0)).buffer,'',ok,fail);
+ else loader.load(`../../personajes/${nombre}/${nombre}.glb`,ok,undefined,fail);
+ new ResizeObserver(size).observe(box);
+ return gesto;
+}
+window.rutinaGesto=personaje('rutina',document.getElementById('rutina'),{pos:[1.5,1.15,4.2],mira:[0,.85,0]});
+window.evidenciaGesto=personaje('evidencia',document.getElementById('evid'),{pos:[1.2,1.1,4.6],mira:[0,.85,0]});
+</script>
+</body>
+</html>

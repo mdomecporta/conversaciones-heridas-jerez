@@ -53,5 +53,32 @@ async function vendor(rel){
 }
 await vendor('build/three.module.min.js');
 for(const [,mod] of (await read('carro/carro.js')).matchAll(/from\s*'three\/addons\/([^']+)'/g))await vendor('examples/jsm/'+mod);
+// «Confesiones de una úlcera» (/confesiones/): la presentación original adaptada, aparte de la principal, con su
+// editor lateral (E) guardando en /api/confesiones/. Una sola página con todo dentro salvo los modelos 3D y sus imágenes.
+{
+ const dir='prototipos/original-adaptada/';
+ const inline=async(name,tag)=>`<${tag}>${(await read(name)).replace(/<\/(script|style)/gi,'<\\/$1')}</${tag}>`;
+ const fuente=async f=>b64('assets/fonts/'+f,'font/woff2');
+ let html=await read(dir+'index.html');
+ const cambios=[
+  ['<link rel="stylesheet" href="../../tokens.css">',await inline('tokens.css','style')],
+  ['<link rel="stylesheet" href="editor.css">',await inline(dir+'editor.css','style')],
+  ['<script src="../herida-amable/entity-liquid-amable.js"></script>',await inline('prototipos/herida-amable/entity-liquid-amable.js','script')],
+  ['<script src="../../entity.js"></script>',await inline('entity.js','script')],
+  ['<script src="editor.js"></script>',await inline(dir+'editor.js','script')],
+  ['../../assets/fonts/fraunces-latin-wght-normal.woff2',await fuente('fraunces-latin-wght-normal.woff2')],
+  ['../../assets/fonts/fraunces-latin-wght-italic.woff2',await fuente('fraunces-latin-wght-italic.woff2')],
+  ['../../assets/fonts/figtree-latin-wght-normal.woff2',await fuente('figtree-latin-wght-normal.woff2')],
+  ['../../personajes/rutina/render/reposo.png','rutina.png'],
+  ['../../personajes/evidencia/render/reposo.png','evidencia.png'],
+  ['`../../personajes/${nombre}/${nombre}.glb`','`${nombre}.glb`']
+ ];
+ for(const [de,a] of cambios){if(!html.includes(de))throw Error('Confesiones: no encuentro '+de);html=html.split(de).join(a);}
+ if(/(src|href)="\.\.\/|url\(\.\.\//.test(html))throw Error('Confesiones: queda una ruta relativa sin resolver.');
+ await mkdir(new URL('dist/confesiones/',root),{recursive:true});
+ await writeFile(new URL('dist/confesiones/index.html',root),html);
+ for(const [de,a] of [['personajes/rutina/render/reposo.png','rutina.png'],['personajes/evidencia/render/reposo.png','evidencia.png'],['personajes/rutina/rutina.glb','rutina.glb'],['personajes/evidencia/evidencia.glb','evidencia.glb']])
+  await cp(new URL(de,root),new URL('dist/confesiones/'+a,root));
+}
 const steps=guion.scenes.reduce((n,s)=>n+s.steps.length,0);
 console.log(`Presentación generada en dist/index.html · ${guion.scenes.length} escenas, ${steps} pasos del guion, ${used.size} imágenes.`);

@@ -28,6 +28,7 @@ El sitio publicado tiene dos entradas:
 
 - **`/`** pide contraseña. Da acceso a la presentación completa, la guía de María del Mar (`/?guia`), la ventana de ponente y las notas.
 - **`/carro/`** es el carro de curas 3D que usa la presentación; es público porque no contiene nada privado y lo necesita `/ver/`.
+- **`/confesiones/`** pide la misma contraseña. Es «Confesiones de una úlcera», aparte de la presentación principal: con **E** se abre el editor lateral, y sus notas y cambios de texto se guardan aparte.
 - **`/ver/`** es el enlace para compartir, sin contraseña. Muestra solo la presentación, sin guía, ponente ni notas, y sin las explicaciones que ella no proyecta.
 
 Con **N** se abre sobre la diapositiva un panel con dos pestañas. **Nota**: por sección (la pregunta y el hilo, la conversación con la herida, imágenes y recursos, evidencia, otros), con imágenes adjuntas. **Cambiar textos**: corrige una frase de lo que se ve; se guarda como «original → nuevo», se aplica al momento y también en `/ver/`. Todo se guarda en Netlify Blobs. `/?notas` reúne notas y cambios por orden del recorrido y los descarga en Markdown para pasarlos al guion. `/salir` cierra la sesión.
