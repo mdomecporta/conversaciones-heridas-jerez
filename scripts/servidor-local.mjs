@@ -9,6 +9,7 @@ import {handle} from '../netlify/lib/notas.mjs';
 const PASSWORD=process.env.SITE_PASSWORD||'prueba',SECRET=process.env.SESSION_SECRET||PASSWORD,PORT=Number(process.env.PORT||8888);
 const memory=()=>{const m=new Map();return {async list(){return {blobs:[...m.keys()].map(key=>({key}))};},async get(k){return m.get(k)?.data??null;},async setJSON(k,v){m.set(k,{data:v});},async set(k,data,{metadata}={}){m.set(k,{data,metadata});},async getWithMetadata(k){return m.get(k)||null;},async delete(k){m.delete(k);}};};
 const stores={notes:memory(),files:memory(),texts:memory(),secret:SECRET};
+const confesiones={notes:memory(),files:memory(),texts:memory(),secret:SECRET};
 const dist=new URL('../dist/',import.meta.url);
 // Las cookies Secure no viajan por http://localhost en todos los navegadores: en local se quita Secure.
 const local=c=>c.replace('; Secure','');
@@ -39,5 +40,13 @@ http.createServer(async (req,res)=>{
   return send(new Response(loginPage({volver:path+url.search}),{status:401,headers:{'content-type':'text/html; charset=utf-8'}}));
  }
  if(['/api/notas','/api/adjuntos','/api/textos'].includes(path))return send(await handle(request,stores));
+ if(['/api/confesiones/notas','/api/confesiones/textos'].includes(path))return send(await handle(request,confesiones));
+ // «Confesiones de una úlcera»: su página, los modelos 3D y sus imágenes.
+ if(path==='/confesiones')return send(new Response(null,{status:301,headers:{location:'/confesiones/'}}));
+ if(path.startsWith('/confesiones/')){
+  const name=path==='/confesiones/'?'confesiones/index.html':path.slice(1),tipos={html:'text/html; charset=utf-8',png:'image/png',glb:'model/gltf-binary'};
+  if(name.includes('..'))return send(new Response('No encontrado',{status:404}));
+  try{return send(new Response(await readFile(new URL(name,dist)),{headers:{'content-type':tipos[name.split('.').pop()]||'application/octet-stream'}}));}catch{return send(new Response('No encontrado',{status:404}));}
+ }
  return file('index.html');
 }).listen(PORT,'127.0.0.1',()=>console.log(`Sitio local en http://127.0.0.1:${PORT}/ (contraseña: la de SITE_PASSWORD; público en /ver/)`));
