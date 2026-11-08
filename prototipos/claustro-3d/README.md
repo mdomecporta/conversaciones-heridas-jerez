@@ -1,0 +1,30 @@
+# Claustro: primera prueba 3D
+
+Maqueta independiente basada en las seis fotografías compartidas el 2 de noviembre de 2026. No se han utilizado servicios de generación de imágenes, vídeo o modelos, ni se han modificado las escenas de la presentación. Usa la dependencia Three.js existente en el repositorio.
+
+Desde `presentation/`, servir la carpeta con `python3 -m http.server 4186 --bind 127.0.0.1` y abrir http://127.0.0.1:4186/prototipos/claustro-3d/ . Necesita servidor HTTP y navegador con WebGL; abrir el HTML directamente no basta.
+
+- Iniciar / pausar / repetir: recorrido de 24 segundos desde el patio hasta el interior abstracto.
+- Barra: examinar cualquier punto del recorrido.
+- Cámara libre: arrastrar para orbitar, rueda para acercarse y botón derecho para desplazar.
+- Volver al inicio: restablece el encuadre y la iluminación exterior.
+
+Incluye cuatro fachadas modulares, huecos góticos y tracería geométrica, planta alta con ventanas, galerías simplificadas, patio y fuente de estanque cuadrado achaflanado con dos copas. Todo es geometría real editable. Las dimensiones y los detalles son aproximaciones visuales, no un levantamiento arquitectónico. No se han inspeccionado ni reutilizado otros modelos de fuentes: esta versión se ha construido desde las fotos.
+
+El agua es una superficie animada sencilla. La inmersión termina en un túnel abstracto coral provisional; todavía hay un cambio de entorno visible al cruzar el umbral, no una transición final pulida. No utiliza ni modifica el renderizador de la herida de producción. La fidelidad de la piedra, los motivos góticos, los tejados y la transición queda para una eventual segunda fase.
+
+## Propuesta de portada institucional
+
+`portada.html` añade los paneles de cristal con el área sanitaria, lema de 20 años y fechas, y una propuesta vectorial de la Comisión. El mapa y el logo original compartidos por la usuaria se conservan como archivos independientes. `marca.html` muestra la propuesta ampliada y su comparación con el original. `comision-propuesta.svg` es el archivo editable. La identidad es una propuesta, no una sustitución aprobada de la marca oficial. Los paneles se retiran durante el recorrido. No se han utilizado servicios de generación de pago.
+
+Evolución 02: marcas apiladas arriba a la derecha (Comisión sobre AGS), paneles más transparentes, mapa con reflejo y trama de pantalla, e isotipo de tres personas con marcas de heridas en hombro, tronco y pierna.
+
+Evolución 03: mapa vectorizado desde la imagen original, sin marco de pantalla; las zonas verdes conservan sus colores y añaden un halo. Nuevo símbolo unitario con tres hexágonos entrelazados, persona central, equipo y sutura. Composición del aniversario afinada en «Cuidando / de tus heridas».
+
+Versión 04: se utiliza la composición blanca sobre verde de la nueva lámina aportada. `comision-seleccionada.svg` encuadra la imagen original incrustada, sin redibujarla; es un contenedor SVG de una imagen raster, no un logo vectorizado. Se retira el panel de la AGS y se ilumina el interior de las zonas por turnos (9 s, seis fases), sin halo ni borde. Animación desactivada con preferencia de movimiento reducido. Aniversario y Comisión comparten altura superior en las composiciones de escritorio.
+
+Versión 05 (3 de noviembre): arquitectura y materiales más fieles a Santo Domingo. Sillería de piedra ostionera procedimental (hiladas irregulares, poros, juntas, relieve y oscurecimiento hacia el suelo), con coordenadas en metros para que las juntas sigan entre piezas. Tracería como placa calada de cuadrifolios y estrellas sobre cuatro lancetas con tréboles; contrafuertes escalonados con remates inclinados y gárgola de hierro; planta alta de sillería lisa, sin enlucido ni ventanas, como en las fotos. Solería en damero diagonal gris pizarra y caliza, parterres con bordillo y esquina achaflanada hacia la fuente, césped apagado. Fuente con escalón octogonal, mármol veteado y caños desde las copas. Luz de tarde cálida y rasante, reflejos del propio cielo del patio y sombras a 4096. Encuadre inicial frontal, como la fotografía, con un leve balanceo de cámara mientras espera la portada (desactivado con movimiento reducido). Se probó oclusión ambiental (GTAO) y se retiró: producía manchas en la fuente y encarece el render en el portátil de la sala. Copia de la versión anterior fuera del repositorio.
+
+Versión 06 (3 de noviembre): galerías con bóveda de arista y nervios diagonales y fajones, clave, columnillas adosadas al muro y ménsulas; tramo de esquina cerrado con su bóveda. Contrafuerte diagonal en cada esquina en lugar del contrafuerte final de cada panda. Chorreones de humedad bajo la cornisa y bajo los alféizares. El cruce del agua ya no es un corte: un velo de agua cubre el cambio de mundo y otro del color del tejido lo descubre. Panel de la Comisión más translúcido sobre la piedra.
+
+Versión 07 (3 de noviembre): la inmersión llega a la primera diapositiva de la presentación. Recorrido de 34 s en cinco tiempos: claustro; sobre la fuente cae una gota de la tinta de la herida, el agua dibuja anillos y la tinta se abre bajo la superficie; la cámara atraviesa el agua (refracción con un filtro SVG de desplazamiento sobre el lienzo); bajo el agua, rayos de luz, burbujas y la nube de tinta que guía la bajada; el mundo de la herida (vino y coral, hematíes y células translúcidas); cicatrizar (fibras de colágeno que se tejen en malla cruzada mientras el color pasa a piel y a luz); y la luz se convierte en el marfil de la diapositiva «¿Es posible cicatrizar todas las heridas?», maquetada con las mismas reglas que `.cover` en `escena.css` (comprobado al píxel a 1440 × 810). El agua tiene microondulaciones y cáusticas en el fondo del vaso. Con el mando: → / Avance de página / Espacio inicia el recorrido y, al final, abre la presentación en `#portada/1` (`?destino=` cambia el destino; `?presentar` hace el paso solo a 1,5 s de llegar). Los textos de la diapositiva están copiados del motor (`escena.js`): si cambian allí, hay que cambiarlos aquí.

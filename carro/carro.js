@@ -101,15 +101,11 @@ const ENVASES={guantes:etiquetaProducto('GUANTES','EXAMEN · 100 uds'),
  gasas:etiquetaProducto('COMPRESAS','10 × 10 cm · ESTÉRIL','#7fae9e'),
  sobres:etiquetaProducto('APÓSITOS','MATERIAL DE CURA','#7fae9e'),
  suero:etiquetaProducto('SUERO','FISIOLÓGICO'),pomada:etiquetaProducto('POMADA','ANTIBIÓTICO · USO TÓPICO','#e46a5a'),solucion:etiquetaProducto('SOLUCIÓN','USO EXTERNO','#7fae9e')};
-const REFERENCIAS={flex:etiquetaProducto('Mepilex Border Flex','10 × 10 cm · REFERENCIA VISUAL','#7fae9e'),
+const REFERENCIAS={
  ag:etiquetaProducto('Mepilex Ag','10 × 10 cm · ESPUMA CON PLATA','#7fae9e'),
  amies:etiquetaProducto('deltalab · AMIES','300287 · SIN CARBÓN'),
  suero:etiquetaProducto('Fresenius Kabi','NaCl 0,9 % · IRRIGACIÓN · 250 ml','#7fae9e'),
  gasas:etiquetaProducto('Medicomp','COMPRESAS · 10 × 10 cm','#7fae9e')};
-const FILM_FLEX=lienzo(512,512,(x,w,h)=>{
- x.fillStyle='#eadfcd';x.fillRect(0,0,w,h);x.strokeStyle='rgba(120,110,100,.12)';x.lineWidth=1;
- for(let i=32;i<w;i+=48)for(let j=32;j<h;j+=48){x.beginPath();x.moveTo(i-3,j);x.lineTo(i+3,j);x.moveTo(i,j-3);x.lineTo(i,j+3);x.stroke();}
-});FILM_FLEX.colorSpace=THREE.SRGBColorSpace;
 const AVISO_PUNZANTES=lienzo(512,512,(x,w,h)=>{
  x.fillStyle='#e8c341';x.fillRect(0,0,w,h);x.fillStyle='#302b2a';x.textAlign='center';
  x.font='700 28px Arial';x.fillText('RESIDUOS PUNZANTES',w/2,48);
@@ -312,25 +308,20 @@ function dispensador(g,tex,w=.21){
 dispensador(guantes,ENVASES.guantes,.20);
 
 // Hoja de registro con unas líneas de notas (escenas 2 y 21).
-{const g=objeto('notas');g.position.set(-.05,YS,.125);g.rotation.y=-.12;
+{const g=objeto('notas');g.position.set(-.13,YS,.125);g.rotation.y=-.12;
  caja(g,'papel',[.15,.003,.11],[0,.0015,0],[0,0,0],.001);
  caja(g,'papel',[.15,.003,.11],[.004,.0045,-.002],[0,.03,0],.001);
  for(let i=0;i<4;i++)caja(g,'tinta',[i==3?.06:.11,.0006,.003],[-.01-(i==3?.025:0),.0063,-.035+i*.022],[0,0,0],.0003);}
 
-// Referencia Mepilex Border Flex: borde fino de silicona, espuma central y película exterior beige.
-// Muestra docente fuera del sobre, sin representar una técnica de aplicación.
-{const g=objeto('aposito-elegido');g.position.set(.105,YS,.123);g.rotation.y=.08;
- sobre(g,[.12,.125],[.002,0,-.012],[0,-.10,0],{tex:REFERENCIAS.flex,relieve:.0012});
- lamina(g,'blanco',.10,.10,.0006,.011,[0,.0032,0],{roughness:.50});
- lamina(g,'beige',.068,.068,.0036,.008,[0,.0039,0],{roughness:.88,bumpScale:.00008});
- lamina(g,'beige',.067,.067,.00025,.008,[0,.0076,0],{map:FILM_FLEX,bumpMap:null,roughness:.62});
- // Identificación discreta sobre el borde, visible al acercar la pieza.
- const t=lienzo(512,64,(x)=>{x.fillStyle='#f7f3ee';x.fillRect(0,0,512,64);x.fillStyle='#77736f';x.font='26px Arial';x.fillText('Mepilex Border Flex',16,43);});
- t.colorSpace=THREE.SRGBColorSpace;rotulo(g,t,.063,.007,[0,.0041,.043],[-Math.PI/2,0,0]);
-}
+// Escena 1: espuma con borde de silicona junto a su sobre estéril abierto, sin marca (carro/blender/aposito.py).
+// Viene de Blender a escala y con sus materiales: no pasa por el ajuste provisional del inventario.
+{const g=objeto('aposito-elegido');g.position.set(.07,YS,.10);g.rotation.y=-.05;g.userData.rehecho=true;
+ // Al ofrecerlo se inclina hacia quien mira (es plano) y crece algo menos: el sobre abierto ya ocupa 20 cm.
+ g.userData.inclinar=.75;g.userData.escala=.75;
+ if(!await colocar(g,'objetos/aposito-elegido.glb'))parent.postMessage({carroFallo:true},'*');}
 
 // Referencia Mepilex Ag: espuma gris sin borde adhesivo; la plata no es una lámina metálica.
-{const g=objeto('aposito-plata');g.position.set(.238,YS,.123);g.rotation.y=-.07;
+{const g=objeto('aposito-plata');g.position.set(.262,YS,.123);g.rotation.y=-.07;
  sobre(g,[.115,.125],[0,0,-.012],[0,0,0],{relieve:.0012});
  rotulo(g,REFERENCIAS.ag,.092,.019,[0,.003,-.063],[-Math.PI/2,0,0]);
  lamina(g,'rueda',.10,.10,.0038,.004,[0,.0033,0],{color:0x77736f,roughness:.94,metalness:0,bumpMap:TRAMA,bumpScale:.00012});
@@ -434,7 +425,7 @@ for(const [x,z,h,tex] of [[.075,.04,.12,ENVASES.gasas],[.215,.065,.095,ENVASES.s
 
 // El inventario se colocó para el carro anterior, de 74 × 44 cm: se acerca a las bandejas nuevas sin cambiar
 // su tamaño. Es provisional, hasta que se rehagan los objetos.
-for(const o of carro.children)if(o!==estructura&&o!==cesta){o.position.x*=ANCHO/.74;o.position.z*=FONDO/.44;}
+for(const o of carro.children)if(o!==estructura&&o!==cesta&&!o.userData.rehecho){o.position.x*=ANCHO/.74;o.position.z*=FONDO/.44;}
 
 // ---- Modelos descargados de Sketchfab (CC-BY, créditos al pie) ----
 // Si están en carro/modelos/, sustituyen la pieza dibujada; si no, se queda la nuestra.
@@ -459,6 +450,12 @@ function enderezar(obj){
  for(const paso of [6,2,.5]){const r=paso*3*Math.PI/180,d=paso*Math.PI/180,[x0,y0,z0]=mejor;
   for(let x=x0-r;x<=x0+r;x+=d)for(let y=y0-r;y<=y0+r;y+=d)for(let z=z0-r;z<=z0+r;z+=d){const w=volumen(x,y,z);if(w<min){min=w;mejor=[x,y,z];}}}
  obj.quaternion.premultiply(q.setFromEuler(e.set(...mejor)));
+}
+// Objetos rehechos en Blender (carro/blender/): el GLB trae su escala y sus materiales; solo se mete en su grupo.
+async function colocar(g,ruta){
+ const obj=await cargar(ruta);if(!obj)return false;
+ obj.traverse(o=>{if(o.isMesh){o.castShadow=o.receiveShadow=true;o.userData.grupo=g.userData.id;}});
+ g.clear();g.add(obj);return true;
 }
 async function cargar(ruta){try{return (await new GLTFLoader().loadAsync(ruta)).scene;}catch{return null;}}
 // medida: [eje, metros] que debe ocupar el modelo; apoyar: base en y=0 (si no, centrado); giro: vuelta en y.
@@ -593,13 +590,13 @@ function cuadro(dt){
  const gesto=GESTO[estado];
  for(const [id,g] of Object.entries(objetos)){
   const on=ids.includes(id);
-  g.userData.y??=g.position.y;g.userData.rz??=g.rotation.z;g.userData.x??=g.position.x;g.userData.z??=g.position.z;
-  let meta=g.userData.y+(on&&!piezaRevisada?.05+Math.sin(t*1.6)*.005:0),escala=1,giro=g.userData.rz,adelante=0;
+  g.userData.y??=g.position.y;g.userData.rz??=g.rotation.z;g.userData.rx??=g.rotation.x;g.userData.x??=g.position.x;g.userData.z??=g.position.z;
+  let meta=g.userData.y+(on&&!piezaRevisada?.05+Math.sin(t*1.6)*.005:0),escala=1,giro=g.userData.rz,adelante=0,inclina=0;
   if(personaje){
    // Insistir: más alto, más grande y con un pequeño empujón cada poco.
    const empujon=estado==='insiste'?Math.max(0,Math.sin(t*3.2))**8*.035:0;
    meta=g.userData.y+(on?gesto.alto+Math.sin(t*1.6)*.006+empujon:0);
-   escala=on?gesto.escala:1;giro=g.userData.rz+(on&&estado==='insiste'?Math.sin(t*3.2)*.08:0);
+   escala=on?1+(gesto.escala-1)*(g.userData.escala??1):1;inclina=on?(g.userData.inclinar??0)*gesto.alto/.16:0;giro=g.userData.rz+(on&&estado==='insiste'?Math.sin(t*3.2)*.08:0);
    adelante=on?gesto.alto/.16:0; // además de subir, se adelanta hacia quien mira, como si lo ofreciera
   }
   g.position.x+=(g.userData.x+adelante*.07-g.position.x)*k;
@@ -607,6 +604,7 @@ function cuadro(dt){
   g.position.y+=(meta-g.position.y)*k;
   g.scale.setScalar(g.scale.x+(escala-g.scale.x)*k);
   g.rotation.z+=(giro-g.rotation.z)*k;
+  g.rotation.x+=(g.userData.rx+inclina-g.rotation.x)*k;
   const h=g.userData.halo.material;h.opacity+=((on&&!piezaRevisada&&(!personaje||gesto.alto)?.9:0)-h.opacity)*k;
  }
  carro.traverse(o=>{

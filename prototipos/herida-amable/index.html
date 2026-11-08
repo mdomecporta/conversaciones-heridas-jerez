@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Herida amable · prueba</title>
+<!-- Prueba: la herida líquida con ojos y mejillas, en tinta Serosa (3). Copia aparte de entity-liquid.js; no sustituye a nada. -->
+<link rel="stylesheet" href="../../tokens.css">
+<style>
+@font-face{font-family:"Figtree";src:url(../../assets/fonts/figtree-latin-wght-normal.woff2) format("woff2");font-weight:300 900}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;background:var(--paper);font-family:"Figtree",sans-serif;color:var(--ink,#2a1d20)}
+main{min-height:100%;display:grid;place-items:center;gap:24px;padding:24px 16px}
+.orb-zone{width:min(70vmin,560px);aspect-ratio:1;position:relative}
+.orb-zone canvas{width:100%;height:100%;display:block}
+nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+button{font:500 15px/1 "Figtree";padding:10px 16px;border-radius:999px;border:1px solid #d9b9a8;background:#fff8ef;cursor:pointer}
+button[aria-pressed="true"]{background:#d1484e;color:#fff;border-color:#d1484e}
+label{font-size:14px;opacity:.75}
+</style>
+</head>
+<body>
+<main>
+<div class="orb-zone" data-renderer="liquid" data-variant="3" data-ink="3" data-eyes="true" data-voice="principal" data-state="idle"></div>
+<nav id="estados"></nav>
+<label><input type="checkbox" id="cara" checked> Cara</label>
+</main>
+<script>globalThis.ENTITY_RENDERER="liquid";globalThis.ENTITY_VARIANT=3;globalThis.ENTITY_INK=3;</script>
+<script src="entity-liquid-amable.js"></script>
+<script src="../../entity.js"></script>
+<script>
+const zone=document.querySelector('.orb-zone'),nav=document.getElementById('estados');
+const estados=[['idle','Reposo'],['listening','Escucha'],['pensar','Piensa'],['hablar','Habla'],['remembering','Recuerda'],['showing','Muestra'],['discomfort','Molestia'],['relief','Alivio']];
+function poner(id){
+ nav.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.id===id));
+ Presence.reset();
+ zone.dataset.state=['pensar','hablar'].includes(id)?'idle':id;
+ Presence.mount([zone],{motion:true});
+ if(id==='listening')Presence.listen(true);
+ if(id==='pensar')Presence.cue('idle',{think:4000});
+ if(id==='hablar')Presence.cue('responding',{think:500,speak:3500});
+}
+estados.forEach(([id,t])=>{const b=document.createElement('button');b.textContent=t;b.dataset.id=id;b.onclick=()=>poner(id);nav.append(b);});
+document.getElementById('cara').onchange=e=>{zone.dataset.eyes=e.target.checked;poner(nav.querySelector('[aria-pressed="true"]').dataset.id);};
+poner('idle');
+</script>
+</body>
+</html>

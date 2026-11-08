@@ -1,0 +1,355 @@
+{
+  "asset": {
+    "generator": "glTF-Transform v4.5.1",
+    "version": "2.0",
+    "extras": {
+      "author": "Miguel Adão (https://sketchfab.com/theauditor)",
+      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "source": "https://sketchfab.com/3d-models/medical-supplies-collection-eae9fc470e674c458791cf00b892340f",
+      "title": "Medical Supplies Collection"
+    }
+  },
+  "accessors": [
+    {
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 372,
+      "max": [
+        3.692641258239746,
+        1.8798184394836426,
+        11.230721473693848
+      ],
+      "min": [
+        2.084315776824951,
+        0.336764395236969,
+        9.730720520019531
+      ],
+      "bufferView": 0,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 372,
+      "bufferView": 0,
+      "byteOffset": 12
+    },
+    {
+      "type": "VEC4",
+      "componentType": 5126,
+      "count": 372,
+      "bufferView": 0,
+      "byteOffset": 24
+    },
+    {
+      "type": "VEC2",
+      "componentType": 5126,
+      "count": 372,
+      "bufferView": 0,
+      "byteOffset": 40
+    },
+    {
+      "type": "SCALAR",
+      "componentType": 5125,
+      "count": 1926,
+      "bufferView": 1,
+      "byteOffset": 0
+    },
+    {
+      "type": "SCALAR",
+      "componentType": 5125,
+      "count": 1926,
+      "bufferView": 1,
+      "byteOffset": 7704
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 372,
+      "max": [
+        3.7448348999023438,
+        1.9124542474746704,
+        9.734930992126465
+      ],
+      "min": [
+        2.2017807960510254,
+        0.30412858724594116,
+        8.234930038452148
+      ],
+      "bufferView": 2,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 372,
+      "bufferView": 2,
+      "byteOffset": 12
+    },
+    {
+      "type": "VEC4",
+      "componentType": 5126,
+      "count": 372,
+      "bufferView": 2,
+      "byteOffset": 24
+    },
+    {
+      "type": "VEC2",
+      "componentType": 5126,
+      "count": 372,
+      "bufferView": 2,
+      "byteOffset": 40
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 372,
+      "max": [
+        3.747097969055176,
+        2.8842930793762207,
+        8.592710494995117
+      ],
+      "min": [
+        2.138772487640381,
+        1.044210433959961,
+        6.755592346191406
+      ],
+      "bufferView": 3,
+      "byteOffset": 0
+    },
+    {
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 372,
+      "bufferView": 3,
+      "byteOffset": 12
+    },
+    {
+      "type": "VEC4",
+      "componentType": 5126,
+      "count": 372,
+      "bufferView": 3,
+      "byteOffset": 24
+    },
+    {
+      "type": "VEC2",
+      "componentType": 5126,
+      "count": 372,
+      "bufferView": 3,
+      "byteOffset": 40
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteOffset": 0,
+      "byteLength": 17856,
+      "byteStride": 48,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 17856,
+      "byteLength": 15408,
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 33264,
+      "byteLength": 17856,
+      "byteStride": 48,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 51120,
+      "byteLength": 17856,
+      "byteStride": 48,
+      "target": 34962
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9729,
+      "minFilter": 9987,
+      "wrapS": 10497,
+      "wrapT": 10497
+    }
+  ],
+  "textures": [
+    {
+      "source": 0,
+      "sampler": 0
+    },
+    {
+      "source": 1,
+      "sampler": 0
+    }
+  ],
+  "images": [
+    {
+      "mimeType": "image/png",
+      "uri": "textures/Bandages1_baseColor.png"
+    },
+    {
+      "mimeType": "image/png",
+      "uri": "textures/Bandages1_normal.png"
+    }
+  ],
+  "buffers": [
+    {
+      "uri": "scene.bin",
+      "byteLength": 68976
+    }
+  ],
+  "materials": [
+    {
+      "name": "Bandages1",
+      "doubleSided": true,
+      "pbrMetallicRoughness": {
+        "roughnessFactor": 0.9019607843137255,
+        "metallicFactor": 0,
+        "baseColorTexture": {
+          "index": 0
+        }
+      },
+      "normalTexture": {
+        "index": 1
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "Bandage_Bandages1_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 1,
+            "POSITION": 0,
+            "TANGENT": 2,
+            "TEXCOORD_0": 3
+          },
+          "mode": 4,
+          "material": 0,
+          "indices": 4
+        }
+      ]
+    },
+    {
+      "name": "Bandage1_Bandages1_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 7,
+            "POSITION": 6,
+            "TANGENT": 8,
+            "TEXCOORD_0": 9
+          },
+          "mode": 4,
+          "material": 0,
+          "indices": 5
+        }
+      ]
+    },
+    {
+      "name": "Bandage2_Bandages1_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 11,
+            "POSITION": 10,
+            "TANGENT": 12,
+            "TEXCOORD_0": 13
+          },
+          "mode": 4,
+          "material": 0,
+          "indices": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "Sketchfab_model",
+      "rotation": [
+        -0.7071067811865475,
+        0,
+        0,
+        0.7071067811865476
+      ],
+      "children": [
+        1
+      ]
+    },
+    {
+      "name": "4417afc1f0d7482b9f577aa9c695d378.fbx",
+      "rotation": [
+        0.7071067811865475,
+        0,
+        0,
+        0.7071067811865476
+      ],
+      "scale": [
+        0.009999999776482582,
+        0.009999999776482582,
+        0.009999999776482582
+      ],
+      "children": [
+        2
+      ]
+    },
+    {
+      "name": "RootNode",
+      "children": [
+        3
+      ]
+    },
+    {
+      "name": "Bandages",
+      "children": [
+        4,
+        6,
+        8
+      ]
+    },
+    {
+      "name": "Bandage",
+      "children": [
+        5
+      ]
+    },
+    {
+      "name": "Bandage_Bandages1_0",
+      "mesh": 0
+    },
+    {
+      "name": "Bandage1",
+      "children": [
+        7
+      ]
+    },
+    {
+      "name": "Bandage1_Bandages1_0",
+      "mesh": 1
+    },
+    {
+      "name": "Bandage2",
+      "children": [
+        9
+      ]
+    },
+    {
+      "name": "Bandage2_Bandages1_0",
+      "mesh": 2
+    }
+  ],
+  "scenes": [
+    {
+      "name": "Sketchfab_Scene",
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "scene": 0
+}

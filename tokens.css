@@ -38,6 +38,32 @@
  --olive:#666126;
  --olive-soft:#f1eed3;
  --olive-ink:#33321c;
+ /* Piloto consolidado: superficies claras sobre un fondo continuo. */
+ --pilot-glass:rgba(255,253,248,.55);
+ --pilot-glass-line:rgba(255,255,255,.58);
+ --pilot-splash:#f3d9c9;
+ --pilot-title-glass:rgba(232,222,233,.56);
+ --pilot-chat-glass:rgba(255,253,248,.14);
+ --pilot-wound-bubble:rgba(250,214,204,.91);
+ --pilot-wound-ink:#512b32;
+ --pilot-routine-bubble:rgba(253,234,197,.93);
+ --pilot-routine-ink:#543e27;
+ --pilot-routine-edge:#bd8a39;
+ --pilot-evidence-paper:rgba(247,240,207,.94);
+ --pilot-evidence-ink:#36351e;
+ --pilot-call:rgba(255,246,223,.94);
+ --pilot-call-ink:#573e2c;
+ --pilot-online:#4f7b52;
+ --pilot-particle-near:#9b6a59;
+ --pilot-particle-far:#c68b72;
+ --pilot-depth-mauve:#aa8b9d;
+ --pilot-depth-sage:#a1ae96;
+ --pilot-resource-paper:rgba(255,247,236,.68);
+ --pilot-resource-focus:rgba(249,214,202,.55);
+ --pilot-cloister-shade:rgba(35,30,25,.65);
+ --pilot-glass-reflection:linear-gradient(140deg,rgba(255,255,255,.48),rgba(255,255,255,.05) 44%,rgba(255,255,255,.12));
+ --pilot-radius:2cqw;
+ --pilot-shadow:0 1.8cqh 5cqh -2.8cqh rgba(116,53,54,.25),inset 0 1px 0 rgba(255,255,255,.7);
  /* Recreación docente del módulo Heridas de Diraya: los colores de sus cuatro pestañas y el azul de la aplicación. */
  --dy-clas:#5bb5a8;
  --dy-desc:#f6c27a;
@@ -59,3 +85,13 @@
  font-family:var(--sans);
  color:var(--ink);
 }
+/* Portada del Claustro: marcas existentes sobre piedra y agua. */
+:root{--cloister-glass:rgba(18,76,55,.45);--cloister-ivory:rgba(255,252,238,.71);--cloister-white:#fffbea;--cloister-ink:#193e30;--cloister-line:rgba(255,251,238,.62)}
+
+:root{--pilot-book-spine:rgba(170,139,157,.18);--pilot-book-page:rgba(255,251,244,.88)}
+
+/* Capítulo 3: vidrio y focos de pigmento de la paleta existente. */
+:root{--measurement-board:rgba(255,253,248,.24);--measurement-board-light:rgba(255,247,236,.38);--measurement-ink:var(--ink);--measurement-muted:var(--ink-soft);--measurement-rule:var(--line-strong);--measurement-accent:var(--blood-deep);--measurement-light:rgba(250,175,148,.48);--measurement-glass-edge:rgba(255,255,255,.82);--measurement-glass-shadow:rgba(116,53,54,.13)}
+
+/* Entrada clínica: pigmento de portada sobre el mismo vidrio del título. */
+:root{--pilot-cover-pigment:linear-gradient(125deg,color-mix(in srgb,var(--skin) 82%,transparent),color-mix(in srgb,var(--coral) 38%,transparent) 55%,color-mix(in srgb,var(--pilot-depth-mauve) 58%,transparent));--pilot-cover-line:rgba(255,244,232,.85)}

@@ -2,3 +2,10 @@ node_modules/
 dist/
 .DS_Store
 .netlify/
+
+# Trabajo local que no forma parte de la presentación
+output/
+tmp/
+.playwright-cli/
+__pycache__/
+*.blend1

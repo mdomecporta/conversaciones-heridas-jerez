@@ -1,12 +1,13 @@
-# Hoja de revisión del carro: renderiza estructura.glb desde varias cámaras y las junta en una imagen.
+# Hoja de revisión: renderiza un GLB (el carro, por omisión, o un objeto) desde cuatro cámaras y las junta.
 # Uso (desde presentation/):
-#   /Applications/Blender.app/Contents/MacOS/Blender -b --factory-startup -P carro/blender/vistas.py -- salida.png
+#   /Applications/Blender.app/Contents/MacOS/Blender -b --factory-startup -P carro/blender/vistas.py -- salida.png [objeto.glb]
 import bpy, math, os, sys, subprocess, tempfile
 from mathutils import Vector
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
-GLB = os.path.join(AQUI, '..', 'estructura.glb')
-SALIDA = os.path.abspath(sys.argv[sys.argv.index('--') + 1] if '--' in sys.argv else 'vistas.png')
+ARGS = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else []
+SALIDA = os.path.abspath(ARGS[0] if ARGS else 'vistas.png')
+GLB = os.path.abspath(ARGS[1]) if len(ARGS) > 1 else os.path.join(AQUI, '..', 'estructura.glb')
 
 bpy.ops.wm.read_factory_settings(use_empty=True)
 escena = bpy.context.scene
@@ -30,26 +31,34 @@ escena.render.engine = 'CYCLES'
 escena.cycles.device = 'GPU'
 prefs = bpy.context.preferences.addons['cycles'].preferences
 prefs.compute_device_type = 'METAL'; prefs.get_devices()
-for d in prefs.devices: d.use = True
+for dispositivo in prefs.devices: dispositivo.use = True
 escena.cycles.samples = 24
 escena.cycles.use_denoising = True
 escena.render.film_transparent = True
 escena.render.resolution_x = escena.render.resolution_y = 900
-escena.view_settings.view_transform = 'AgX'
+escena.view_settings.view_transform = 'Khronos PBR Neutral'  # como el NeutralToneMapping de carro.js
 
-# Tres cuartos como la primera foto del catálogo, frontal como la segunda, costado, y detalle de rueda y esquina.
+# Las cámaras se colocan según el tamaño de lo importado: sirven para el carro y para cada objeto.
+caja = [o.matrix_world @ Vector(v) for o in escena.objects if o.type == 'MESH' and not o.is_shadow_catcher for v in o.bound_box]
+lo = Vector([min(v[i] for v in caja) for i in range(3)]); hi = Vector([max(v[i] for v in caja) for i in range(3)])
+c, d = (lo + hi) / 2, (hi - lo).length
+if d < .5:  # un objeto pequeño: luz más cerca y menos dura
+    luz.location = c + Vector((-.6, -.8, 1.3)) * d * 2; luz.data.energy = 60 * d * d; luz.data.size = d
+    nodos['Background'].inputs['Strength'].default_value = .55
+    luz.rotation_euler = (c - luz.location).to_track_quat('-Z', 'Y').to_euler()
+# Tres cuartos, frontal, desde arriba y rasante (para ver espesores y apoyos).
 VISTAS = [
-    ('tres_cuartos', (-1.55, -2.35, 1.75), (.08, 0, .5), 58),
-    ('frontal', (0, -3.4, 1.1), (.12, 0, .5), 58),
-    ('costado', (-3.2, 0, .9), (0, 0, .5), 58),
-    ('detalle', (.62, -.62, .42), (.3, -.2, .18), 45),
+    ('tres_cuartos', c + Vector((-.55, -.85, .75)) * d * 1.6, c, 58),
+    ('frontal', c + Vector((0, -1, .32)) * d * 1.9, c, 58),
+    ('planta', c + Vector((0, -.02, 1)) * d * 1.7, c, 58),
+    ('rasante', c + Vector((.7, -.7, .12)) * d * .9, c, 58),
 ]
 ficheros = []
 tmp = tempfile.mkdtemp()
 for nombre, pos, mira, lente in VISTAS:
     cam = bpy.data.objects.new(nombre, bpy.data.cameras.new(nombre))
     escena.collection.objects.link(cam)
-    cam.location = pos; cam.data.lens = lente
+    cam.location = pos; cam.data.lens = lente; cam.data.clip_start = d / 100
     cam.rotation_euler = (Vector(mira) - Vector(pos)).to_track_quat('-Z', 'Y').to_euler()
     escena.camera = cam
     escena.render.filepath = os.path.join(tmp, nombre + '.png')

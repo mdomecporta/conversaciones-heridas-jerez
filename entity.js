@@ -361,7 +361,11 @@ void main(){
  function setState(e,state){e.state=STATES[state]?state:'idle';Object.assign(e.target,STATES[e.state]);}
  function size(e){
   const r=e.canvas.getBoundingClientRect();if(!r.width||!r.height)return null;
-  const k=Math.min(1,640/Math.max(r.width,r.height))*Math.min(globalThis.devicePixelRatio||1,1.25);
+  // El piloto puede solicitar más definición al ampliar la entidad; la presentación vigente conserva su presupuesto.
+  const quality=e.canvas.parentElement?.dataset.quality;
+  const k=quality==='presentation'
+   ?Math.min(Math.max(1.5,Math.min(globalThis.devicePixelRatio||1,2)),1600/Math.max(r.width,r.height))
+   :Math.min(1,640/Math.max(r.width,r.height))*Math.min(globalThis.devicePixelRatio||1,1.25);
   const w=Math.max(2,Math.round(r.width*k)),h=Math.max(2,Math.round(r.height*k));
   if(e.canvas.width!==w||e.canvas.height!==h){e.canvas.width=w;e.canvas.height=h;}
   return r;

@@ -1,0 +1,186 @@
+{
+  "review_date": "2026-11-05",
+  "scope": "Revisión local; propuestas no incorporadas a la presentación",
+  "items": [
+    {
+      "id": "01",
+      "title": "Cuero cabelludo con zona de menor densidad de pelo · fuera de la charla",
+      "original": "../../../0607543b-496b-42b4-8102-802e709549c3.JPG",
+      "status": "Fuera de la charla",
+      "candidate_scenes": [],
+      "width": 1600,
+      "height": 1200,
+      "sha256": "17ee30229f68f084ad7d509d33ce5200a7fecd5f3e1f9536320262fbd2b5006f",
+      "clinical_diagnosis_confirmed": false,
+      "public_use_confirmed": false,
+      "notes": "[Original](../../../0607543b-496b-42b4-8102-802e709549c3.JPG) · 1600 × 1200.\n\nSe ve una banda amplia con pelo muy corto o escaso y una zona central de diferente coloración. No se aprecia una herida abierta inequívoca. Podría existir un antecedente de procedimiento o lesión, pero no se puede identificar por esta imagen. **No la usaría**: su explicación exige una historia que no tenemos y aporta poco al hilo vigente. No vincular con 04 por compartir localización en la cabeza. No necesita retoque."
+    },
+    {
+      "id": "02",
+      "title": "Dorso de pie con lesiones oscuras en dedos · reserva para escena 1",
+      "original": "../../../088e5716-e230-4dd4-8993-4f4cf2a5adac.JPG",
+      "status": "Reserva",
+      "candidate_scenes": [
+        1
+      ],
+      "width": 1200,
+      "height": 1600,
+      "sha256": "8f3dc5829102e6204b9caf7d6ad9dae080562ebdf35d0897ebf6c07f8628de8e",
+      "clinical_diagnosis_confirmed": false,
+      "public_use_confirmed": false,
+      "notes": "[Original](../../../088e5716-e230-4dd4-8993-4f4cf2a5adac.JPG) · 1200 × 1600.\n\nDos dedos muestran áreas extensas marrones/negras y amarillentas; en uno no se distingue una uña normal. Aspecto sugestivo de tejido necrótico, pendiente de confirmación clínica. **No basta para afirmar etiología arterial, diabetes, infección o gangrena.**\n\nEncaja en **1 · Antes de elegir**, si María del Mar puede aportar la causa y valoración vascular: «Antes de elegir el producto, ¿qué sabemos de la causa?». No sustituye por sí sola el ejemplo arterial publicado, que ya trae diagnóstico documentado. Tampoco representa una escara estable de talón. Recortar fondo conservando todos los dedos; tiene una dominante cálida que limita comparar colores. Evitar correcciones automáticas de color sin referencia de captura."
+    },
+    {
+      "id": "03",
+      "title": "Lesión plantar próxima a los dedos · seleccionada como alternativa",
+      "original": "../../../4bbd423a-2758-43aa-a18e-fab99454ce69.JPG",
+      "status": "Seleccionada",
+      "candidate_scenes": [
+        1,
+        3
+      ],
+      "width": 1200,
+      "height": 1600,
+      "sha256": "048778ff90bdc1e7975a545851ed8d86199977ec40e3387ca1174a75db53d41e",
+      "clinical_diagnosis_confirmed": false,
+      "public_use_confirmed": false,
+      "notes": "[Original](../../../4bbd423a-2758-43aa-a18e-fab99454ce69.JPG) · 1200 × 1600.\n\nHerida alargada en antepié plantar, con superficie roja, tejido amarillento engrosado alrededor y áreas blanquecinas en los bordes y espacios entre dedos. La toma permite distinguir lesión y entorno. Es compatible con un contexto de carga plantar, pero **no permite diagnosticar lesión neuropática ni pie diabético**.\n\n**1 · Antes de elegir:** alternativa de caso propio si se confirma la causa; permite preguntar por apoyo, sensibilidad, perfusión y descarga, sin convertir la escena en una lección nueva. **3 · La limpieza de hoy:** alternativa a 06 para señalar lecho, borde y piel. Elegir una de las dos, no sumar ambas.\n\nConservar esta toma frente a 05: tiene más contexto y mejor definición del lecho. Preparar encuadre manteniendo el contorno de la lesión y la piel alrededor; añadir marcadores sobre una capa separada. No mostrar como antes/después de 05 o 09."
+    },
+    {
+      "id": "04",
+      "title": "Cuero cabelludo con lesiones extensas y áreas sobreelevadas · reserva condicionada",
+      "original": "../../../4c97e1a9-440f-4ceb-b880-a9e6c55526e5.JPG",
+      "status": "Reserva",
+      "candidate_scenes": [
+        8
+      ],
+      "width": 1200,
+      "height": 1600,
+      "sha256": "942bda5a204d3894b372f5b90fb96446ea17a037349fbad268e39c40b4e1356d",
+      "clinical_diagnosis_confirmed": false,
+      "public_use_confirmed": false,
+      "notes": "[Original](../../../4c97e1a9-440f-4ceb-b880-a9e6c55526e5.JPG) · 1200 × 1600.\n\nSuperficie amplia roja y erosionada, con varias áreas sobreelevadas rojas, costras y zonas amarillentas. **El aspecto no demuestra un origen tumoral**; tampoco se puede relacionar con 01 sin la historia.\n\n**8 · Lo que podemos conseguir:** posible apoyo si María del Mar confirma diagnóstico, contexto y objetivos de ese caso. Puede abrir la conversación sobre qué se busca con el cuidado; no autoriza a afirmar que no cicatrizará, que duele, huele o sangra habitualmente. Preferiría mantener la imagen de vida cotidiana del guion: centra la escena en la persona y evita abrir un diagnóstico nuevo. No usar 04 y 10 juntas solo por su aspecto llamativo. Si se utiliza, encuadrar la región completa relevante y retirar fondo doméstico."
+    },
+    {
+      "id": "05",
+      "title": "Segunda toma de la lesión plantar de 03 · descartar de proyección por repetición",
+      "original": "../../../5848562b-5c0a-4827-8a86-64a0efc583ca.JPG",
+      "status": "Repetida",
+      "candidate_scenes": [],
+      "width": 1200,
+      "height": 1600,
+      "sha256": "296ec06cbcdc5ffeff67f53b14ca609b6e0d738960ea2803be0bbff0b8ee4a1a",
+      "clinical_diagnosis_confirmed": false,
+      "public_use_confirmed": false,
+      "notes": "[Original](../../../5848562b-5c0a-4827-8a86-64a0efc583ca.JPG) · 1200 × 1600.\n\nCoinciden lesión, dedos, pliegues y entorno con 03. Es una toma muy próxima, algo más cerrada y menos definida. **Probable misma sesión, sin cronología demostrada.** Mantener original como respaldo y usar 03. No hay mejora o empeoramiento demostrable entre ambas. No merece edición ni generación adicional."
+    },
+    {
+      "id": "06",
+      "title": "Lesión alargada de pierna/tobillo con piel circundante alterada · primera elección",
+      "original": "../../../8c4b4a86-fe47-4f08-b1c5-4ea62a2a2f25.JPG",
+      "status": "Seleccionada",
+      "candidate_scenes": [
+        3,
+        5,
+        10
+      ],
+      "width": 1200,
+      "height": 1600,
+      "sha256": "c4062a20ae2e2ed300df53e8e6fcd150e431505e081f430a5be2d685767bf4e2",
+      "clinical_diagnosis_confirmed": false,
+      "public_use_confirmed": false,
+      "notes": "[Original](../../../8c4b4a86-fe47-4f08-b1c5-4ea62a2a2f25.JPG) · 1200 × 1600.\n\nHerida alargada con superficie roja y algunos depósitos claros; bordes y piel próxima blanquecinos, piel más extensa rosada/rojiza, brillante y con descamación. Se distinguen bien las diferentes zonas. No permite establecer etiología venosa, infección, profundidad, cantidad de exudado ni medidas reales.\n\n**3 · La limpieza de hoy, paso «Nos preguntamos»: mejor incorporación.** Sustituiría al modelo conceptual de zonas, tras confirmar su uso docente, con cuatro focos: lecho → borde → piel perilesional → piel circundante. La pregunta sigue siendo «¿Qué necesita hoy cada zona?». Sin atribuir composición a los depósitos ni simular una maniobra de limpieza.\n\n**5 · Cuando no vemos el cambio:** reutilizable como ejemplo visual independiente, pero no ligada a las medidas ficticias de 5 × 4 cm o a cuatro semanas sin avance. **10 · Quien venga mañana:** podría ilustrar qué registrar con la misma precaución; no adjudicarle las medidas y Resvech ficticios de Diraya.\n\nPreparar un encuadre con toda la herida y margen de piel, y una versión con marcadores externos. Mantener color y textura originales. Es suficiente para la proyección actual si no se amplía en exceso; no hace falta reconstruir detalle con IA."
+    },
+    {
+      "id": "07",
+      "title": "Talón con herida abierta · reserva, no sustituye la escara estable",
+      "original": "../../../bb492611-13d6-4e4b-b628-2d8d390b1da9.JPG",
+      "status": "Reserva",
+      "candidate_scenes": [
+        4
+      ],
+      "width": 1600,
+      "height": 1200,
+      "sha256": "3c290ce952008a4a09d2b53536f02282dc58e76eaeda069f36540d5f92fc15d5",
+      "clinical_diagnosis_confirmed": false,
+      "public_use_confirmed": false,
+      "notes": "[Original](../../../bb492611-13d6-4e4b-b628-2d8d390b1da9.JPG) · 1600 × 1200.\n\nLesión abierta en talón, con superficies rojas/rosadas y material amarillento, borde irregular y áreas oscuras. **No muestra el supuesto de una escara seca intacta del guion.** No se puede graduar una lesión por presión ni atribuir su causa solo por la foto.\n\n**4 · El talón con escara:** conservar el modelo actual. Esta fotografía solo sería un contraste explícito, «Aquí vemos una herida abierta: no es el supuesto de escara seca y estable», si se decide que compensa añadirlo. Nunca presentarla como el después de desbridar el modelo o como consecuencia de una intervención. Mantener en reserva para no diluir la regla principal. Encuadre lateral con el talón completo; no editarla para convertirla en escara."
+    },
+    {
+      "id": "08",
+      "title": "Vista general de pierna con cambios extensos de piel · seleccionada como contexto",
+      "original": "../../../df76162e-9973-4aed-a2e3-62de6f510b55.JPG",
+      "status": "Seleccionada",
+      "candidate_scenes": [
+        1,
+        3
+      ],
+      "width": 1600,
+      "height": 1200,
+      "sha256": "ce6d8f2bb78cbd2ec43945d48a445bc9a5b01ecd21c20432625d872de3586c1a",
+      "clinical_diagnosis_confirmed": false,
+      "public_use_confirmed": false,
+      "notes": "[Original](../../../df76162e-9973-4aed-a2e3-62de6f510b55.JPG) · 1600 × 1200.\n\nVista amplia de pierna, tobillo y pie; piel de coloración rosada y pardoviolácea, zonas brillantes y varias discontinuidades, una alargada próxima al tobillo. Aporta contexto que un primer plano pierde. Las características pueden hacer pensar en un componente vascular, pero la etiología queda sin establecer.\n\n**3 · La limpieza de hoy:** posible entrada «mirar más allá del lecho» antes del detalle 06, **solo si se confirma que es la misma extremidad y se identifica su relación temporal**. Hay semejanzas, pero no suficientes para construir una pareja de evolución. Si son casos diferentes, elegir 06 o presentar 08 como otro ejemplo claramente separado.\n\n**1 · Antes de elegir:** alternativa si se confirma etiología. Recortar el fondo de la consulta sin perder pie, tobillo ni extensión de los cambios cutáneos. No medir sobre esta perspectiva oblicua."
+    },
+    {
+      "id": "09",
+      "title": "Lesión plantar redondeada con tejido rojo prominente · reserva temática",
+      "original": "../../../e7463457-9c48-4035-b461-10a066efdfb3.JPG",
+      "status": "Reserva",
+      "candidate_scenes": [
+        1,
+        3
+      ],
+      "width": 1200,
+      "height": 1600,
+      "sha256": "e3a4fc5e61f15ccf67b15f55f48af7c44210b8542d27b071fef279665ee5bbb8",
+      "clinical_diagnosis_confirmed": false,
+      "public_use_confirmed": false,
+      "notes": "[Original](../../../e7463457-9c48-4035-b461-10a066efdfb3.JPG) · 1200 × 1600.\n\nLesión redondeada en antepié plantar, con tejido rojo que sobresale respecto a la superficie próxima, un reborde claro y piel descamada. Puede sugerir hipergranulación, pero la naturaleza del tejido requiere valoración. No afirmar diagnóstico, infección ni diabetes.\n\n**1 o 3**, como alternativa a 03, no como segundo ejemplo obligatorio. Para esta charla elegiría 03: muestra más contexto y evita distraer con la prominencia del tejido. No hay datos para vincular 09 con 03/05 ni para ordenar esas fotos como fases. Tiene menos nitidez en la zona de interés; no intentar recuperar estructuras con IA."
+    },
+    {
+      "id": "10",
+      "title": "Lesión nodular ulcerada en tronco · reserva condicionada",
+      "original": "../../../f59867c9-09b2-49f8-8dae-d0f8eb5ba5ee.JPG",
+      "status": "Reserva",
+      "candidate_scenes": [
+        8
+      ],
+      "width": 1200,
+      "height": 1600,
+      "sha256": "b9bcb0168c039a71c5ea5900a47512044bd71de20f89e0c72db264981f52b26f",
+      "clinical_diagnosis_confirmed": false,
+      "public_use_confirmed": false,
+      "notes": "[Original](../../../f59867c9-09b2-49f8-8dae-d0f8eb5ba5ee.JPG) · 1200 × 1600.\n\nFormación redondeada sobreelevada, rosada/violácea, con áreas rojas y cobertura blanquecina/amarillenta, en una región del tronco cuya localización exacta debe confirmarse. Aspecto que obliga a conocer el diagnóstico; **no se etiqueta como lesión neoplásica por imagen**.\n\n**8 · Lo que podemos conseguir**, únicamente si se conoce la historia. No usar para enseñar que una herida «no puede cerrar»: el diagnóstico y los objetivos no se deducen de la fotografía. Entre 04 y 10, elegir como máximo el caso con historia mejor documentada. Encuadre respetuoso de la región relevante conservando piel suficiente; sin borrar áreas de la lesión."
+    },
+    {
+      "id": "11",
+      "title": "Personaje de enfermera 3D · fuera del catálogo clínico",
+      "original": "../../../f6d4f72335016220b92644c6097241b6.jpg",
+      "status": "Referencia de personaje",
+      "candidate_scenes": [],
+      "width": 564,
+      "height": 797,
+      "sha256": "dcfa44a0f33fc21a6219a352d5d281b3a1e86cab64d200bb0b2e1184f22a4e57",
+      "clinical_diagnosis_confirmed": false,
+      "public_use_confirmed": false,
+      "notes": "[Original](../../../f6d4f72335016220b92644c6097241b6.jpg) · 564 × 797.\n\nReferencia estilizada de una enfermera, ajena a los casos clínicos. **Fuera de la proyección vigente**: no añade información sobre la herida y la presentación ya tiene una entidad abstracta y el carro como personajes. Guardar solo como referencia visual si se retoma el desarrollo de personajes; no consta autoría o licencia. Su resolución es pequeña para pantalla completa."
+    },
+    {
+      "id": "12",
+      "title": "Pierna durante una cura con materiales manchados alrededor · alternativa para carga de cuidados",
+      "original": "../../../ffae7f13-e4ed-4e43-86fb-92ca2ea4e75c.JPG",
+      "status": "Alternativa",
+      "candidate_scenes": [
+        8,
+        9
+      ],
+      "width": 1200,
+      "height": 1600,
+      "sha256": "c217df46eb36e9474ac17c82549783ff9fb418d6207636729c98ec925c64b6d6",
+      "clinical_diagnosis_confirmed": false,
+      "public_use_confirmed": false,
+      "notes": "[Original](../../../ffae7f13-e4ed-4e43-86fb-92ca2ea4e75c.JPG) · 1200 × 1600.\n\nVarias áreas abiertas sobre piel de coloración alterada, material claro sobre la superficie y apósitos/gasas con manchas amarillas y verdosas alrededor. Hay material adherido que dificulta ver el conjunto. **No identificar Pseudomonas, infección, biofilm ni producto concreto por el color.** Tampoco permite afirmar si los restos son tejido, producto o ambos.\n\n**8 · Lo que podemos conseguir:** alternativa para preguntar por fugas y carga de la cura sin adjudicar síntomas a esta persona. **9 · El cuidado en casa:** apoyo secundario si María del Mar aporta cómo se realizaba realmente ese cuidado; no presentarlo como autocura domiciliaria ni como mala práctica. En 6 y 7 puede distraer y sugerir una infección o producto no demostrados: mejor mantener torunda y pauta.\n\nDominante verdosa marcada y composición confusa. Usar solo si aporta una historia mejor que 06/08. No neutralizar colores automáticamente ni limpiar digitalmente los materiales: cambiaría la interpretación. No la usaría como fotografía principal de zonas."
+    }
+  ]
+}

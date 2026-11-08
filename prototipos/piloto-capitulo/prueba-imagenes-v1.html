@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Capítulo piloto</title>
+<!-- Piloto de la propuesta consolidada sobre «El antiséptico no es champú» (presentación original).
+     Tres pasos: 1) el capítulo se presenta solo, encadenado (título → la herida trae el recurso → el recurso a su sitio → la herida sitúa);
+     2) Doña Rutina entra en una videollamada flotante sobre el recurso, sin recoger nada; 3) la evidencia llega al chat de la herida,
+     tacha lo que no se sostiene, Doña Rutina reacciona y el lecho se recupera; 4) Doña Rutina sale de la llamada.
+     Frases: Doña Rutina, literal de la presentación original; la herida, del guion vigente. No sustituye a nada. -->
+<link rel="stylesheet" href="../../tokens.css">
+<style>
+@font-face{font-family:"Fraunces";src:url(../../assets/fonts/fraunces-latin-wght-normal.woff2) format("woff2");font-weight:100 900}
+@font-face{font-family:"Fraunces";font-style:italic;src:url(../../assets/fonts/fraunces-latin-wght-italic.woff2) format("woff2");font-weight:100 900}
+@font-face{font-family:"Figtree";src:url(../../assets/fonts/figtree-latin-wght-normal.woff2) format("woff2");font-weight:300 900}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;background:#151012;overflow:hidden}
+#wrap{position:fixed;inset:0;display:grid;place-items:center}
+#stage{position:relative;width:min(100vw,177.78vh);aspect-ratio:16/9;container-type:size;background:var(--paper);overflow:hidden;
+ --tone:#e3a24a;--tone-ink:#8a5a17;--tone-soft:#f8e8cf;
+ --izq:26.5cqw;--der:1.4cqw;--abajo:2.6cqh;--alto:63cqh;--hueco:2.2cqh;--r:1.4cqw;--magia:cubic-bezier(.65,0,.25,1);--sombra:0 2cqh 5cqh -2.6cqh rgba(34,23,26,.5)}
+#stage::after{content:"";position:absolute;inset:0;background:var(--grain);opacity:.05;pointer-events:none;z-index:30}
+@keyframes entra{from{opacity:0;transform:translateY(1.5cqh)}}
+
+/* ── Apertura con movimiento mágico: el telón negro se pliega en el panel de la herida y el título viaja a su sitio;
+   el recurso entra como una notificación y después se coloca en la escena. */
+#telon{position:absolute;left:0;top:0;width:100cqw;height:100cqh;z-index:20;background:var(--night)}
+#stage.formado #telon,#stage.formado #capitulo{visibility:hidden}
+#capitulo{position:absolute;inset:0;z-index:23;color:var(--night-ink);display:grid;place-content:center;text-align:center;pointer-events:none}
+#capitulo :is(.n,h1) span{display:inline-block;transform-origin:0 0;text-align:left}
+#capitulo .n{font:600 1.1cqw/1.2 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--tone);animation:entra 1.2s .2s var(--ease) both}
+#capitulo h1{font:400 6cqw/1.06 var(--display);font-variation-settings:"opsz" 72;letter-spacing:-.015em;margin-top:2.4cqh;animation:entra 1.4s .6s var(--ease) both}
+#capitulo h1 em{color:var(--skin)}
+/* ── El recurso: primero solo; después, arriba en el centro. */
+#recurso{position:absolute;z-index:21;left:30cqw;top:9cqh;width:66cqw;height:82cqh;border-radius:var(--r);background:var(--night);overflow:hidden;box-shadow:0 3cqh 7cqh -3cqh rgba(0,0,0,.6);
+ opacity:0;transform:translateY(8cqh) scale(.96);transition:opacity .7s var(--ease),transform 1.1s var(--ease),left 1.5s var(--magia),top 1.5s var(--magia),width 1.5s var(--magia),height 1.5s var(--magia)}
+#stage:not(.t0) #recurso{opacity:1;transform:none;transition-delay:.7s,.7s,0s,0s,0s,0s}
+#stage.sitio #recurso{z-index:3;transition-delay:0s}
+#stage.sitio #recurso{left:var(--izq);top:2.6cqh;width:calc(100cqw - var(--izq) - var(--der));height:var(--alto);box-shadow:var(--sombra)}
+#recurso svg{position:absolute;inset:0;width:100%;height:100%}
+#recurso .pie{position:absolute;left:1.4cqw;right:1.4cqw;bottom:1.4cqh;display:flex;justify-content:space-between;align-items:center;font:600 .8cqw var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--night-muted);opacity:0;transition:opacity .8s .6s}
+#recurso .pie span:last-child{display:flex;gap:1.2cqw;letter-spacing:.04em;text-transform:none;font-weight:500;font-size:.95cqw;color:var(--night-ink)}
+#recurso .pie i{display:inline-block;width:.75cqw;height:.75cqw;border-radius:50%;margin-right:.4cqw;vertical-align:-.05cqw}
+#stage.sitio #recurso .pie{opacity:1}
+.capa{opacity:0;transition:opacity 1s var(--ease)}
+#stage:not(.t0) .c1{opacity:1;transition-delay:.9s}#stage:not(.t0) .c2{opacity:1;transition-delay:1.5s}#stage:not(.t0) .c3{opacity:1;transition-delay:2.1s}
+.celula{transition:fill 1.6s var(--ease),opacity 1.6s var(--ease),transform 1.6s var(--ease);transform-box:fill-box;transform-origin:center}
+.gota{opacity:0}
+#stage.pica .gota{animation:cae 1.6s var(--ease) forwards}
+@keyframes cae{0%{opacity:0;transform:translateY(-30px)}30%{opacity:.9}100%{opacity:0;transform:translateY(150px)}}
+#stage.pica .bacteria{opacity:.15;transform:scale(.6)}
+#stage.pica:not(.cura) .celula.toca{fill:#8a7a76;opacity:.45;transform:scale(.8)}
+.velo{opacity:0;transition:opacity 1.4s .4s var(--ease)}
+#stage.pica:not(.cura) .velo{opacity:.3}
+
+/* ── Lo que explica el recurso: debajo, en tarjetas; se reduce entero si no cabe. */
+#info{position:absolute;left:var(--izq);right:var(--der);top:calc(2.6cqh + var(--alto) + var(--hueco));z-index:2;transition:right 1.5s var(--magia),bottom 1.5s var(--magia),top 1.5s var(--magia),opacity .9s var(--ease)}
+#info{transition-property:right,bottom,top,opacity}
+#stage.escucha #info{opacity:.4}
+#info>div{display:grid;grid-template-columns:1.15fr 1fr 1fr 1fr;gap:1cqw}
+#info>div>*{opacity:0}
+#stage.t3 #info>div>*{opacity:1;animation:entra .8s var(--ease) both}
+#stage.t3 #info>div>*:nth-child(2){animation-delay:.12s}#stage.t3 #info>div>*:nth-child(3){animation-delay:.24s}#stage.t3 #info>div>*:nth-child(4){animation-delay:.36s}
+.pregunta{display:flex;flex-direction:column;justify-content:flex-start;padding-top:1.8cqh;font:500 1.75cqw/1.18 var(--display);color:var(--ink);padding-right:.6cqw;text-wrap:balance}
+.pregunta small{display:block;font:700 .8cqw var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--tone-ink);margin-bottom:1cqh}
+.via{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:1.8cqh 1.2cqw;display:flex;flex-direction:column;gap:.6cqh}
+.via b{font:300 2.4cqw/1 var(--display);color:var(--tone);margin-bottom:1.2cqh}
+.via h3{font:600 1.2cqw/1.2 var(--sans);color:var(--ink);text-wrap:balance}
+.via p{font:400 .98cqw/1.35 var(--sans);color:var(--muted);text-wrap:pretty}
+.via.si{background:var(--tone-soft);border-color:transparent}
+.via.si h3{color:var(--tone-ink)}
+.via.no-lecho{background:var(--blush);border-color:transparent}
+.via.no-lecho b{color:var(--blood);font-size:2cqw;font-weight:400}
+.via.no-lecho h3{color:var(--blood-deep)}
+.via.no-lecho p{color:var(--blood-deep);opacity:.75}
+.via{transition:opacity .9s var(--ease),transform 1s var(--magia),box-shadow 1s var(--ease)}
+#stage.senala .via.si{transform:translateY(-.8cqh);box-shadow:0 0 0 2px var(--tone),0 1.6cqh 4cqh -2cqh rgba(138,90,23,.45)}
+#stage.senala :is(.via:not(.si),.pregunta){opacity:.45}
+
+/* ── El panel de la herida (de la versión original): capítulo, la herida y su voz. */
+#hilo{position:absolute;z-index:21;left:1.4cqw;top:2.6cqh;bottom:2.6cqh;width:23.5cqw;color:var(--night-ink);border-radius:1.6cqw;padding:3.4cqh 1.8cqw 3cqh;display:flex;flex-direction:column}
+#stage.formado #hilo{background:var(--night);box-shadow:var(--sombra)}
+#stage:not(.formado) #hilo :is(.acto,.cab h1){opacity:0}
+#hilo .num,#hilo #sitio,#hilo .quien{transition:opacity 1s var(--ease),transform 1.3s var(--magia)}
+#stage.t0 #hilo :is(.num,#sitio,.quien){opacity:0}
+#stage.t0 #hilo #sitio{transform:scale(.5)}
+#stage.t1 #hilo :is(.num,#sitio,.quien){transition-delay:1s}
+#stage.sitio #hilo{z-index:4}
+#hilo #ruta{transition:opacity .8s var(--ease)}
+#stage:not(.sitio) #hilo #ruta{opacity:0}
+#hilo .acto{font:600 .95cqw/1.2 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--tone)}
+#hilo .cab{display:flex;gap:1cqw;align-items:baseline;margin-top:1.2cqh}
+#hilo .num{font:300 3.6cqw/1 var(--display);color:var(--tone);font-variation-settings:"opsz" 144;flex:none}
+#hilo h1{font:400 1.75cqw/1.06 var(--display);font-variation-settings:"opsz" 72;letter-spacing:-.015em}
+#hilo h1 em{color:var(--skin)}
+#sitio{position:relative;height:22cqh;flex:none;margin:3cqh 0 0}
+#herida{position:absolute;inset:-1.5cqh 0}
+#herida .orb-zone{position:absolute;inset:0}
+.orb-canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.quien{font:700 .9cqw var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--skin);margin:3cqh 0 1cqh}
+.burbuja{font:500 1.45cqw/1.35 var(--sans);color:var(--herida-ink);background:var(--bubble-herida);border-radius:.3cqw 1.4cqw 1.4cqw 1.4cqw;padding:1.5cqh 1.2cqw;text-wrap:pretty}
+.burbuja:empty{display:none}
+.burbuja.entra{animation:entra .8s .2s var(--ease) both}
+.burbuja{transition:opacity .8s var(--ease),transform .8s var(--ease)}
+#herida{transition:opacity 1.2s var(--ease),transform 1.4s var(--magia),filter 1.2s var(--ease)}
+#stage.escucha #herida{opacity:.5;transform:scale(.86);filter:saturate(.55)}
+#stage.escucha .burbuja{opacity:0;transform:translateY(-1cqh)}
+#stage.escucha .quien{opacity:.4}
+.quien{transition:opacity .8s}
+#herida.estremece .orb-zone{animation:estremece 1.1s var(--ease)}
+@keyframes estremece{25%{transform:scale(.82)}55%{transform:scale(1.04)}}
+#ruta{margin-top:1.8cqh;display:flex;flex-wrap:wrap;gap:.5cqh .9cqw;padding-top:1.4cqh;border-top:1px dashed var(--night-line)}
+#ruta div{font:500 .85cqw/1.2 var(--sans);color:var(--night-muted);display:flex;align-items:center;gap:.4cqw}
+#ruta div::before{content:"×"}
+#ruta div.on{color:var(--night-ink)}
+#ruta div.on::before{content:"";width:.6cqw;height:.6cqw;border-radius:50%;border:2px solid var(--tone)}
+#ruta div.next{opacity:.55}#ruta div.next::before{content:"·"}
+
+/* ── Doña Rutina: una videollamada flotante sobre el recurso; no recoge nada. */
+#llamada{position:absolute;z-index:6;right:calc(var(--der) + 1.4cqw);top:4.4cqh;width:19cqw;display:flex;flex-direction:column;gap:1cqh;
+ opacity:0;transform:translateY(5cqh) scale(.96);transform-origin:top right;pointer-events:none;transition:opacity .7s var(--ease),transform 1.1s var(--ease)}
+#stage.con-r #llamada{opacity:1;transform:none}
+#stage.cuelga #llamada{opacity:0;transform:translate(2cqw,-3cqh) scale(.9);transition:opacity .8s var(--ease),transform 1.3s var(--magia)}
+#llamada .tile{position:relative;aspect-ratio:4/3;border-radius:1.2cqw;overflow:hidden;background:#3a2c2f;box-shadow:0 2.4cqh 5cqh -2cqh rgba(20,12,14,.7),0 0 0 1px rgba(255,255,255,.08)}
+#llamada .tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%;transition:opacity .9s var(--ease)}
+#llamada .tile .reacciona{opacity:0}
+#stage.tachado #llamada .tile .reacciona{opacity:1}
+#llamada.habla .tile{box-shadow:0 2.4cqh 5cqh -2cqh rgba(20,12,14,.7),0 0 0 2px var(--tone)}
+#llamada .estado{position:absolute;left:.9cqw;top:1.1cqh;display:flex;align-items:center;gap:.4cqw;font:600 .75cqw var(--sans);color:#fff;background:rgba(20,12,14,.45);padding:.4cqh .6cqw;border-radius:99px;backdrop-filter:blur(6px)}
+#llamada .estado::before{content:"";width:.5cqw;height:.5cqw;border-radius:50%;background:#7fbf8a}
+#llamada .barra{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;gap:.6cqw;padding:2.4cqh 1cqw 1.1cqh;background:linear-gradient(transparent,rgba(20,12,14,.7));font:600 .95cqw var(--sans);color:#fff}
+#llamada .barra span{flex:1}
+#llamada .ondas{display:flex;gap:.2cqw;align-items:center;height:1.6cqh}
+#llamada .ondas i{width:.22cqw;height:30%;background:var(--tone);border-radius:9px}
+#llamada.habla .ondas i{animation:onda .9s ease-in-out infinite}
+#llamada .ondas i:nth-child(2){animation-delay:.15s}#llamada .ondas i:nth-child(3){animation-delay:.3s}#llamada .ondas i:nth-child(4){animation-delay:.45s}
+@keyframes onda{50%{height:100%}}
+#llamada .dice{font:italic 500 1.3cqw/1.38 var(--sans);color:var(--ink-soft);background:#fff;border-radius:1.2cqw .3cqw 1.2cqw 1.2cqw;padding:1.4cqh 1.1cqw;box-shadow:0 2cqh 4cqh -2cqh rgba(20,12,14,.55);text-wrap:pretty;opacity:0;transform:translateY(1cqh);transition:opacity .6s .8s var(--ease),transform .8s .8s var(--ease)}
+#stage.con-r #llamada .dice{opacity:1;transform:none}
+/* Lo que la evidencia no sostiene se tacha al verificarse. */
+#llamada .dice s{text-decoration:none;background:linear-gradient(var(--coral),var(--coral)) no-repeat 0 58%/0% 2px;transition:background-size 1s .3s var(--ease),color .8s .3s}
+#stage.tachado #llamada .dice s{background-size:100% 2px;color:var(--muted)}
+
+/* ── La evidencia: una notificación de las guías, abajo del panel de la herida; los iconos son las fuentes. */
+#evidencia{position:relative;flex:none;margin-top:auto;background:var(--sheet);border-radius:1.2cqw;box-shadow:0 1.6cqh 4cqh -2cqh rgba(0,0,0,.6);padding:1.3cqh 1.2cqw 1.5cqh;
+ display:grid;gap:.8cqh;opacity:0;transform:translateY(2.5cqh) scale(.96);transform-origin:bottom center;transition:opacity .6s var(--ease),transform .9s cubic-bezier(.2,1.25,.4,1)}
+#stage.con-ev #evidencia{opacity:1;transform:none;transition-delay:.5s}
+#evidencia .app{display:flex;align-items:center;gap:.6cqw;font:600 .78cqw/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--olive)}
+#evidencia .iconos{display:flex}
+#evidencia .iconos img{width:1.8cqw;height:1.8cqw;border-radius:.45cqw;background:#fff;padding:.18cqw;object-fit:contain;box-shadow:0 0 0 1px var(--sheet-line),0 .4cqh .8cqh -.4cqh rgba(0,0,0,.3)}
+#evidencia .iconos img+img{margin-left:-.35cqw}
+#evidencia .app .cuando{margin-left:auto;text-transform:none;letter-spacing:0;font-weight:500;color:var(--muted)}
+#evidencia .cab{display:flex;align-items:center;gap:.5cqw;font:700 .95cqw/1 var(--sans);color:var(--olive-ink)}
+#evidencia .estado{display:grid}
+#evidencia .estado>*{grid-area:1/1;transition:opacity .4s var(--ease)}
+#evidencia .estado .b{opacity:0;color:var(--olive)}
+#evidencia .sello{width:1.2cqw;height:1.2cqw;flex:none}
+#evidencia .sello svg{width:100%;height:100%;overflow:visible}
+#evidencia .giro{fill:none;stroke:var(--ochre);stroke-width:3.4;stroke-dasharray:40 100;transform-origin:center;animation:gira 1s linear infinite;transition:opacity .3s}
+#evidencia .aro{fill:var(--olive-soft);opacity:0;transition:opacity .4s}
+#evidencia .ok{fill:none;stroke:var(--olive);stroke-width:3.6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:30;stroke-dashoffset:30;transition:stroke-dashoffset .6s .1s var(--ease)}
+@keyframes gira{to{transform:rotate(360deg)}}
+#evidencia p{font:500 1.3cqw/1.25 var(--display);color:var(--olive-ink);text-wrap:pretty;opacity:.18;filter:blur(.25cqw);transition:opacity .8s .15s var(--ease),filter .8s .15s var(--ease)}
+#evidencia .f{font:600 .72cqw/1.4 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--olive);opacity:0;transition:opacity .6s .4s}
+#stage.tachado #evidencia .giro{opacity:0}
+#stage.tachado #evidencia .aro{opacity:1}
+#stage.tachado #evidencia .ok{stroke-dashoffset:0}
+#stage.tachado #evidencia .estado .a{opacity:0}
+#stage.tachado #evidencia .estado .b{opacity:1}
+#stage.tachado #evidencia p{opacity:1;filter:none}
+#stage.tachado #evidencia .f{opacity:1}
+
+#nav{position:fixed;right:12px;bottom:10px;font:500 12px var(--sans);color:rgba(255,255,255,.45);z-index:40}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important;transition-duration:.01s!important;transition-delay:0s!important}}
+#recurso>svg{visibility:hidden}#recurso .imagen-prueba{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 50%;pointer-events:none}#stage.pica:not(.cura) .tejido-prueba{filter:saturate(.2);opacity:.45}
+</style>
+</head>
+<body>
+<div id="wrap"><main id="stage" class="t0">
+ <div id="telon"></div>
+ <div id="capitulo"><div class="n"><span>Acto 2 · Infección</span></div><h1><span>El antiséptico<br><em>no es champú</em></span></h1></div>
+ 
+ <section id="recurso" aria-label="Recreación: un antiséptico sobre el lecho de la herida">
+  <svg viewBox="0 0 940 560" preserveAspectRatio="xMidYMid slice"></svg>
+  <img class="imagen-prueba" src="recursos/piel-base-v1.png" alt=""><img class="imagen-prueba tejido-prueba" src="recursos/granulacion-v1.png" alt=""><div class="pie"><span>Recreación · no a escala</span><span><span><i style="background:#f08a78"></i>Tejido que crece</span><span><i style="background:#a8a35a"></i>Bacterias</span></span></div>
+ </section>
+
+ <section id="info"><div>
+  <div class="pregunta"><small>Antes de abrir el antiséptico</small>¿Hay sospecha o riesgo de infección?</div>
+  <div class="via"><b>No</b><h3>Limpieza básica</h3><p>Mantenimiento habitual de la herida.</p></div>
+  <div class="via si"><b>Sí</b><h3>Antiséptico con indicación</h3><p>Elegido según tejido, dolor, alergias y objetivo.</p></div>
+  <div class="via no-lecho"><b>Alcohol</b><h3>Solo en piel sana, nunca en el lecho</h3><p>Dolor · irritación · daño tisular · retrasa la cicatrización</p></div>
+ </div></section>
+
+ <aside id="hilo">
+  <div class="acto"><span>Acto 2 · Infección</span></div>
+  <div class="cab"><div class="num">03</div><h1><span>El antiséptico<br><em>no es champú</em></span></h1></div>
+  <div id="sitio"><div id="herida" aria-hidden="true"><div class="orb-zone" data-renderer="liquid" data-variant="3" data-ink="1" data-voice="principal" data-state="idle"></div></div></div>
+  <div class="quien">La herida</div><div class="burbuja"></div>
+  <section id="evidencia" role="status">
+   <div class="app"><span class="iconos"><img src="iconos/gneaupp.png" alt="GNEAUPP"><img src="iconos/iwii.png" alt="IWII"></span>Guías clínicas<span class="cuando">ahora</span></div>
+   <div class="cab"><span class="sello"><svg viewBox="0 0 32 32"><circle class="aro" cx="16" cy="16" r="15"/><circle class="giro" cx="16" cy="16" r="13"/><path class="ok" d="M9 16.5l4.6 4.5L23 11.5"/></svg></span>
+    <span class="estado"><span class="a">Comprobando con las guías…</span><span class="b">Verificado</span></span></div>
+   <p>Antiséptico solo con indicación clínica. Alcohol, nunca sobre el lecho.</p>
+   <div class="f">GNEAUPP DT VIII · IWII 2025</div>
+  </section>
+  <div id="ruta"><div>Diagnóstico</div><div class="on">Infección</div><div class="next">Limpieza</div><div class="next">Situaciones especiales</div><div class="next">Humanizar la cura</div></div>
+ </aside>
+
+ <aside id="llamada" aria-label="Videollamada con Doña Rutina">
+  <div class="tile">
+   <img src="../../personajes/rutina/frames-escenas-02-04-v1/escena-03/01-como-siempre.png" alt="">
+   <img class="reacciona" src="../../personajes/rutina/frames-escenas-02-04-v1/escena-03/02-reconoce-omision.png" alt="">
+   <span class="estado">En la llamada</span>
+   <div class="barra"><span>Doña Rutina</span><span class="ondas"><i></i><i></i><i></i><i></i></span></div></div>
+  <div class="dice">«Antiséptico para que quede limpita… <s>y un chorrito de alcohol para rematar.</s>»</div>
+ </aside>
+
+</main></div>
+<div id="nav"></div>
+<script>globalThis.ENTITY_RENDERER="liquid";globalThis.ENTITY_VARIANT=3;globalThis.ENTITY_INK=1;</script>
+<script src="../../entity-liquid.js"></script>
+<script src="../../entity.js"></script>
+<script>
+const $=s=>document.querySelector(s),st=$('#stage');
+const motion=!matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+// El tejido, con semilla fija: piel y borde, tejido que crece en el lecho, bacterias en la superficie.
+(()=>{
+ let s=7;const r=()=>(s=(s*16807)%2147483647)/2147483647;
+ const W=940,H=560,base=300;let g=`<defs><linearGradient id="fondo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a1d20"/><stop offset="1" stop-color="#1c1315"/></linearGradient>
+ <linearGradient id="dermis" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b9584f"/><stop offset="1" stop-color="#5a2328"/></linearGradient>
+ <linearGradient id="piel" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#efc3a6"/><stop offset="1" stop-color="#c98c74"/></linearGradient>
+ <filter id="difuso" x="-20%" y="-40%" width="140%" height="180%"><feGaussianBlur stdDeviation="28"/></filter></defs>
+ <rect width="${W}" height="${H}" fill="url(#fondo)"/>`;
+ g+=`<g class="capa c1"><path d="M0 ${base-40} C140 ${base-50} 190 ${base-36} 230 ${base+10} C300 ${base+70} 640 ${base+70} 710 ${base+10} C750 ${base-36} 800 ${base-50} ${W} ${base-40} V${H} H0Z" fill="url(#dermis)"/>
+ <path d="M0 ${base-62} C150 ${base-70} 190 ${base-56} 232 ${base+6} L210 ${base+4} C180 ${base-34} 140 ${base-44} 0 ${base-38}Z" fill="url(#piel)"/>
+ <path d="M${W} ${base-62} C790 ${base-70} 750 ${base-56} 708 ${base+6} L730 ${base+4} C760 ${base-34} 800 ${base-44} ${W} ${base-38}Z" fill="url(#piel)"/></g><g class="capa c2">`;
+ for(let i=0;i<70;i++){const x=250+r()*440,y=base+34+r()*160,rr=9+r()*11,toca=y<base+120&&r()<.75;
+  g+=`<ellipse class="celula${toca?' toca':''}" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" rx="${rr.toFixed(1)}" ry="${(rr*.8).toFixed(1)}" fill="${r()<.5?'#f08a78':'#e8735f'}" style="transition-delay:${(r()*.8).toFixed(2)}s"/>`;}
+ g+='</g><g class="capa c3">';
+ for(let i=0;i<46;i++){const x=300+r()*340,y=base+56+r()*40;
+  g+=`<g transform="rotate(${(r()*180).toFixed(0)} ${x.toFixed(1)} ${y.toFixed(1)})"><rect class="celula bacteria" x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="13" height="5" rx="2.5" fill="#a8a35a"/></g>`;}
+ g+=`</g><ellipse class="velo" cx="470" cy="${base+70}" rx="250" ry="90" fill="#9fc4e0" filter="url(#difuso)"/>`;
+ for(let i=0;i<22;i++)g+=`<ellipse class="gota" cx="${(270+r()*400).toFixed(0)}" cy="${(40+r()*110).toFixed(0)}" rx="4" ry="7" fill="#b9d6ea" style="animation-delay:${(r()*1.2).toFixed(2)}s"/>`;
+ $('#recurso svg').innerHTML=g;
+})();
+
+// El recurso llega hasta donde empiezan las tarjetas, que tienen su altura natural y acaban en la base del panel.
+function fit(){st.style.setProperty('--alto',`calc(100cqh - 5.2cqh - var(--hueco) - ${$('#info>div').offsetHeight}px)`);}
+new ResizeObserver(fit).observe($('#info>div'));
+
+const zona=$('#herida .orb-zone'),bu=$('.burbuja');
+function voz(z,habla,t=''){Presence.reset();z.dataset.state=habla?'speaking':'idle';Presence.mount([z],{motion});if(habla)Presence.cue('speaking',{delay:350,think:500,speak:t.split(' ').length*70+500});}
+function herida(t){bu.className='burbuja';bu.textContent=t;void bu.offsetWidth;bu.classList.add('entra');voz(zona,true,t);}
+function escucha(){voz(zona,false);}
+function estremece(){const h=$('#herida');h.classList.remove('estremece');void h.offsetWidth;h.classList.add('estremece');}
+
+// La apertura se encadena sola: título → el recurso entra y la herida a su lado → la escena se monta y la herida sitúa.
+// Sonido de notificación, sintetizado (sin archivos). El navegador lo permite tras la primera tecla o clic.
+let audio;
+function suena(notas){try{audio??=new AudioContext();const t0=audio.currentTime+.02;
+ notas.forEach(([f,d],k)=>{const o=audio.createOscillator(),g=audio.createGain(),t=t0+d;o.type='sine';o.frequency.value=f;
+  g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.12,t+.015);g.gain.exponentialRampToValueAtTime(.0008,t+.9);
+  o.connect(g).connect(audio.destination);o.start(t);o.stop(t+1);});}catch{}}
+const llega=()=>suena([[880,0],[1318.5,.11]]),verifica=()=>suena([[1568,0]]);
+let timers=[];const luego=(ms,f)=>timers.push(setTimeout(f,ms));
+// Movimiento mágico: el telón se pliega en el panel; el rótulo y el título, idénticos a los del panel, viajan hasta ellos y se cambian al llegar.
+const M={duration:1500,easing:'cubic-bezier(.65,0,.25,1)',fill:'forwards'};
+function magia(){
+ const S=st.getBoundingClientRect(),h=$('#hilo').getBoundingClientRect(),w=S.width/100;
+ $('#telon').animate([{left:'0px',top:'0px',width:S.width+'px',height:S.height+'px',borderRadius:'0px'},{left:h.left-S.left+'px',top:h.top-S.top+'px',width:h.width+'px',height:h.height+'px',borderRadius:1.6*w+'px'}],M);
+ for(const [de,a] of [['#capitulo .n span','#hilo .acto span'],['#capitulo h1 span','#hilo h1 span']]){
+  const o=$(de),d=$(a),r1=o.getBoundingClientRect(),r2=d.getBoundingClientRect(),k=r2.height/r1.height;
+  o.animate([{transform:'none'},{transform:`translate(${r2.left-r1.left}px,${r2.top-r1.top}px) scale(${k})`}],M);
+ }
+}
+const reposo=()=>document.querySelectorAll('#telon,#capitulo span').forEach(e=>e.getAnimations().forEach(a=>a.cancel()));
+const situa=()=>{reposo();st.className='t3 sitio formado';herida('«Hoy también toca limpieza. ¿Como siempre?»');requestAnimationFrame(fit);};
+const P=[
+ ()=>{st.className='t0';bu.textContent='';
+  reposo();luego(2800,()=>{st.className='t1';voz(zona,false);magia();});
+  luego(2800+1500,()=>{st.className='t1 formado';reposo();});
+  luego(2800+4300,situa);},
+ ()=>{st.className='t3 sitio formado con-r escucha';$('#llamada').classList.add('habla');escucha();luego(1600,()=>{st.classList.add('pica');luego(500,estremece);});luego(4200,()=>$('#llamada').classList.remove('habla'));},
+ ()=>{st.className='t3 sitio formado con-r con-ev pica senala';herida('«¿Y con qué? ¿Con lo de siempre?»');luego(500,llega);luego(1900,()=>{st.classList.add('tachado');verifica();});luego(2600,()=>st.classList.add('cura'));},
+ ()=>{st.className='t3 sitio formado con-r con-ev pica senala tachado cura cuelga';},
+];
+let n=-1;
+function ir(k,salta=false){
+ k=Math.max(0,Math.min(P.length-1,k));
+ timers.forEach(clearTimeout);timers=[];$('#llamada').classList.remove('habla');
+ // Pulsar durante la apertura la completa de golpe.
+ if(k===n&&k===0&&!st.classList.contains('t3')){situa();return;}
+ if(k===n)return;
+ n=k;
+ if(k>0&&salta){situa();}
+ P[k]();requestAnimationFrame(fit);
+ $('#nav').textContent=`${k+1} / ${P.length} · ← →`;history.replaceState(null,'','#'+(k+1));
+}
+addEventListener('keydown',e=>{if(['ArrowRight',' ','PageDown'].includes(e.key))ir(st.classList.contains('t3')?n+1:n);else if(['ArrowLeft','PageUp'].includes(e.key))ir(n-1,true);else if(e.key==='f')document.documentElement.requestFullscreen?.();});
+st.addEventListener('click',e=>e.clientX>innerWidth/2?ir(st.classList.contains('t3')?n+1:n):ir(n-1,true));
+const h=(parseInt(location.hash.slice(1))||1)-1;ir(h,h>0);
+</script>
+</body>
+</html>

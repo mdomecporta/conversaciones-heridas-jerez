@@ -339,8 +339,12 @@ const Carro={
  crear(){
   this.el=document.createElement('div');this.el.id='carro';this.el.setAttribute('aria-hidden','true');
   this.frame=document.createElement('iframe');this.frame.title='Carro de curas de María del Mar';this.frame.src=(PUBLICO?'../carro/':'carro/')+'?transparente';
-  this.frame.addEventListener('load',()=>{this.cargado=true;this.ultimo='';this.colocar();});
-  addEventListener('message',e=>{if(e.source===this.frame.contentWindow&&e.data?.carroFallo)stage.classList.add('sin-3d');});
+  // No basta con 'load': el carro espera a sus modelos (GLB) antes de escuchar, y avisa con carroListo.
+  addEventListener('message',e=>{
+   if(e.source!==this.frame.contentWindow)return;
+   if(e.data?.carroFallo)stage.classList.add('sin-3d');
+   if(e.data?.carroListo&&!this.cargado){this.cargado=true;this.ultimo='';this.colocar();}
+  });
   this.el.append(this.frame);stage.append(this.el);
  },
  colocar(slide=slides[si],v=view(slides[si],k)){

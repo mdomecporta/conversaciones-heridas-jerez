@@ -1,0 +1,560 @@
+{
+  "version": 2,
+  "date": "2026-11-07",
+  "status": "integrado en /recorrido/; selección editorial con estado de cotejo por registro",
+  "source": "GNEAUPP DT XIV, 2.ª ed., 2020",
+  "idPolicy": "R01–R47 son identificadores internos siguiendo el orden de la reserva; no numeración oficial del documento.",
+  "sourceOfSummaries": "guion/GUION_PARA_MARIA_DEL_MAR.md",
+  "activeCount": 13,
+  "items": [
+    {
+      "id": "R01",
+      "group": "3.1",
+      "groupTitle": "Diagnóstico",
+      "page": 15,
+      "strength": "Alta",
+      "summary": "No implantar ningún tratamiento tópico sin un diagnóstico previo de la herida.",
+      "chapters": [
+        2,
+        4,
+        5
+      ],
+      "illuminate": true,
+      "review": "pasaje cotejado"
+    },
+    {
+      "id": "R02",
+      "group": "3.1",
+      "groupTitle": "Diagnóstico",
+      "page": 15,
+      "strength": "Alta",
+      "summary": "No utilizar escalas ni sistemas de medida que no estén validados o indicados para ese contexto o tipo de lesión.",
+      "chapters": [
+        3
+      ],
+      "illuminate": true,
+      "review": "pasaje cotejado"
+    },
+    {
+      "id": "R03",
+      "group": "3.2",
+      "groupTitle": "Lesiones relacionadas con la dependencia",
+      "page": 16,
+      "strength": "Alta",
+      "summary": "No utilizar cojines redondos cerrados, tipo rosca o flotador, como superficie de asiento.",
+      "chapters": [],
+      "illuminate": false,
+      "review": "resumen heredado; cotejo final pendiente"
+    },
+    {
+      "id": "R04",
+      "group": "3.2",
+      "groupTitle": "Lesiones relacionadas con la dependencia",
+      "page": 16,
+      "strength": "Alta",
+      "summary": "No utilizar materiales de prevención sin evidencia de su utilidad, como pieles de cordero sintéticas o guantes rellenos de agua.",
+      "chapters": [],
+      "illuminate": false,
+      "review": "resumen heredado; cotejo final pendiente"
+    },
+    {
+      "id": "R05",
+      "group": "3.2",
+      "groupTitle": "Lesiones relacionadas con la dependencia",
+      "page": 16,
+      "strength": "Alta",
+      "summary": "No dar masajes en la piel sobre las prominencias óseas.",
+      "chapters": [],
+      "illuminate": false,
+      "review": "resumen heredado; cotejo final pendiente"
+    },
+    {
+      "id": "R06",
+      "group": "3.2",
+      "groupTitle": "Lesiones relacionadas con la dependencia",
+      "page": 17,
+      "strength": "Alta",
+      "summary": "No elevar el cabecero de la cama más de 30°.",
+      "chapters": [],
+      "illuminate": false,
+      "review": "resumen heredado; cotejo final pendiente"
+    },
+    {
+      "id": "R07",
+      "group": "3.2",
+      "groupTitle": "Lesiones relacionadas con la dependencia",
+      "page": 17,
+      "strength": "Alta",
+      "summary": "No colocar a la persona en decúbito lateral con una inclinación superior a 30°.",
+      "chapters": [],
+      "illuminate": false,
+      "review": "resumen heredado; cotejo final pendiente"
+    },
+    {
+      "id": "R08",
+      "group": "3.2",
+      "groupTitle": "Lesiones relacionadas con la dependencia",
+      "page": 17,
+      "strength": "Alta",
+      "summary": "No aplicar sobre la piel productos con alcohol, como colonias, alcohol de romero o tanino.",
+      "chapters": [],
+      "illuminate": false,
+      "review": "resumen heredado; cotejo final pendiente"
+    },
+    {
+      "id": "R09",
+      "group": "3.2",
+      "groupTitle": "Lesiones relacionadas con la dependencia",
+      "page": 18,
+      "strength": "Alta",
+      "summary": "No utilizar colchón estándar en personas con riesgo de lesiones por presión en centros sanitarios, sociosanitarios o residencias.",
+      "chapters": [],
+      "illuminate": false,
+      "review": "resumen heredado; cotejo final pendiente"
+    },
+    {
+      "id": "R10",
+      "group": "3.2",
+      "groupTitle": "Lesiones relacionadas con la dependencia",
+      "page": 18,
+      "strength": "Alta",
+      "summary": "No sentar a personas en riesgo o con lesiones si no pueden reposicionarse o no disponen de una superficie de asiento adecuada.",
+      "chapters": [],
+      "illuminate": false,
+      "review": "resumen heredado; cotejo final pendiente"
+    },
+    {
+      "id": "R11",
+      "group": "3.2",
+      "groupTitle": "Lesiones relacionadas con la dependencia",
+      "page": 18,
+      "strength": "Alta",
+      "summary": "No arrastrar a la persona al reposicionarla o al pasarla de una superficie a otra.",
+      "chapters": [],
+      "illuminate": false,
+      "review": "resumen heredado; cotejo final pendiente"
+    },
+    {
+      "id": "R12",
+      "group": "3.2",
+      "groupTitle": "Lesiones relacionadas con la dependencia",
+      "page": 19,
+      "strength": "Alta",
+      "summary": "No apoyar a la persona directamente sobre dispositivos clínicos, como sondas o drenajes.",
+      "chapters": [],
+      "illuminate": false,
+      "review": "resumen heredado; cotejo final pendiente"
+    },
+    {
+      "id": "R13",
+      "group": "3.2",
+      "groupTitle": "Lesiones relacionadas con la dependencia",
+      "page": 19,
+      "strength": "Alta",
+      "summary": "No colocar ni retirar absorbentes o cuñas con fuerzas de arrastre que generen roce o fricción.",
+      "chapters": [],
+      "illuminate": false,
+      "review": "resumen heredado; cotejo final pendiente"
+    },
+    {
+      "id": "R14",
+      "group": "3.2",
+      "groupTitle": "Lesiones relacionadas con la dependencia",
+      "page": 19,
+      "strength": "Moderada",
+      "summary": "No intentar retirar con agua los restos de cremas o pomadas con óxido de zinc.",
+      "chapters": [],
+      "illuminate": false,
+      "review": "resumen heredado; cotejo final pendiente"
+    },
+    {
+      "id": "R15",
+      "group": "3.2",
+      "groupTitle": "Lesiones relacionadas con la dependencia",
+      "page": 20,
+      "strength": "Moderada",
+      "summary": "No utilizar «doble pañal» en personas con incontinencia.",
+      "chapters": [],
+      "illuminate": false,
+      "review": "resumen heredado; cotejo final pendiente"
+    },
+    {
+      "id": "R16",
+      "group": "3.3",
+      "groupTitle": "Extremidad inferior",
+      "page": 20,
+      "strength": "Alta",
+      "summary": "No utilizar vendas de crepé como compresión terapéutica en úlceras venosas.",
+      "chapters": [],
+      "illuminate": false,
+      "review": "resumen heredado; cotejo final pendiente"
+    },
+    {
+      "id": "R17",
+      "group": "3.3",
+      "groupTitle": "Extremidad inferior",
+      "page": 21,
+      "strength": "Alta",
+      "summary": "No aplicar un vendaje circular solo sobre la zona de la úlcera venosa.",
+      "chapters": [],
+      "illuminate": false,
+      "review": "resumen heredado; cotejo final pendiente"
+    },
+    {
+      "id": "R18",
+      "group": "3.3",
+      "groupTitle": "Extremidad inferior",
+      "page": 21,
+      "strength": "Baja",
+      "summary": "No aplicar vendaje de baja elasticidad o multicapa en forma de «espiga» en úlceras venosas.",
+      "chapters": [],
+      "illuminate": false,
+      "review": "resumen heredado; cotejo final pendiente"
+    },
+    {
+      "id": "R19",
+      "group": "3.3",
+      "groupTitle": "Extremidad inferior",
+      "page": 21,
+      "strength": "Moderada",
+      "summary": "No usar cura en ambiente húmedo en úlceras isquémicas con escara seca o gangrena mientras no estén revascularizadas.",
+      "chapters": [
+        5
+      ],
+      "illuminate": true,
+      "review": "pasaje cotejado"
+    },
+    {
+      "id": "R20",
+      "group": "3.3",
+      "groupTitle": "Extremidad inferior",
+      "page": 22,
+      "strength": "Moderada",
+      "summary": "No indicar calzado convencional ni terapéutico para cicatrizar úlceras neuropáticas plantares en personas con diabetes.",
+      "chapters": [],
+      "illuminate": false,
+      "review": "resumen heredado; cotejo final pendiente"
+    },
+    {
+      "id": "R21",
+      "group": "3.3",
+      "groupTitle": "Extremidad inferior",
+      "page": 22,
+      "strength": "Alta",
+      "summary": "No utilizar ni recomendar callicidas químicos para eliminar la hiperqueratosis.",
+      "chapters": [],
+      "illuminate": false,
+      "review": "resumen heredado; cotejo final pendiente"
+    },
+    {
+      "id": "R22",
+      "group": "3.4",
+      "groupTitle": "Otras lesiones",
+      "page": 22,
+      "strength": "Moderada",
+      "summary": "No utilizar antibióticos tópicos en quemaduras de primer grado o sin signos clínicos de infección.",
+      "chapters": [],
+      "illuminate": false,
+      "review": "resumen heredado; cotejo final pendiente"
+    },
+    {
+      "id": "R23",
+      "group": "3.4",
+      "groupTitle": "Otras lesiones",
+      "page": 23,
+      "strength": "Alta",
+      "summary": "No aplicar agua muy fría o helada tras una quemadura.",
+      "chapters": [],
+      "illuminate": false,
+      "review": "resumen heredado; cotejo final pendiente"
+    },
+    {
+      "id": "R24",
+      "group": "3.4",
+      "groupTitle": "Otras lesiones",
+      "page": 23,
+      "strength": "Baja",
+      "summary": "No mantener íntegra una ampolla o flictena.",
+      "chapters": [],
+      "illuminate": false,
+      "review": "resumen heredado; cotejo final pendiente"
+    },
+    {
+      "id": "R25",
+      "group": "3.4",
+      "groupTitle": "Otras lesiones",
+      "page": 24,
+      "strength": "Alta",
+      "summary": "No utilizar apósitos que puedan adherirse al lecho en lesiones neoplásicas.",
+      "chapters": [
+        20
+      ],
+      "illuminate": true,
+      "review": "pasaje cotejado"
+    },
+    {
+      "id": "R26",
+      "group": "3.4",
+      "groupTitle": "Otras lesiones",
+      "page": 24,
+      "strength": "Alta",
+      "summary": "No realizar desbridamiento cortante en heridas tumorales, por el riesgo de sangrado y la dificultad de hemostasia.",
+      "chapters": [
+        13
+      ],
+      "illuminate": true,
+      "review": "pasaje cotejado"
+    },
+    {
+      "id": "R27",
+      "group": "3.4",
+      "groupTitle": "Otras lesiones",
+      "page": 25,
+      "strength": "Alta",
+      "summary": "No administrar antibióticos tópicos para prevenir la infección de la herida quirúrgica.",
+      "chapters": [],
+      "illuminate": false,
+      "review": "resumen heredado; cotejo final pendiente"
+    },
+    {
+      "id": "R28",
+      "group": "3.4",
+      "groupTitle": "Otras lesiones",
+      "page": 25,
+      "strength": "Moderada",
+      "summary": "No cambiar el apósito de la herida quirúrgica antes de 48 horas, salvo fuga de sangre o exudado.",
+      "chapters": [],
+      "illuminate": false,
+      "review": "resumen heredado; cotejo final pendiente"
+    },
+    {
+      "id": "R29",
+      "group": "3.4",
+      "groupTitle": "Otras lesiones",
+      "page": 25,
+      "strength": "Alta",
+      "summary": "No retrasar la ducha más allá de 48 horas por miedo a la infección de la herida quirúrgica.",
+      "chapters": [],
+      "illuminate": false,
+      "review": "resumen heredado; cotejo final pendiente"
+    },
+    {
+      "id": "R30",
+      "group": "3.4",
+      "groupTitle": "Otras lesiones",
+      "page": 26,
+      "strength": "Alta",
+      "summary": "No retirar grapas ni suturas en una dehiscencia sin el equipo y el material adecuados para atender las complicaciones.",
+      "chapters": [],
+      "illuminate": false,
+      "review": "resumen heredado; cotejo final pendiente"
+    },
+    {
+      "id": "R31",
+      "group": "3.5",
+      "groupTitle": "Carga bacteriana",
+      "page": 26,
+      "strength": "Baja",
+      "summary": "No utilizar antisépticos de forma rutinaria en la limpieza de heridas crónicas.",
+      "chapters": [
+        10
+      ],
+      "illuminate": true,
+      "review": "pasaje cotejado"
+    },
+    {
+      "id": "R32",
+      "group": "3.5",
+      "groupTitle": "Carga bacteriana",
+      "page": 27,
+      "strength": "Baja",
+      "summary": "No usar antisépticos con fines preventivos en el cuidado local de la herida quirúrgica.",
+      "chapters": [],
+      "illuminate": false,
+      "review": "resumen heredado; cotejo final pendiente"
+    },
+    {
+      "id": "R33",
+      "group": "3.5",
+      "groupTitle": "Carga bacteriana",
+      "page": 27,
+      "strength": "Baja",
+      "summary": "No utilizar jabones de forma rutinaria para limpiar heridas.",
+      "chapters": [],
+      "illuminate": false,
+      "review": "resumen heredado; cotejo final pendiente"
+    },
+    {
+      "id": "R34",
+      "group": "3.5",
+      "groupTitle": "Carga bacteriana",
+      "page": 28,
+      "strength": "Alta",
+      "summary": "No realizar desbridamiento cortante sin estar entrenado para ello.",
+      "chapters": [
+        13
+      ],
+      "illuminate": true,
+      "review": "pasaje cotejado"
+    },
+    {
+      "id": "R35",
+      "group": "3.5",
+      "groupTitle": "Carga bacteriana",
+      "page": 28,
+      "strength": "Moderada",
+      "summary": "No es preciso desbridar la escara seca de talón sin signos de infección, edema, eritema, fluctuación o drenaje; tampoco inicialmente al final de la vida.",
+      "chapters": [
+        13
+      ],
+      "illuminate": true,
+      "review": "pasaje cotejado"
+    },
+    {
+      "id": "R36",
+      "group": "3.5",
+      "groupTitle": "Carga bacteriana",
+      "page": 28,
+      "strength": "Alta",
+      "summary": "No realizar un desbridamiento potencialmente doloroso sin una pauta analgésica adecuada.",
+      "chapters": [
+        13,
+        17
+      ],
+      "illuminate": true,
+      "review": "pasaje cotejado"
+    },
+    {
+      "id": "R37",
+      "group": "3.5",
+      "groupTitle": "Carga bacteriana",
+      "page": 29,
+      "strength": "Alta",
+      "summary": "No utilizar antibióticos por una vía de administración que no sea la adecuada.",
+      "chapters": [
+        9
+      ],
+      "illuminate": true,
+      "review": "pasaje cotejado"
+    },
+    {
+      "id": "R38",
+      "group": "3.5",
+      "groupTitle": "Carga bacteriana",
+      "page": 29,
+      "strength": "Alta",
+      "summary": "No utilizar pomadas con antibiótico como primera elección en lesiones que no progresan.",
+      "chapters": [
+        8
+      ],
+      "illuminate": true,
+      "review": "pasaje cotejado"
+    },
+    {
+      "id": "R39",
+      "group": "3.5",
+      "groupTitle": "Carga bacteriana",
+      "page": 30,
+      "strength": "Moderada",
+      "summary": "No utilizar métodos tradicionales de toma de muestra y cultivo en heridas sin signos clínicos evidentes de infección.",
+      "chapters": [
+        7
+      ],
+      "illuminate": true,
+      "review": "pasaje cotejado"
+    },
+    {
+      "id": "R40",
+      "group": "3.6",
+      "groupTitle": "Tratamiento",
+      "page": 30,
+      "strength": "Alta",
+      "summary": "No mojar ni humedecer los apósitos de alginato o hidrofibra antes de aplicarlos.",
+      "chapters": [],
+      "illuminate": false,
+      "review": "resumen heredado; cotejo final pendiente"
+    },
+    {
+      "id": "R41",
+      "group": "3.6",
+      "groupTitle": "Tratamiento",
+      "page": 31,
+      "strength": "Alta",
+      "summary": "No usar apósitos con adhesivos fuertes en personas con piel frágil.",
+      "chapters": [
+        20
+      ],
+      "illuminate": true,
+      "review": "pasaje cotejado"
+    },
+    {
+      "id": "R42",
+      "group": "3.6",
+      "groupTitle": "Tratamiento",
+      "page": 31,
+      "strength": "Alta",
+      "summary": "No frotar el lecho de una herida limpia para que sangre, como forma de estimular la cicatrización.",
+      "chapters": [],
+      "illuminate": false,
+      "review": "resumen heredado; cotejo final pendiente"
+    },
+    {
+      "id": "R43",
+      "group": "3.6",
+      "groupTitle": "Tratamiento",
+      "page": 31,
+      "strength": "Baja",
+      "summary": "No aplicar los apósitos de forma distinta a las indicaciones del fabricante; por ejemplo, comprobar si se pueden recortar.",
+      "chapters": [],
+      "illuminate": false,
+      "review": "resumen heredado; cotejo final pendiente"
+    },
+    {
+      "id": "R44",
+      "group": "3.6",
+      "groupTitle": "Tratamiento",
+      "page": 32,
+      "strength": "Moderada",
+      "summary": "No utilizar la terapia de presión negativa fuera de las indicaciones de las guías de práctica clínica.",
+      "chapters": [],
+      "illuminate": false,
+      "review": "resumen heredado; cotejo final pendiente"
+    },
+    {
+      "id": "R45",
+      "group": "3.6",
+      "groupTitle": "Tratamiento",
+      "page": 32,
+      "strength": "Alta",
+      "summary": "No aplicar varios apósitos en la misma cura buscando sumar sus propiedades.",
+      "chapters": [],
+      "illuminate": false,
+      "review": "resumen heredado; cotejo final pendiente"
+    },
+    {
+      "id": "R46",
+      "group": "3.6",
+      "groupTitle": "Tratamiento",
+      "page": 32,
+      "strength": "Baja",
+      "summary": "No utilizar suplementos nutricionales sin un diagnóstico del estado nutricional.",
+      "chapters": [],
+      "illuminate": false,
+      "review": "resumen heredado; cotejo final pendiente"
+    },
+    {
+      "id": "R47",
+      "group": "3.6",
+      "groupTitle": "Tratamiento",
+      "page": 33,
+      "strength": "Alta",
+      "summary": "No usar en las heridas productos alimentarios (azúcar, miel, huevo, aceite, yogur…) que no estén certificados como producto sanitario.",
+      "chapters": [],
+      "illuminate": false,
+      "review": "resumen heredado; cotejo final pendiente"
+    }
+  ],
+  "selectionCriterion": "Decisiones frecuentes de la cura y situaciones que obligan a adaptar el criterio; recomendaciones tratadas expresamente, no exclusivamente comunes a cualquier herida.",
+  "scope": "Solo DT XIV. Las otras guías y estudios sostienen o amplían las decisiones y se identifican por separado.",
+  "evidenceNotice": "Con respaldo documental: síntesis, fuente, localizador y condición; sin comprobación en directo ni validación de pacientes."
+}

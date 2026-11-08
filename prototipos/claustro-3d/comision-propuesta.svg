@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="260" viewBox="0 0 760 260" role="img" aria-labelledby="title desc">
+<title id="title">Comisión de Heridas — propuesta 03</title><desc id="desc">Tres hexágonos entrelazados en azul, coral y ocre rodean una figura humana central, acompañada por otras dos. Una sutura coral identifica el cuidado de la herida. Firma Comisión de Heridas sobre verde translúcido.</desc>
+<rect x=".75" y=".75" width="758.5" height="258.5" rx="12" fill="#104a37" fill-opacity=".6" stroke="#edf9e6" stroke-opacity=".42" stroke-width="1.5"/>
+<path d="M23 1.5h714" stroke="#fff" stroke-opacity=".38"/>
+<g fill="none" stroke-width="4.2" stroke-linejoin="round">
+<path d="M140 27l88 51v102l-88 51-88-51V78Z" stroke="#8ac5d8" transform="translate(-13 -7)"/>
+<path d="M140 27l88 51v102l-88 51-88-51V78Z" stroke="#efa1b1" transform="translate(13 -7)"/>
+<path d="M140 27l88 51v102l-88 51-88-51V78Z" stroke="#e8d183" transform="translate(0 14)"/>
+</g>
+<g fill="#fffaeb">
+<circle cx="140" cy="85" r="11"/>
+<path d="M127 104q-10 3-12 16l-3 29q0 6 5 6t6-5l3-22v29l-3 30q0 6 6 6t7-6l4-27 4 27q1 6 7 6t6-6l-3-30v-29l3 22q1 5 6 5t5-6l-3-29q-2-13-12-16Z"/>
+<circle cx="100" cy="116" r="7"/><path d="M87 150v-11q0-12 13-12 8 0 12 6l-2 20H90q-3 0-3-3Z" opacity=".7"/>
+<circle cx="180" cy="116" r="7"/><path d="M193 150v-11q0-12-13-12-8 0-12 6l2 20h20q3 0 3-3Z" opacity=".7"/>
+</g>
+<g fill="none" stroke="#c87588" stroke-linecap="round" stroke-width="2.7"><path d="M146 164l4 16M142 169l9-2M144 176l9-2"/></g>
+<g fill="#fffaeb" font-family="Arial,sans-serif"><text x="290" y="83" font-size="22" font-weight="500" letter-spacing="2.6">COMISIÓN DE</text><text x="285" y="151" font-size="68" font-weight="700" letter-spacing="-2.2">Heridas</text><text x="290" y="194" font-size="17">AGS Jerez, Costa Noroeste</text><text x="290" y="218" font-size="17">y Sierra de Cádiz</text></g></svg>

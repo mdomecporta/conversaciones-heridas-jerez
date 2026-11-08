@@ -1,5 +1,13 @@
 # Recursos incorporados · 27 de octubre de 2026
 
+## Revisión de fotografías aportadas · 5 de noviembre de 2026
+
+Se han revisado los doce archivos sueltos aportados en la carpeta del proyecto (once fotografías de personas o lesiones y una referencia de personaje). El [catálogo visual local](docs/imagenes-maria-del-mar/catalogo.html) permite verlos con su identificación descriptiva, selección y escenas candidatas. El [informe de revisión](docs/imagenes-maria-del-mar/REVISION.md) detalla el montaje propuesto, las repeticiones, los retoques y las posibles secuencias docentes.
+
+Primera elección: fotografía 06 para las zonas de limpieza de la escena 3; 03 como alternativa; 08 como contexto si se confirma su relación con 06. La 05 repite el motivo de 03. La 07 es un talón con herida abierta y no sustituye la escara seca y estable de la escena 4. No hay una serie temporal confirmada. Las fotografías siguen fuera del catálogo de proyección y de la compilación pública, pendientes de documentar su historia y el uso permitido. Esta revisión no modifica los recursos incorporados que se describen a continuación.
+
+## Recursos ya incorporados
+
 Se han incorporado 11 imágenes al catálogo. Desde el recorte del 1 de noviembre (13 escenas), la presentación usa 8 (el modelo del biofilm, como historia de la escena 5); el pioderma gangrenoso y el sistema de compresión siguen en el catálogo, sin uso. Las dos pantallas institucionales se mantienen.
 
 ## Carro de curas en 3D

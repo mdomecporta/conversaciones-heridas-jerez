@@ -4,6 +4,7 @@
  "private": true,
  "scripts": {
   "build": "node scripts/build.mjs",
+  "build:piloto": "node scripts/build-piloto.mjs",
   "dev": "python3 -m http.server 4173 --bind 127.0.0.1 --directory dist",
   "test": "node --jitless --test scripts/*.test.mjs",
   "local": "node scripts/servidor-local.mjs"

@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Carro de curas 3D</title>
+<link rel="stylesheet" href="../tokens.css">
+<style>
+@font-face{font-family:"Figtree";src:url("../assets/fonts/figtree-latin-wght-normal.woff2") format("woff2");font-weight:300 900;}
+@font-face{font-family:"Fraunces";src:url("../assets/fonts/fraunces-latin-wght-normal.woff2") format("woff2");font-weight:100 900;}
+/* --fondo es el papel tal como sale del render (con su tono), para que la página y el lienzo no se distingan. */
+:root{--fondo:var(--paper)}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{background:var(--fondo);color:var(--ink);font-family:var(--sans);overflow:hidden}
+#escena{position:fixed;inset:0;display:block;width:100%;height:100%}
+.rotulo{position:fixed;left:32px;bottom:96px;max-width:360px;padding:16px 20px;border-radius:16px;background:var(--bubble-herida);
+ box-shadow:0 10px 30px -18px rgba(61,29,32,.45);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+.rotulo.oculto{opacity:0;transform:translateY(8px)}
+.rotulo .trae{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blood)}
+.rotulo .trae::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--blood)}
+.rotulo h2{font-family:var(--display);font-weight:500;font-size:26px;line-height:1.15;margin-top:6px;color:var(--herida-ink)}
+.rotulo p{font-size:14px;line-height:1.4;margin-top:6px;color:var(--ink-soft)}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;gap:6px;justify-content:center;flex-wrap:wrap;padding:16px;
+ background:linear-gradient(transparent,var(--fondo) 40%)}
+nav button{font:600 13px var(--sans);color:var(--ink-soft);background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 13px;cursor:pointer;
+ transition:background .2s,color .2s,border-color .2s}
+nav button:hover{border-color:var(--line-strong)}
+nav button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.nota{position:fixed;top:20px;right:24px;font-size:12px;color:var(--muted);text-align:right;line-height:1.5}
+.creditos{font-size:10px;opacity:.75}
+</style>
+</head>
+<body>
+<canvas id="escena"></canvas>
+<div class="nota">Prototipo · el carro del centro de salud, modelado para la presentación<br>← → cambia de escena · arrastra para girar<br><span class="creditos">Modelos CC BY 4.0 de Sketchfab: Miguel Adão (guantes, espray, vendas, tiritas), cig3d (contenedor), Medicz (bisturí), Stakler (jeringa)</span></div>
+<div class="rotulo oculto" id="rotulo"><span class="trae">La herida trae</span><h2 id="rot-titulo"></h2><p id="rot-texto"></p></div>
+<nav id="nav"></nav>
+
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"}}
+</script>
+<script type="module">
+import * as THREE from 'three';
+import {RoundedBoxGeometry} from 'three/addons/geometries/RoundedBoxGeometry.js';
+import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
+import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
+import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+import {EffectComposer} from 'three/addons/postprocessing/EffectComposer.js';
+import {RenderPass} from 'three/addons/postprocessing/RenderPass.js';
+import {GTAOPass} from 'three/addons/postprocessing/GTAOPass.js';
+import {OutputPass} from 'three/addons/postprocessing/OutputPass.js';
+
+// Medidas en metros, tomadas a ojo de la foto del carro del centro de salud:
+// dos bandejas de acero, patas de tubo que asoman por encima, ruedas grises y una cesta blanca colgada a la derecha.
+const ANCHO=.74, FONDO=.44, ALTO_SUP=.80, ALTO_INF=.30, R_TUBO=.0115;
+const PAPEL=new THREE.Color(0xf6f0e8),CORAL=new THREE.Color(0xe46a5a);
+
+const canvas=document.getElementById('escena');
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));
+renderer.toneMapping=THREE.NeutralToneMapping;
+renderer.shadowMap.enabled=true;
+renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+
+const scene=new THREE.Scene();
+scene.background=PAPEL.clone();
+scene.environment=new THREE.PMREMGenerator(renderer).fromScene(new RoomEnvironment(),.04).texture;
+scene.environmentIntensity=.75;
+
+const camera=new THREE.PerspectiveCamera(26,1,.05,20);
+const controls=new OrbitControls(camera,canvas);
+controls.enableDamping=true;controls.enablePan=false;controls.minDistance=.6;controls.maxDistance=4.5;
+controls.maxPolarAngle=Math.PI*.49;
+
+// Oclusión ambiental: oscurece donde las piezas se tocan, para que nada parezca flotar.
+const composer=new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene,camera));
+const ao=new GTAOPass(scene,camera,innerWidth,innerHeight);
+ao.updateGtaoMaterial({radius:.06,distanceExponent:1.4,thickness:1,scale:1.1,samples:16});
+ao.updatePdMaterial({lumaPhi:10,depthPhi:2,normalPhi:3,radius:6,rings:2,samples:16});
+ao.blendIntensity=.9;
+composer.addPass(ao);
+composer.addPass(new OutputPass());
+
+// Luz cálida de consulta: una principal con sombra suave y un relleno desde el otro lado.
+scene.add(new THREE.HemisphereLight(0xfff6ec,0xd9cdc5,.85));
+const sol=new THREE.DirectionalLight(0xfff1e2,1.7);
+sol.position.set(1.2,2.8,1.5);sol.castShadow=true;
+sol.shadow.mapSize.set(2048,2048);sol.shadow.bias=-.0003;sol.shadow.normalBias=.002;
+Object.assign(sol.shadow.camera,{left:-.65,right:.65,top:.65,bottom:-.65,near:1,far:5.5});
+scene.add(sol);
+const relleno=new THREE.DirectionalLight(0xffe9dc,.45);relleno.position.set(-2,1.2,-.6);scene.add(relleno);
+
+// Solo la sombra sobre el papel: sin suelo ni horizonte.
+const sombra=new THREE.Mesh(new THREE.PlaneGeometry(6,6),new THREE.ShadowMaterial({color:0x554842,opacity:.18}));
+sombra.rotation.x=-Math.PI/2;sombra.receiveShadow=true;scene.add(sombra);
+
+// ---- Texturas dibujadas: acero cepillado, trama de gasa, sellado de sobre, rejilla y etiquetas sin marca ----
+function lienzo(w,h,dibujar,repetir){
+ const c=document.createElement('canvas');c.width=w;c.height=h;dibujar(c.getContext('2d'),w,h);
+ const t=new THREE.CanvasTexture(c);t.anisotropy=8;
+ if(repetir){t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(...repetir);}
+ return t;
+}
+const CEPILLADO=lienzo(512,512,(x,w,h)=>{x.fillStyle='#c8c8c8';x.fillRect(0,0,w,h);
+ for(let i=0;i<2600;i++){const y=Math.random()*h,v=170+Math.random()*85|0;x.strokeStyle=`rgba(${v},${v},${v},.35)`;x.lineWidth=Math.random()*1.4+.3;
+  x.beginPath();const a=Math.random()*w;x.moveTo(a,y);x.lineTo(a+60+Math.random()*260,y+Math.random()*.6);x.stroke();}},[2,2]);
+const TRAMA=lienzo(128,128,(x,w,h)=>{x.fillStyle='#808080';x.fillRect(0,0,w,h);x.fillStyle='#d0d0d0';
+ for(let i=0;i<w;i+=4){x.fillRect(i,0,2,h);x.fillRect(0,i,w,2);}},[6,6]);
+const SELLADO=lienzo(64,16,(x,w,h)=>{x.fillStyle='#808080';x.fillRect(0,0,w,h);x.fillStyle='#e0e0e0';
+ for(let i=0;i<w;i+=4)x.fillRect(i,0,2,h);},[24,24]);
+const REJILLA=lienzo(128,128,(x,w,h)=>{x.fillStyle='#fff';x.fillRect(0,0,w,h);x.fillStyle='#000';
+ for(let i=0;i<4;i++)for(let j=0;j<4;j++)x.fillRect(6+i*32,6+j*32,20,20);},[4,2]);
+function etiqueta(color,lineas=3){return lienzo(256,128,(x,w,h)=>{x.fillStyle='#fbf8f3';x.fillRect(0,0,w,h);
+ x.fillStyle=color;x.fillRect(0,0,w,34);x.fillStyle='rgba(48,43,42,.35)';
+ for(let i=0;i<lineas;i++)x.fillRect(18,52+i*20,i==lineas-1?w*.4:w*.72,8);});}
+const ET={azul:etiqueta('#6f93b5'),verde:etiqueta('#7fae9e'),coral:etiqueta('#e46a5a',2),plata:etiqueta('#a9acb0',2),ocre:etiqueta('#d4c570')};
+
+// ---- Materiales: color real para que se reconozca, en versión mate y cálida ----
+const PAL={
+ acero:{color:0xd2ccc6,metalness:.85,roughness:.38,roughnessMap:CEPILLADO,bumpMap:CEPILLADO,bumpScale:.4},
+ tubo:{color:0xd6d0ca,metalness:.9,roughness:.26},
+ rueda:{color:0x77736f,roughness:.75},
+ horquilla:{color:0xbcb6b0,metalness:.75,roughness:.35},
+ blanco:{color:0xf7f3ee,roughness:.6},
+ rejilla:{color:0xf7f3ee,roughness:.6,alphaMap:REJILLA,alphaTest:.5,side:THREE.DoubleSide},
+ papel:{color:0xfffdf6,roughness:.9},
+ gasa:{color:0xf4f2ed,roughness:.95,bumpMap:TRAMA,bumpScale:.6},
+ sobre:{color:0xf6f3ee,roughness:.55,bumpMap:SELLADO,bumpScale:.8},
+ azulClaro:{color:0xd6e3ec,roughness:.6},
+ azul:{color:0x6f93b5,roughness:.45},
+ amarillo:{color:0xe8c341,roughness:.5},
+ amarilloTapa:{color:0xd9ad2c,roughness:.45},
+ beige:{color:0xeadfcd,roughness:.92,bumpMap:TRAMA,bumpScale:.8},
+ piel:{color:0xf0d2bf,roughness:.85,bumpMap:TRAMA,bumpScale:.5},
+ plata:{color:0xc9cbce,metalness:.65,roughness:.32,bumpMap:SELLADO,bumpScale:.6},
+ verdeAgua:{color:0xcfe3dc,roughness:.35},
+ transparente:{color:0xf4f8fb,roughness:.12,transparent:true,opacity:.5,depthWrite:false},
+ gel:{color:0xe9dcc0,roughness:.4},
+ tinta:{color:0x302b2a,roughness:.6},
+ goma:{color:0x5d5a57,roughness:.6},
+ hoja:{color:0xd8d2c8,metalness:.95,roughness:.2},
+ etiqueta:{color:0xffffff,roughness:.7},
+};
+function mat(nombre,extra){const m=new THREE.MeshStandardMaterial({...PAL[nombre],...extra});m.userData.base=m.color.clone();return m;}
+
+function malla(geo,nombre,padre,pos=[0,0,0],rot=[0,0,0],extra){
+ const m=new THREE.Mesh(geo,mat(nombre,extra));m.position.set(...pos);m.rotation.set(...rot);
+ m.castShadow=true;m.receiveShadow=true;padre.add(m);return m;
+}
+function caja(padre,nombre,[w,h,d],pos,rot,r=.006){return malla(new RoundedBoxGeometry(w,h,d,3,Math.min(r,w/2,h/2,d/2)),nombre,padre,pos,rot);}
+function cilindro(padre,nombre,r,h,pos,rot,seg=32){return malla(new THREE.CylinderGeometry(r,r,h,seg),nombre,padre,pos,rot);}
+// Pieza torneada a partir de su perfil [radio, altura], de abajo arriba.
+function torno(padre,nombre,perfil,pos,rot,seg=48){return malla(new THREE.LatheGeometry(perfil.map(([r,y])=>new THREE.Vector2(r,y)),seg),nombre,padre,pos,rot);}
+// Rollo con agujero central (venda, esparadrapo), con los cantos redondeados.
+function rollo(padre,nombre,ri,ro,h,pos,rot){const c=.003;
+ return torno(padre,nombre,[[ri,0],[ro-c,0],[ro,c],[ro,h-c],[ro-c,h],[ri,h],[ri,0]],pos,rot);}
+function tubo(padre,a,b,r=R_TUBO,nombre='tubo'){
+ const A=new THREE.Vector3(...a),B=new THREE.Vector3(...b),largo=A.distanceTo(B);
+ const m=malla(new THREE.CylinderGeometry(r,r,largo,24),nombre,padre);
+ m.position.copy(A).add(B).multiplyScalar(.5);
+ m.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),B.clone().sub(A).normalize());return m;
+}
+// Etiqueta impresa pegada a una cara: un plano fino con la textura, sin texto legible ni marcas.
+function rotulo(padre,tex,w,h,pos,rot){const m=malla(new THREE.PlaneGeometry(w,h),'etiqueta',padre,pos,rot,{map:tex});m.castShadow=false;return m;}
+// Sobre estéril: borde sellado y plano, centro abombado y, si se pide, una etiqueta.
+function sobre(padre,[w,d],pos,rot,{nombre='sobre',centro=nombre,tex}={}){
+ const g=new THREE.Group();g.position.set(...pos);g.rotation.set(...rot);padre.add(g);
+ caja(g,nombre,[w,.0016,d],[0,.0008,0],[0,0,0],.0008);
+ caja(g,centro,[w-.018,.007,d-.018],[0,.0035,0],[0,0,0],.0032);
+ if(tex)rotulo(g,tex,(w-.03),(w-.03)*.5,[0,.0072,-(d-.03)/4],[-Math.PI/2,0,0]);
+ return g;
+}
+
+// Cada objeto que la herida puede traer es un grupo con nombre; el resto es el carro.
+const carro=new THREE.Group();scene.add(carro);
+const objetos={};
+function objeto(id){const g=new THREE.Group();g.userData.id=id;carro.add(g);objetos[id]=g;return g;}
+
+// ---- Estructura ----
+const ex=ANCHO/2,ez=FONDO/2,Y0=.118;
+function rueda(x,z,freno){
+ const g=new THREE.Group();g.position.set(x,0,z);carro.add(g);
+ cilindro(g,'horquilla',.026,.008,[0,Y0-.002,0]);                 // placa
+ cilindro(g,'horquilla',.012,.016,[0,Y0-.014,0]);                 // pivote
+ caja(g,'horquilla',[.044,.006,.03],[0,Y0-.024,.012],[0,0,0],.002); // puente de la horquilla
+ for(const s of [-1,1])caja(g,'horquilla',[.004,.062,.034],[s*.02,Y0-.056,.02],[0,0,0],.0015);
+ const r=new THREE.Group();r.position.set(0,.05,.024);r.rotation.z=Math.PI/2;g.add(r);
+ torno(r,'rueda',[[.028,-.014],[.044,-.014],[.05,-.008],[.05,.008],[.044,.014],[.028,.014]],[0,0,0]);
+ cilindro(r,'horquilla',.028,.024,[0,0,0]);cilindro(r,'horquilla',.006,.044,[0,0,0]);
+ if(freno)caja(g,'goma',[.026,.008,.03],[0,Y0-.03,-.028],[.35,0,0],.003);
+}
+for(const [x,z] of [[-ex,-ez],[ex,-ez],[-ex,ez],[ex,ez]]){
+ tubo(carro,[x,Y0,z],[x,ALTO_SUP+.035,z]);
+ torno(carro,'goma',[[0,0],[R_TUBO*1.08,0],[R_TUBO*1.1,.008],[R_TUBO*.9,.014],[0,.015]],[x,ALTO_SUP+.033,z]); // tapón
+ for(const y of [ALTO_SUP,ALTO_INF])cilindro(carro,'tubo',R_TUBO*1.4,.03,[x,y+.006,z]); // abrazadera de la bandeja
+ rueda(x,z,z>0);
+}
+function bandeja(y){
+ // Chapa embutida con su reborde, dentro del marco de tubo.
+ const w=ANCHO-.006,d=FONDO-.006,l=.018,e=.003;
+ caja(carro,'acero',[w,.004,d],[0,y,0],[0,0,0],.0015);
+ for(const s of [-1,1]){caja(carro,'acero',[w,l,e],[0,y+l/2,s*(d/2)],[0,0,0],.0012);caja(carro,'acero',[e,l,d],[s*(w/2),y+l/2,0],[0,0,0],.0012);}
+ const yr=y+.012;
+ tubo(carro,[-ex,yr,-ez],[ex,yr,-ez]);tubo(carro,[-ex,yr,ez],[ex,yr,ez]);
+ tubo(carro,[-ex,yr,-ez],[-ex,yr,ez]);tubo(carro,[ex,yr,-ez],[ex,yr,ez]);
+}
+bandeja(ALTO_SUP);bandeja(ALTO_INF);
+
+// Cesta blanca de rejilla colgada en el lateral derecho, con rollos de esparadrapo.
+const cesta=new THREE.Group();carro.add(cesta);cesta.position.set(ex+.075,ALTO_SUP-.05,0);
+caja(cesta,'blanco',[.13,.005,.30],[0,-.04,0],[0,0,0],.002);
+for(const s of [-1,1]){
+ malla(new THREE.PlaneGeometry(.13,.08),'rejilla',cesta,[0,0,s*.15]);
+ malla(new THREE.PlaneGeometry(.30,.08),'rejilla',cesta,[s*.065,0,0],[0,Math.PI/2,0]);
+ caja(cesta,'blanco',[.134,.006,.006],[0,.04,s*.15],[0,0,0],.002);
+ caja(cesta,'blanco',[.006,.006,.30],[s*.065,.04,0],[0,0,0],.002);
+}
+for(const s of [-1,1])caja(cesta,'blanco',[.02,.03,.012],[-.072,.035,s*.1],[0,0,0],.003); // ganchos
+for(let i=0;i<4;i++)rollo(cesta,i%2?'papel':'blanco',.014,.03,.024,[0,-.038,-.10+i*.068],[Math.PI/2,0,0]);
+
+// ---- Bandeja superior ----
+const YS=ALTO_SUP+.004;
+// Contenedor amarillo de objetos punzantes, como en la foto: algo más ancho abajo, tapa con boca.
+const contenedor=new THREE.Group();carro.add(contenedor);contenedor.position.set(-.24,YS,-.10);
+{const g=new THREE.Group();contenedor.add(g);
+ const cuerpo=caja(g,'amarillo',[.20,.155,.16],[0,.078,0],[0,0,0],.014);
+ cuerpo.geometry.attributes.position.array.forEach((v,i,a)=>{if(i%3==1&&v>0){a[i-1]*=.96;a[i+1]*=.96;}});
+ caja(g,'amarilloTapa',[.205,.032,.165],[0,.17,0],[0,0,0],.012);
+ caja(g,'amarilloTapa',[.09,.014,.06],[.035,.192,0],[0,0,0],.006);
+ caja(g,'tinta',[.05,.004,.012],[.035,.2,0],[0,0,0],.002);
+ rotulo(g,ET.ocre,.11,.055,[-.01,.085,.0805],[0,0,0]);}
+
+// Gasas: sobres apilados, cada uno con la gasa doblada dentro (escena 15).
+{const g=objeto('gasas');g.position.set(-.035,YS,-.11);
+ for(let i=0;i<6;i++)sobre(g,[.12,.10],[(i%2)*.004,.0005+i*.0085,(i%3)*.003],[0,(i%2?.04:-.03),0],{centro:'gasa'});
+ for(let i=0;i<4;i++)sobre(g,[.12,.10],[.135,.0005+i*.0085,0],[0,(i%2?-.05:.02),0],{centro:'gasa'});}
+
+// Suero fisiológico: frasco con hombro y tapón estriado, y una tira de monodosis (escena 15).
+{const g=objeto('suero');g.position.set(.215,YS,-.12);
+ torno(g,'blanco',[[0,0],[.031,0],[.034,.004],[.034,.112],[.031,.128],[.02,.142],[.012,.148],[.012,.16],[0,.16]],[0,0,0]);
+ torno(g,'azul',[[0,0],[.0135,0],[.0135,.022],[.011,.025],[0,.025]],[0,.158,0]);
+ for(let i=0;i<18;i++){const a=i/18*Math.PI*2;caja(g,'azul',[.0025,.018,.003],[Math.cos(a)*.0136,.169,Math.sin(a)*.0136],[0,-a,0],.0008);}
+ rotulo(g,ET.azul,.05,.05,[0,.065,.0342],[0,0,0]);
+ for(let i=0;i<4;i++){const x=-.065+i*.022;
+  caja(g,'transparente',[.018,.06,.011],[x,.03,.085],[0,0,0],.0052);
+  cilindro(g,'transparente',.0035,.008,[x,.064,.085]);
+  caja(g,'transparente',[.014,.012,.003],[x,.074,.085],[0,0,0],.0012);}}
+
+// Frasco de antiséptico con dosificador (escena 13).
+const piezaAntiseptico=new THREE.Group();
+{const g=objeto('antiseptico');g.position.set(.30,YS,-.115);g.add(piezaAntiseptico);
+ const p=piezaAntiseptico;
+ torno(p,'verdeAgua',[[0,0],[.026,0],[.028,.004],[.028,.1],[.024,.116],[.012,.124],[.012,.13],[0,.13]],[0,0,0]);
+ torno(p,'blanco',[[0,0],[.015,0],[.015,.014],[.006,.016],[.006,.04],[0,.04]],[0,.128,0]);
+ caja(p,'blanco',[.04,.012,.016],[.008,.17,0],[0,0,0],.005);
+ cilindro(p,'blanco',.003,.016,[.034,.168,0],[0,0,Math.PI/2]);
+ rotulo(p,ET.verde,.042,.045,[0,.055,.0282],[0,0,0]);}
+
+// Caja de guantes delante a la izquierda, con la abertura y un guante asomando.
+const guantes=new THREE.Group();carro.add(guantes);guantes.position.set(-.235,YS,.12);guantes.rotation.y=.06;
+{const g=guantes;
+ caja(g,'blanco',[.24,.075,.12],[0,.0375,0],[0,0,0],.006);
+ caja(g,'azul',[.24,.022,.002],[0,.06,.0605],[0,0,0],.001);
+ malla(new THREE.CircleGeometry(.03,32),'goma',g,[0,.0752,0],[-Math.PI/2,0,0]).scale.set(1.8,.7,1);
+ caja(g,'azulClaro',[.05,.02,.028],[.006,.082,.002],[.1,.35,.2],.009);
+ caja(g,'azulClaro',[.03,.016,.022],[-.02,.088,-.006],[.3,-.4,.5],.007);}
+
+// Hoja de registro con unas líneas de notas (escenas 2 y 21).
+{const g=objeto('notas');g.position.set(-.05,YS,.115);g.rotation.y=-.12;
+ caja(g,'papel',[.15,.003,.11],[0,.0015,0],[0,0,0],.001);
+ caja(g,'papel',[.15,.003,.11],[.004,.0045,-.002],[0,.03,0],.001);
+ for(let i=0;i<4;i++)caja(g,'tinta',[i==3?.06:.11,.0006,.003],[-.01-(i==3?.025:0),.0063,-.035+i*.022],[0,0,0],.0003);}
+
+// El apósito ya elegido, fuera de su sobre: borde adhesivo y almohadilla (escena 1).
+{const g=objeto('aposito-elegido');g.position.set(.095,YS,.12);g.rotation.y=.18;
+ caja(g,'blanco',[.10,.003,.10],[0,.0015,0],[0,0,0],.0015);
+ caja(g,'piel',[.06,.006,.06],[0,.004,0],[0,0,0],.0026);
+ sobre(g,[.11,.11],[.012,-.0006,-.006],[0,-.25,0],{tex:ET.coral}).scale.setScalar(.96);}
+
+// Apósito de plata en su sobre (escena 14).
+{const g=objeto('aposito-plata');g.position.set(.215,YS,.12);g.rotation.y=-.1;
+ sobre(g,[.09,.09],[0,0,0],[0,0,0],{nombre:'plata',tex:ET.plata});}
+
+// Jeringa de irrigación sin aguja (escena 15).
+{const g=objeto('jeringa');g.position.set(.315,YS+.0125,.07);g.rotation.y=Math.PI/2;
+ const p=new THREE.Group();p.rotation.z=-Math.PI/2;g.add(p); // el eje y del torno pasa a ser el largo de la jeringa
+ torno(p,'transparente',[[.0035,-.07],[.004,-.062],[.011,-.055],[.0115,.05],[.011,.052],[.0,.052]],[0,0,0]);
+ caja(p,'transparente',[.034,.012,.003],[0,.05,0],[Math.PI/2,0,0],.0015); // aletas
+ cilindro(p,'blanco',.0035,.06,[0,.075,0]);torno(p,'goma',[[0,0],[.0105,0],[.0105,.006],[0,.006]],[0,.018,0]);
+ cilindro(p,'blanco',.012,.003,[0,.106,0]);
+ for(let i=0;i<8;i++)caja(p,'tinta',[.0006,.0006,i%2?.005:.008],[.0115,-.04+i*.011,0],[0,0,0],.0002);}
+
+// Regla de papel para medir (escena 8).
+{const g=objeto('regla');g.position.set(-.04,YS,.195);g.rotation.y=.03;
+ caja(g,'papel',[.18,.002,.03],[0,.001,0],[0,0,0],.0008);
+ for(let i=0;i<=18;i++)caja(g,'tinta',[.0009,.0005,i%2?.006:.011],[-.08+i*.0089,.0023,-.009],[0,0,0],.0002);}
+
+// Torunda dentro de su tubo de transporte: tubo de fondo redondo, medio en gel y tapón estriado (escena 10).
+{const g=objeto('torunda');g.position.set(.075,YS+.011,.015);g.rotation.y=-.05;
+ const p=new THREE.Group();p.rotation.z=-Math.PI/2;g.add(p);
+ const fondo=[...Array(7)].map((_,i)=>{const a=i/6*Math.PI/2;return [Math.sin(a)*.0095,-.065+.0095*(1-Math.cos(a))];});
+ torno(p,'transparente',[...fondo,[.0095,.06],[0,.06]],[0,0,0]);
+ torno(p,'gel',[[0,-.064],[.008,-.061],[.0085,-.04],[0,-.04]],[0,0,0]);
+ cilindro(p,'blanco',.0022,.1,[0,.005,0]);
+ malla(new THREE.SphereGeometry(.0045,16,12),'gasa',p,[0,-.045,0]).scale.set(1,2.2,1);
+ torno(p,'azul',[[0,0],[.0115,0],[.0115,.028],[.009,.032],[0,.032]],[0,.058,0]);
+ rotulo(p,ET.azul,.04,.016,[0,.01,.0097],[0,0,Math.PI/2]);}
+
+// Bisturí desechable dentro de su funda, sin sacar (escena 17). Si está el modelo descargado, lo sustituye.
+const piezaBisturi=new THREE.Group();
+{const g=objeto('bisturi');g.position.set(.235,YS+.005,.015);g.rotation.y=.1;
+ g.add(piezaBisturi);
+ caja(piezaBisturi,'azulClaro',[.10,.008,.014],[-.02,0,0],[0,0,0],.0035);
+ caja(piezaBisturi,'hoja',[.032,.0015,.009],[.048,0,0],[0,0,0],.0007);
+ sobre(g,[.17,.035],[.002,-.0055,0],[0,0,0],{nombre:'transparente',centro:'transparente'});}
+
+// ---- Bandeja inferior ----
+const YI=ALTO_INF+.004;
+// Vendas: fila de rollos con su agujero; las de compresión, más anchas y en piel (escena 6).
+const rollosVenda=new THREE.Group();
+{const g=objeto('compresion');g.position.set(-.21,YI,-.06);
+ g.add(rollosVenda);for(let i=0;i<5;i++)rollo(rollosVenda,'beige',.012,.034,.085,[-.11+i*.072,0,0]);
+ rollo(g,'piel',.013,.04,.10,[-.08,0,.11]);rollo(g,'piel',.013,.04,.10,[.01,0,.11]);
+ caja(g,'piel',[.045,.0015,.07],[-.065,.0008,.165],[0,.3,0],.0007);} // el cabo suelto de una venda
+
+// Cesta blanca de rejilla con apósitos variados en sus sobres (escena 6).
+const cestaInf=new THREE.Group();carro.add(cestaInf);cestaInf.position.set(.12,YI,.0);
+caja(cestaInf,'blanco',[.20,.005,.28],[0,.0025,0],[0,0,0],.002);
+for(const s of [-1,1]){
+ malla(new THREE.PlaneGeometry(.20,.07),'rejilla',cestaInf,[0,.035,s*.14]);
+ malla(new THREE.PlaneGeometry(.28,.07),'rejilla',cestaInf,[s*.10,.035,0],[0,Math.PI/2,0]);
+ caja(cestaInf,'blanco',[.204,.005,.005],[0,.07,s*.14],[0,0,0],.002);caja(cestaInf,'blanco',[.005,.005,.28],[s*.10,.07,0],[0,0,0],.002);
+}
+{const g=objeto('apositos');g.position.copy(cestaInf.position);
+ const tex=[ET.azul,null,ET.coral,ET.azul,null,ET.coral];
+ tex.forEach((t,i)=>sobre(g,[.16,.12],[0,.066,-.11+i*.036],[Math.PI/2-.12,0,0],{tex:t}));}
+// Apósito antimicrobiano, el último sobre de la cesta, con su etiqueta verde (escena 13).
+{const g=objeto('aposito-antimicrobiano');g.position.copy(cestaInf.position);
+ sobre(g,[.16,.12],[0,.066,.11],[Math.PI/2-.12,0,0],{centro:'verdeAgua',tex:ET.verde});}
+
+// Cajas de apósitos detrás a la derecha, con etiqueta genérica.
+caja(carro,'blanco',[.15,.09,.11],[.30,YI+.045,-.12],[0,.05,0],.006);
+rotulo(carro,ET.azul,.1,.05,[.3+.0027,YI+.05,-.0648],[0,.05,0]);
+caja(carro,'azulClaro',[.15,.06,.11],[.30,YI+.12,-.12],[0,-.04,0],.006);
+const cajaTiritas=new THREE.Group();carro.add(cajaTiritas);cajaTiritas.position.set(.31,YI,.12);
+caja(cajaTiritas,'blanco',[.12,.07,.10],[0,.035,0],[0,0,0],.006);
+rotulo(cajaTiritas,ET.coral,.08,.04,[0,.04,.0505],[0,0,0]);
+
+// ---- Modelos descargados de Sketchfab (CC-BY, créditos al pie) ----
+// Si están en prototipos/modelos/, sustituyen la pieza dibujada; si no, se queda la nuestra.
+// Conservan sus texturas: es el material real de la consulta, con sus etiquetas.
+// Caja de las piezas visibles (Box3.setFromObject cuenta también las ocultas).
+function cajaVisible(obj){obj.updateMatrixWorld(true);const b=new THREE.Box3();obj.traverse(o=>{if(o.isMesh&&o.visible)b.expandByObject(o);});return b;}
+function tumbar(obj){
+ // Deja la dimensión más larga en x y la más delgada en y.
+ const tam=()=>cajaVisible(obj).getSize(new THREE.Vector3());
+ const giro=(eje)=>obj.rotateOnWorldAxis(new THREE.Vector3(...eje),Math.PI/2); // ejes del mundo, no los del objeto ya girado
+ let s=tam();if(s.y>s.x&&s.y>=s.z)giro([0,0,1]);else if(s.z>s.x&&s.z>s.y)giro([0,1,0]);
+ s=tam();if(s.y>s.z)giro([1,0,0]);
+}
+// Algunos modelos vienen inclinados en su propia malla: se busca el giro que deja la caja más ajustada.
+function enderezar(obj){
+ obj.updateMatrixWorld(true);const pts=[],v=new THREE.Vector3();
+ obj.traverse(o=>{if(!o.isMesh||!o.visible)return;const a=o.geometry.attributes.position;
+  for(let i=0;i<a.count;i+=Math.max(1,a.count/400|0))pts.push(v.fromBufferAttribute(a,i).applyMatrix4(o.matrixWorld).clone());});
+ const q=new THREE.Quaternion(),e=new THREE.Euler(),b=new THREE.Box3(),t=new THREE.Vector3();
+ const volumen=(x,y,z)=>{q.setFromEuler(e.set(x,y,z));b.makeEmpty();for(const p of pts)b.expandByPoint(t.copy(p).applyQuaternion(q));const s=b.getSize(t);return s.x*s.y*s.z;};
+ let mejor=[0,0,0],min=volumen(0,0,0);
+ for(const paso of [6,2,.5]){const r=paso*3*Math.PI/180,d=paso*Math.PI/180,[x0,y0,z0]=mejor;
+  for(let x=x0-r;x<=x0+r;x+=d)for(let y=y0-r;y<=y0+r;y+=d)for(let z=z0-r;z<=z0+r;z+=d){const w=volumen(x,y,z);if(w<min){min=w;mejor=[x,y,z];}}}
+ obj.quaternion.premultiply(q.setFromEuler(e.set(...mejor)));
+}
+async function cargar(ruta){try{return (await new GLTFLoader().loadAsync(ruta)).scene;}catch{return null;}}
+// medida: [eje, metros] que debe ocupar el modelo; apoyar: base en y=0 (si no, centrado); giro: vuelta en y.
+async function sustituir(destino,ruta,{id,medida,tumbado,recto,apoyar=true,giro=0,materiales}={}){
+ const obj=await cargar(ruta);if(!obj)return false;
+ const piezas=[];obj.traverse(o=>{if(o.isMesh)piezas.push(o);});
+ for(const p of piezas){p.material=p.material.clone();p.material.userData.base=p.material.color.clone();}
+ materiales?.(piezas);
+ if(recto)enderezar(obj);
+ if(tumbado)tumbar(obj);
+ const envoltorio=new THREE.Group();envoltorio.add(obj);envoltorio.rotation.y=giro;
+ const caja=()=>cajaVisible(envoltorio);
+ let b=caja();const [eje,m]=medida;
+ envoltorio.scale.multiplyScalar(m/b.getSize(new THREE.Vector3())[eje]);
+ b=caja();const c=b.getCenter(new THREE.Vector3());
+ envoltorio.position.set(-c.x,apoyar?-b.min.y:-c.y,-c.z);
+ destino.clear();destino.add(envoltorio);
+ envoltorio.traverse(o=>{if(o.isMesh){o.castShadow=o.receiveShadow=true;if(id)o.userData.grupo=id;}});
+ if(id)ponerHalo(objetos[id]);
+ return true;
+}
+sustituir(contenedor,'modelos/contenedor/scene.gltf',{medida:['y',.20],giro:0});
+sustituir(guantes,'modelos/guantes/scene.gltf',{medida:['z',.24],giro:Math.PI/2});
+sustituir(cajaTiritas,'modelos/tiritas/scene.gltf',{medida:['z',.16],recto:true,giro:-.6});
+sustituir(piezaAntiseptico,'modelos/espray/scene.gltf',{id:'antiseptico',medida:['y',.20],giro:0});
+sustituir(rollosVenda,'modelos/vendas/scene.gltf',{id:'compresion',medida:['z',.17],giro:Math.PI/2});
+sustituir(piezaBisturi,'modelos/bisturi/scene.gltf',{id:'bisturi',medida:['x',.15],tumbado:true,materiales:piezas=>{
+ // El modelo trae el mango con su hoja montada (piezas sin número y 10) y tres hojas de recambio sueltas.
+ // Su textura es casi blanca y se pierde sobre el carro: acero como el resto, con su relieve.
+ for(const p of piezas){if(/^(11|12|15)_/.test(p.name))p.visible=false;p.material=mat('hoja',{normalMap:p.material.normalMap,side:THREE.DoubleSide});} // es una lámina: dos caras
+}}).then(ok=>{if(ok)piezaBisturi.position.y=.002;}); // encima del sobre, que si no lo tapa
+const piezaJeringa=objetos.jeringa.children[0];
+sustituir(piezaJeringa,'modelos/jeringa/scene.gltf',{id:'jeringa',medida:['x',.17],tumbado:true,apoyar:false,materiales:piezas=>{
+ for(const p of piezas){
+  p.geometry.computeBoundingBox();const s=p.geometry.boundingBox.getSize(new THREE.Vector3()),d=[s.x,s.y,s.z].sort((a,b)=>a-b);
+  if(d[2]/Math.max(d[0],1e-6)>30){p.visible=false;continue;} // la aguja: larga y finísima
+  p.material=mat(p.material?.transparent||p.material?.opacity<1?'transparente':'blanco');
+ }
+}}).then(ok=>{if(ok)piezaJeringa.rotation.set(0,0,0);}); // el modelo ya llega tumbado
+
+// Un halo coral sobre la bandeja, bajo cada objeto que se puede traer, para señalarlo sin flechas.
+const halo=lienzo(128,128,(x)=>{const g=x.createRadialGradient(64,64,0,64,64,64);
+ g.addColorStop(0,'rgba(228,106,90,.75)');g.addColorStop(.55,'rgba(228,106,90,.3)');g.addColorStop(1,'rgba(228,106,90,0)');x.fillStyle=g;x.fillRect(0,0,128,128);});
+function ponerHalo(g){
+ carro.updateMatrixWorld(true);
+ const b=new THREE.Box3().setFromObject(g),s=b.getSize(new THREE.Vector3()),c=b.getCenter(new THREE.Vector3());
+ const alzado=g.position.y-(g.userData.y??g.position.y); // si ya está elevado, el halo va a la bandeja
+ let m=g.userData.halo;
+ if(!m){m=new THREE.Mesh(new THREE.PlaneGeometry(1,1),new THREE.MeshBasicMaterial({map:halo,transparent:true,opacity:0,depthWrite:false}));
+  m.rotation.x=-Math.PI/2;scene.add(m);g.userData.halo=m;}
+ m.scale.set(s.x*2.2+.1,s.z*2.2+.1,1);m.position.set(c.x,b.min.y-alzado+.0015,c.z);
+}
+for(const g of Object.values(objetos))ponerHalo(g);
+function marcarGrupos(){carro.traverse(o=>{if(o.isMesh&&!o.userData.grupo)o.userData.grupo=(()=>{let p=o;while(p&&!p.userData.id)p=p.parent;return p?.userData.id;})();});}
+marcarGrupos();
+
+// ---- Escenas ----
+// ids: objetos que la herida trae; vista: desde dónde se mira (posición de cámara y punto de mira).
+const VISTA_CARRO={pos:[1.7,1.45,2.45],mira:[-.05,.47,0]};
+const ESCENAS=[
+ {n:'Apertura',titulo:'El carro, preparado',texto:'«Y ya veo que el carro está preparado».',ids:[],vista:VISTA_CARRO},
+ {n:'1',titulo:'El apósito ya está elegido',texto:'Antes de conocer la historia.',ids:['aposito-elegido']},
+ {n:'2',titulo:'Las notas de la última cura',texto:'Limpieza, apósito y próxima cita. La respuesta, no consta.',ids:['notas']},
+ {n:'6',titulo:'Tantos apósitos',texto:'«Podría dar una charla solo con sus nombres». Y la compresión, para el ejemplo venoso.',ids:['apositos','compresion']},
+ {n:'8',titulo:'Una regla para comparar',texto:'«¿Mejor en qué?»',ids:['regla']},
+ {n:'10',titulo:'La torunda',texto:'«La torunda la tengo clara. La pregunta, no tanto».',ids:['torunda']},
+ {n:'13',titulo:'Antiséptico y apósito antimicrobiano',texto:'Funciones distintas. El antibiótico no está en el carro.',ids:['antiseptico','aposito-antimicrobiano']},
+ {n:'14',titulo:'El apósito de plata',texto:'Fecha de inicio, sí. De revisión, no.',ids:['aposito-plata']},
+ {n:'15',titulo:'Lo de la limpieza',texto:'Suero, jeringa y gasas. ¿Qué necesita hoy?',ids:['suero','jeringa','gasas']},
+ {n:'17',titulo:'El bisturí, sin sacar',texto:'Antes de tocar la escara, la valoración.',ids:['bisturi']},
+ {n:'21',titulo:'La hoja de relevo',texto:'«Los productos ya los encontrará en el carro».',ids:['notas']},
+ {n:'22',titulo:'El carro sigue aquí',texto:'«¿Empezaríamos igual?»',ids:[],vista:VISTA_CARRO},
+];
+
+const nav=document.getElementById('nav');
+ESCENAS.forEach((e,i)=>{const b=document.createElement('button');b.textContent=e.n==='Apertura'?e.n:'Escena '+e.n;b.onclick=()=>ir(i);nav.appendChild(b);});
+
+const destino={pos:new THREE.Vector3(),mira:new THREE.Vector3()};
+let actual=-1,enVuelo=0;
+function ir(i){
+ actual=(i+ESCENAS.length)%ESCENAS.length;const e=ESCENAS[actual];
+ [...nav.children].forEach((b,j)=>b.setAttribute('aria-pressed',j===actual));
+ const rot=document.getElementById('rotulo');
+ rot.classList.add('oculto');
+ setTimeout(()=>{document.getElementById('rot-titulo').textContent=e.titulo;document.getElementById('rot-texto').textContent=e.texto;rot.classList.remove('oculto');},350);
+ if(e.vista){destino.pos.set(...e.vista.pos);destino.mira.set(...e.vista.mira);}
+ else{
+  // Mirar al centro de lo que se trae, desde delante y algo por encima.
+  const caja3=new THREE.Box3();e.ids.forEach(id=>caja3.expandByObject(objetos[id]));
+  const c=caja3.getCenter(new THREE.Vector3()),t=caja3.getSize(new THREE.Vector3()).length();
+  const d=Math.max(1.5,t*3.2);
+  destino.pos.set(c.x+d*.42,c.y+d*.62,c.z+d*.78);
+  // Se mira un poco a la izquierda del objeto para que quede a la derecha del rótulo.
+  const derecha=new THREE.Vector3().subVectors(c,destino.pos).cross(new THREE.Vector3(0,1,0)).normalize();
+  destino.mira.copy(c).addScaledVector(derecha,-.09*d);
+ }
+ enVuelo=1;
+}
+addEventListener('keydown',ev=>{if(ev.key==='ArrowRight')ir(actual+1);if(ev.key==='ArrowLeft')ir(actual-1);});
+controls.addEventListener('start',()=>{enVuelo=0;});
+
+function ajustar(){const w=innerWidth,h=innerHeight;renderer.setSize(w,h,false);composer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();}
+addEventListener('resize',ajustar);ajustar();
+
+camera.position.set(...VISTA_CARRO.pos).multiplyScalar(1.25);controls.target.set(...VISTA_CARRO.mira);
+ir(0);
+window.ir=ir;
+
+// El papel sale del render con su tono: se lee una vez y la página toma ese mismo color.
+let fondoLeido=0;
+function leerFondo(){
+ const gl=renderer.getContext(),px=new Uint8Array(4);
+ gl.readPixels(2,gl.drawingBufferHeight-3,1,1,gl.RGBA,gl.UNSIGNED_BYTE,px);
+ document.documentElement.style.setProperty('--fondo',`rgb(${px[0]},${px[1]},${px[2]})`);
+}
+
+const reloj=new THREE.Clock();
+let t=0;
+const luzPapel=new THREE.Color();
+function cuadro(dt){
+ t+=dt;const k=1-Math.exp(-dt*2.6);
+ if(enVuelo){camera.position.lerp(destino.pos,k);controls.target.lerp(destino.mira,k);if(camera.position.distanceTo(destino.pos)<.002)enVuelo=0;}
+ const ids=ESCENAS[actual].ids;
+ // Lo que se trae se eleva un poco y respira; lo demás se retira hacia el papel.
+ for(const [id,g] of Object.entries(objetos)){
+  const on=ids.includes(id);
+  g.userData.y??=g.position.y;
+  const meta=g.userData.y+(on?.05+Math.sin(t*1.6)*.005:0);
+  g.position.y+=(meta-g.position.y)*k;
+  const h=g.userData.halo.material;h.opacity+=((on?.9:0)-h.opacity)*k;
+ }
+ carro.traverse(o=>{
+  if(!o.isMesh)return;const m=o.material,on=!ids.length||ids.includes(o.userData.grupo);
+  if(!m.userData.base)m.userData.base=m.color.clone();
+  const fondo=on?0:.72,f=m.userData.f=(m.userData.f??0)+(fondo-(m.userData.f??0))*k;
+  // Con textura, teñir el color no basta (multiplica): se oscurece y se le suma papel como luz propia.
+  if(m.map)m.color.copy(m.userData.base).multiplyScalar(1-f);else m.color.copy(m.userData.base).lerp(PAPEL,f);
+  m.envMapIntensity=1-f*.7;
+  // Lo que se trae se tiñe levemente de coral, para que lo blanco no se pierda sobre el carro.
+  const brillo=ids.length&&on?.2+Math.sin(t*1.6)*.05:0;
+  m.userData.e=(m.userData.e??0)+(brillo-(m.userData.e??0))*k;
+  m.emissive.copy(CORAL).multiplyScalar(m.userData.e);
+  if(m.map)m.emissive.add(luzPapel.copy(PAPEL).multiplyScalar(f*.8));
+ });
+ controls.update();
+ composer.render(dt);
+ if(++fondoLeido===3)leerFondo();
+}
+renderer.setAnimationLoop(()=>cuadro(Math.min(reloj.getDelta(),.05)));
+// Para comprobar sin pantalla visible: avanza n cuadros de golpe.
+window.avanzar=(n=120)=>{for(let i=0;i<n;i++)cuadro(1/60);};
+window.depurar={THREE,camera,controls,objetos,contenedor,guantes,cajaTiritas,rollosVenda,piezaAntiseptico,piezaBisturi};
+</script>
+</body>
+</html>
