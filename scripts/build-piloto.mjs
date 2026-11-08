@@ -1,11 +1,11 @@
-import {readFile,writeFile,mkdir,cp} from 'node:fs/promises';
+import {readFile,writeFile,mkdir,cp,rm} from 'node:fs/promises';
 import {Script} from 'node:vm';
 import {extractPilot} from './guion-piloto.mjs';
 const root=new URL('../',import.meta.url),dir='prototipos/piloto-capitulo/';
 const read=p=>readFile(new URL(p,root),'utf8');
 const base64=async p=>(await readFile(new URL(p,root))).toString('base64');
 const data=extractPilot(await read('guion/GUION_CONSOLIDADO_22_CAPITULOS.md'));
-const base='../recorrido/';
+const base='../recorrido-completo/';
 data.assets=JSON.parse(await read('resources.json')).assets;
 for(const a of Object.values(data.assets))a.src=base+'imagenes/'+a.file;
 data.recommendations=JSON.parse(await read('guion/mapa-47-consolidado.json'));
@@ -19,8 +19,9 @@ data.brands=JSON.parse(await read(dir+'iconos/fuentes.json'));for(const b of Obj
 data.sourceBrands={B1:'gneaupp',B2:'gneaupp',B3:'gneaupp',B4:'ewma',B5:'ewma',B6:'iwii',B7:'ewma',B8:'ewma',B9:'gneaupp',B10:'jwc',B11:'reben',B12:'ewma',B13:'gerokomos'};
 data.sources.forEach((source,i)=>{source.id='B'+(i+1);source.brand=data.sourceBrands[source.id];});
 for(const chapter of data.chapters)chapter.avatar=chapter.avatar.map(path=>base+'rutina/'+path.replace('personajes/rutina/',''));
-const out=new URL('dist/recorrido/',root);
+const out=new URL('dist/recorrido-completo/',root);
 await mkdir(out,{recursive:true});
+await rm(new URL('rutina/',out),{recursive:true,force:true});
 async function copy(from,to){const dest=new URL(to,out);await mkdir(new URL('./',dest),{recursive:true});await cp(new URL(from,root),dest);}
 for(const b of Object.values(data.brands))await copy(dir+'iconos/'+b.file,'iconos/'+b.file);
 for(const a of Object.values(data.assets))await copy('assets/resources/'+a.file,'imagenes/'+a.file);
@@ -72,9 +73,9 @@ for(const [from,to] of [
  ['../../personajes/rutina/frames-escenas-02-04-v1/escena-03/02-reconoce-omision.png',data.chapters[9].avatar[1]]
  ]){if(!html.includes(from))throw Error('Recorrido: no encuentro '+from);html=html.replaceAll(from,()=>to);}
 for(const [,attributes,code] of html.matchAll(/<script([^>]*)>([\s\S]*?)<\/script>/g))if(!attributes.includes('application/json'))new Script(code);
-for(const route of ['piloto','recorrido']){
+for(const route of ['piloto','recorrido','recorrido-completo']){
  const dest=new URL('dist/'+route+'/',root);await mkdir(dest,{recursive:true});
- await writeFile(new URL('index.html',dest),route==='recorrido'?html.replace('data-initial-chapter="10"','data-initial-chapter="1"'):html);
+ await writeFile(new URL('index.html',dest),route!=='piloto'?html.replace('data-initial-chapter="10"','data-initial-chapter="1"'):html);
  for(const file of ['recursos/piel-base-v1.png','recursos/granulacion-v1.png','iconos/gneaupp.png','iconos/iwii.png']){await mkdir(new URL(file.replace(/[^/]+$/,''),dest),{recursive:true});await cp(new URL(dir+file,root),new URL(file,dest));}
 }
 // Hoja de revisión para María del Mar: lo que hay que validar en cada capítulo, enlazado con su escena.
@@ -90,4 +91,4 @@ for(const route of ['piloto','recorrido']){
  const review=`<!doctype html><html lang="es"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Revisión del recorrido</title><style>${css}</style><body><h1>Revisión del recorrido</h1><p>María del Mar: en cada capítulo están las frases, lo que se dice que respalda cada decisión y el estado de la imagen. Las marcadas en rosa son <b>propuestas nuevas</b> y son las que más necesitan tu mirada: clínica, tono y si las dirías así.</p><p><a href="../">Abrir la presentación</a>. → o espacio pasan a la siguiente escena; los capítulos clínicos tienen tres escenas y dos avances. R abre fuentes; P, tus notas; V, la ventana de ponente.</p><p class="ev">Del DT XIV, 13 recomendaciones están cotejadas con el documento y ${pending} siguen con un resumen pendiente de cotejo final (se ven con R).</p>${sections}</body></html>`;
  await mkdir(new URL('revision/',out),{recursive:true});await writeFile(new URL('revision/index.html',out),review);
 }
-console.log('Recorrido consolidado: 20 capítulos clínicos · apertura y cierre con estructura propia · /recorrido/ y /piloto/.');
+console.log('Recorrido consolidado: 20 capítulos clínicos · apertura y cierre con estructura propia · /recorrido-completo/, /recorrido/ y /piloto/.');

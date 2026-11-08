@@ -23,3 +23,7 @@
 - Capturas y registro en `output/playwright/revision-21/`. No sustituye el ensayo en el proyector real.
 
 No se modifica el guion clínico, las frases validadas, la identidad de Úrsula ni la de Doña Rutina. Se aprueban las propuestas ya generadas; no se encargan imágenes nuevas. Apertura y cierre conservan sus estructuras propias.
+
+## Publicación aditiva
+
+Ruta acordada: `https://heridas-jerez.netlify.app/recorrido-completo/`, con revisión en `/recorrido-completo/revision/`. La rama permanece `recorrido-completo`, sin fusión en `main`. Para esta entrega se conserva el contenido original del deploy `6aee19806ecf1b28ec7205f9` fuera del prefijo nuevo; archivos comparados por SHA-1. Los artefactos internos de acceso se recompilan con Netlify CLI 27 y se comprueba la contraseña antes de activar producción.

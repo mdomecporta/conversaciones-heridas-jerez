@@ -370,7 +370,7 @@
   if(!cloisterReady){pendingCloister=action;return;}
   $('#cloister').contentWindow?.postMessage({cloister:action},location.origin);
  }
- function loadCloister(){if(!$('#cloister').getAttribute('src'))$('#cloister').src='../recorrido/claustro/index.html';}
+ function loadCloister(){if(!$('#cloister').getAttribute('src'))$('#cloister').src='../recorrido-completo/claustro/index.html';}
  function resetPrelude(){
   awakeningToken++;cancelAnimationFrame(awakeningRaf);preludeStage='done';bodyPrepared=false;delete stage.dataset.prelude;delete stage.dataset.titleReady;
   $('#awakening-title').hidden=true;$('#entity').style.removeProperty('opacity');$('#journey').style.removeProperty('opacity');zone.dataset.faceReveal='1';
