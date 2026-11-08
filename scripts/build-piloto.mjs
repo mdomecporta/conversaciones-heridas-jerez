@@ -1,6 +1,5 @@
 import {readFile,writeFile,mkdir,cp} from 'node:fs/promises';
 import {Script} from 'node:vm';
-import {execFileSync} from 'node:child_process';
 import {extractPilot} from './guion-piloto.mjs';
 const root=new URL('../',import.meta.url),dir='prototipos/piloto-capitulo/';
 const read=p=>readFile(new URL(p,root),'utf8');
@@ -26,13 +25,21 @@ async function copy(from,to){const dest=new URL(to,out);await mkdir(new URL('./'
 for(const b of Object.values(data.brands))await copy(dir+'iconos/'+b.file,'iconos/'+b.file);
 for(const a of Object.values(data.assets))await copy('assets/resources/'+a.file,'imagenes/'+a.file);
 for(const file of pdfs)await copy('../bibliography/'+file,'guias/'+file).catch(()=>console.warn('Recorrido: no está la guía '+file+' (bibliography/ queda fuera del repositorio).'));
-// La videollamada ocupa unos 330 px: se sirve una copia ligera para no decodificar PNG de 1448 px en plena charla.
-for(const chapter of data.chapters)chapter.avatar=await Promise.all(chapter.avatar.map(async path=>{
- const from='personajes/rutina/'+path.split('rutina/')[1],light=path.replace(base,'').replace(/\.png$/,'.jpg'),dest=new URL(light,out);
- await mkdir(new URL('./',dest),{recursive:true});
- try{execFileSync('sips',['-Z','800','-s','format','jpeg','-s','formatOptions','84',new URL(from,root).pathname,'--out',dest.pathname],{stdio:'ignore'});return base+light;}
- catch{await copy(from,path.replace(base,''));return path;}
-}));
+// Derivados ligeros versionados: mismo tamaño y mismas rutas en macOS y Netlify.
+const copiedAvatars=new Set();
+for(const chapter of data.chapters){
+ const avatars=[];
+ for(const path of chapter.avatar){
+  const relative=path.split('rutina/')[1].replace(/\.png$/,'.jpg');
+  const from='personajes/rutina/web/'+relative;
+  if(!copiedAvatars.has(relative)){
+   try{await copy(from,'rutina/'+relative);}catch(cause){throw Error('No se puede copiar el derivado de Rutina: '+from,{cause});}
+   copiedAvatars.add(relative);
+  }
+  avatars.push(base+'rutina/'+relative);
+ }
+ chapter.avatar=avatars;
+}
 for(const name of ['open','close'])await copy('assets/institutional-'+name+'.jpg','institutional-'+name+'.jpg');
 // Arquitectura original + adaptación de cinco segundos. Los prototipos de portada se conservan.
 await mkdir(new URL('claustro/',out),{recursive:true});
@@ -77,10 +84,10 @@ for(const route of ['piloto','recorrido']){
  const pending=data.recommendations.items.filter(r=>/pendiente/.test(r.review)).length;
  const sections=data.chapters.map(c=>{
   const lines=[...c.script.matchAll(/\*\*(Herida|Rutina|Vecinas|Evidencia|María del Mar)(?: en la entrada)?\s*\[([VON])[^\]]*\]:\*\*\s*«([^»]+)»/g)];
-  return `<section><h2><span>${c.number}</span> ${esc(c.title)}</h2><p class="meta">${esc(c.act)} · <a href="../#capitulo-${c.number}/0">Ver el capítulo</a></p><p class="learn"><b>Nos llevamos:</b> ${esc(c.takeaway)}</p><ul>${lines.map(m=>`<li class="t${m[2]}"><label><input type="checkbox"> <small>${tags[m[2]]} · ${esc(m[1])}</small> ${esc(m[3])}</label></li>`).join('')}</ul><p class="ev"><b>Evidencia:</b> ${esc(c.citation)} — ${esc(c.condition)}</p><p class="meta">Doña Rutina: ${esc(c.actorPlan.assetStatus)}</p></section>`;
+  return `<section><h2><span>${c.number}</span> ${esc(c.title)}</h2><p class="meta">${esc(c.act)} · ${c.structure.sequence.map((step,i)=>`<a href="../?poses#capitulo-${c.number}/${step===3?2:step}">${esc(c.structure.kind==='chapter'?['Entrada','Desarrollo','Decisión'][i]:c.structure.titles[step])}</a>`).join(' · ')}</p><p class="learn"><b>Nos llevamos:</b> ${esc(c.takeaway)}</p><ul>${lines.map(m=>`<li class="t${m[2]}"><label><input type="checkbox"> <small>${tags[m[2]]} · ${esc(m[1])}</small> ${esc(m[3])}</label></li>`).join('')}</ul><p class="ev"><b>Evidencia:</b> ${esc(c.citation)} — ${esc(c.condition)}</p><details><summary>Textos del recurso que también se revisan</summary><p>${(c.titles||[c.resource.title,c.question,c.takeaway]).map(esc).join(' · ')}</p><ul>${c.resource.items.map(it=>`<li><b>${esc(it.title)}</b> ${esc(it.text)}</li>`).join('')}${c.options.map(it=>`<li><b>${esc(it.title)}</b> ${esc(it.text)}</li>`).join('')}</ul></details><p class="meta">Doña Rutina: ${esc(c.actorPlan.assetStatus)}</p></section>`;
  }).join('');
  const css=(await read('tokens.css'))+'body{max-width:880px;margin:0 auto;padding:40px 24px 80px;background:var(--paper);color:var(--ink);font:400 17px/1.5 var(--sans)}h1{font:430 40px/1.1 var(--display);letter-spacing:-.03em}section{border-top:1px solid var(--line);padding:24px 0}h2{font:450 26px/1.2 var(--display);margin:0}h2 span{color:var(--blood-deep)}.meta{color:var(--muted);font-size:14px;margin:6px 0}a{color:var(--blood-deep)}ul{list-style:none;padding:0}li{padding:8px 12px;margin:6px 0;border-left:3px solid var(--line)}li.tN{border-color:var(--coral);background:var(--blush)}li small{display:block;color:var(--muted);font-size:12px}.ev{background:var(--olive-soft);color:var(--olive-ink);padding:12px;border-radius:10px;font-size:15px}.learn{margin:10px 0}@media print{input{display:inline}}';
- const review=`<!doctype html><html lang="es"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Revisión del recorrido</title><style>${css}</style><body><h1>Revisión del recorrido</h1><p>María del Mar: en cada capítulo están las frases, lo que se dice que respalda cada decisión y el estado de la imagen. Las marcadas en rosa son <b>propuestas nuevas</b> y son las que más necesitan tu mirada: clínica, tono y si las dirías así.</p><p><a href="../">Abrir la presentación</a>. → o espacio avanzan; si una secuencia está en marcha, la completan. R abre fuentes; P, tus notas; V, la ventana de ponente.</p><p class="ev">Del DT XIV, 13 recomendaciones están cotejadas con el documento y ${pending} siguen con un resumen pendiente de cotejo final (se ven con R).</p>${sections}</body></html>`;
+ const review=`<!doctype html><html lang="es"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Revisión del recorrido</title><style>${css}</style><body><h1>Revisión del recorrido</h1><p>María del Mar: en cada capítulo están las frases, lo que se dice que respalda cada decisión y el estado de la imagen. Las marcadas en rosa son <b>propuestas nuevas</b> y son las que más necesitan tu mirada: clínica, tono y si las dirías así.</p><p><a href="../">Abrir la presentación</a>. → o espacio pasan a la siguiente escena; los capítulos clínicos tienen tres escenas y dos avances. R abre fuentes; P, tus notas; V, la ventana de ponente.</p><p class="ev">Del DT XIV, 13 recomendaciones están cotejadas con el documento y ${pending} siguen con un resumen pendiente de cotejo final (se ven con R).</p>${sections}</body></html>`;
  await mkdir(new URL('revision/',out),{recursive:true});await writeFile(new URL('revision/index.html',out),review);
 }
 console.log('Recorrido consolidado: 20 capítulos clínicos · apertura y cierre con estructura propia · /recorrido/ y /piloto/.');

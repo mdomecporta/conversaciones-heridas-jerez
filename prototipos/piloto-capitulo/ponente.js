@@ -6,10 +6,10 @@
  const fmt=s=>{const a=Math.abs(Math.round(s));return (s<0?'−':'')+Math.floor(a/60)+':'+String(a%60).padStart(2,'0');};
  const esc=t=>t.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
  addEventListener('DOMContentLoaded',()=>{
-  const deck=JSON.parse(document.querySelector('#pilot-data').textContent),ch=new BroadcastChannel('recorrido-ponente');
+  const deck=JSON.parse(document.querySelector('#pilot-data').textContent),ch=new BroadcastChannel('recorrido-ponente:'+new URLSearchParams(location.search).get('sesion'));
   document.title='Ponente · Conversaciones con una herida';
   document.body.className='speaker-window';
-  document.body.innerHTML='<header><div><p id="sp-pos"></p><h1 id="sp-title"></h1></div><div class="sp-clock"><strong id="sp-time">0:00</strong><span id="sp-plan"></span><button id="sp-reset" type="button">T · reiniciar</button></div></header><main><section id="sp-lines" aria-live="polite"></section><aside><h2>Después</h2><p id="sp-next"></p><h2>Respaldo</h2><p id="sp-source"></p><h2>Teclas</h2><p>→ o espacio: avanzar (si la secuencia está en marcha, la completa) · ← atrás</p></aside></main><p id="sp-wait">Abre la proyección y pulsa V, o deja esta ventana abierta: se conecta sola.</p>';
+  document.body.innerHTML='<header><div><p id="sp-pos"></p><h1 id="sp-title"></h1></div><div class="sp-clock"><strong id="sp-time">0:00</strong><span id="sp-plan"></span><button id="sp-reset" type="button">T · reiniciar</button></div></header><main><section id="sp-lines" aria-live="polite"></section><aside><h2>Después</h2><p id="sp-next"></p><h2>Respaldo</h2><p id="sp-source"></p><h2>Teclas</h2><p>→ o espacio: siguiente escena · ← escena anterior</p></aside></main><p id="sp-wait">Abre esta ventana pulsando V desde la proyección que quieras controlar.</p>';
   const $=s=>document.querySelector(s);let started=performance.now(),state=null;
   const blocks=(c,step)=>{const f=c.structure.blocks;return f?[c.steps[f[step]]]:step===0?[]:step===1?[c.steps[0]]:c.steps.slice(1);};
   const planFor=n=>{const c=deck.chapters[n-1],same=deck.chapters.filter(x=>x.act===c.act),before=deck.chapters.slice(0,n-1).reduce((t,x)=>t+budget[x.act]/deck.chapters.filter(y=>y.act===x.act).length,0);return before+budget[c.act]/same.length;};

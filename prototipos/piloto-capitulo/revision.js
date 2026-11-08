@@ -7,7 +7,8 @@
  const EASE='cubic-bezier(.45,0,.2,1)',ENTER='cubic-bezier(.22,1,.36,1)';
  const ENTRY={hold:2000,fold:1800,resourceDelay:1100,resourceDuration:1100,chatDelay:1850,chatDuration:850,voiceDelay:500};
  let activeNeighbor=-1,step=0,data=null,deck=null,animations=[],timers=[],epoch=0,mounted=false,callConnected=false;
- let chainRunning=false;const channel='BroadcastChannel' in globalThis?new BroadcastChannel('recorrido-ponente'):null;
+ const sessionId=crypto.randomUUID();
+ let chainRunning=false;const channel='BroadcastChannel' in globalThis?new BroadcastChannel('recorrido-ponente:'+sessionId):null;
  let audio=null,voices=[],ringtone=[],soundCount=0,pendingTyping=null,playedTypingKey=null,typingSerial=0;
  const hero=$('#chapter').cloneNode(true);hero.id='chapter-hero';hero.querySelector('#act-toggle')?.replaceWith(document.createTextNode('Infección'));hero.setAttribute('aria-hidden','true');stage.append(hero);
  function stopVoices(nodes){nodes.forEach(o=>{try{o.stop();}catch{}});}
@@ -90,7 +91,7 @@
   const nextTurn=()=>{
    const turn=visible[index++];if(!turn){chainRunning=false;if(instant||reduced.matches)RecorridoResources.settle?.(data,step);announce();onDone();return;}
    cueTurn(turn);
-   // La conversación espera a la ponente: se reserva el tiempo de sus palabras (150 por minuto). Pulsar completa la secuencia.
+   // La conversación espera a la ponente (150 palabras/minuto); avanzar siempre cambia de escena.
    if(turn.who==='María del Mar'){if(instant||reduced.matches)nextTurn();else{woundState('listening');presence('listening');later(Math.max(1500,turn.text.split(/\s+/).length*400),nextTurn);}return;}
    if(turn.who==='Evidencia'){showEvidence({notify:!instant});if(instant||reduced.matches)nextTurn();else later(2200,nextTurn);return;}
    if(turn.who==='Rutina'){
@@ -216,8 +217,6 @@
   unlockAudio();
   if(data.number===1&&preludeStage!=='done'){advancePrelude();return;}
   if(!$('#journey').hidden){finishJourney();return;}
-  if(chainRunning&&(step!==0||data.structure.kind!=='chapter')){render(step,{instant:true});return;}
-  if(step===0&&stage.dataset.mode!=='opening'){cancel();stage.dataset.titleDocked='true';finishEntrance({instant:true});return;}
   const sequence=data.structure.sequence,index=sequence.indexOf(step);
   if(index<sequence.length-1)render(sequence[index+1]);else if(data.number<22)selectChapter(data.number+1);else if(!journeyExited)endJourney();
  }
@@ -315,7 +314,7 @@
   else if(e.key==='Home'){e.preventDefault();unlockAudio();if(data.number===1){journeySeen=false;beginJourney();}else entrance();}
   else if(e.key==='End'){e.preventDefault();unlockAudio();render(data.structure.sequence.at(-1),{instant:true});}
   else if(e.key.toLowerCase()==='p')showSpeaker();
-  else if(e.key.toLowerCase()==='v')window.open(location.pathname+'?ponente','recorrido-ponente','width=1100,height=760');
+  else if(e.key.toLowerCase()==='v')window.open(location.pathname+'?ponente&sesion='+encodeURIComponent(sessionId),'ponente-'+sessionId,'width=1100,height=760');
   else if(e.key.toLowerCase()==='r')showSources();
   else if(e.key.toLowerCase()==='f')document.documentElement.requestFullscreen?.();
  });

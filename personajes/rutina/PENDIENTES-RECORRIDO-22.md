@@ -1,8 +1,8 @@
-# Doña Rutina · imágenes y reacciones pendientes
+# Doña Rutina · estado de imágenes y reacciones
 
-Revisión 10 · 7 de noviembre de 2026. Fuente editable: `guion/plan-escenas.mjs`. Las notas también aparecen con P en cada capítulo. No se han encargado nuevas generaciones.
+Actualizado el 8 de noviembre de 2026. Las 18 propuestas de los capítulos 2, 3, 4, 5, 6, 11, 14, 15 y 16 están aprobadas por la usuaria y conectadas al recorrido. Cinco capítulos conservan variantes específicas disponibles (7, 8, 9, 10 y 12). El capítulo 1 reutiliza variantes; seis capítulos (13, 17, 18, 20, 21 y 22) conservan el retrato neutro: faltan 12 poses específicas. En el 19 no interviene Rutina. No se han generado imágenes nuevas en esta corrección.
 
-Cinco capítulos tienen variantes disponibles (7, 8, 9, 10 y 12); dos reutilizan variantes con adaptación por revisar (1 y 5); catorce usan un retrato neutro provisional; en el 19 no hace falta imagen de Rutina. La presencia de un archivo de respaldo no significa que la imagen específica esté terminada.
+Fuente editable: `guion/plan-escenas.mjs`; archivos en `guion/montaje-capitulos.mjs`. Estado y prompts también con P; `?poses` identifica los retratos pendientes durante la revisión. Los derivados JPEG de `personajes/rutina/web/` están versionados para publicar sin depender de utilidades de macOS.
 
 ## 1 · Hoy me toca hablar
 
@@ -24,7 +24,7 @@ Cinco capítulos tienen variantes disponibles (7, 8, 9, 10 y 12); dos reutilizan
 
 ## 2 · Tengo apellido
 
-**Estado:** Imagen de escena pendiente; retrato neutro provisional.
+**Estado:** Variante aprobada por la usuaria · 8 de noviembre.
 
 **Recurso y desarrollo:** Dos fotos independientes con etiología publicada; después, valoración integral. No deducir diagnósticos por color o forma.
 
@@ -42,9 +42,9 @@ Cinco capítulos tienen variantes disponibles (7, 8, 9, 10 y 12); dos reutilizan
 
 ## 3 · Cada uno me mide como quiere
 
-**Estado:** Imagen de escena pendiente; retrato neutro provisional.
+**Estado:** Variante aprobada por la usuaria · 8 de noviembre.
 
-**Recurso y desarrollo:** Primero tres descripciones incompatibles. La ficha y la mención acotada a RESVECH aparecen en la decisión.
+**Recurso y desarrollo:** Tres columnas tipográficas rectas, sin tarjetas ni giro, sobre una superficie de observación: 4 cm, media palma y una moneda. Durante la réplica se destacan por orden; la falta de comparación se subraya sin convertir unidades. En la decisión se retiran arriba y entra la ficha general de medidas, lecho, entorno y persona, con fecha y revisión. RESVECH se menciona con su ámbito, sin reproducir ni puntuar la escala.
 
 **Frase de entrada:** «Pero se entiende más o menos, ¿no?»
 
@@ -60,7 +60,7 @@ Cinco capítulos tienen variantes disponibles (7, 8, 9, 10 y 12); dos reutilizan
 
 ## 4 · El día de la marmota
 
-**Estado:** Imagen de escena pendiente; retrato neutro provisional.
+**Estado:** Variante aprobada por la usuaria · 8 de noviembre.
 
 **Recurso y desarrollo:** Los contornos repetidos dan paso a valoración, revisión planificada y decisión.
 
@@ -78,7 +78,7 @@ Cinco capítulos tienen variantes disponibles (7, 8, 9, 10 y 12); dos reutilizan
 
 ## 5 · La talla única no existe
 
-**Estado:** Variante reutilizada; revisar adaptación.
+**Estado:** Variante aprobada por la usuaria · 8 de noviembre.
 
 **Recurso y desarrollo:** Mapa con ocho ramas. La condición de seguridad en isquemia permanece explícita.
 
@@ -96,7 +96,7 @@ Cinco capítulos tienen variantes disponibles (7, 8, 9, 10 y 12); dos reutilizan
 
 ## 6 · Mis vecinas no son delincuentes
 
-**Estado:** Imagen de escena pendiente; retrato neutro provisional.
+**Estado:** Variante aprobada por la usuaria · 8 de noviembre.
 
 **Recurso y desarrollo:** Las vecinas son heridas docentes, no bacterias personificadas. Sus colores y caras no codifican etiologías ni gravedad.
 
@@ -116,7 +116,7 @@ Cinco capítulos tienen variantes disponibles (7, 8, 9, 10 y 12); dos reutilizan
 
 **Estado:** Variante disponible.
 
-**Recurso y desarrollo:** Torunda y solicitud con motivo vacío → cuatro preguntas e interpretación contextual.
+**Recurso y desarrollo:** Fotografía de torunda y solicitud docente con motivo vacío. El foco pasa del material a la pregunta; en la decisión se despliegan cuatro preguntas por pares y el recorrido pregunta clínica → muestra adecuada → interpretación. La advertencia sobre el resultado positivo permanece visible.
 
 **Frase de entrada:** «Por si acaso; así tenemos un resultado»
 
@@ -125,6 +125,10 @@ Cinco capítulos tienen variantes disponibles (7, 8, 9, 10 y 12); dos reutilizan
 **Reacción:** Baja el material y busca el motivo clínico.
 
 **Frase que activa la reacción:** «Tener un resultado no garantiza que ayude. Si no sabemos qué queremos resolver, podemos terminar tratando un hallazgo sin relación con el problema clínico»
+
+**Prompt de entrada:** Conservar exactamente la identidad del avatar aprobado de Doña Rutina: mujer, rostro, gafas, peinado, uniforme, luz y fondo. Plano de videollamada fijo, mismo encuadre y escala. Gesto contenido, respetuoso y bienintencionado; sin caricaturizar a enfermería. Sin interfaz, texto añadido, logos ni datos de pacientes. No generar un personaje 3D. Propone la torunda en su embalaje, antes de tener una pregunta.
+
+**Prompt de reacción:** Conservar exactamente la identidad del avatar aprobado de Doña Rutina: mujer, rostro, gafas, peinado, uniforme, luz y fondo. Plano de videollamada fijo, mismo encuadre y escala. Gesto contenido, respetuoso y bienintencionado; sin caricaturizar a enfermería. Sin interfaz, texto añadido, logos ni datos de pacientes. No generar un personaje 3D. Baja el material y busca el motivo clínico.
 
 ## 8 · La pomada de toda la vida
 
@@ -140,6 +144,10 @@ Cinco capítulos tienen variantes disponibles (7, 8, 9, 10 y 12); dos reutilizan
 
 **Frase que activa la reacción:** «Doña Rutina, con todo mi cariño... Tu pomada no me cura: me irrita la piel, enseña a las bacterias a defenderse y mientras, nadie se ocupa de lo que de verdad me pasa»
 
+**Prompt de entrada:** Conservar exactamente la identidad del avatar aprobado de Doña Rutina: mujer, rostro, gafas, peinado, uniforme, luz y fondo. Plano de videollamada fijo, mismo encuadre y escala. Gesto contenido, respetuoso y bienintencionado; sin caricaturizar a enfermería. Sin interfaz, texto añadido, logos ni datos de pacientes. No generar un personaje 3D. Propone el tubo genérico de pomada, bienintencionada.
+
+**Prompt de reacción:** Conservar exactamente la identidad del avatar aprobado de Doña Rutina: mujer, rostro, gafas, peinado, uniforme, luz y fondo. Plano de videollamada fijo, mismo encuadre y escala. Gesto contenido, respetuoso y bienintencionado; sin caricaturizar a enfermería. Sin interfaz, texto añadido, logos ni datos de pacientes. No generar un personaje 3D. Apoya el tubo y reconsidera la indicación mientras escucha la réplica validada.
+
 ## 9 · Cuatro preguntas antes de tratar
 
 **Estado:** Variante disponible.
@@ -153,6 +161,10 @@ Cinco capítulos tienen variantes disponibles (7, 8, 9, 10 y 12); dos reutilizan
 **Reacción:** Revisa la pauta y el motivo; atención al registro, sin añadir resultados clínicos.
 
 **Frase que activa la reacción:** «Si nadie sabe por qué llevo plata ni hasta cuándo... No me estáis tratando, me estáis decorando»
+
+**Prompt de entrada:** Conservar exactamente la identidad del avatar aprobado de Doña Rutina: mujer, rostro, gafas, peinado, uniforme, luz y fondo. Plano de videollamada fijo, mismo encuadre y escala. Gesto contenido, respetuoso y bienintencionado; sin caricaturizar a enfermería. Sin interfaz, texto añadido, logos ni datos de pacientes. No generar un personaje 3D. Mantiene el apósito con plata por costumbre.
+
+**Prompt de reacción:** Conservar exactamente la identidad del avatar aprobado de Doña Rutina: mujer, rostro, gafas, peinado, uniforme, luz y fondo. Plano de videollamada fijo, mismo encuadre y escala. Gesto contenido, respetuoso y bienintencionado; sin caricaturizar a enfermería. Sin interfaz, texto añadido, logos ni datos de pacientes. No generar un personaje 3D. Revisa la pauta y el motivo; atención al registro, sin añadir resultados clínicos.
 
 ## 10 · El antiséptico no es champú
 
@@ -168,11 +180,15 @@ Cinco capítulos tienen variantes disponibles (7, 8, 9, 10 y 12); dos reutilizan
 
 **Frase que activa la reacción:** «Si me echas antiséptico como champú cada vez que me ves, no me estás curando»
 
+**Prompt de entrada:** Conservar exactamente la identidad del avatar aprobado de Doña Rutina: mujer, rostro, gafas, peinado, uniforme, luz y fondo. Plano de videollamada fijo, mismo encuadre y escala. Gesto contenido, respetuoso y bienintencionado; sin caricaturizar a enfermería. Sin interfaz, texto añadido, logos ni datos de pacientes. No generar un personaje 3D. Presenta la limpieza como lo de siempre; mantener el encuadre aprobado.
+
+**Prompt de reacción:** Conservar exactamente la identidad del avatar aprobado de Doña Rutina: mujer, rostro, gafas, peinado, uniforme, luz y fondo. Plano de videollamada fijo, mismo encuadre y escala. Gesto contenido, respetuoso y bienintencionado; sin caricaturizar a enfermería. Sin interfaz, texto añadido, logos ni datos de pacientes. No generar un personaje 3D. Reconoce la omisión y elige después de valorar; mantener la variante aprobada.
+
 ## 11 · Limpiar no es regar
 
-**Estado:** Imagen de escena pendiente; retrato neutro provisional.
+**Estado:** Variante aprobada por la usuaria · 8 de noviembre.
 
-**Recurso y desarrollo:** Modelo de cuatro zonas con foco en lecho, borde, piel próxima y circundante.
+**Recurso y desarrollo:** Modelo conceptual con cuatro marcadores y anotaciones externas. Empieza en el lecho; los marcadores acompañan la explicación de María del Mar; en la decisión se recorre cada zona durante su descripción. Imagen íntegra sin filtros de color ni simulación de evolución.
 
 **Frase de entrada:** «Un buen riego en el centro, como a los geranios, y listo»
 
@@ -200,6 +216,10 @@ Cinco capítulos tienen variantes disponibles (7, 8, 9, 10 y 12); dos reutilizan
 
 **Frase que activa la reacción:** «La prisa también se nota»
 
+**Prompt de entrada:** Conservar exactamente la identidad del avatar aprobado de Doña Rutina: mujer, rostro, gafas, peinado, uniforme, luz y fondo. Plano de videollamada fijo, mismo encuadre y escala. Gesto contenido, respetuoso y bienintencionado; sin caricaturizar a enfermería. Sin interfaz, texto añadido, logos ni datos de pacientes. No generar un personaje 3D. Tiene preparada la solución, con prisa contenida.
+
+**Prompt de reacción:** Conservar exactamente la identidad del avatar aprobado de Doña Rutina: mujer, rostro, gafas, peinado, uniforme, luz y fondo. Plano de videollamada fijo, mismo encuadre y escala. Gesto contenido, respetuoso y bienintencionado; sin caricaturizar a enfermería. Sin interfaz, texto añadido, logos ni datos de pacientes. No generar un personaje 3D. Escucha la experiencia de dolor y adapta la preparación.
+
 ## 13 · El semáforo del desbridamiento
 
 **Estado:** Imagen de escena pendiente; retrato neutro provisional.
@@ -220,7 +240,7 @@ Cinco capítulos tienen variantes disponibles (7, 8, 9, 10 y 12); dos reutilizan
 
 ## 14 · Cuando no me voy a cerrar, o no encajo
 
-**Estado:** Imagen de escena pendiente; retrato neutro provisional.
+**Estado:** Variante aprobada por la usuaria · 8 de noviembre.
 
 **Recurso y desarrollo:** Dos caminos separados: objetivos posibles y diagnóstico pendiente. No deducir pronóstico de una foto.
 
@@ -238,7 +258,7 @@ Cinco capítulos tienen variantes disponibles (7, 8, 9, 10 y 12); dos reutilizan
 
 ## 15 · No estoy sola
 
-**Estado:** Imagen de escena pendiente; retrato neutro provisional.
+**Estado:** Variante aprobada por la usuaria · 8 de noviembre.
 
 **Recurso y desarrollo:** Red docente y circuito motivo → prioridad → datos → retorno. No es el organigrama oficial del centro.
 
@@ -256,7 +276,7 @@ Cinco capítulos tienen variantes disponibles (7, 8, 9, 10 y 12); dos reutilizan
 
 ## 16 · Me curáis a mí: qué me provoca y qué me importa
 
-**Estado:** Imagen de escena pendiente; retrato neutro provisional.
+**Estado:** Variante aprobada por la usuaria · 8 de noviembre.
 
 **Recurso y desarrollo:** Recreación y cuatro prioridades docentes. No atribuir preferencias reales a la mujer de la imagen.
 
@@ -314,13 +334,17 @@ Cinco capítulos tienen variantes disponibles (7, 8, 9, 10 y 12); dos reutilizan
 
 **Recurso y desarrollo:** Recreación y comunicación útil; conservar los dos turnos de Úrsula, información adaptada y continuidad de cuidados.
 
-**Frase de entrada:** No hay intervención hablada.
+**Frase de entrada:** «No interviene»
 
 **Imagen de entrada:** No hay una intervención hablada de Rutina en este capítulo.
 
 **Reacción:** No se requiere nueva imagen: hablan Úrsula y María del Mar.
 
-**Frase que activa la reacción:** No corresponde.
+**Frase que activa la reacción:** «No corresponde»
+
+**Prompt de entrada:** Conservar exactamente la identidad del avatar aprobado de Doña Rutina: mujer, rostro, gafas, peinado, uniforme, luz y fondo. Plano de videollamada fijo, mismo encuadre y escala. Gesto contenido, respetuoso y bienintencionado; sin caricaturizar a enfermería. Sin interfaz, texto añadido, logos ni datos de pacientes. No generar un personaje 3D. No hay una intervención hablada de Rutina en este capítulo.
+
+**Prompt de reacción:** Conservar exactamente la identidad del avatar aprobado de Doña Rutina: mujer, rostro, gafas, peinado, uniforme, luz y fondo. Plano de videollamada fijo, mismo encuadre y escala. Gesto contenido, respetuoso y bienintencionado; sin caricaturizar a enfermería. Sin interfaz, texto añadido, logos ni datos de pacientes. No generar un personaje 3D. No se requiere nueva imagen: hablan Úrsula y María del Mar.
 
 ## 20 · La dignidad ante todo
 
@@ -375,4 +399,3 @@ Cinco capítulos tienen variantes disponibles (7, 8, 9, 10 y 12); dos reutilizan
 **Prompt de entrada:** Conservar exactamente la identidad del avatar aprobado de Doña Rutina: mujer, rostro, gafas, peinado, uniforme, luz y fondo. Plano de videollamada fijo, mismo encuadre y escala. Gesto contenido, respetuoso y bienintencionado; sin caricaturizar a enfermería. Sin interfaz, texto añadido, logos ni datos de pacientes. No generar un personaje 3D. Anuncia su jubilación con humor suave; maletín genérico cerrado y bajo, sin nuevos símbolos.
 
 **Prompt de reacción:** Conservar exactamente la identidad del avatar aprobado de Doña Rutina: mujer, rostro, gafas, peinado, uniforme, luz y fondo. Plano de videollamada fijo, mismo encuadre y escala. Gesto contenido, respetuoso y bienintencionado; sin caricaturizar a enfermería. Sin interfaz, texto añadido, logos ni datos de pacientes. No generar un personaje 3D. Deja el maletín a un lado y escucha con serenidad. No usar dejar un apósito como si fuera dejar el maletín.
-

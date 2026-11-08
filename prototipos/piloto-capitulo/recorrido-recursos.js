@@ -88,13 +88,21 @@
    if(turn.who==='María del Mar'){clear();attention('resource');set(swab?'request':'all');}
   }
   if(phase===3){
-   if(turn.who==='María del Mar'){attention('record');set(swab?'questions':'all');}
+   if(turn.who==='María del Mar'){
+    clear();attention('record');
+    if(turn.id===(swab?'c7-b2-t1':'c11-b2-t1')){
+     // Hitos editoriales dentro de la intervención que explica el recurso (150 palabras/min).
+     const cues=swab?[[0,'01'],[11,'23'],[18,'questions']]:[[0,'0'],[9,'1'],[16,'2'],[24,'3'],[37,'all']];
+     if(matchMedia('(prefers-reduced-motion: reduce)').matches)set(swab?'questions':'all');
+     else cues.forEach(([word,value])=>{if(word===0)set(value);else resourceTimers.push(setTimeout(()=>set(value),word*400));});
+    }else set(swab?'interpretation':'all');
+   }
    if(turn.who==='Evidencia'){clear();attention('evidence');set(swab?'interpretation':'all');}
    if(turn.who==='Herida'){
     const last=swab?turn.text.includes('pomada'):turn.text.includes('suero frío');
     attention(last?'review':'record');
     if(last){clear();set(swab?'interpretation':'all');resourceTimers.push(setTimeout(()=>attention('conclusion'),1800));}
-    else sequence(swab?['01','23','questions']:['0','1','2','3','all'],swab?500:300,swab?1000:550);
+    else {clear();set(swab?'questions':'all');}
    }
   }
  }
@@ -104,7 +112,7 @@
  const art=(markup,cls,box='0 0 100 100',ratio)=>{const e=document.createElementNS(svgNS,'svg');e.setAttribute('viewBox',box);e.setAttribute('aria-hidden','true');e.setAttribute('class','art '+(cls||''));if(ratio)e.setAttribute('preserveAspectRatio',ratio);e.innerHTML=markup;return e;};
  const card=(item,i,detailClass='',cls='')=>{const e=node('div','visual-item '+cls);e.dataset.item=i;e.append(node('strong','',item.title));if(item.text)e.append(node('p',detailClass,item.text));return e;};
  const row=(cls,children)=>{const e=node('div',cls);e.append(...children);return e;};
- const decision=c=>row('decision only-3',c.options.map(o=>row('decision-way',[node('strong','',o.title),node('p','',o.text)])));
+ const decision=c=>row('decision only-3',c.options.map((o,i)=>row('decision-way',[...(c.number===10?[node('span','decision-condition',i===0?'Sin indicación antimicrobiana':'Con indicación antimicrobiana')]:[]),node('strong','',o.title),node('p','',o.text)])));
  const contour='<path class="contour" d="M18 50c-4-18 12-34 32-33s36 13 33 33-20 33-37 32-24-14-28-32Z"/>';
  const media=(c,data,fallback)=>{const m=node('div','scene-media');m.append(...(c.resource.media.length?c.resource.media:[fallback]).map(id=>asset(id,data)));return m;};
  const scenes={
@@ -187,19 +195,38 @@
   }
   resource.querySelector(':scope > figcaption').textContent=caption;
  }
- const normalize=text=>text.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+ // Focos editoriales por intervención. Nunca se deduce una clasificación clínica de palabras sueltas.
+ // Cada hito indica palabras transcurridas del turno de María y los índices del recurso a iluminar.
+ const FOCUS_CUES={
+  'c4-b1-t1':[[0,[0,1,2]]], 'c4-b2-t1':[[0,[0]],[18,[1]],[46,[2]]],
+  'c5-b2-t1':[[0,[0]],[5,[1]],[19,[2]],[28,[3]],[38,[6]],[46,[5]],[54,[4]],[63,[7]]],
+  'c8-b1-t2':[[0,[0,1,2]]], 'c8-b1-t3':[[0,[0,1,2]]],
+  'c9-b1-t3':[[0,[0,1,2,3]]], 'c9-b2-t1':[[0,[0]],[16,[1]],[25,[2]],[43,[3]]],
+  'c12-b1-t3':[[0,[0]],[19,[2]]], 'c12-b3-t2':[[0,[1]]],
+  'c13-b1-t3':[[0,[0,1,2]]], 'c13-b2-t1':[[0,[2]],[40,[1,2]]], 'c13-b3-t2':[[0,[1,2]]],
+  'c14-b2-t1':[[0,[0]],[17,[1]]],
+  'c15-b2-t1':[[0,[0,1]]], 'c15-b3-t2':[[0,[2]],[13,[3]]],
+  'c16-b1-t1':[[0,[0,1,2,3]]], 'c16-b2-t1':[[0,[0,1,2,3]]],
+  'c17-b1-t3':[[0,[0,3]]], 'c17-b2-t1':[[0,[1]],[7,[2]],[20,[3]],[24,[4]],[36,[5]]],
+  'c18-b2-t1':[[0,[0,1]]], 'c18-b3-t2':[[0,[2]],[19,[3]]],
+  'c19-b2-t1':[[0,[0]],[25,[1]],[43,[2]]], 'c19-b3-t2':[[0,[3]]],
+  'c20-b2-t1':[[0,[0]],[33,[1]],[43,[2]],[49,[3]]],
+  'c21-b2-t1':[[0,[0]],[16,[1]]], 'c21-b3-t2':[[0,[2,3]]]
+ };
  function cue(chapter,phase,turn){
   const host=document.querySelector('#resource-content'),items=[...host.querySelectorAll('[data-item]')];
+  resourceTimers.forEach(clearTimeout);resourceTimers=[];
   host.dataset.voice=turn.who;
+  items.forEach(el=>el.classList.remove('is-focus'));
+  document.querySelectorAll('#explanation .option').forEach(el=>el.classList.remove('is-mentioned'));
   if(chapter.resource.kind==='measurement')cueMeasurement(host,phase,turn);
   if([7,11].includes(chapter.number))cuePhotographic(chapter,phase,turn,host);
   if(scenes[chapter.resource.kind])cueScene(chapter,phase,turn);
-  const text=normalize(turn.text||'');
-  const matches=items.filter(el=>normalize(el.querySelector('strong')?.textContent||'').split(/[^a-z]+/).filter(w=>w.length>4).some(w=>text.includes(w)));
-  if(matches.length){items.forEach(el=>el.classList.toggle('is-focus',matches.includes(el)));}
-  else if(turn.who==='Entrada'){items.forEach(el=>el.classList.remove('is-focus'));if(phase===1&&![6,12].includes(chapter.number))items[0]?.classList.add('is-focus');}
-  const options=[...document.querySelectorAll('#explanation .option')];
-  options.forEach(el=>{const words=normalize(el.querySelector('h3').textContent).split(/[^a-z]+/).filter(w=>w.length>5);el.classList.toggle('is-mentioned',words.some(w=>text.includes(w)));});
+  const apply=indices=>items.forEach(el=>el.classList.toggle('is-focus',indices.includes(Number(el.dataset.item))));
+  const cues=FOCUS_CUES[turn.id]||[];
+  if(reducedMotion()&&cues.length){apply([...new Set(cues.flatMap(([,indices])=>indices))]);return;}
+  cues.forEach(([word,indices])=>{if(word===0)apply(indices);else resourceTimers.push(setTimeout(()=>apply(indices),word*400));});
  }
+ function reducedMotion(){return matchMedia('(prefers-reduced-motion: reduce)').matches;}
  window.RecorridoResources={render,cue,stop,settle};
 })();
