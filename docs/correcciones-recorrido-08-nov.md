@@ -27,3 +27,5 @@ No se modifica el guion clínico, las frases validadas, la identidad de Úrsula 
 ## Publicación aditiva
 
 Ruta acordada: `https://heridas-jerez.netlify.app/recorrido-completo/`, con revisión en `/recorrido-completo/revision/`. La rama permanece `recorrido-completo`, sin fusión en `main`. Para esta entrega se conserva el contenido original del deploy `6aee19806ecf1b28ec7205f9` fuera del prefijo nuevo; archivos comparados por SHA-1. Los artefactos internos de acceso se recompilan con Netlify CLI 27 y se comprueba la contraseña antes de activar producción.
+
+Publicación verificada: deploy `6af0c212e4c4dd002855afdd`, activo en producción. Se conservaron los 78 archivos originales con sus mismos SHA-1, incluidos los artefactos de acceso, y se añadieron 68 archivos dentro del prefijo nuevo mediante el manifiesto de Netlify. `/recorrido-completo/`, su hoja de revisión, `/` y `/confesiones/` muestran el acceso protegido sin sesión; `/ver/` conserva su acceso público. La presentación y la hoja publicadas coinciden con el build local. Las funciones de notas y Confesiones siguen presentes con sus rutas originales. No se ha fusionado en `main`.
