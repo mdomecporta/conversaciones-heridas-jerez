@@ -1,15 +1,17 @@
 /* Dos avances en el piloto; la entrada coreografiada y los turnos se encadenan sin clics adicionales. */
 (()=>{
+ if(globalThis.RECORRIDO_PONENTE)return;
  const $=s=>document.querySelector(s),stage=$('#stage'),zone=$('.orb-zone');
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
  const acts=['Apertura','Diagnóstico','Infección','Limpieza','Circuitos','Humanización','Cierre'];
  const EASE='cubic-bezier(.45,0,.2,1)',ENTER='cubic-bezier(.22,1,.36,1)';
  const ENTRY={hold:2000,fold:1800,resourceDelay:1100,resourceDuration:1100,chatDelay:1850,chatDuration:850,voiceDelay:500};
  let activeNeighbor=-1,step=0,data=null,deck=null,animations=[],timers=[],epoch=0,mounted=false,callConnected=false;
+ let chainRunning=false;const channel='BroadcastChannel' in globalThis?new BroadcastChannel('recorrido-ponente'):null;
  let audio=null,voices=[],ringtone=[],soundCount=0,pendingTyping=null,playedTypingKey=null,typingSerial=0;
  const hero=$('#chapter').cloneNode(true);hero.id='chapter-hero';hero.querySelector('#act-toggle')?.replaceWith(document.createTextNode('Infección'));hero.setAttribute('aria-hidden','true');stage.append(hero);
  function stopVoices(nodes){nodes.forEach(o=>{try{o.stop();}catch{}});}
- function cancel(){RecorridoResources.stop?.();epoch++;pendingTyping=null;playedTypingKey=null;timers.forEach(clearTimeout);timers=[];animations.forEach(a=>a.cancel());animations=[];stopVoices(voices);voices=[];ringtone=[];}
+ function cancel(){RecorridoResources.stop?.();chainRunning=false;epoch++;pendingTyping=null;playedTypingKey=null;timers.forEach(clearTimeout);timers=[];animations.forEach(a=>a.cancel());animations=[];stopVoices(voices);voices=[];ringtone=[];}
  function later(ms,fn){const revision=epoch;timers.push(setTimeout(()=>{if(revision===epoch)fn();},reduced.matches?Math.min(ms,120):ms));}
  function animate(el,frames,options){if(reduced.matches)return null;const a=el.animate(frames,options);animations.push(a);return a;}
  function mode(value){stage.dataset.mode=value;}
@@ -23,10 +25,12 @@
   Presence.mount(zones,{motion:!reduced.matches});mounted=true;
   if(words)Presence.cue(state,{who:data?.number===6?Math.max(0,activeNeighbor):0,think:0,speak:Math.min(5200,Math.max(1100,words.split(/\s+/).length*115))});
  }
+ function announce(){if(channel&&data)channel.postMessage({state:{chapter:data.number,step,turn:stage.dataset.turn||'',running:chainRunning}});}
  function cueTurn(turn){
   stage.dataset.turn=turn.id||'';
   RecorridoResources.cue(data,step,turn);
   if(callConnected&&turn.text===data.actorPlan.reactionTrigger)stage.dataset.routinePose='reaction';
+  announce();
  }
  function unlockAudio(){try{audio??=new AudioContext();if(audio.state==='suspended')audio.resume().then(flushTyping).catch(()=>{});else flushTyping();}catch{}}
  function tones(notes,volume=.055,timbre='sine'){
@@ -73,18 +77,22 @@
   if(instant||reduced.matches){routineState('listening');onDone();}else later(650,reveal);
  }
  function showEvidence({notify=true}={}){
-  if([3,7,11].includes(data.number))stage.dataset.uiEvidence='true';
-  $('#evidence').hidden=false;if(callConnected)stage.dataset.routinePose='reaction';if(notify)notification();
-  animate($('#evidence'),[{opacity:0,transform:'translateY(2cqh) scale(.96)'},{opacity:1,transform:'none'}],{duration:650,easing:ENTER});
+  if(data.structure.kind==='chapter')stage.dataset.uiEvidence='true';
+  const ev=$('#evidence');ev.hidden=false;if(callConnected)stage.dataset.routinePose='reaction';
+  // La carpeta se activa, marca su respaldo y despliega la ficha; el estado final es siempre el mismo.
+  if(!notify||reduced.matches||data.structure.kind!=='chapter'){ev.dataset.phase='open';if(notify)notification();if(data.structure.kind!=='chapter')animate(ev,[{opacity:0,transform:'translateY(2cqh) scale(.96)'},{opacity:1,transform:'none'}],{duration:650,easing:ENTER});return;}
+  ev.dataset.phase='idle';later(250,()=>{ev.dataset.phase='active';});later(850,()=>{ev.dataset.phase='checked';notification();});later(1250,()=>{ev.dataset.phase='open';});
  }
  function playTurns(turns,{instant=false,onDone=()=>{}}={}){
+  chainRunning=!instant&&!reduced.matches;
   const visible=data.number===1&&step===0&&arrivalPresented?turns.map(t=>t.who==='Herida'&&t.text.startsWith('Hola, soy Úrsula. ')?{...t,text:t.text.replace('Hola, soy Úrsula. ','')}:t):turns;
   let index=0;
   const nextTurn=()=>{
-   const turn=visible[index++];if(!turn){onDone();return;}
+   const turn=visible[index++];if(!turn){chainRunning=false;if(instant||reduced.matches)RecorridoResources.settle?.(data,step);announce();onDone();return;}
    cueTurn(turn);
-   if(turn.who==='María del Mar'){nextTurn();return;}
-   if(turn.who==='Evidencia'){showEvidence();if(instant||reduced.matches)nextTurn();else later(900,nextTurn);return;}
+   // La conversación espera a la ponente: se reserva el tiempo de sus palabras (150 por minuto). Pulsar completa la secuencia.
+   if(turn.who==='María del Mar'){if(instant||reduced.matches)nextTurn();else{woundState('listening');presence('listening');later(Math.max(1500,turn.text.split(/\s+/).length*400),nextTurn);}return;}
+   if(turn.who==='Evidencia'){showEvidence({notify:!instant});if(instant||reduced.matches)nextTurn();else later(2200,nextTurn);return;}
    if(turn.who==='Rutina'){
     const speak=()=>sayRoutine(turn.text,nextTurn,{instant});
     if(callConnected)speak();else ensureCall(speak,{instant});
@@ -97,6 +105,7 @@
  }
  function ensureCall(onReady,{instant=false}={}){
   if(callConnected){callState('connected');onReady();return;}
+  if(instant){callConnected=true;callState('connected');stage.dataset.routinePose=step===3&&data.number!==1?'reaction':'offer';onReady();return;}
   stage.dataset.routinePose='offer';callState('ringing');woundState('waiting');presence('listening');
   ringtone=tones([[523.25,0,.18],[659.25,.18,.18],[783.99,.36,.23],[523.25,.85,.18],[659.25,1.03,.18],[783.99,1.21,.23]],.038);
   later(1050,()=>callState('connecting'));
@@ -104,31 +113,18 @@
  }
  function setStep(n){
   delete stage.dataset.uiEvidence;
-  step=n;stage.dataset.step=String(n);
+  step=n;stage.dataset.step=String(n);announce();
   const hash=stage.dataset.initialChapter==='10'&&data.number===10?(n?'#'+n:''):'#capitulo-'+data.number+'/'+(n===3?2:n);
   history.replaceState(null,'',location.pathname+location.search+hash);
   $('#position').textContent=data.structure.kind==='chapter'?`Capítulo ${data.number} de 22 · escena ${n===3?3:n+1} de 3`:data.act+' · '+data.structure.titles[n];
  }
  function setLabels(n){
-  if(data.number===10){
-   const values=[['Limpiar también es cuidar la piel','Lecho, borde y piel de alrededor','La solución se elige después de observar.','A revisar','¿Cada vez que me ves?'],['Limpiar tiene un objetivo','Una costumbre que merece una pregunta','El mismo producto, cada vez.','A revisar','¿Cada vez que me ves?'],[],['Una decisión con respaldo','Limpieza adaptada. Antiséptico indicado.','Tejido · dolor · alergias · objetivo · revisión','Nos llevamos','Uso indicado, no rutinario.']][n];
-   ['#resource-title','#focus-title','#focus-detail','#explanation-label','#question'].forEach((sel,i)=>$(sel).textContent=values[i]);
-  }else{
-   $('#resource-title').textContent=data.number===1&&n===1?'47 puntos de partida. Más fuentes para decidir.':data.number===1&&n===3?'Úrsula presenta a Doña Rutina':data.resource.title;
-   $('#focus-title').textContent=data.question;
-   $('#focus-detail').textContent=n===3?data.condition:n===1?data.question:'Observar · preguntar · decidir';
-   $('#explanation-label').textContent=n===3?'Nos llevamos':'Nos preguntamos';
-   $('#question').textContent=n===3?data.takeaway:data.question;
-  }
-  if(data.number===3){
-   $('#resource-title').textContent=n===0?'Una herida. Tres maneras de describirla.':n===1?'¿Cambia la herida o la forma de medir?':'Un registro que sirve a quien viene después';
-   $('#focus-title').textContent=n===0?'Las palabras cambian. ¿Y la herida?':n===1?'No sabemos si cambia la herida o cambia la manera de medir.':'Un punto de partida, fecha y revisión';
-   $('#focus-detail').textContent=n===3?'Instrumento válido para el tipo de lesión y el contexto.':'No convertimos “media palma” ni “una moneda” a centímetros.';
-  }
-  if([7,11].includes(data.number)){
-   const titles=data.number===7?['Una muestra empieza con una pregunta','¿Para qué necesitamos este resultado?','Preguntar antes. Interpretar después.']:['La cura no termina en el centro','¿Y el borde y la piel de alrededor?','Cuatro zonas. Una limpieza adaptada.'];
-   $('#resource-title').textContent=titles[n===3?2:n];
-  }
+  const titles=data.titles||[data.resource.title,data.question,data.resource.title];
+  $('#resource-title').textContent=data.number===1&&n===1?'47 puntos de partida. Más fuentes para decidir.':data.number===1&&n===3?'Úrsula presenta a Doña Rutina':titles[n===3?2:n];
+  $('#focus-title').textContent=data.question;
+  $('#focus-detail').textContent=n===3?data.condition:n===1?data.question:'Observar · preguntar · decidir';
+  $('#explanation-label').textContent=n===3?'Nos llevamos':'Nos preguntamos';
+  $('#question').textContent=n===3?data.takeaway:data.question;
   const labels=data.number===10?['Sin indicación antimicrobiana','Con indicación']:['Valorar','Actuar con criterio'];
   ['#option-clean','#option-indication'].forEach((sel,i)=>{const el=$(sel),option=data.options[i];el.querySelector('span').textContent=labels[i];el.querySelector('h3').textContent=option.title;el.querySelector('p').textContent=option.text;});
   RecorridoResources.render(data,n,deck);
@@ -189,7 +185,7 @@
   if(dock&&!instant&&!reduced.matches){
    resize($('#resource'),resource,rect($('#resource')),1700);
    animate($('#explanation'),[{opacity:0},{opacity:0,offset:.5},{opacity:1}],{duration:1700,easing:EASE});
-   later(1250,()=>turns(n,{instant}));
+   chainRunning=true;later(1250,()=>turns(n,{instant}));
   }else turns(n,{instant});
   if($('#speaker-dialog').open)updateSpeaker();
  }
@@ -206,7 +202,7 @@
    animate($('#conversation'),[{opacity:0},{opacity:1}],{duration:1000,delay:200,easing:ENTER,fill:'backwards'});
   }
   if(data.structure.kind==='closing'&&n===3)showEvidence({notify:false});
-  playTurns(block.turns,{instant,onDone:()=>{if(data.structure.kind==='closing'&&n===3&&!instant&&!reduced.matches)later(30000,()=>endJourney());}});
+  playTurns(block.turns,{instant});
   if($('#speaker-dialog').open)updateSpeaker();
  }
  function moveEntity(from){
@@ -220,6 +216,7 @@
   unlockAudio();
   if(data.number===1&&preludeStage!=='done'){advancePrelude();return;}
   if(!$('#journey').hidden){finishJourney();return;}
+  if(chainRunning&&(step!==0||data.structure.kind!=='chapter')){render(step,{instant:true});return;}
   if(step===0&&stage.dataset.mode!=='opening'){cancel();stage.dataset.titleDocked='true';finishEntrance({instant:true});return;}
   const sequence=data.structure.sequence,index=sequence.indexOf(step);
   if(index<sequence.length-1)render(sequence[index+1]);else if(data.number<22)selectChapter(data.number+1);else if(!journeyExited)endJourney();
@@ -273,7 +270,7 @@
   driftTimer=setTimeout(()=>{
    const busy=animations.some(a=>a.playState==='running');
    if(busy||!['opening','conversation'].includes(stage.dataset.mode)||$('dialog[open]')||!$('#act-menu').hidden){planDrift(2500);return;}
-   const candidates=['#splash','#conversation',...(!$('#evidence').hidden?['#evidence']:[])].filter(s=>s!==lastDrift&&getComputedStyle($(s)).display!=='none'&&getComputedStyle($(s)).visibility!=='hidden');
+   const candidates=['#splash','#conversation',...(!$('#evidence').hidden&&stage.dataset.frame!=='chapter'?['#evidence']:[])].filter(s=>s!==lastDrift&&getComputedStyle($(s)).display!=='none'&&getComputedStyle($(s)).visibility!=='hidden');
    if(!candidates.length){planDrift(2500);return;}
    const selector=candidates[Math.floor(Math.random()*candidates.length)],el=$(selector),sign=Math.random()<.5?-1:1;
    lastDrift=selector;stage.dataset.drifting=selector.slice(1);
@@ -318,6 +315,7 @@
   else if(e.key==='Home'){e.preventDefault();unlockAudio();if(data.number===1){journeySeen=false;beginJourney();}else entrance();}
   else if(e.key==='End'){e.preventDefault();unlockAudio();render(data.structure.sequence.at(-1),{instant:true});}
   else if(e.key.toLowerCase()==='p')showSpeaker();
+  else if(e.key.toLowerCase()==='v')window.open(location.pathname+'?ponente','recorrido-ponente','width=1100,height=760');
   else if(e.key.toLowerCase()==='r')showSources();
   else if(e.key.toLowerCase()==='f')document.documentElement.requestFullscreen?.();
  });
@@ -339,16 +337,19 @@
   if(number===10)$('#chapter h1').innerHTML='El antiséptico<br><em>no es champú</em>';
   hero.querySelector('.eyebrow').textContent=data.act+' · Capítulo '+String(number).padStart(2,'0');hero.querySelector('h1').innerHTML=$('#chapter h1').innerHTML;
   $('#routine .proposes').src=data.avatar[0];$('#routine .reconsiders').src=data.avatar[1];
-  $('#evidence-summary').textContent=number===10?'Uso indicado, no rutinario.':data.steps.flatMap(s=>s.turns).find(t=>t.who==='Evidencia')?.text||data.takeaway;
-  $('#evidence .citation').textContent=data.citation;
-  const placeholder=$('#routine-placeholder');placeholder.hidden=!['placeholder','reuse'].includes(data.actorPlan.status);placeholder.textContent=data.actorPlan.status==='reuse'?'Adaptación pendiente · P':'Pose pendiente · P';placeholder.title=data.actorPlan.offer+' Reacción: '+data.actorPlan.reaction;
+  $('#evidence-summary').textContent=data.steps.flatMap(s=>s.turns).find(t=>t.who==='Evidencia')?.text||data.takeaway;
+  $('#evidence .citation').textContent=data.citation;$('#evidence .ev-condition').textContent=data.condition;
+  const placeholder=$('#routine-placeholder');placeholder.hidden=!new URLSearchParams(location.search).has('poses')||!['placeholder','reuse','proposal'].includes(data.actorPlan.status);placeholder.textContent=data.actorPlan.status==='reuse'?'Adaptación pendiente · P':data.actorPlan.status==='proposal'?'Pose propuesta · P':'Pose pendiente · P';placeholder.title=data.actorPlan.offer+' Reacción: '+data.actorPlan.reaction;
   const icons=$('.source-icons');icons.hidden=false;
   const names=[...new Set(data.evidenceSources.map(id=>deck.sourceBrands[id]))];
   icons.replaceChildren(...names.map(name=>{const brand=deck.brands[name],img=document.createElement('img');img.src=brand.src;img.alt=brand.name;img.title=brand.name;img.dataset.brand=name;return img;}));
   $$('#act-menu button').forEach(b=>{if(b.textContent===data.act)b.setAttribute('aria-current','true');else b.removeAttribute('aria-current');});
   selectedAct=data.act;document.title=data.title+' · Conversaciones con una herida';
+  preload(number+1);
   if(scene){setStep(0);render(scene,{instant});}else entrance({animateEntry:!instant});
  }
+ // Deja decodificado lo que viene: la videollamada y las fotografías no deben llegar a medias.
+ function preload(number){const c=deck.chapters.find(x=>x.number===number);if(!c)return;for(const src of [...c.avatar,...c.resource.media.map(id=>deck.assets[id]?.src).filter(Boolean)]){const img=new Image();img.src=src;img.decode?.().catch(()=>{});}}
  function $$(selector){return [...document.querySelectorAll(selector)];}
  function showSources(){
   $('#chapter-source').textContent='Capítulo '+data.number+' · '+data.citation+' — '+data.condition+' '+data.source;
@@ -438,6 +439,7 @@
   else if(e.data?.cloister==='progress')immersionProgress(e.data.progress);
   else if(e.data?.cloister==='arrived'&&preludeStage==='diving'){stage.dataset.renderedDiveMs=String(Math.round(e.data.elapsed));showArrival();}
  });
+ channel?.addEventListener('message',e=>{const m=e.data||{};if(m.hello)announce();if(!data)return;if(m.cmd==='next')next();if(m.cmd==='prev')previous();if(m.cmd==='go')selectChapter(m.chapter,{instant:true});});
  addEventListener('hashchange',()=>{if(deck){const {number,scene}=parseLocation();selectChapter(number,{scene});}});
  async function start(){try{
   deck=JSON.parse($('#pilot-data').textContent);if(!deck){const {extractPilot}=await import('../../scripts/guion-piloto.mjs');const response=await fetch('../../guion/GUION_CONSOLIDADO_22_CAPITULOS.md');if(!response.ok)throw Error('No se encuentra el guion consolidado.');deck=extractPilot(await response.text());throw Error('Compila el recorrido con npm run build:piloto para resolver sus recursos.');}

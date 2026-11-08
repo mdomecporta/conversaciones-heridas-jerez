@@ -98,9 +98,72 @@
    }
   }
  }
+
+ // Composiciones por tipo de recurso. Un solo DOM por capítulo: las tres escenas se revelan con data-phase, sin sustituir lo que ya se ve.
+ const svgNS='http://www.w3.org/2000/svg';
+ const art=(markup,cls,box='0 0 100 100',ratio)=>{const e=document.createElementNS(svgNS,'svg');e.setAttribute('viewBox',box);e.setAttribute('aria-hidden','true');e.setAttribute('class','art '+(cls||''));if(ratio)e.setAttribute('preserveAspectRatio',ratio);e.innerHTML=markup;return e;};
+ const card=(item,i,detailClass='',cls='')=>{const e=node('div','visual-item '+cls);e.dataset.item=i;e.append(node('strong','',item.title));if(item.text)e.append(node('p',detailClass,item.text));return e;};
+ const row=(cls,children)=>{const e=node('div',cls);e.append(...children);return e;};
+ const decision=c=>row('decision only-3',c.options.map(o=>row('decision-way',[node('strong','',o.title),node('p','',o.text)])));
+ const contour='<path class="contour" d="M18 50c-4-18 12-34 32-33s36 13 33 33-20 33-37 32-24-14-28-32Z"/>';
+ const media=(c,data,fallback)=>{const m=node('div','scene-media');m.append(...(c.resource.media.length?c.resource.media:[fallback]).map(id=>asset(id,data)));return m;};
+ const scenes={
+  tissue(){},
+  cases(c,s,data){const photos=node('div','case-pair art');photos.append(...c.resource.media.map(id=>asset(id,data)));s.append(photos,node('p','case-etiologies from-1','Venosa · Arterial · Pie diabético · Presión · Humedad · Tumoral · Quirúrgica · Quemaduras de evolución tórpida · Atípicas'));},
+  timeline(c,s){
+   s.append(row('visits until-1',c.resource.items.map((it,i)=>{const v=card(it,i,'','visit');v.prepend(art(contour,'visit-contour'));return v;})));
+   s.append(row('review-line only-3',[['Valoración','Revisar causa y condiciones'],['Revisión planificada','Comparar y escuchar la respuesta'],['Decisión','Mantener, reformular o consultar']].map(([title,text],i)=>card({title,text},i))));
+   s.append(node('p','visual-note until-1','Simulación docente: tres contornos iguales, sin evolución atribuida a una paciente.'));
+  },
+  causes(c,s){
+   const hub=node('div','hub art'),n=c.resource.items.length,half=n/2;
+   let lines='';for(let i=0;i<n;i++){const y=100*((i%half)+.5)/half,x=i<half?30:70;lines+='<path d="M50 50C'+(i<half?40:60)+' 50 '+(i<half?40:60)+' '+y+' '+x+' '+y+'" pathLength="1"/>';}
+   hub.append(art(lines,'hub-lines','0 0 100 100','none'));
+   const col=part=>row('hub-col',part.map(([it,i])=>card(it,i,'from-1')));const all=c.resource.items.map((it,i)=>[it,i]);
+   hub.append(col(all.slice(0,half)),row('hub-core',[node('span','only-0','Una respuesta'),node('span','from-1','La causa')]),col(all.slice(half)));s.append(hub);
+  },
+  continuum(c,s){const track=row('continuum-track art',c.resource.items.map((it,i)=>{const e=card(it,i,'','stage-point');e.prepend(node('i','stage-dot'));return e;}));s.append(wounds(),track,node('p','visual-note','El biofilm es un concepto distinto: no se confirma por el aspecto o el color.'));},
+  risks(c,s){
+   const tube=art('<path class="tube-body" d="M30 18h100l12 12v40l-12 12H30Z"/><path class="tube-cap" d="M142 36h26a4 4 0 0 1 4 4v20a4 4 0 0 1-4 4h-26Z"/><path class="tube-fold" d="M30 18v64M40 18v64"/>','tube','0 0 200 100');
+   s.append(row('tube-stage art',[row('tube-slot from-1',[node('strong','','Causa pendiente')]),tube]),row('risk-row from-1',c.resource.items.map((it,i)=>card(it,i))));
+  },
+  prescription(c,s){s.append(row('rx art',c.resource.items.map((it,i)=>{const e=node('div','visual-item rx-line');e.dataset.item=i;e.append(node('strong','',it.title),node('p','rx-blank until-1','Por justificar'),node('p','only-3',it.text));return e;})));},
+  pressure(c,s){s.append(row('forces art',c.resource.items.map((it,i)=>{const e=card(it,i,'','force');e.prepend(art('<path d="M8 20C30 20 34 44 60 44" style="stroke-width:'+[2,5,11][i]+'"/><circle cx="60" cy="44" r="'+[3,7,14][i]+'"/>','force-art','0 0 80 60'));return e;})));},
+  triage(c,s,data){s.append(row('photo-and-list art',[media(c,data,'heel'),row('visual-list traffic',c.resource.items.map((it,i)=>card(it,i,'from-1')))]));},
+  paths(c,s){s.append(art('<path d="M100 2C100 16 40 12 40 28"/><path d="M100 2C100 16 160 12 160 28"/>','fork','0 0 200 30'),row('path-pair art',c.resource.items.map((it,i)=>card(it,i,'from-1'))));},
+  network(c,s){
+   s.append(row('network-roles',['Primaria','Hospital','Vascular','Dermatología','Cirugía','Comisión de heridas'].map(t=>node('span','',t))));
+   s.append(row('circuit art',[art('<path class="circuit-go" d="M12 20H88" pathLength="1"/><path class="circuit-back" d="M88 20C88 36 12 36 12 20" pathLength="1"/>','circuit-line','0 0 100 40','none'),row('stations',c.resource.items.map((it,i)=>{const e=card(it,i,'from-1','station');e.dataset.station=i;e.prepend(node('i','station-dot'));return e;}))]));
+   s.append(node('p','visual-note only-3','Esquema docente: no es el circuito oficial del centro.'));
+  },
+  priorities(c,s,data){s.append(row('photo-and-list art',[media(c,data,'daily-life'),row('windows',c.resource.items.map((it,i)=>card(it,i,'from-1','life-window')))]));},
+  pact(c,s){s.append(row('pact-layout art',[art('<path d="M18 62V30a5 5 0 0 1 10 0v20V16a5 5 0 0 1 10 0v34V12a5 5 0 0 1 10 0v38V18a5 5 0 0 1 10 0v44l9-11a5.500 5.500 0 0 1 8 7L60 86c-4 6-9 9-18 9-16 0-24-10-24-33Z"/>','hand'),tiles(c.resource.items,'pact')]));},
+  agreement(c,s){
+   s.append(node('blockquote','assumed-plan until-1','«Usted no se preocupe, que yo ya sé lo que le conviene»'),node('p','visual-note until-1','Un plan explicado puede seguir dejando preguntas sin expresar.'));
+   s.append(art('<path d="M4 4C50 4 60 26 100 26"/><path d="M196 4C150 4 140 26 100 26"/><circle cx="100" cy="26" r="4"/>','meet only-3','0 0 200 32'),row('agree-steps only-3',c.resource.items.map((it,i)=>card(it,i))));
+  },
+  shared(c,s,data){s.append(row('photo-and-list art',[media(c,data,'shared-care'),row('return-loop',[art('<path d="M10 8V92" pathLength="1"/><path d="M4 86l6 8 6-8"/>','loop-line','0 0 20 100','none'),row('visual-list',c.resource.items.map((it,i)=>card(it,i,'from-1')))])]));},
+  symptoms(c,s){const icons=['<circle cx="30" cy="30" r="6"/><circle cx="30" cy="30" r="14"/><circle cx="30" cy="30" r="22"/>','<path d="M30 8C20 24 14 30 14 38a16 16 0 0 0 32 0c0-8-6-14-16-30Z"/>','<path d="M8 38l9-14 9 14 9-14 9 14 8-12"/>','<path d="M22 12c-6 10-9 13-9 18a9 9 0 0 0 18 0c0-5-3-8-9-18ZM42 34c-3 5-5 7-5 10a5 5 0 0 0 10 0c0-3-2-5-5-10Z"/>'];s.append(row('signals art',c.resource.items.map((it,i)=>{const e=card(it,i,'from-1','signal');e.prepend(art(icons[i],'signal-art','0 0 60 60'));return e;})));},
+  participation(c,s){
+   let seats='';for(let i=0;i<6;i++){const a=i*Math.PI/3-Math.PI/2,x=50+34*Math.cos(a),y=50+34*Math.sin(a);seats+='<circle class="seat'+(i===0?' seat-open':'')+'" cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="9"/>';}
+   s.append(row('seat-layout art',[art('<circle class="table" cx="50" cy="50" r="20"/>'+seats,'seats'),row('visual-list',c.resource.items.map((it,i)=>card(it,i,'from-1')))]),node('div','participation-seat only-1','Experiencia de la persona → decisiones que podamos cambiar'));
+  }
+ };
+ function settle(chapter,phase){
+  resourceTimers.forEach(clearTimeout);resourceTimers=[];attention(phase===3?'conclusion':'resource');
+  const scene=document.querySelector('.swab-scene,.zones-scene');if(scene)scene.dataset.active=chapter.number===7?(phase===3?'interpretation':'request'):'all';
+ }
+ function cueScene(chapter,phase,turn){
+  if(turn.who==='Entrada'){attention('resource');return;}
+  attention({Rutina:'routine',Evidencia:'evidence','María del Mar':'record'}[turn.who]||'resource');
+  const last=chapter.steps.flatMap(s=>s.turns).at(-1);
+  if(phase===3&&turn.id===last?.id)resourceTimers.push(setTimeout(()=>attention('conclusion'),1800));
+ }
  function render(chapter,phase,data){
   const resource=document.querySelector('#resource'),host=document.querySelector('#resource-content'),tissue=document.querySelector('#tissue');
-  const kind=chapter.resource.kind;resource.dataset.kind=kind;resource.dataset.phase=phase;tissue.hidden=kind!=='tissue';host.hidden=kind==='tissue';stop();const persistent={measurement:'.measurement-scene',swab:'.swab-scene',zones:'.zones-scene'}[kind];if(!persistent||!host.querySelector(persistent))host.replaceChildren();
+  const kind=chapter.resource.kind;resource.dataset.kind=kind;resource.dataset.phase=phase;tissue.hidden=kind!=='tissue';host.hidden=false;stop();const persistent={measurement:'.measurement-scene',swab:'.swab-scene',zones:'.zones-scene'}[kind],builder=scenes[kind];
+  if(builder){let scene=host.querySelector(':scope > .scene');if(!scene||scene.dataset.chapter!==String(chapter.number)){host.replaceChildren();scene=node('div','scene scene-'+kind);scene.dataset.chapter=String(chapter.number);builder(chapter,scene,data);scene.append(decision(chapter));host.append(scene);}scene.dataset.phase=String(phase);}
+  else if(!persistent||!host.querySelector(persistent))host.replaceChildren();
   let caption='Esquema docente · no representa una paciente ni un resultado clínico';
   if(kind==='tissue')caption='Modelo conceptual generado · no representa una paciente ni una evolución clínica';
   else if(kind==='welcome'){
@@ -108,35 +171,19 @@
    else if(phase===3){host.append(tiles([{title:'Doña Rutina',text:'Variabilidad · coste · dolor · resistencias'},{title:'Doña Evidencia',text:'Seguridad · reevaluación · respaldo documental'}],'balance'));host.append(node('p','visual-mantra','Identificar → Cuestionar → Sustituir'));}
    else {host.append(node('div','welcome-question','¿Es posible cicatrizar todas las heridas?'));host.append(tiles(chapter.resource.items,'welcome-steps'));}
   }else if(kind==='cases'){
-   const photos=node('div','case-pair');photos.append(...chapter.resource.media.map(id=>asset(id,data)));host.append(photos);host.append(node('p','case-etiologies','Venosa · Arterial · Pie diabético · Presión · Humedad · Tumoral · Quirúrgica · Quemaduras de evolución tórpida · Atípicas'));
    caption='Casos publicados independientes · Jonathan Moore / FAOJ · Wikimedia Commons · CC BY 3.0';
   }else if(kind==='continuum'){
-   host.append(wounds(),tiles(chapter.resource.items,'continuum-track'));
    caption='Heridas y personalidades ficticias · colores sin significado clínico';
-   host.append(node('p','visual-note','El biofilm es un concepto distinto: no se confirma por el aspecto o el color.'));
   }else if(kind==='swab'||kind==='zones'){
    photographicResource(chapter,phase,host,data);caption=kind==='swab'?'Material: Whispyhistory · CC BY-SA 4.0 · ejemplo, no demostración de técnica. Selección según laboratorio.':data.assets['wound-zones'].caption;
   }else if(['triage','priorities','shared'].includes(kind)){
-   const ids={zones:'wound-zones',triage:'heel',priorities:'daily-life',shared:'shared-care'};
-   const layout=node('div','photo-and-list'),media=node('div','media-stack');media.append(...(chapter.resource.media.length?chapter.resource.media:[ids[kind]]).map(id=>asset(id,data)));layout.append(media,tiles(chapter.resource.items,kind==='triage'?'traffic':'photo-points'));host.append(layout);caption=data.assets[ids[kind]].caption;
+   caption=data.assets[{triage:'heel',priorities:'daily-life',shared:'shared-care'}[kind]].caption;
   }else if(kind==='closing'){
    if(phase===0)host.append(tiles(chapter.resource.items,'decalogue'));
    else if(phase===3){host.append(node('p','farewell-mantra','Menos rutina. Más preguntas. Más escucha.'));host.append(node('p','farewell-note','En la próxima cura, escuchamos.'));}
    else host.append(tiles([{title:'¿Qué sabemos?',text:'La causa y lo que mantiene la herida'},{title:'¿Qué necesita?',text:'La persona, sus prioridades y objetivos'},{title:'¿Cuándo revisamos?',text:'La decisión, su respuesta y la escucha'}],'final-questions'));
-  }else if(kind==='timeline'){
-   const track=tiles(phase===3?[{title:'Valoración',text:'Revisar causa y condiciones'},{title:'Revisión planificada',text:'Comparar y escuchar la respuesta'},{title:'Decisión',text:'Mantener, reformular o consultar'}]:chapter.resource.items,'timeline-track');host.append(track,node('p','visual-note',phase===3?'Valoración → revisión planificada → decisión':'Simulación docente: tres contornos iguales, sin evolución atribuida a una paciente.'));
-   if(phase!==3)track.querySelectorAll('.visual-item').forEach(e=>e.prepend(node('span','wound-contour')));
   }else if(kind==='measurement'){
    measurement(chapter,phase,host);caption='Ejemplo simulado · sin datos de paciente ni conversión entre las tres descripciones';
-  }else if(kind==='prescription'){
-   host.append(tiles(chapter.resource.items.map(i=>({...i,text:phase===3?i.text:'— Por justificar'})),'prescription'));
-  }else if(kind==='agreement'&&phase!==3){
-   host.append(node('blockquote','assumed-plan','«Usted no se preocupe, que yo ya sé lo que le conviene»'));
-   host.append(node('p','visual-note','Un plan explicado puede seguir dejando preguntas sin expresar.'));
-  }else{
-   if(kind==='network'){const roles=node('div','network-roles');['Primaria','Hospital','Vascular','Dermatología','Cirugía','Comisión de heridas'].forEach(t=>roles.append(node('span','',t)));host.append(roles);}
-   if(kind==='participation')host.append(node('div','participation-seat','Experiencia de la persona → decisiones que podamos cambiar'));
-   host.append(tiles(chapter.resource.items,kind));
   }
   resource.querySelector(':scope > figcaption').textContent=caption;
  }
@@ -146,6 +193,7 @@
   host.dataset.voice=turn.who;
   if(chapter.resource.kind==='measurement')cueMeasurement(host,phase,turn);
   if([7,11].includes(chapter.number))cuePhotographic(chapter,phase,turn,host);
+  if(scenes[chapter.resource.kind])cueScene(chapter,phase,turn);
   const text=normalize(turn.text||'');
   const matches=items.filter(el=>normalize(el.querySelector('strong')?.textContent||'').split(/[^a-z]+/).filter(w=>w.length>4).some(w=>text.includes(w)));
   if(matches.length){items.forEach(el=>el.classList.toggle('is-focus',matches.includes(el)));}
@@ -153,5 +201,5 @@
   const options=[...document.querySelectorAll('#explanation .option')];
   options.forEach(el=>{const words=normalize(el.querySelector('h3').textContent).split(/[^a-z]+/).filter(w=>w.length>5);el.classList.toggle('is-mentioned',words.some(w=>text.includes(w)));});
  }
- window.RecorridoResources={render,cue,stop};
+ window.RecorridoResources={render,cue,stop,settle};
 })();

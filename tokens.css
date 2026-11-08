@@ -95,3 +95,6 @@
 
 /* Entrada clínica: pigmento de portada sobre el mismo vidrio del título. */
 :root{--pilot-cover-pigment:linear-gradient(125deg,color-mix(in srgb,var(--skin) 82%,transparent),color-mix(in srgb,var(--coral) 38%,transparent) 55%,color-mix(in srgb,var(--pilot-depth-mauve) 58%,transparent));--pilot-cover-line:rgba(255,244,232,.85)}
+
+/* Evidencia: carpeta azul y cian, identidad propia frente a los pigmentos de la herida. */
+:root{--ev-petrol:#1685bd;--ev-petrol-deep:#174a64;--ev-blue:#2a9fe2;--ev-water:#95d5e5;--ev-glass:#69bfe9;--ev-check:#a3ecd5;--ev-check-ink:#226b62;--ev-paper:#f1f8f8;--ev-paper-ink:#254852;--ev-line:#adc7cd;--ev-shadow:rgba(32,95,132,.20);--ev-white:rgba(255,255,255,.75);--ev-reflection:rgba(255,241,225,.72);--ev-dim:rgba(23,103,150,.25)}

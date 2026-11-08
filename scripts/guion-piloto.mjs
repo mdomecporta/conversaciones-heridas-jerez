@@ -17,7 +17,6 @@ export function extractPilot(md){
   const chapter={number,act:m[2],title:m[3],script,steps,source,takeaway,...montaje[number],introWound:script.match(/\*\*(?:Herida|Vecinas) en la entrada[^\n]*?\*\* «([^»]+)»/)?.[1]||montaje[number].intro};
   chapter.actorPlan=realization(chapter);chapter.evidenceSources=evidenceSources[number];chapter.resource={...chapter.resource,media:mediaByChapter[number]||[]};
   if(chapter.actorPlan.status==='placeholder')chapter.avatar=['personajes/rutina/frames-escena-01-v1/00-reposo.png','personajes/rutina/frames-escena-01-v1/00-reposo.png'];
-  if(number===5)chapter.avatar[1]='personajes/rutina/frames-escena-01-v1/03-deja-aposito.png';
   return chapter;
  });
  if(chapters.length!==22||chapters.some((c,i)=>c.number!==i+1))throw Error('Se requieren los 22 capítulos completos y ordenados.');

@@ -61,6 +61,15 @@ export const montaje={
  item('Conocer','No tratar sin diagnóstico · medir con instrumentos adecuados · no normalizar el estancamiento'),item('Justificar','No confundir colonización e infección · no cultivar por rutina · no repetir antibióticos tópicos sin indicación · no usar siempre antiséptico'),item('Revisar','No limpiar como ritual · no olvidar borde y piel · no mantener un tratamiento sin revisarlo')
 ],'Las preguntas que vuelven con nosotras',[item('Qué sabemos y qué necesita','La causa de la herida y los objetivos de la persona.'),item('Cuándo revisaremos','Una decisión con fecha, criterio y escucha.')],'Síntesis del recorrido · fuentes de cada capítulo','No siempre es posible el cierre; permanecen conocer, aliviar y acordar objetivos.')
 };
+// Títulos del recurso por escena cuando la composición los necesita propios. El resto usa título → pregunta → título.
+const titles={
+ 3:['Una herida. Tres maneras de describirla.','¿Cambia la herida o la forma de medir?','Un registro que sirve a quien viene después'],
+ 7:['Una muestra empieza con una pregunta','¿Para qué necesitamos este resultado?','Preguntar antes. Interpretar después.'],
+ 10:['Limpiar también es cuidar la piel','Limpiar tiene un objetivo','Una decisión con respaldo'],
+ 11:['La cura no termina en el centro','¿Y el borde y la piel de alrededor?','Cuatro zonas. Una limpieza adaptada.']
+};
+for(const [n,list] of Object.entries(titles))montaje[n].titles=list;
+const proposal=n=>['propuestas-revision-13/capitulo-'+String(n).padStart(2,'0')+'-propuesta.png','propuestas-revision-13/capitulo-'+String(n).padStart(2,'0')+'-reaccion.png'];
 const avatars={
  default:['frames-escena-01-v1/01-presenta-aposito.png','frames-escena-01-v1/02-escucha.png'],
  7:['frames-escenas-05-07-v1/escena-06/01-propone-cultivo.png','frames-escenas-05-07-v1/escena-06/02-busca-la-pregunta.png'],
@@ -70,7 +79,8 @@ const avatars={
  12:['frames-escenas-02-04-v1/escena-02/01-preparada.png','frames-escenas-02-04-v1/escena-02/02-escucha-dolor.png'],
  13:['escena-04-cureta-v2/01-propone-cureta.png','escena-04-cureta-v2/02-frena-y-valora.png'],
  17:['frames-escenas-02-04-v1/escena-02/01-preparada.png','frames-escenas-02-04-v1/escena-02/02-escucha-dolor.png'],
- 22:['frames-escena-01-v1/00-reposo.png','frames-escena-01-v1/03-deja-aposito.png']
+ 22:['frames-escena-01-v1/00-reposo.png','frames-escena-01-v1/03-deja-aposito.png'],
+ ...Object.fromEntries([2,3,4,5,6,11,14,15,16].map(n=>[n,proposal(n)]))
 };
 for(const [n,scene] of Object.entries(montaje))scene.avatar=(avatars[n]||avatars.default).map(p=>'personajes/rutina/'+p);
 // Apertura y cierre tienen secuencias propias. El patrón de tres escenas solo es el contrato de los capítulos clínicos.

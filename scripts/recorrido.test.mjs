@@ -46,3 +46,17 @@ test('el viaje de la apertura tiene presupuesto inferior a cinco segundos y marg
  assert.equal(deck.chapters[21].structure.kind,'closing');
  for(const chapter of deck.chapters.slice(1,21))assert.equal(chapter.structure.kind,'chapter');
 });
+test('la conversación reserva el turno de María del Mar y pulsar completa la secuencia',async()=>{
+ const js=await readFile(new URL('../prototipos/piloto-capitulo/revision.js',import.meta.url),'utf8');
+ assert.ok(/turn\.who==='María del Mar'\)\{if\(instant\|\|reduced\.matches\)nextTurn\(\);else\{[^}]*later\(/.test(js));
+ assert.ok(/if\(chainRunning&&[^\n]*render\(step,\{instant:true\}\)/.test(js));
+ assert.ok(!/later\(30000/.test(js),'el cierre no sale solo');
+});
+test('todo tipo de recurso clínico tiene composición propia y las condiciones llegan a la pantalla',async()=>{
+ const js=await readFile(new URL('../prototipos/piloto-capitulo/recorrido-recursos.js',import.meta.url),'utf8');
+ for(const c of deck.chapters.slice(1,21))if(!['measurement','swab','zones'].includes(c.resource.kind))assert.match(js,new RegExp('\\b'+c.resource.kind+'\\('),`Capítulo ${c.number}: ${c.resource.kind}`);
+ assert.ok(js.includes('c.options.map'));
+});
+test('las variantes propuestas se distinguen de las aprobadas',()=>{
+ for(const c of deck.chapters.filter(c=>c.actorPlan.status==='proposal')){assert.ok(c.avatar.every(p=>p.includes('propuestas-revision-13')));assert.match(c.actorPlan.assetStatus,/pendiente de aprobar/);}
+});
